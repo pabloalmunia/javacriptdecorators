@@ -1,0 +1,115 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 114,
+  "body": [
+    {
+      "type": "ClassDeclaration",
+      "start": 35,
+      "end": 114,
+      "id": {
+        "type": "Identifier",
+        "start": 41,
+        "end": 48,
+        "name": "Example"
+      },
+      "superClass": null,
+      "body": {
+        "type": "ClassBody",
+        "start": 49,
+        "end": 114,
+        "body": [
+          {
+            "type": "MethodDefinition",
+            "start": 83,
+            "end": 111,
+            "kind": "method",
+            "static": false,
+            "computed": false,
+            "key": {
+              "type": "Identifier",
+              "start": 83,
+              "end": 90,
+              "name": "onClick"
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "start": 90,
+              "end": 111,
+              "id": null,
+              "expression": false,
+              "generator": false,
+              "async": false,
+              "params": [],
+              "body": {
+                "type": "BlockStatement",
+                "start": 93,
+                "end": 111,
+                "body": []
+              }
+            },
+            "decorators": [
+              {
+                "type": "Decorator",
+                "start": 52,
+                "end": 79,
+                "expression": {
+                  "type": "CallExpression",
+                  "start": 58,
+                  "end": 79,
+                  "callee": {
+                    "type": "Identifier",
+                    "start": 58,
+                    "end": 70,
+                    "name": "eventHandler"
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "start": 71,
+                      "end": 78,
+                      "value": "click",
+                      "raw": "'click'"
+                    }
+                  ],
+                  "optional": false
+                },
+                "kind": "init-method"
+              }
+            ]
+          }
+        ]
+      },
+      "decorators": [
+        {
+          "type": "Decorator",
+          "start": 0,
+          "end": 33,
+          "expression": {
+            "type": "CallExpression",
+            "start": 6,
+            "end": 33,
+            "callee": {
+              "type": "Identifier",
+              "start": 6,
+              "end": 19,
+              "name": "customElement"
+            },
+            "arguments": [
+              {
+                "type": "Literal",
+                "start": 20,
+                "end": 32,
+                "value": "my-element",
+                "raw": "'my-element'"
+              }
+            ],
+            "optional": false
+          },
+          "kind": "init-class"
+        }
+      ]
+    }
+  ],
+  "sourceType": "script"
+}

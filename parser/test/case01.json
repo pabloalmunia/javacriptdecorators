@@ -1,0 +1,94 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 98,
+  "body": [
+    {
+      "type": "ClassDeclaration",
+      "start": 28,
+      "end": 98,
+      "id": {
+        "type": "Identifier",
+        "start": 34,
+        "end": 35,
+        "name": "C"
+      },
+      "superClass": {
+        "type": "Identifier",
+        "start": 44,
+        "end": 55,
+        "name": "HTMLElement"
+      },
+      "body": {
+        "type": "ClassBody",
+        "start": 56,
+        "end": 98,
+        "body": [
+          {
+            "type": "FieldDefinition",
+            "start": 79,
+            "end": 94,
+            "computed": false,
+            "key": {
+              "type": "Identifier",
+              "start": 79,
+              "end": 86,
+              "name": "clicked"
+            },
+            "value": {
+              "type": "Literal",
+              "start": 89,
+              "end": 94,
+              "value": false,
+              "raw": "false"
+            },
+            "decorators": [
+              {
+                "type": "Decorator",
+                "start": 61,
+                "end": 75,
+                "expression": {
+                  "type": "Identifier",
+                  "start": 62,
+                  "end": 70,
+                  "name": "reactive"
+                },
+                "kind": "prop-field"
+              }
+            ]
+          }
+        ]
+      },
+      "decorators": [
+        {
+          "type": "Decorator",
+          "start": 0,
+          "end": 26,
+          "expression": {
+            "type": "CallExpression",
+            "start": 1,
+            "end": 26,
+            "callee": {
+              "type": "Identifier",
+              "start": 1,
+              "end": 14,
+              "name": "defineElement"
+            },
+            "arguments": [
+              {
+                "type": "Literal",
+                "start": 15,
+                "end": 25,
+                "value": "my-class",
+                "raw": "\"my-class\""
+              }
+            ],
+            "optional": false
+          },
+          "kind": "class"
+        }
+      ]
+    }
+  ],
+  "sourceType": "script"
+}

@@ -7,10 +7,12 @@
 - [ ] JSON navigation
 - [ ] Rich code editor
 - [ ] Sync JSON navigation and code
-- [ ] prop support
 - [ ] Transpiler
 - [ ] Client transformation
 - [ ] Add favicon
 
-## Done
+## In progress
 
+- [ ] Add automatic parser test
+
+## Done

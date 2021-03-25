@@ -54,7 +54,16 @@ function DecoratorParser (ParentParser) {
         const node   = this.startNode ();
         this.next ();
         node.expression = this.parseMaybeAssign ();
-        node.kind       = isInit ? 'init-' : '';
+        if (this.value === 'prop') {
+          const branch = this._branch();
+          branch.next();
+          if (branch.type.label === 'name') {
+            node.kind = 'prop-';
+            this.next();
+          }
+        } else {
+          node.kind       = isInit ? 'init-' : '';
+        }
         decorators.push (this.finishNode (node, 'Decorator'));
       }
     }

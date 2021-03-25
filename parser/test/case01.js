@@ -1,3 +1,5 @@
-@deco_class
-class A {
+@defineElement("my-class")
+class C extends HTMLElement {
+  @reactive prop
+  clicked = false;
 }

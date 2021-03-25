@@ -1,5 +1,10 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.0.3 - 25/03/2021
+
+- Added support to `prop` keyword.
+- Removed the spellcheck into the code textarea
+
 ## version 0.0.2 - 25/03/2021
 
 - Published on Github
