@@ -1,0 +1,14 @@
+{
+  "name": "javascriptdecorator",
+  "version": "0.0.1",
+  "description": "Javascript decorators playground",
+  "main": "index.js",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "acorn": "^8.1.0",
+    "acorn-stage3": "^4.0.0",
+    "fastify": "^3.14.0",
+    "fastify-static": "^4.0.1"
+  }
+}

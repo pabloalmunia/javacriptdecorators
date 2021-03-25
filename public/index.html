@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Javascript Decorators Playground</title>
+  <style>
+    html,
+    body {
+      height : 100%;
+    }
+    .header {
+      position : absolute;
+      top      : 0;
+      left     : 0;
+      right    : 0;
+      height   : 4rem;
+    }
+    .content {
+      position         : absolute;
+      top              : 4rem;
+      left             : 0;
+      right            : 0;
+      bottom           : 0;
+      background-color : #F0F0F0;
+    }
+    .section-left {
+      position : absolute;
+      top      : 0;
+      left     : 0;
+      bottom   : 0;
+      width    : 50%;
+      float    : left;
+    }
+    .section-right {
+      position : absolute;
+      top      : 0;
+      left     : 50%;
+      bottom   : 0;
+      width    : 50%;
+    }
+    .subheader {
+      height : 2.5rem;
+    }
+    .section-left #analyze {
+      position : absolute;
+      top      : 0;
+      right    : 0;
+    }
+    .section-left #code,
+    .section-right #result{
+      position : absolute;
+      top      : 3em;
+      left     : 0;
+      bottom   : 0;
+      right    : 0;
+      width    : 99%;
+      resize   : none;
+    }
+  </style>
+  <link rel="stylesheet"
+        href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
+</head>
+<body>
+<div class="header">
+  <h1>Javascript <i>Proposal</i> Decorators Playground</h1>
+</div>
+<div class="content">
+  <div class="section-left">
+    <div class="subheader">
+      <h2>Code</h2>
+      <div id="analyze" class="button tertiary">Analyze &gt;</div>
+    </div>
+    <textarea id="code"></textarea>
+  </div>
+  <div class="section-right">
+    <div class="subheader">
+      <h2>AST</h2>
+    </div>
+    <textarea id="result" readonly></textarea>
+  </div>
+</div>
+<script>
+  document.querySelector ('#analyze').addEventListener ('click', () => {
+    document.querySelector ('#result').innerHTML = '...';
+    fetch ('/parser/', {
+      method  : 'POST',
+      headers : {
+        'Content-Type' : 'text/plain; charset=utf-8'
+      },
+      body    : document.querySelector ('#code').value
+    }).then (res => {
+      if (res.status === 200) {
+        return res.json ();
+      }
+      return 'error ' + res.status;
+    }).then (ast => {
+      document.querySelector ('#result').innerHTML = JSON.stringify (ast, null, 2);
+    });
+    
+  });
+</script>
+</body>
+</html>
