@@ -8,8 +8,11 @@ fastify.register (require ('fastify-static'), {
 });
 
 fastify.post('/parser/', (req, res) => {
-  const result = parser(req.body);
-  return result;
+  try {
+    return parser(req.body);;
+  } catch (err) {
+    return {ERROR: err.message};
+  }
 });
 
 (async () => {

@@ -2,7 +2,6 @@
 
 ## TODO
 
-- [ ] Monospace font to code and JSON
 - [ ] Predefined examples
 - [ ] Colorize JSON
 - [ ] JSON navigation
@@ -12,6 +11,6 @@
 - [ ] Transpiler
 - [ ] Client transformation
 - [ ] Add favicon
-- [ ] Publish on Github
 
 ## Done
+
