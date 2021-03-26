@@ -4,66 +4,8 @@
   <meta charset="UTF-8">
   <title>Javascript Decorators Playground</title>
   <link rel="stylesheet"
-        href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
-  <style>
-    html,
-    body {
-      height    : 100%;
-      font-size : 13px;
-    }
-    .header {
-      position : absolute;
-      top      : 0;
-      left     : 0;
-      right    : 0;
-      height   : 4rem;
-    }
-    .header h1 {
-      display: inline-block;
-    }
-    .content {
-      position         : absolute;
-      top              : 4rem;
-      left             : 0;
-      right            : 0;
-      bottom           : 0;
-      background-color : #F0F0F0;
-    }
-    .section-left {
-      position : absolute;
-      top      : 0;
-      left     : 0;
-      bottom   : 0;
-      width    : 50%;
-      float    : left;
-    }
-    .section-right {
-      position : absolute;
-      top      : 0;
-      left     : 50%;
-      bottom   : 0;
-      width    : 50%;
-    }
-    .subheader {
-      height : 2.5rem;
-    }
-    .section-left #analyze {
-      position : absolute;
-      top      : 0;
-      right    : 0;
-    }
-    .section-left #code,
-    .section-right #result {
-      position    : absolute;
-      top         : 3em;
-      left        : 0;
-      bottom      : 0;
-      right       : 0;
-      width       : 99%;
-      resize      : none;
-      font-family : monospace;
-    }
-  </style>
+        href="./css/app.css">
+  <script src="./js/codeflask.min.js"></script>
 </head>
 <body>
 <div class="header">
@@ -89,41 +31,15 @@
       <h2>Code</h2>
       <div id="analyze" class="button tertiary">Analyze &gt;</div>
     </div>
-    <textarea id="code" spellcheck="false"></textarea>
+    <div id="code"></div>
   </div>
   <div class="section-right">
     <div class="subheader">
       <h2>AST</h2>
     </div>
-    <textarea id="result" readonly></textarea>
+    <div id="result"></div>
   </div>
 </div>
-<script>
-  document.querySelector ('#analyze').addEventListener ('click', () => {
-    document.querySelector ('#result').innerHTML = '...';
-    fetch ('/parser/', {
-      method  : 'POST',
-      headers : {
-        'Content-Type' : 'text/plain; charset=utf-8'
-      },
-      body    : document.querySelector ('#code').value
-    }).then (res => {
-      if (res.status === 200) {
-        return res.json ();
-      }
-      return 'error ' + res.status;
-    }).then (ast => {
-      document.querySelector ('#result').innerHTML = JSON.stringify (ast, null, 2);
-    });
-  });
-  fetch ('/version/').then (res => {
-    if (res.status === 200) {
-      return res.json ();
-    }
-  }).then (result => {
-    document.querySelector ('#version').innerHTML = result ? result.version : '';
-  });
-
-</script>
+<script src="./js/app.js"></script>
 </body>
 </html>
