@@ -8,7 +8,7 @@ document.querySelector ('#analyze').addEventListener ('click', () => {
     headers : {
       'Content-Type' : 'text/plain; charset=utf-8'
     },
-    body    : document.querySelector ('#code').value
+    body    : editor.getCode()
   }).then (res => {
     if (res.status === 200) {
       return res.json ();

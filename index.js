@@ -1,11 +1,9 @@
 const fastify = require ('fastify') ({logger : true});
 const path    = require ('path');
 const parser  = require ('./parser/index.js');
-const DESA    = process.env.DESA;
-const rute    = DESA ? '/parser/' : '/';
 const VERSION = require ('./package.json').version;
 
-if (DESA) {
+if (process.env.DESA) {
   fastify.register (require ('fastify-static'), {
     root   : path.join (__dirname, './public'),
     prefix : '/'
@@ -13,7 +11,7 @@ if (DESA) {
   console.log('DESA mode')
 }
 
-fastify.post (rute, (req) => {
+fastify.post ('/parser/', (req) => {
   try {
     return parser (req.body);
   } catch (err) {

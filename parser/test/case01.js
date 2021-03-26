@@ -1,5 +1,7 @@
-@defineElement("my-class")
-class C extends HTMLElement {
-  @reactive prop
-  clicked = false;
+@decorator
+class C {
+}
+
+function decorator(value, context) {
+
 }

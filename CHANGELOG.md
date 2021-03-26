@@ -1,5 +1,18 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.0.6 - 26/03/2021
+
+- Fixed an error with code editor, as a result the AST is empty
+- Improved and simplified the server code
+
+## version 0.0.5 - 26/03/2021
+
+- Added a rich code editor
+- Colorized AST JSON
+- Added link to https://github.com/tc39/proposal-decorators
+- Added version label into the homepage
+- Added favicon
+
 ## version 0.0.4 - 26/03/2021
 
 - Removed static http server and delegated this feature to NGINX.
