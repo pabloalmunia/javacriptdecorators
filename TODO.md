@@ -16,3 +16,5 @@
 - [ ] Add automatic parser test
 
 ## Done
+
+- [X] Remove static HTTP server and delegate this to NGINX

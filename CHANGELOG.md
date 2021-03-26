@@ -1,5 +1,9 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.0.4 - 26/03/2021
+
+- Removed static http server and delegated this feature to NGINX.
+
 ## version 0.0.3 - 25/03/2021
 
 - Added support to `prop` keyword.
