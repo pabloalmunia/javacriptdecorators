@@ -18,6 +18,9 @@
       right    : 0;
       height   : 4rem;
     }
+    .header h1 {
+      display: inline-block;
+    }
     .content {
       position         : absolute;
       top              : 4rem;
@@ -64,7 +67,8 @@
 </head>
 <body>
 <div class="header">
-  <h1>Javascript <i>Proposal</i> Decorators Playground</h1>
+  <h1>Javascript <a href="https://github.com/tc39/proposal-decorators"><em>Proposal</em></a> Decorators Playground</h1>
+  <span id="version"></span>
 </div>
 <a href="https://github.com/pabloalmunia/javacriptdecorators" class="github-corner" aria-label="View source on GitHub">
   <svg width="50" height="50" viewBox="0 0 250 250"
@@ -79,7 +83,6 @@
         fill="currentColor" class="octo-body"></path>
   </svg>
 </a>
-<style></style>
 <div class="content">
   <div class="section-left">
     <div class="subheader">
@@ -112,8 +115,15 @@
     }).then (ast => {
       document.querySelector ('#result').innerHTML = JSON.stringify (ast, null, 2);
     });
-    
   });
+  fetch ('/version/').then (res => {
+    if (res.status === 200) {
+      return res.json ();
+    }
+  }).then (result => {
+    document.querySelector ('#version').innerHTML = result ? result.version : '';
+  });
+
 </script>
 </body>
 </html>

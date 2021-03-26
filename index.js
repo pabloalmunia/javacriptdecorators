@@ -3,6 +3,7 @@ const path    = require ('path');
 const parser  = require ('./parser/index.js');
 const DESA    = process.env.DESA;
 const rute    = DESA ? '/parser' : '/';
+const VERSION = require ('./package.json').version;
 
 if (DESA) {
   fastify.register (require ('fastify-static'), {
@@ -14,10 +15,13 @@ if (DESA) {
 fastify.post (rute, (req, res) => {
   try {
     return parser (req.body);
-    ;
   } catch (err) {
     return {ERROR : err.message};
   }
+});
+
+fastify.get ('/version/', (req, res) => {
+    return {version : VERSION};
 });
 
 (async () => {

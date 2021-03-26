@@ -17,4 +17,5 @@
 
 ## Done
 
-- [X] Remove static HTTP server and delegate this to NGINX
+- [X] Add link to https://github.com/tc39/proposal-decorators
+- [X] Add version into the homepage
