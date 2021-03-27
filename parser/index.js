@@ -1,5 +1,5 @@
-const acorn      = require ('acorn');
-const stage3     = require ('acorn-stage3');
+const acorn  = require ('acorn');
+const stage3 = require ('acorn-stage3');
 
 function DecoratorParser (ParentParser) {
   
@@ -55,25 +55,25 @@ function DecoratorParser (ParentParser) {
         this.next ();
         node.expression = this.parseMaybeAssign ();
         if (this.value === 'prop') {
-          const branch = this._branch();
-          branch.next();
+          const branch = this._branch ();
+          branch.next ();
           if (branch.type.label === 'name') {
             node.kind = 'prop-';
-            this.next();
+            this.next ();
           }
         } else {
-          node.kind       = isInit ? 'init-' : '';
+          node.kind = isInit ? 'init-' : '';
         }
         decorators.push (this.finishNode (node, 'Decorator'));
       }
     }
     
     assignDecorators (decorators, fn, noIn, refDestructuringErrors) {
-      const node           = fn.call (this, noIn, refDestructuringErrors);
-      node.decorators      = decorators.map (d => {
+      const node        = fn.call (this, noIn, refDestructuringErrors);
+      node.decorators   = decorators.map (d => {
         d.kind += node.kind || (
-        node.type === 'FieldDefinition' ? 'field' :
-          node.type === 'ClassDeclaration' ? 'class' : '');
+          node.type === 'FieldDefinition' ? 'field' :
+            node.type === 'ClassDeclaration' ? 'class' : '');
         return d;
       });
       decorators.length = 0;
@@ -87,4 +87,48 @@ function DecoratorParser (ParentParser) {
   return Parser;
 }
 
-module.exports = (code) => acorn.Parser.extend (stage3, DecoratorParser).parse(code, {ecmaVersion : 2020});
+module.exports = (code) => {
+  const ast = acorn
+    .Parser
+    .extend (stage3, DecoratorParser)
+    .parse (
+      code,
+      {
+        ecmaVersion : 2020
+      }
+    );
+  return normalize(ast);
+}
+
+
+function normalize (ast) {
+  walker (
+    ast,
+    (o) => o.type === 'FieldDefinition',
+    (o) => o.type = 'ClassProperty'
+  );
+  walker (
+    ast,
+    (o) => o.type === 'PrivateName',
+    (o) => o.id = {
+      'type'  : 'Identifier',
+      'start' : o.start + 1,
+      'end'   : o.end,
+      'name'  : o.name
+    }
+  );
+  return ast;
+}
+
+function walker (obj, filter, handler) {
+  for (let key in obj) {
+    if (obj.hasOwnProperty (key)) {
+      if (typeof obj[ key ] === 'object') {
+        walker (obj[ key ], filter, handler);
+      }
+      if (filter (obj)) {
+        handler (obj);
+      }
+    }
+  }
+}
