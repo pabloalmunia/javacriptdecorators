@@ -1,5 +1,6 @@
 const acorn  = require ('acorn');
 const stage3 = require ('acorn-stage3');
+const walker = require ('../walker/index.js');
 
 function DecoratorParser (ParentParser) {
   
@@ -97,9 +98,8 @@ module.exports = (code) => {
         ecmaVersion : 2020
       }
     );
-  return normalize(ast);
-}
-
+  return normalize (ast);
+};
 
 function normalize (ast) {
   walker (
@@ -118,17 +118,4 @@ function normalize (ast) {
     }
   );
   return ast;
-}
-
-function walker (obj, filter, handler) {
-  for (let key in obj) {
-    if (obj.hasOwnProperty (key)) {
-      if (typeof obj[ key ] === 'object') {
-        walker (obj[ key ], filter, handler);
-      }
-      if (filter (obj)) {
-        handler (obj);
-      }
-    }
-  }
 }

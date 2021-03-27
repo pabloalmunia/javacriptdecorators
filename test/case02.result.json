@@ -1,0 +1,262 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 212,
+  "body": [
+    {
+      "type": "VariableDeclaration",
+      "start": 0,
+      "end": 25,
+      "declarations": [
+        {
+          "type": "VariableDeclarator",
+          "start": 6,
+          "end": 24,
+          "id": {
+            "type": "Identifier",
+            "start": 6,
+            "end": 13,
+            "name": "MY_META"
+          },
+          "init": {
+            "type": "CallExpression",
+            "start": 16,
+            "end": 24,
+            "callee": {
+              "type": "Identifier",
+              "start": 16,
+              "end": 22,
+              "name": "Symbol"
+            },
+            "arguments": [],
+            "optional": false
+          }
+        }
+      ],
+      "kind": "const"
+    },
+    {
+      "type": "FunctionDeclaration",
+      "start": 29,
+      "end": 151,
+      "id": {
+        "type": "Identifier",
+        "start": 38,
+        "end": 44,
+        "name": "myMeta"
+      },
+      "expression": false,
+      "generator": false,
+      "async": false,
+      "params": [
+        {
+          "type": "Identifier",
+          "start": 45,
+          "end": 50,
+          "name": "value"
+        },
+        {
+          "type": "Identifier",
+          "start": 52,
+          "end": 59,
+          "name": "context"
+        }
+      ],
+      "body": {
+        "type": "BlockStatement",
+        "start": 61,
+        "end": 151,
+        "body": [
+          {
+            "type": "ExpressionStatement",
+            "start": 66,
+            "end": 106,
+            "expression": {
+              "type": "CallExpression",
+              "start": 66,
+              "end": 105,
+              "callee": {
+                "type": "MemberExpression",
+                "start": 66,
+                "end": 88,
+                "object": {
+                  "type": "Identifier",
+                  "start": 66,
+                  "end": 73,
+                  "name": "context"
+                },
+                "property": {
+                  "type": "Identifier",
+                  "start": 74,
+                  "end": 88,
+                  "name": "defineMetadata"
+                },
+                "computed": false,
+                "optional": false
+              },
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "start": 89,
+                  "end": 98,
+                  "value": "my-meta",
+                  "raw": "\"my-meta\""
+                },
+                {
+                  "type": "Literal",
+                  "start": 100,
+                  "end": 104,
+                  "value": true,
+                  "raw": "true"
+                }
+              ],
+              "optional": false
+            }
+          },
+          {
+            "type": "ExpressionStatement",
+            "start": 110,
+            "end": 148,
+            "expression": {
+              "type": "CallExpression",
+              "start": 110,
+              "end": 147,
+              "callee": {
+                "type": "MemberExpression",
+                "start": 110,
+                "end": 132,
+                "object": {
+                  "type": "Identifier",
+                  "start": 110,
+                  "end": 117,
+                  "name": "context"
+                },
+                "property": {
+                  "type": "Identifier",
+                  "start": 118,
+                  "end": 132,
+                  "name": "defineMetadata"
+                },
+                "computed": false,
+                "optional": false
+              },
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "start": 133,
+                  "end": 140,
+                  "name": "MY_META"
+                },
+                {
+                  "type": "Literal",
+                  "start": 142,
+                  "end": 146,
+                  "value": true,
+                  "raw": "true"
+                }
+              ],
+              "optional": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "ClassDeclaration",
+      "start": 164,
+      "end": 176,
+      "id": {
+        "type": "Identifier",
+        "start": 170,
+        "end": 171,
+        "name": "C"
+      },
+      "superClass": null,
+      "body": {
+        "type": "ClassBody",
+        "start": 172,
+        "end": 176,
+        "body": []
+      },
+      "decorators": [
+        {
+          "type": "Decorator",
+          "start": 155,
+          "end": 162,
+          "expression": {
+            "type": "Identifier",
+            "start": 156,
+            "end": 162,
+            "name": "myMeta"
+          },
+          "kind": "class"
+        }
+      ]
+    },
+    {
+      "type": "ExpressionStatement",
+      "start": 180,
+      "end": 212,
+      "expression": {
+        "type": "CallExpression",
+        "start": 180,
+        "end": 211,
+        "callee": {
+          "type": "MemberExpression",
+          "start": 180,
+          "end": 191,
+          "object": {
+            "type": "Identifier",
+            "start": 180,
+            "end": 187,
+            "name": "console"
+          },
+          "property": {
+            "type": "Identifier",
+            "start": 188,
+            "end": 191,
+            "name": "log"
+          },
+          "computed": false,
+          "optional": false
+        },
+        "arguments": [
+          {
+            "type": "MemberExpression",
+            "start": 192,
+            "end": 210,
+            "object": {
+              "type": "Identifier",
+              "start": 192,
+              "end": 193,
+              "name": "C"
+            },
+            "property": {
+              "type": "MemberExpression",
+              "start": 194,
+              "end": 209,
+              "object": {
+                "type": "Identifier",
+                "start": 194,
+                "end": 200,
+                "name": "Symbol"
+              },
+              "property": {
+                "type": "Identifier",
+                "start": 201,
+                "end": 209,
+                "name": "metadata"
+              },
+              "computed": false,
+              "optional": false
+            },
+            "computed": true,
+            "optional": false
+          }
+        ],
+        "optional": false
+      }
+    }
+  ],
+  "sourceType": "script"
+}
