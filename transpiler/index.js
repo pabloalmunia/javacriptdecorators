@@ -7,20 +7,40 @@ module.exports = (ast) => {
 };
 
 function classDecorator (ast) {
+  
+  // Class
   walker (
     ast,
-    (o) => o.type === 'ClassDeclaration' && o.decorators?.length,
-    (o, p) => {
-      for (let decorator of o.decorators) {
+    (o) => o.type === 'ClassDeclaration',
+    (klass, parent) => {
+  
+      // Class
+      walker (
+        klass,
+        (o) => o.type === 'MethodDefinition' && o.decorators?.length,
+        (o, p) => {
+          const className = getClassName (ast, o);
+          for (let decorator of (o.decorators || [])) {
+            insertAfter (
+              parent,
+              klass,
+              methodGenerator (decorator.kind, className, o.key.name, decorator.expression)
+            );
+          }
+          o.decorators = undefined;
+        }
+      );
+
+      for (let decorator of (klass.decorators || [])) {
         insertAfter (
-          p,
-          o,
+          parent,
+          klass,
           (decorator.kind === 'init-class' ?
-            classInitDecoratorGenerator :
-            classDecoratorGenerator) (o.id.name, decorator.expression)
+            classInitGenerator :
+            classGenerator) (klass.id.name, decorator.expression)
         );
       }
-      o.decorators = undefined;
+      klass.decorators = undefined;
     }
   );
 }
@@ -29,7 +49,157 @@ function insertAfter (arr, current, next) {
   arr.splice (arr.indexOf (current) + 1, 0, ...next);
 }
 
-function classInitDecoratorGenerator (className, decoratorName) {
+function methodGenerator (kind, className, methodName, decoratorName) {
+  return [
+    {
+      'type'       : 'ExpressionStatement',
+      'expression' : {
+        'type'     : 'AssignmentExpression',
+        'left'     : {
+          'type'     : 'MemberExpression',
+          'computed' : false,
+          'object'   : {
+            'type'     : 'MemberExpression',
+            'computed' : false,
+            'object'   : {
+              'type' : 'Identifier',
+              'name' : className
+            },
+            'property' : {
+              'type' : 'Identifier',
+              'name' : 'prototype'
+            }
+          },
+          'property' : {
+            'type' : 'Identifier',
+            'name' : methodName
+          }
+        },
+        'operator' : '=',
+        'right'    : {
+          'type'     : 'LogicalExpression',
+          'left'     : {
+            'type'      : 'CallExpression',
+            'callee'    : decoratorName,
+            'arguments' : [
+              {
+                'type'     : 'MemberExpression',
+                'computed' : false,
+                'object'   : {
+                  'type'     : 'MemberExpression',
+                  'computed' : false,
+                  'object'   : {
+                    'type' : 'Identifier',
+                    'name' : className
+                  },
+                  'property' : {
+                    'type' : 'Identifier',
+                    'name' : 'prototype'
+                  }
+                },
+                'property' : {
+                  'type' : 'Identifier',
+                  'name' : 'm'
+                }
+              },
+              {
+                'type'       : 'ObjectExpression',
+                'properties' : [
+                  {
+                    'type'      : 'Property',
+                    'key'       : {
+                      'type' : 'Identifier',
+                      'name' : 'kind'
+                    },
+                    'computed'  : false,
+                    'value'     : {
+                      'type'  : 'Literal',
+                      'value' : kind
+                    },
+                    'kind'      : 'init',
+                    'method'    : false,
+                    'shorthand' : false
+                  },
+                  {
+                    'type'      : 'Property',
+                    'key'       : {
+                      'type' : 'Identifier',
+                      'name' : 'name'
+                    },
+                    'computed'  : false,
+                    'value'     : {
+                      'type'  : 'Literal',
+                      'value' : methodName
+                    },
+                    'kind'      : 'init',
+                    'method'    : false,
+                    'shorthand' : false
+                  },
+                  {
+                    'type'      : 'Property',
+                    'key'       : {
+                      'type' : 'Identifier',
+                      'name' : 'isStatic'
+                    },
+                    'computed'  : false,
+                    'value'     : {
+                      'type'  : 'Literal',
+                      'value' : false,
+                      'raw'   : 'false'
+                    },
+                    'kind'      : 'init',
+                    'method'    : false,
+                    'shorthand' : false
+                  },
+                  {
+                    'type'      : 'Property',
+                    'key'       : {
+                      'type' : 'Identifier',
+                      'name' : 'isPrivate'
+                    },
+                    'computed'  : false,
+                    'value'     : {
+                      'type'  : 'Literal',
+                      'value' : false,
+                      'raw'   : 'false'
+                    },
+                    'kind'      : 'init',
+                    'method'    : false,
+                    'shorthand' : false
+                  },
+                  defineMetadataGenerator (`${ className }.prototype`, methodName)
+                ]
+              }
+            ]
+          },
+          'operator' : '??',
+          'right'    : {
+            'type'     : 'MemberExpression',
+            'computed' : false,
+            'object'   : {
+              'type'     : 'MemberExpression',
+              'computed' : false,
+              'object'   : {
+                'type' : 'Identifier',
+                'name' : className
+              },
+              'property' : {
+                'type' : 'Identifier',
+                'name' : 'prototype'
+              }
+            },
+            'property' : {
+              'type' : 'Identifier',
+              'name' : methodName
+            }
+          }
+        }
+      }
+    }
+  ];
+}
+
+function classInitGenerator (className, decoratorName) {
   const uniqueName = '_result' + Math.random ().toString (32).substring (2);
   return [
     {
@@ -147,45 +317,44 @@ function classInitDecoratorGenerator (className, decoratorName) {
           }
         },
         'right'    : {
-          "type": "CallExpression",
-          "callee": {
-            "type": "MemberExpression",
-            "computed": false,
-            "object": {
-              "type": "MemberExpression",
-              "computed": false,
-              "object": {
-                "type": "Identifier",
-                "name": uniqueName,
+          'type'      : 'CallExpression',
+          'callee'    : {
+            'type'     : 'MemberExpression',
+            'computed' : false,
+            'object'   : {
+              'type'     : 'MemberExpression',
+              'computed' : false,
+              'object'   : {
+                'type' : 'Identifier',
+                'name' : uniqueName
               },
-              "property": {
-                "type": "Identifier",
-                "name": "initialize",
-              },
+              'property' : {
+                'type' : 'Identifier',
+                'name' : 'initialize'
+              }
             },
-            "property": {
-              "type": "Identifier",
-              "name": "call",
-            },
-          },
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": className,
-            },
-            {
-              "type": "Identifier",
-              "name": className,
+            'property' : {
+              'type' : 'Identifier',
+              'name' : 'call'
             }
-          ],
+          },
+          'arguments' : [
+            {
+              'type' : 'Identifier',
+              'name' : className
+            },
+            {
+              'type' : 'Identifier',
+              'name' : className
+            }
+          ]
         }
       }
     }
   ];
 }
 
-
-function classDecoratorGenerator (className, decoratorName) {
+function classGenerator (className, decoratorName) {
   return [{
     'type'       : 'ExpressionStatement',
     'expression' : {
@@ -461,7 +630,7 @@ function defineMetadataGenerator (storage, metaKey) {
                         'computed' : true,
                         'object'   : {
                           'type' : 'Identifier',
-                          'name' : 'C'
+                          'name' : storage
                         },
                         'property' : {
                           'type'     : 'MemberExpression',
@@ -508,7 +677,7 @@ function defineMetadataGenerator (storage, metaKey) {
                     'computed' : true,
                     'object'   : {
                       'type' : 'Identifier',
-                      'name' : 'C'
+                      'name' : storage
                     },
                     'property' : {
                       'type'     : 'MemberExpression',
@@ -701,4 +870,17 @@ function defineMetadataGenerator (storage, metaKey) {
     'method'    : false,
     'shorthand' : false
   };
+}
+
+function getClassName (ast, member) {
+  let result;
+  walker (
+    ast,
+    o => {
+      const v = o.type === 'ClassDeclaration' && o.body.body.indexOf (member) !== -1;
+      return v;
+    },
+    o => result = o.id.name
+  );
+  return result;
 }

@@ -23,7 +23,7 @@ function logged(
 
 class C {}
 
-_resulte8gv39r2eeg = logged(C, {
+_resultodusan68hko = logged(C, {
   kind: "init-class",
   name: "C",
 
@@ -54,6 +54,10 @@ _resulte8gv39r2eeg = logged(C, {
   }
 }) || {};
 
-C = _resulte8gv39r2eeg.definition || C;
-_resulte8gv39r2eeg.initialize && _resulte8gv39r2eeg.initialize.call(C, C);
-new C(1);
+C = _resultodusan68hko.definition || C;
+_resultodusan68hko.initialize && _resultodusan68hko.initialize.call(C, C);
+
+@logged
+class B extends C {}
+
+new B(1);
