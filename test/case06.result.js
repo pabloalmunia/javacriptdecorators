@@ -1,17 +1,30 @@
-function add(
+function logged(
   value,
   {
     kind,
     name
   }
 ) {
-  value.prototype.x = 10;
+  if (kind === "init-class") {
+    return {
+      definition: class extends value {
+        constructor(...args) {
+          super();
+          console.log(`constructing an instance of ${name} with arguments ${args.join(", ")}`);
+        }
+      },
+
+      initialize(value) {
+        console.log(`finished defining ${this.name}`);
+      }
+    };
+  }
 }
 
 class C {}
 
-C = add(C, {
-  kind: "class",
+_resultfvo81t7h8og = logged(C, {
+  kind: "init-class",
   name: "C",
 
   defineMetadata: function(key, value) {
@@ -39,6 +52,8 @@ C = add(C, {
 
     return db[key] = value;
   }
-}) ?? C;
+}) || {};
 
-console.log(new C().x);
+C = _resultfvo81t7h8og.definition || C;
+_resultfvo81t7h8og.initialize && _resultfvo81t7h8og.initialize.call(C, C);
+new C(1);

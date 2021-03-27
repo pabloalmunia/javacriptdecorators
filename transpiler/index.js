@@ -3,7 +3,7 @@ const walker = require ('../walker/index.js');
 
 module.exports = (ast) => {
   classDecorator (ast);
-  return recast.print (ast, {tabWidth : 2, reuseWhitespace: false}).code;
+  return recast.print (ast, {tabWidth : 2, reuseWhitespace : false}).code;
 };
 
 function classDecorator (ast) {
@@ -12,7 +12,13 @@ function classDecorator (ast) {
     (o) => o.type === 'ClassDeclaration' && o.decorators?.length,
     (o, p) => {
       for (let decorator of o.decorators) {
-        insertAfter (p, o, classDecoratorGenerator (o.id.name, decorator.expression.name));
+        insertAfter (
+          p,
+          o,
+          (decorator.kind === 'init-class' ?
+            classInitDecoratorGenerator :
+            classDecoratorGenerator) (o.id.name, decorator.expression)
+        );
       }
       o.decorators = undefined;
     }
@@ -20,11 +26,167 @@ function classDecorator (ast) {
 }
 
 function insertAfter (arr, current, next) {
-  arr.splice (arr.indexOf (current) + 1, 0, next);
+  arr.splice (arr.indexOf (current) + 1, 0, ...next);
 }
 
+function classInitDecoratorGenerator (className, decoratorName) {
+  const uniqueName = '_result' + Math.random ().toString (32).substring (2);
+  return [
+    {
+      'type'       : 'ExpressionStatement',
+      'expression' : {
+        'type'     : 'AssignmentExpression',
+        'operator' : '=',
+        'left'     : {
+          'type' : 'Identifier',
+          'name' : uniqueName
+        },
+        'right'    : {
+          'type'     : 'LogicalExpression',
+          'operator' : '||',
+          'left'     : {
+            'type'      : 'CallExpression',
+            'callee'    : decoratorName,
+            'arguments' : [
+              {
+                'type' : 'Identifier',
+                'name' : className
+              },
+              {
+                'type'       : 'ObjectExpression',
+                'properties' : [
+                  {
+                    'type'      : 'Property',
+                    'key'       : {
+                      'type' : 'Identifier',
+                      'name' : 'kind'
+                    },
+                    'computed'  : false,
+                    'value'     : {
+                      'type'  : 'Literal',
+                      'value' : 'init-class',
+                      'raw'   : '"init-class"'
+                    },
+                    'kind'      : 'init',
+                    'method'    : false,
+                    'shorthand' : false
+                  },
+                  {
+                    'type'      : 'Property',
+                    'key'       : {
+                      'type' : 'Identifier',
+                      'name' : 'name'
+                    },
+                    'computed'  : false,
+                    'value'     : {
+                      'type'  : 'Literal',
+                      'value' : className
+                    },
+                    'kind'      : 'init',
+                    'method'    : false,
+                    'shorthand' : false
+                  },
+                  defineMetadataGenerator (className, 'constructor')
+                ]
+              }
+            ]
+          },
+          'right'    : {
+            'type'       : 'ObjectExpression',
+            'properties' : []
+          }
+        }
+      }
+    },
+    {
+      'type'       : 'ExpressionStatement',
+      'expression' : {
+        'type'     : 'AssignmentExpression',
+        'operator' : '=',
+        'left'     : {
+          'type' : 'Identifier',
+          'name' : className
+        },
+        'right'    : {
+          'type'     : 'LogicalExpression',
+          'operator' : '||',
+          'left'     : {
+            'type'     : 'MemberExpression',
+            'computed' : false,
+            'object'   : {
+              'type' : 'Identifier',
+              'name' : uniqueName
+            },
+            'property' : {
+              'type' : 'Identifier',
+              'name' : 'definition'
+            }
+          },
+          'right'    : {
+            'type' : 'Identifier',
+            'name' : className
+          }
+        }
+      }
+    },
+    {
+      'type'       : 'ExpressionStatement',
+      'expression' : {
+        'type'     : 'LogicalExpression',
+        'operator' : '&&',
+        'left'     : {
+          'type'     : 'MemberExpression',
+          'computed' : false,
+          'object'   : {
+            'type' : 'Identifier',
+            'name' : uniqueName
+          },
+          'property' : {
+            'type' : 'Identifier',
+            'name' : 'initialize'
+          }
+        },
+        'right'    : {
+          "type": "CallExpression",
+          "callee": {
+            "type": "MemberExpression",
+            "computed": false,
+            "object": {
+              "type": "MemberExpression",
+              "computed": false,
+              "object": {
+                "type": "Identifier",
+                "name": uniqueName,
+              },
+              "property": {
+                "type": "Identifier",
+                "name": "initialize",
+              },
+            },
+            "property": {
+              "type": "Identifier",
+              "name": "call",
+            },
+          },
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": className,
+            },
+            {
+              "type": "Identifier",
+              "name": className,
+            }
+          ],
+        }
+      }
+    }
+  ];
+}
+
+
 function classDecoratorGenerator (className, decoratorName) {
-  return {
+  return [{
     'type'       : 'ExpressionStatement',
     'expression' : {
       'type'     : 'AssignmentExpression',
@@ -37,10 +199,7 @@ function classDecoratorGenerator (className, decoratorName) {
         'type'     : 'LogicalExpression',
         'left'     : {
           'type'      : 'CallExpression',
-          'callee'    : {
-            'type' : 'Identifier',
-            'name' : decoratorName
-          },
+          'callee'    : decoratorName,
           'arguments' : [
             {
               'type' : 'Identifier',
@@ -75,7 +234,7 @@ function classDecoratorGenerator (className, decoratorName) {
                   },
                   'kind'  : 'init'
                 },
-                defineMetadataGenerator(className, 'constructor')
+                defineMetadataGenerator (className, 'constructor')
               ]
             }
           ],
@@ -88,458 +247,458 @@ function classDecoratorGenerator (className, decoratorName) {
         }
       }
     }
-  };
+  }];
 }
 
 function defineMetadataGenerator (storage, metaKey) {
   return {
-    "type": "Property",
-    "key": {
-      "type": "Identifier",
-      "name": "defineMetadata",
+    'type'      : 'Property',
+    'key'       : {
+      'type' : 'Identifier',
+      'name' : 'defineMetadata'
     },
-    "computed": false,
-    "value": {
-      "type": "FunctionExpression",
-      "id": null,
-      "params": [
+    'computed'  : false,
+    'value'     : {
+      'type'       : 'FunctionExpression',
+      'id'         : null,
+      'params'     : [
         {
-          "type": "Identifier",
-          "name": "key",
+          'type' : 'Identifier',
+          'name' : 'key'
         },
         {
-          "type": "Identifier",
-          "name": "value",
+          'type' : 'Identifier',
+          'name' : 'value'
         }
       ],
-      "body": {
-        "type": "BlockStatement",
-        "body": [
+      'body'       : {
+        'type' : 'BlockStatement',
+        'body' : [
           {
-            "type": "IfStatement",
-            "test": {
-              "type": "UnaryExpression",
-              "operator": "!",
-              "argument": {
-                "type": "MemberExpression",
-                "computed": false,
-                "object": {
-                  "type": "Identifier",
-                  "name": "Symbol",
+            'type'       : 'IfStatement',
+            'test'       : {
+              'type'     : 'UnaryExpression',
+              'operator' : '!',
+              'argument' : {
+                'type'     : 'MemberExpression',
+                'computed' : false,
+                'object'   : {
+                  'type' : 'Identifier',
+                  'name' : 'Symbol'
                 },
-                "property": {
-                  "type": "Identifier",
-                  "name": "metadata",
-                },
-              },
-              "prefix": true,
-            },
-            "consequent": {
-              "type": "BlockStatement",
-              "body": [
-                {
-                  "type": "ExpressionStatement",
-                  "expression": {
-                    "type": "AssignmentExpression",
-                    "operator": "=",
-                    "left": {
-                      "type": "MemberExpression",
-                      "computed": false,
-                      "object": {
-                        "type": "Identifier",
-                        "name": "Symbol",
-                      },
-                      "property": {
-                        "type": "Identifier",
-                        "name": "metadata",
-                      },
-                    },
-                    "right": {
-                      "type": "CallExpression",
-                      "callee": {
-                        "type": "Identifier",
-                        "name": "Symbol",
-                      },
-                      "arguments": [],
-                    },
-                  },
+                'property' : {
+                  'type' : 'Identifier',
+                  'name' : 'metadata'
                 }
-              ],
+              },
+              'prefix'   : true
             },
-            "alternate": null,
+            'consequent' : {
+              'type' : 'BlockStatement',
+              'body' : [
+                {
+                  'type'       : 'ExpressionStatement',
+                  'expression' : {
+                    'type'     : 'AssignmentExpression',
+                    'operator' : '=',
+                    'left'     : {
+                      'type'     : 'MemberExpression',
+                      'computed' : false,
+                      'object'   : {
+                        'type' : 'Identifier',
+                        'name' : 'Symbol'
+                      },
+                      'property' : {
+                        'type' : 'Identifier',
+                        'name' : 'metadata'
+                      }
+                    },
+                    'right'    : {
+                      'type'      : 'CallExpression',
+                      'callee'    : {
+                        'type' : 'Identifier',
+                        'name' : 'Symbol'
+                      },
+                      'arguments' : []
+                    }
+                  }
+                }
+              ]
+            },
+            'alternate'  : null
           },
           {
-            "type": "IfStatement",
-            "test": {
-              "type": "UnaryExpression",
-              "operator": "!",
-              "argument": {
-                "type": "MemberExpression",
-                "computed": true,
-                "object": {
-                  "type": "Identifier",
-                  "name": storage,
+            'type'       : 'IfStatement',
+            'test'       : {
+              'type'     : 'UnaryExpression',
+              'operator' : '!',
+              'argument' : {
+                'type'     : 'MemberExpression',
+                'computed' : true,
+                'object'   : {
+                  'type' : 'Identifier',
+                  'name' : storage
                 },
-                "property": {
-                  "type": "MemberExpression",
-                  "computed": false,
-                  "object": {
-                    "type": "Identifier",
-                    "name": "Symbol",
+                'property' : {
+                  'type'     : 'MemberExpression',
+                  'computed' : false,
+                  'object'   : {
+                    'type' : 'Identifier',
+                    'name' : 'Symbol'
                   },
-                  "property": {
-                    "type": "Identifier",
-                    "name": "metadata",
-                  },
-                },
+                  'property' : {
+                    'type' : 'Identifier',
+                    'name' : 'metadata'
+                  }
+                }
               },
-              "prefix": true,
+              'prefix'   : true
             },
-            "consequent": {
-              "type": "BlockStatement",
-              "body": [
+            'consequent' : {
+              'type' : 'BlockStatement',
+              'body' : [
                 {
-                  "type": "ExpressionStatement",
-                  "expression": {
-                    "type": "AssignmentExpression",
-                    "operator": "=",
-                    "left": {
-                      "type": "MemberExpression",
-                      "computed": true,
-                      "object": {
-                        "type": "Identifier",
-                        "name": storage,
+                  'type'       : 'ExpressionStatement',
+                  'expression' : {
+                    'type'     : 'AssignmentExpression',
+                    'operator' : '=',
+                    'left'     : {
+                      'type'     : 'MemberExpression',
+                      'computed' : true,
+                      'object'   : {
+                        'type' : 'Identifier',
+                        'name' : storage
                       },
-                      "property": {
-                        "type": "MemberExpression",
-                        "computed": false,
-                        "object": {
-                          "type": "Identifier",
-                          "name": "Symbol",
+                      'property' : {
+                        'type'     : 'MemberExpression',
+                        'computed' : false,
+                        'object'   : {
+                          'type' : 'Identifier',
+                          'name' : 'Symbol'
                         },
-                        "property": {
-                          "type": "Identifier",
-                          "name": "metadata",
-                        },
-                      },
-                    },
-                    "right": {
-                      "type": "CallExpression",
-                      "callee": {
-                        "type": "MemberExpression",
-                        "computed": false,
-                        "object": {
-                          "type": "Identifier",
-                          "name": "Object",
-                        },
-                        "property": {
-                          "type": "Identifier",
-                          "name": "create",
-                        },
-                      },
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value": null,
-                          "raw": "null",
+                        'property' : {
+                          'type' : 'Identifier',
+                          'name' : 'metadata'
                         }
-                      ],
+                      }
                     },
-                  },
+                    'right'    : {
+                      'type'      : 'CallExpression',
+                      'callee'    : {
+                        'type'     : 'MemberExpression',
+                        'computed' : false,
+                        'object'   : {
+                          'type' : 'Identifier',
+                          'name' : 'Object'
+                        },
+                        'property' : {
+                          'type' : 'Identifier',
+                          'name' : 'create'
+                        }
+                      },
+                      'arguments' : [
+                        {
+                          'type'  : 'Literal',
+                          'value' : null,
+                          'raw'   : 'null'
+                        }
+                      ]
+                    }
+                  }
                 }
-              ],
+              ]
             },
-            "alternate": null,
+            'alternate'  : null
           },
           {
-            "type": "IfStatement",
-            "test": {
-              "type": "UnaryExpression",
-              "operator": "!",
-              "argument": {
-                "type": "MemberExpression",
-                "computed": false,
-                "object": {
-                  "type": "MemberExpression",
-                  "computed": true,
-                  "object": {
-                    "type": "Identifier",
-                    "name": storage,
+            'type'       : 'IfStatement',
+            'test'       : {
+              'type'     : 'UnaryExpression',
+              'operator' : '!',
+              'argument' : {
+                'type'     : 'MemberExpression',
+                'computed' : false,
+                'object'   : {
+                  'type'     : 'MemberExpression',
+                  'computed' : true,
+                  'object'   : {
+                    'type' : 'Identifier',
+                    'name' : storage
                   },
-                  "property": {
-                    "type": "MemberExpression",
-                    "computed": false,
-                    "object": {
-                      "type": "Identifier",
-                      "name": "Symbol",
+                  'property' : {
+                    'type'     : 'MemberExpression',
+                    'computed' : false,
+                    'object'   : {
+                      'type' : 'Identifier',
+                      'name' : 'Symbol'
                     },
-                    "property": {
-                      "type": "Identifier",
-                      "name": "metadata",
-                    },
-                  },
+                    'property' : {
+                      'type' : 'Identifier',
+                      'name' : 'metadata'
+                    }
+                  }
                 },
-                "property": {
-                  "type": "Identifier",
-                  "name": metaKey,
-                },
+                'property' : {
+                  'type' : 'Identifier',
+                  'name' : metaKey
+                }
               },
-              "prefix": true,
+              'prefix'   : true
             },
-            "consequent": {
-              "type": "BlockStatement",
-              "body": [
+            'consequent' : {
+              'type' : 'BlockStatement',
+              'body' : [
                 {
-                  "type": "ExpressionStatement",
-                  "expression": {
-                    "type": "AssignmentExpression",
-                    "operator": "=",
-                    "left": {
-                      "type": "MemberExpression",
-                      "computed": false,
-                      "object": {
-                        "type": "MemberExpression",
-                        "computed": true,
-                        "object": {
-                          "type": "Identifier",
-                          "name": "C",
+                  'type'       : 'ExpressionStatement',
+                  'expression' : {
+                    'type'     : 'AssignmentExpression',
+                    'operator' : '=',
+                    'left'     : {
+                      'type'     : 'MemberExpression',
+                      'computed' : false,
+                      'object'   : {
+                        'type'     : 'MemberExpression',
+                        'computed' : true,
+                        'object'   : {
+                          'type' : 'Identifier',
+                          'name' : 'C'
                         },
-                        "property": {
-                          "type": "MemberExpression",
-                          "computed": false,
-                          "object": {
-                            "type": "Identifier",
-                            "name": "Symbol",
+                        'property' : {
+                          'type'     : 'MemberExpression',
+                          'computed' : false,
+                          'object'   : {
+                            'type' : 'Identifier',
+                            'name' : 'Symbol'
                           },
-                          "property": {
-                            "type": "Identifier",
-                            "name": "metadata",
-                          },
-                        },
+                          'property' : {
+                            'type' : 'Identifier',
+                            'name' : 'metadata'
+                          }
+                        }
                       },
-                      "property": {
-                        "type": "Identifier",
-                        "name": metaKey,
-                      },
+                      'property' : {
+                        'type' : 'Identifier',
+                        'name' : metaKey
+                      }
                     },
-                    "right": {
-                      "type": "ObjectExpression",
-                      "properties": [],
-                    },
-                  },
+                    'right'    : {
+                      'type'       : 'ObjectExpression',
+                      'properties' : []
+                    }
+                  }
                 }
-              ],
+              ]
             },
-            "alternate": null,
+            'alternate'  : null
           },
           {
-            "type": "VariableDeclaration",
-            "declarations": [
+            'type'         : 'VariableDeclaration',
+            'declarations' : [
               {
-                "type": "VariableDeclarator",
-                "id": {
-                  "type": "Identifier",
-                  "name": "db",
+                'type' : 'VariableDeclarator',
+                'id'   : {
+                  'type' : 'Identifier',
+                  'name' : 'db'
                 },
-                "init": {
-                  "type": "MemberExpression",
-                  "computed": false,
-                  "object": {
-                    "type": "MemberExpression",
-                    "computed": true,
-                    "object": {
-                      "type": "Identifier",
-                      "name": "C",
+                'init' : {
+                  'type'     : 'MemberExpression',
+                  'computed' : false,
+                  'object'   : {
+                    'type'     : 'MemberExpression',
+                    'computed' : true,
+                    'object'   : {
+                      'type' : 'Identifier',
+                      'name' : 'C'
                     },
-                    "property": {
-                      "type": "MemberExpression",
-                      "computed": false,
-                      "object": {
-                        "type": "Identifier",
-                        "name": "Symbol",
+                    'property' : {
+                      'type'     : 'MemberExpression',
+                      'computed' : false,
+                      'object'   : {
+                        'type' : 'Identifier',
+                        'name' : 'Symbol'
                       },
-                      "property": {
-                        "type": "Identifier",
-                        "name": "metadata",
-                      },
-                    },
+                      'property' : {
+                        'type' : 'Identifier',
+                        'name' : 'metadata'
+                      }
+                    }
                   },
-                  "property": {
-                    "type": "Identifier",
-                    "name": metaKey,
-                  },
-                },
+                  'property' : {
+                    'type' : 'Identifier',
+                    'name' : metaKey
+                  }
+                }
               }
             ],
-            "kind": "const",
+            'kind'         : 'const'
           },
           {
-            "type": "IfStatement",
-            "test": {
-              "type": "BinaryExpression",
-              "operator": "in",
-              "left": {
-                "type": "Identifier",
-                "name": "key",
+            'type'       : 'IfStatement',
+            'test'       : {
+              'type'     : 'BinaryExpression',
+              'operator' : 'in',
+              'left'     : {
+                'type' : 'Identifier',
+                'name' : 'key'
               },
-              "right": {
-                "type": "Identifier",
-                "name": "db",
-              },
+              'right'    : {
+                'type' : 'Identifier',
+                'name' : 'db'
+              }
             },
-            "consequent": {
-              "type": "BlockStatement",
-              "body": [
+            'consequent' : {
+              'type' : 'BlockStatement',
+              'body' : [
                 {
-                  "type": "IfStatement",
-                  "test": {
-                    "type": "UnaryExpression",
-                    "operator": "!",
-                    "argument": {
-                      "type": "CallExpression",
-                      "callee": {
-                        "type": "MemberExpression",
-                        "computed": false,
-                        "object": {
-                          "type": "Identifier",
-                          "name": "Array",
+                  'type'       : 'IfStatement',
+                  'test'       : {
+                    'type'     : 'UnaryExpression',
+                    'operator' : '!',
+                    'argument' : {
+                      'type'      : 'CallExpression',
+                      'callee'    : {
+                        'type'     : 'MemberExpression',
+                        'computed' : false,
+                        'object'   : {
+                          'type' : 'Identifier',
+                          'name' : 'Array'
                         },
-                        "property": {
-                          "type": "Identifier",
-                          "name": "isArray",
-                        },
-                      },
-                      "arguments": [
-                        {
-                          "type": "MemberExpression",
-                          "computed": true,
-                          "object": {
-                            "type": "Identifier",
-                            "name": "db",
-                          },
-                          "property": {
-                            "type": "Identifier",
-                            "name": "key",
-                          },
+                        'property' : {
+                          'type' : 'Identifier',
+                          'name' : 'isArray'
                         }
-                      ],
-                    },
-                    "prefix": true,
-                  },
-                  "consequent": {
-                    "type": "BlockStatement",
-                    "body": [
-                      {
-                        "type": "ReturnStatement",
-                        "argument": {
-                          "type": "AssignmentExpression",
-                          "operator": "=",
-                          "left": {
-                            "type": "MemberExpression",
-                            "computed": true,
-                            "object": {
-                              "type": "Identifier",
-                              "name": "db",
-                            },
-                            "property": {
-                              "type": "Identifier",
-                              "name": "key",
-                            },
+                      },
+                      'arguments' : [
+                        {
+                          'type'     : 'MemberExpression',
+                          'computed' : true,
+                          'object'   : {
+                            'type' : 'Identifier',
+                            'name' : 'db'
                           },
-                          "right": {
-                            "type": "ArrayExpression",
-                            "elements": [
+                          'property' : {
+                            'type' : 'Identifier',
+                            'name' : 'key'
+                          }
+                        }
+                      ]
+                    },
+                    'prefix'   : true
+                  },
+                  'consequent' : {
+                    'type' : 'BlockStatement',
+                    'body' : [
+                      {
+                        'type'     : 'ReturnStatement',
+                        'argument' : {
+                          'type'     : 'AssignmentExpression',
+                          'operator' : '=',
+                          'left'     : {
+                            'type'     : 'MemberExpression',
+                            'computed' : true,
+                            'object'   : {
+                              'type' : 'Identifier',
+                              'name' : 'db'
+                            },
+                            'property' : {
+                              'type' : 'Identifier',
+                              'name' : 'key'
+                            }
+                          },
+                          'right'    : {
+                            'type'     : 'ArrayExpression',
+                            'elements' : [
                               {
-                                "type": "MemberExpression",
-                                "computed": true,
-                                "object": {
-                                  "type": "Identifier",
-                                  "name": "db",
+                                'type'     : 'MemberExpression',
+                                'computed' : true,
+                                'object'   : {
+                                  'type' : 'Identifier',
+                                  'name' : 'db'
                                 },
-                                "property": {
-                                  "type": "Identifier",
-                                  "name": "key",
-                                },
+                                'property' : {
+                                  'type' : 'Identifier',
+                                  'name' : 'key'
+                                }
                               },
                               {
-                                "type": "Identifier",
-                                "name": "value",
+                                'type' : 'Identifier',
+                                'name' : 'value'
                               }
-                            ],
-                          },
-                        },
+                            ]
+                          }
+                        }
                       }
-                    ],
+                    ]
                   },
-                  "alternate": null,
+                  'alternate'  : null
                 },
                 {
-                  "type": "ReturnStatement",
-                  "argument": {
-                    "type": "CallExpression",
-                    "callee": {
-                      "type": "MemberExpression",
-                      "computed": false,
-                      "object": {
-                        "type": "MemberExpression",
-                        "computed": true,
-                        "object": {
-                          "type": "Identifier",
-                          "name": "db",
+                  'type'     : 'ReturnStatement',
+                  'argument' : {
+                    'type'      : 'CallExpression',
+                    'callee'    : {
+                      'type'     : 'MemberExpression',
+                      'computed' : false,
+                      'object'   : {
+                        'type'     : 'MemberExpression',
+                        'computed' : true,
+                        'object'   : {
+                          'type' : 'Identifier',
+                          'name' : 'db'
                         },
-                        "property": {
-                          "type": "Identifier",
-                          "name": "key",
-                        },
+                        'property' : {
+                          'type' : 'Identifier',
+                          'name' : 'key'
+                        }
                       },
-                      "property": {
-                        "type": "Identifier",
-                        "name": "push",
-                      },
-                    },
-                    "arguments": [
-                      {
-                        "type": "Identifier",
-                        "name": "value",
+                      'property' : {
+                        'type' : 'Identifier',
+                        'name' : 'push'
                       }
-                    ],
-                  },
+                    },
+                    'arguments' : [
+                      {
+                        'type' : 'Identifier',
+                        'name' : 'value'
+                      }
+                    ]
+                  }
                 }
-              ],
+              ]
             },
-            "alternate": null,
+            'alternate'  : null
           },
           {
-            "type": "ReturnStatement",
-            "argument": {
-              "type": "AssignmentExpression",
-              "operator": "=",
-              "left": {
-                "type": "MemberExpression",
-                "computed": true,
-                "object": {
-                  "type": "Identifier",
-                  "name": "db",
+            'type'     : 'ReturnStatement',
+            'argument' : {
+              'type'     : 'AssignmentExpression',
+              'operator' : '=',
+              'left'     : {
+                'type'     : 'MemberExpression',
+                'computed' : true,
+                'object'   : {
+                  'type' : 'Identifier',
+                  'name' : 'db'
                 },
-                "property": {
-                  "type": "Identifier",
-                  "name": "key",
-                },
+                'property' : {
+                  'type' : 'Identifier',
+                  'name' : 'key'
+                }
               },
-              "right": {
-                "type": "Identifier",
-                "name": "value",
-              },
-            },
+              'right'    : {
+                'type' : 'Identifier',
+                'name' : 'value'
+              }
+            }
           }
-        ],
+        ]
       },
-      "generator": false,
-      "expression": false,
-      "async": false,
+      'generator'  : false,
+      'expression' : false,
+      'async'      : false
     },
-    "kind": "init",
-    "method": false,
-    "shorthand": false,
+    'kind'      : 'init',
+    'method'    : false,
+    'shorthand' : false
   };
 }

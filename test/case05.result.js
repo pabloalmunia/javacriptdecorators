@@ -1,16 +1,6 @@
-function add(
-  value,
-  {
-    kind,
-    name
-  }
-) {
-  value.prototype.x = 10;
-}
+class C extends HTMLElement {}
 
-class C {}
-
-C = add(C, {
+C = defineElement("my-class")(C, {
   kind: "class",
   name: "C",
 
@@ -40,5 +30,3 @@ C = add(C, {
     return db[key] = value;
   }
 }) ?? C;
-
-console.log(new C().x);

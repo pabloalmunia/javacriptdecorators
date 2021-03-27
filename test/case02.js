@@ -1,12 +1,17 @@
-const MY_META = Symbol();
-
-function myMeta(value, context) {
-  context.defineMetadata("my-meta", true);
-  context.defineMetadata(MY_META, true);
+function logged(value, { kind, name }) {
+  if (kind === "class") {
+    return class extends value {
+      constructor(...args) {
+        super();
+        console.log(`constructing an instance of ${name} with arguments ${args.join(", ")}`);
+      }
+    }
+  }
 }
 
-@myMeta
+// Class
+@logged
 class C {
 }
 
-console.log(C[Symbol.metadata]);
+new C(1);

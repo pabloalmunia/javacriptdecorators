@@ -1,16 +1,14 @@
-function add(
-  value,
-  {
-    kind,
-    name
-  }
-) {
-  value.prototype.x = 10;
+const MY_META = Symbol();
+
+function myMeta(value, context) {
+  context.defineMetadata("my-meta", true);
+  context.defineMetadata(MY_META, true);
+  return class extends C {};
 }
 
 class C {}
 
-C = add(C, {
+C = myMeta(C, {
   kind: "class",
   name: "C",
 
@@ -41,4 +39,4 @@ C = add(C, {
   }
 }) ?? C;
 
-console.log(new C().x);
+console.log(C[Symbol.metadata]);

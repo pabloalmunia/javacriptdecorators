@@ -1,17 +1,10 @@
-function logged(value, { kind, name }) {
-  if (kind === "class") {
-    return class extends value {
-      constructor(...args) {
-        super();
-        console.log(`constructing an instance of ${name} with arguments ${args.join(", ")}`);
-      }
-    }
-  }
+function add(value, { kind, name }) {
+  value.prototype.x = 10;
 }
 
 // Class
-@logged
+@add
 class C {
 }
 
-new C(1);
+console.log(new C().x);

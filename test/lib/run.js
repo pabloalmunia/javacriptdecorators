@@ -5,7 +5,7 @@ const EXT_ERROR = '.err';
 const readFile  = (file) => fs.readFileSync (path.join (__dirname, file)).toString ();
 const writeFile = (file, data) => fs.writeFileSync (path.join (__dirname, file), data);
 
-module.exports = (EXT_TEST, EXT_RESULT, transform, stringify, parse) => {
+module.exports = (label, EXT_TEST, EXT_RESULT, transform, stringify, parse) => {
   
   function readTest (test) {
     return readFile (`../${ test }${ EXT_TEST }`);
@@ -25,7 +25,7 @@ module.exports = (EXT_TEST, EXT_RESULT, transform, stringify, parse) => {
       `../${ test }${ EXT_RESULT }`,
       stringify ? stringify (source) : source
     );
-    console.log (`created ${ test }${ EXT_RESULT }`);
+    console.log (label, `created ${ test }${ EXT_RESULT }`);
   }
   
   function writeError (test, source) {
@@ -33,11 +33,11 @@ module.exports = (EXT_TEST, EXT_RESULT, transform, stringify, parse) => {
       `../${ test }${ EXT_ERROR }${ EXT_RESULT }`,
       stringify ? stringify (source) : source
     );
-    console.log (`ERROR, created ${ test }${ EXT_ERROR }${ EXT_RESULT }`);
+    console.log (label, `ERROR, created ${ test }${ EXT_ERROR }${ EXT_RESULT }`);
   }
   
   return function run (test) {
-    console.log ('test', test);
+    console.log ('test', label,  test);
     const originSource = readTest (test);
     const origin       = transform (originSource);
     const result       = readResult (test);

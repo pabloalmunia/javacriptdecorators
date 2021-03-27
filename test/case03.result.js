@@ -1,23 +1,13 @@
-function logged(
-  value,
-  {
-    kind,
-    name
-  }
-) {
-  if (kind === "class") {
-    return class extends value {
-      constructor(...args) {
-        super();
-        console.log(`constructing an instance of ${name} with arguments ${args.join(", ")}`);
-      }
-    };
-  }
+const MY_META = Symbol();
+
+function myMeta(value, context) {
+  context.defineMetadata("my-meta", true);
+  context.defineMetadata(MY_META, true);
 }
 
 class C {}
 
-C = logged(C, {
+C = myMeta(C, {
   kind: "class",
   name: "C",
 
@@ -27,11 +17,11 @@ C = logged(C, {
     }
 
     if (!C[Symbol.metadata]) {
-      C[Symbol.metadata] = {};
+      C[Symbol.metadata] = Object.create(null);
     }
 
     if (!C[Symbol.metadata].constructor) {
-      C[Symbol.metadata].constructor = Object.create(null);
+      C[Symbol.metadata].constructor = {};
     }
 
     const db = C[Symbol.metadata].constructor;
@@ -48,4 +38,4 @@ C = logged(C, {
   }
 }) ?? C;
 
-new C(1);
+console.log(C[Symbol.metadata]);
