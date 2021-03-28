@@ -1,4 +1,4 @@
 class A {
   @decorator
-  set p(v) {}
+  get p() {}
 }

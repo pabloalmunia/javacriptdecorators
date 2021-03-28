@@ -1,0 +1,191 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 128,
+  "body": [
+    {
+      "type": "ClassDeclaration",
+      "start": 0,
+      "end": 77,
+      "id": {
+        "type": "Identifier",
+        "start": 6,
+        "end": 7,
+        "name": "C"
+      },
+      "superClass": null,
+      "body": {
+        "type": "ClassBody",
+        "start": 8,
+        "end": 77,
+        "body": [
+          {
+            "type": "MethodDefinition",
+            "start": 43,
+            "end": 74,
+            "kind": "get",
+            "static": false,
+            "computed": false,
+            "key": {
+              "type": "Identifier",
+              "start": 47,
+              "end": 48,
+              "name": "p"
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "start": 48,
+              "end": 74,
+              "id": null,
+              "expression": false,
+              "generator": false,
+              "async": false,
+              "params": [],
+              "body": {
+                "type": "BlockStatement",
+                "start": 51,
+                "end": 74,
+                "body": [
+                  {
+                    "type": "ReturnStatement",
+                    "start": 58,
+                    "end": 69,
+                    "argument": {
+                      "type": "Literal",
+                      "start": 65,
+                      "end": 68,
+                      "value": "a",
+                      "raw": "'a'"
+                    }
+                  }
+                ]
+              }
+            },
+            "decorators": [
+              {
+                "type": "Decorator",
+                "start": 13,
+                "end": 24,
+                "expression": {
+                  "type": "Identifier",
+                  "start": 14,
+                  "end": 24,
+                  "name": "decorator1"
+                },
+                "kind": "getter"
+              },
+              {
+                "type": "Decorator",
+                "start": 28,
+                "end": 39,
+                "expression": {
+                  "type": "Identifier",
+                  "start": 29,
+                  "end": 39,
+                  "name": "decorator2"
+                },
+                "kind": "getter"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "VariableDeclaration",
+      "start": 81,
+      "end": 99,
+      "declarations": [
+        {
+          "type": "VariableDeclarator",
+          "start": 87,
+          "end": 98,
+          "id": {
+            "type": "Identifier",
+            "start": 87,
+            "end": 88,
+            "name": "a"
+          },
+          "init": {
+            "type": "NewExpression",
+            "start": 91,
+            "end": 98,
+            "callee": {
+              "type": "Identifier",
+              "start": 95,
+              "end": 96,
+              "name": "C"
+            },
+            "arguments": []
+          }
+        }
+      ],
+      "kind": "const"
+    },
+    {
+      "type": "ExpressionStatement",
+      "start": 101,
+      "end": 128,
+      "expression": {
+        "type": "CallExpression",
+        "start": 101,
+        "end": 128,
+        "callee": {
+          "type": "MemberExpression",
+          "start": 101,
+          "end": 115,
+          "object": {
+            "type": "Identifier",
+            "start": 101,
+            "end": 108,
+            "name": "console"
+          },
+          "property": {
+            "type": "Identifier",
+            "start": 109,
+            "end": 115,
+            "name": "assert"
+          },
+          "computed": false,
+          "optional": false
+        },
+        "arguments": [
+          {
+            "type": "BinaryExpression",
+            "start": 116,
+            "end": 127,
+            "left": {
+              "type": "MemberExpression",
+              "start": 116,
+              "end": 119,
+              "object": {
+                "type": "Identifier",
+                "start": 116,
+                "end": 117,
+                "name": "a"
+              },
+              "property": {
+                "type": "Identifier",
+                "start": 118,
+                "end": 119,
+                "name": "p"
+              },
+              "computed": false,
+              "optional": false
+            },
+            "operator": "===",
+            "right": {
+              "type": "Literal",
+              "start": 124,
+              "end": 127,
+              "value": "b",
+              "raw": "'b'"
+            }
+          }
+        ],
+        "optional": false
+      }
+    }
+  ],
+  "sourceType": "script"
+}

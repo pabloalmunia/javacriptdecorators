@@ -21,8 +21,10 @@ function run (test) {
   runTranspile (test);
 }
 
+// Without decorators
 // run ('case00');
 //
+// // Class
 // run ('case01');
 // run ('case02');
 // run ('case03');
@@ -30,10 +32,25 @@ function run (test) {
 // run ('case04');
 // run ('case05');
 // run ('case06');
-run ('case07');
-
+// run ('case07');
+//
+// // Method
 // run ('case11');
 // run ('case12');
 // run ('case13');
 // run ('case14');
 // run ('case15');
+
+// Getter
+run ('case21');
+run ('case22');
+run ('case23');
+run ('case24');
+run ('case25');
+
+// Setter
+run ('case31');
+run ('case32');
+run ('case33');
+run ('case34');
+run ('case35');

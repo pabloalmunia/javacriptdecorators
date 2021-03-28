@@ -72,9 +72,12 @@ function DecoratorParser (ParentParser) {
     assignDecorators (decorators, fn, noIn, refDestructuringErrors) {
       const node        = fn.call (this, noIn, refDestructuringErrors);
       node.decorators   = decorators.map (d => {
-        d.kind += node.kind || (
+        d.kind +=
           node.type === 'FieldDefinition' ? 'field' :
-            node.type === 'ClassDeclaration' ? 'class' : '');
+            node.type === 'ClassDeclaration' ? 'class' :
+              node.kind === 'get' ? 'getter' :
+                node.kind === 'set' ? 'setter' :
+                  node.kind;
         return d;
       });
       decorators.length = 0;

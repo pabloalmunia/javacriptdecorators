@@ -1,4 +1,4 @@
-let data   = {transpiled : '', ast : ''};
+let data     = {transpiled : '', ast : ''};
 const editor = new CodeFlask (
   document.querySelector ('#code'),
   {language : 'js', lineNumbers : true}
@@ -37,10 +37,15 @@ document.querySelector ('#analyze').addEventListener ('click', () => {
     }
     return 'error ' + res.status;
   }).then (res => {
-    data.ast        = JSON.stringify ( res.ast, null, 2);
-    data.transpiled = res.transpiled;
+    if (res.error) {
+      data.ast        = `{"Error": ${ res.error }}`;
+      data.transpiled = `{"Error": ${ res.error }}`;
+    } else {
+      data.ast        = JSON.stringify (res.ast, null, 2);
+      data.transpiled = res.transpiled;
+    }
     result.updateCode (
-      ast.classList.contains('selected') ?
+      ast.classList.contains ('selected') ?
         data.ast :
         data.transpiled
     );

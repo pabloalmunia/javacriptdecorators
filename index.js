@@ -20,7 +20,7 @@ fastify.post ('/parser/', (req) => {
     result.transpiled = transpile(result.ast);
     return result;
   } catch (err) {
-    return {ERROR : err.message};
+    return {error : err.message};
   }
 });
 
