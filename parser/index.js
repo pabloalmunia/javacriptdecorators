@@ -1,6 +1,6 @@
 const acorn  = require ('acorn');
 const stage3 = require ('acorn-stage3');
-const walker = require ('../walker/index.js');
+const walker = require ('../lib/walker.js');
 
 function DecoratorParser (ParentParser) {
   

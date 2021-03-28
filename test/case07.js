@@ -1,27 +1,14 @@
-function logged (value, {kind, name}) {
-  if (kind === 'init-class') {
-    return {
-      definition : class extends value {
-        constructor (...args) {
-          super ();
-          console.log (`constructing an instance of ${ name } with arguments ${ args.join (', ') }`);
-        }
-      },
-      
-      initialize (value) {
-        console.log (`finished defining ${ this.name }`);
-      }
-    };
-  }
-  
-  // ...
-}
+const unique = () => Math.random().toString(32).substring(2);
 
-@init:logged
+function decorator(klass) {
+  const  u = unique();
+  klass.prototype[u] = function() { return u; }
+}
+@init:decorator
 class C {
 }
 
-@init:logged
+@init:decorator
 class B extends C {
 }
 

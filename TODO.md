@@ -16,7 +16,6 @@
 - [ ] Fix error with more than one class
 - [ ] Transpiler
   - [X] Class
-    - [ ] Remove value parameter to class-init initialize
   - [ ] Method
     - [X] Public member
     - [ ] Public static

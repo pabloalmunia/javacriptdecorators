@@ -1,20 +1,31 @@
 const recast = require ('recast');
-const walker = require ('../walker/index.js');
+const walker = require ('../lib/walker.js');
 
 module.exports = (ast) => {
-  classDecorator (ast);
+  transform (ast);
   return recast.print (ast, {tabWidth : 2, reuseWhitespace : false}).code;
 };
 
-function classDecorator (ast) {
+function transform (ast) {
   
   // Class
   walker (
     ast,
     (o) => o.type === 'ClassDeclaration',
     (klass, parent) => {
+      // Class decorators
+      for (let decorator of (klass.decorators || [])) {
+        insertAfter (
+          parent,
+          klass,
+          (decorator.kind === 'init-class' ?
+            classInitGenerator :
+            classGenerator) (klass.id.name, decorator.expression)
+        );
+      }
+      klass.decorators = undefined;
   
-      // Class
+      // Methods
       walker (
         klass,
         (o) => o.type === 'MethodDefinition' && o.decorators?.length,
@@ -31,16 +42,6 @@ function classDecorator (ast) {
         }
       );
 
-      for (let decorator of (klass.decorators || [])) {
-        insertAfter (
-          parent,
-          klass,
-          (decorator.kind === 'init-class' ?
-            classInitGenerator :
-            classGenerator) (klass.id.name, decorator.expression)
-        );
-      }
-      klass.decorators = undefined;
     }
   );
 }
@@ -339,10 +340,6 @@ function classInitGenerator (className, decoratorName) {
             }
           },
           'arguments' : [
-            {
-              'type' : 'Identifier',
-              'name' : className
-            },
             {
               'type' : 'Identifier',
               'name' : className

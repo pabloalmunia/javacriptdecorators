@@ -21,19 +21,19 @@ function run (test) {
   runTranspile (test);
 }
 
-run ('case00');
-
-run ('case01');
-run ('case02');
-run ('case03');
-run ('case03b');
-run ('case04');
-run ('case05');
-run ('case06');
+// run ('case00');
+//
+// run ('case01');
+// run ('case02');
+// run ('case03');
+// run ('case03b');
+// run ('case04');
+// run ('case05');
+// run ('case06');
 run ('case07');
 
-run ('case11');
-run ('case12');
-run ('case13');
-run ('case14');
-run ('case15');
+// run ('case11');
+// run ('case12');
+// run ('case13');
+// run ('case14');
+// run ('case15');

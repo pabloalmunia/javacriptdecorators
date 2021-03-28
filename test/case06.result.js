@@ -14,7 +14,7 @@ function logged(
         }
       },
 
-      initialize(value) {
+      initialize() {
         console.log(`finished defining ${this.name}`);
       }
     };
@@ -23,7 +23,7 @@ function logged(
 
 class C {}
 
-_resulte8gv39r2eeg = logged(C, {
+_result417864b6c7o = logged(C, {
   kind: "init-class",
   name: "C",
 
@@ -54,6 +54,6 @@ _resulte8gv39r2eeg = logged(C, {
   }
 }) || {};
 
-C = _resulte8gv39r2eeg.definition || C;
-_resulte8gv39r2eeg.initialize && _resulte8gv39r2eeg.initialize.call(C, C);
+C = _result417864b6c7o.definition || C;
+_result417864b6c7o.initialize && _result417864b6c7o.initialize.call(C);
 new C(1);

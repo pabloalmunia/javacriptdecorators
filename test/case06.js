@@ -8,7 +8,7 @@ function logged (value, {kind, name}) {
         }
       },
       
-      initialize (value) {
+      initialize () {
         console.log (`finished defining ${ this.name }`);
       }
     };

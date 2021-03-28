@@ -1,29 +1,16 @@
-function logged(
-  value,
-  {
-    kind,
-    name
-  }
-) {
-  if (kind === "init-class") {
-    return {
-      definition: class extends value {
-        constructor(...args) {
-          super();
-          console.log(`constructing an instance of ${name} with arguments ${args.join(", ")}`);
-        }
-      },
+const unique = () => Math.random().toString(32).substring(2);
 
-      initialize(value) {
-        console.log(`finished defining ${this.name}`);
-      }
-    };
-  }
+function decorator(klass) {
+  const u = unique();
+
+  klass.prototype[u] = function() {
+    return u;
+  };
 }
 
 class C {}
 
-_resultodusan68hko = logged(C, {
+_result87cugekd3fo = decorator(C, {
   kind: "init-class",
   name: "C",
 
@@ -54,10 +41,41 @@ _resultodusan68hko = logged(C, {
   }
 }) || {};
 
-C = _resultodusan68hko.definition || C;
-_resultodusan68hko.initialize && _resultodusan68hko.initialize.call(C, C);
-
-@logged
+C = _result87cugekd3fo.definition || C;
+_result87cugekd3fo.initialize && _result87cugekd3fo.initialize.call(C);
 class B extends C {}
 
+_resultu2ki2o7es9 = decorator(B, {
+  kind: "init-class",
+  name: "B",
+
+  defineMetadata: function(key, value) {
+    if (!Symbol.metadata) {
+      Symbol.metadata = Symbol();
+    }
+
+    if (!B[Symbol.metadata]) {
+      B[Symbol.metadata] = Object.create(null);
+    }
+
+    if (!B[Symbol.metadata].constructor) {
+      B[Symbol.metadata].constructor = {};
+    }
+
+    const db = B[Symbol.metadata].constructor;
+
+    if (key in db) {
+      if (!Array.isArray(db[key])) {
+        return db[key] = [db[key], value];
+      }
+
+      return db[key].push(value);
+    }
+
+    return db[key] = value;
+  }
+}) || {};
+
+B = _resultu2ki2o7es9.definition || B;
+_resultu2ki2o7es9.initialize && _resultu2ki2o7es9.initialize.call(B);
 new B(1);
