@@ -1,26 +1,31 @@
-const fastify = require ('fastify') ({logger : true});
-const path    = require ('path');
-const parser  = require ('./parser/index.js');
-const VERSION = require ('./package.json').version;
+const fastify   = require ('fastify') ({logger : true});
+const path      = require ('path');
+const parse     = require ('./parser/index.js');
+const transpile = require ('./transpiler/index.js');
+const VERSION   = require ('./package.json').version;
 
 if (process.env.DESA) {
   fastify.register (require ('fastify-static'), {
     root   : path.join (__dirname, './public'),
     prefix : '/'
   });
-  console.log('DESA mode')
+  console.log ('DESA mode');
 }
 
 fastify.post ('/parser/', (req) => {
   try {
-    return parser (req.body);
+    const result = {
+      ast: parse (req.body)
+    }
+    result.transpiled = transpile(result.ast);
+    return result;
   } catch (err) {
     return {ERROR : err.message};
   }
 });
 
 fastify.get ('/version/', () => {
-    return {version : VERSION};
+  return {version : VERSION};
 });
 
 (async () => {

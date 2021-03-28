@@ -2,7 +2,6 @@
 
 ## TODO
 
-- [ ] Transpiler
 - [ ] Predefined examples
 - [ ] JSON navigation
 - [ ] Sync JSON navigation and code
@@ -13,8 +12,36 @@
 
 ## In progress
 
+- [ ] Fix error with class and member decorator execution order
+- [ ] Fix error with more than one class
+- [ ] Transpiler
+  - [X] Class
+    - [ ] Remove value parameter to class-init initialize
+  - [ ] Method
+    - [X] Public member
+    - [ ] Public static
+    - [ ] Private member
+    - [ ] Private static
+  - [ ] Getter
+    - [ ] Public member
+    - [ ] Public static
+    - [ ] Private member
+    - [ ] Private static
+  - [ ] Setter
+    - [ ] Public member
+    - [ ] Public static
+    - [ ] Private member
+    - [ ] Private static
+  - [ ] Field
+    - [ ] Public member
+    - [ ] Public static
+    - [ ] Private member
+    - [ ] Private static
+  - [ ] init:
+  - [ ] prop
 
 ## Done
 
 - [X] Fix an error with code editor
 - [X] Improve and simplify the server code
+- [X] Add transpiler to UI

@@ -57,13 +57,13 @@ h1 {
   font-size : calc(1rem * var(--heading-ratio) * var(--heading-ratio) * var(--heading-ratio) * var(--heading-ratio))
 }
 h2 {
-  font-size : calc(1rem * var(--heading-ratio) * var(--heading-ratio) * var(--heading-ratio))
+  font-size : calc(1rem * var(--heading-ratio) * var(--heading-ratio));
 }
 h3 {
-  font-size : calc(1rem * var(--heading-ratio) * var(--heading-ratio))
+  font-size : calc(1rem * var(--heading-ratio))
 }
 h4 {
-  font-size : calc(1rem * var(--heading-ratio))
+  font-size : 1rem
 }
 a {
   text-decoration : none;
@@ -149,6 +149,16 @@ input:disabled, input[disabled], textarea:disabled, textarea[disabled], select:d
 }
 .subheader {
   height : 2.5rem;
+}
+.section-right .subheader h2 {
+  display     : inline-block;
+  font-weight : normal;
+  cursor      : pointer;
+}
+.section-right .subheader h2.selected {
+  display     : inline-block;
+  font-weight : bold;
+  cursor      : inherit;
 }
 .section-left #analyze {
   position : absolute;
