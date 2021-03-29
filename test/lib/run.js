@@ -9,15 +9,15 @@ const words     = (source) => source
   .filter (x => x)
   .map (x => x.substring (0, 1) === '_' ? '_' : x);
 
-module.exports = (label, EXT_TEST, EXT_RESULT, transform, stringify, parse) => {
+module.exports = (label, getTest, getResult, transform, stringify, parse) => {
   
   function readTest (test) {
-    return readFile (`../${ test }${ EXT_TEST }`);
+    return readFile (`../${ getTest(test) }`);
   }
   
   function readResult (test) {
     try {
-      const sourceResult = readFile (`../${ test }${ EXT_RESULT }`);
+      const sourceResult = readFile (`../${ getResult(test) }`);
       return parse ? parse (sourceResult) : sourceResult;
     } catch (err) {
       return null;
@@ -26,18 +26,18 @@ module.exports = (label, EXT_TEST, EXT_RESULT, transform, stringify, parse) => {
   
   function writeResult (test, source) {
     writeFile (
-      `../${ test }${ EXT_RESULT }`,
+      `../${ getResult(test)  }`,
       stringify ? stringify (source) : source
     );
-    console.log (label, `created ${ test }${ EXT_RESULT }`);
+    console.log (label, `created ${ getResult(test) }`);
   }
   
   function writeError (test, source) {
     writeFile (
-      `../${ test }${ EXT_ERROR }${ EXT_RESULT }`,
+      `../${ getResult( test ) }${ EXT_ERROR }`,
       stringify ? stringify (source) : source
     );
-    console.log (label, `ERROR, created ${ test }${ EXT_ERROR }${ EXT_RESULT }`);
+    console.log (label, `ERROR, created ${ getResult(test) }${ EXT_ERROR }`);
   }
   
   return function run (test) {

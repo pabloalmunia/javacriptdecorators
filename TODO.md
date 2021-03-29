@@ -22,12 +22,12 @@
     - [ ] Private member
     - [ ] Private static
   - [ ] Getter
-    - [ ] Public member
+    - [X] Public member
     - [ ] Public static
     - [ ] Private member
     - [ ] Private static
   - [ ] Setter
-    - [ ] Public member
+    - [X] Public member
     - [ ] Public static
     - [ ] Private member
     - [ ] Private static

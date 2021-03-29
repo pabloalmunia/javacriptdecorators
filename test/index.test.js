@@ -1,18 +1,18 @@
-const parse =   require ('../parser/index.js');
-const transpile            = require ('../transpiler/index.js');
-const Run = require ('./lib/run.js');
-const runParse             = Run (
+const parse        = require ('../parser/index.js');
+const transpile    = require ('../transpiler/index.js');
+const Run          = require ('./lib/run.js');
+const runParse     = Run (
   'parse',
-  '.js',
-  '.result.json',
+  (f) => `${ f }.js`,
+  (f) => `result/${ f }.result.json`,
   parse,
   (code) => JSON.stringify (code, null, 2),
   (text) => JSON.parse (text)
 );
-const runTranspile         = Run (
+const runTranspile = Run (
   'transpile',
-  '.result.json',
-  '.result.js',
+  (f) => `result/${ f }.result.json`,
+  (f) => `result/${ f }.result.js`,
   (ast) => transpile (JSON.parse (ast))
 );
 

@@ -9,9 +9,9 @@ class C {
   get p() {}
 }
 
-const _descriptor_qkgrjs45nso = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _descriptor_am4mhuqjl4o = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_qkgrjs45nso.get = meta("d", 3)(_descriptor_qkgrjs45nso.get, {
+_descriptor_am4mhuqjl4o.get = meta("d", 3)(_descriptor_am4mhuqjl4o.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
@@ -42,12 +42,12 @@ _descriptor_qkgrjs45nso.get = meta("d", 3)(_descriptor_qkgrjs45nso.get, {
 
     return db[key] = value;
   }
-}) ?? _descriptor_qkgrjs45nso.get;
+}) ?? _descriptor_am4mhuqjl4o.get;
 
-Object.defineProperty(C.prototype, "p", _descriptor_qkgrjs45nso);
-const _descriptor_4aenb1uf24o = Object.getOwnPropertyDescriptor(C.prototype, "p");
+Object.defineProperty(C.prototype, "p", _descriptor_am4mhuqjl4o);
+const _descriptor_t7gmskrrbmo = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_4aenb1uf24o.get = meta("c", 3)(_descriptor_4aenb1uf24o.get, {
+_descriptor_t7gmskrrbmo.get = meta("c", 3)(_descriptor_t7gmskrrbmo.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
@@ -78,12 +78,12 @@ _descriptor_4aenb1uf24o.get = meta("c", 3)(_descriptor_4aenb1uf24o.get, {
 
     return db[key] = value;
   }
-}) ?? _descriptor_4aenb1uf24o.get;
+}) ?? _descriptor_t7gmskrrbmo.get;
 
-Object.defineProperty(C.prototype, "p", _descriptor_4aenb1uf24o);
-const _descriptor_1vv0alln8t8 = Object.getOwnPropertyDescriptor(C.prototype, "p");
+Object.defineProperty(C.prototype, "p", _descriptor_t7gmskrrbmo);
+const _descriptor_o70sc713jmg = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_1vv0alln8t8.set = meta("b", 2)(_descriptor_1vv0alln8t8.set, {
+_descriptor_o70sc713jmg.set = meta("b", 2)(_descriptor_o70sc713jmg.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
@@ -114,12 +114,12 @@ _descriptor_1vv0alln8t8.set = meta("b", 2)(_descriptor_1vv0alln8t8.set, {
 
     return db[key] = value;
   }
-}) ?? _descriptor_1vv0alln8t8.set;
+}) ?? _descriptor_o70sc713jmg.set;
 
-Object.defineProperty(C.prototype, "p", _descriptor_1vv0alln8t8);
-const _descriptor_tq28hsdmbfo = Object.getOwnPropertyDescriptor(C.prototype, "p");
+Object.defineProperty(C.prototype, "p", _descriptor_o70sc713jmg);
+const _descriptor_06emd2r5uko = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_tq28hsdmbfo.set = meta("a", 1)(_descriptor_tq28hsdmbfo.set, {
+_descriptor_06emd2r5uko.set = meta("a", 1)(_descriptor_06emd2r5uko.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
@@ -150,7 +150,7 @@ _descriptor_tq28hsdmbfo.set = meta("a", 1)(_descriptor_tq28hsdmbfo.set, {
 
     return db[key] = value;
   }
-}) ?? _descriptor_tq28hsdmbfo.set;
+}) ?? _descriptor_06emd2r5uko.set;
 
-Object.defineProperty(C.prototype, "p", _descriptor_tq28hsdmbfo);
+Object.defineProperty(C.prototype, "p", _descriptor_06emd2r5uko);
 console.log(C.prototype[Symbol.metadata]);

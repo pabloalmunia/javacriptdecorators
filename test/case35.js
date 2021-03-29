@@ -9,6 +9,7 @@ class C {
   @meta('b', 2)
   set p (v) {
   }
+
   @meta('c', 3)
   @meta('d', 3)
   get p () {
