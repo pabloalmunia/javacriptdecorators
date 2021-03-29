@@ -2,9 +2,9 @@ class A {
   set p(v) {}
 }
 
-const _descriptor_8978f74i5q8 = Object.getOwnPropertyDescriptor(A.prototype, "p");
+const _descriptor_j4gb8gh16v = Object.getOwnPropertyDescriptor(A.prototype, "p");
 
-_descriptor_8978f74i5q8.set = decorator(_descriptor_8978f74i5q8.set, {
+_descriptor_j4gb8gh16v.set = decorator(_descriptor_j4gb8gh16v.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
@@ -20,10 +20,13 @@ _descriptor_8978f74i5q8.set = decorator(_descriptor_8978f74i5q8.set, {
     }
 
     if (!A.prototype[Symbol.metadata].p) {
-      A.prototype[Symbol.metadata].p = {};
+      A.prototype[Symbol.metadata].p = {
+        get: {},
+        set: {}
+      };
     }
 
-    const db = A.prototype[Symbol.metadata].p;
+    const db = A.prototype[Symbol.metadata].p.set;
 
     if (key in db) {
       if (!Array.isArray(db[key])) {
@@ -35,6 +38,6 @@ _descriptor_8978f74i5q8.set = decorator(_descriptor_8978f74i5q8.set, {
 
     return db[key] = value;
   }
-}) ?? _descriptor_8978f74i5q8.set;
+}) ?? _descriptor_j4gb8gh16v.set;
 
-Object.defineProperty(A.prototype, "p", _descriptor_8978f74i5q8);
+Object.defineProperty(A.prototype, "p", _descriptor_j4gb8gh16v);

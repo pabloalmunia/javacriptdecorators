@@ -16,9 +16,9 @@ class C {
   }
 }
 
-const _descriptor_v5583jm3mb8 = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _descriptor_72mp7j9gd08 = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_v5583jm3mb8.set = decorator(_descriptor_v5583jm3mb8.set, {
+_descriptor_72mp7j9gd08.set = decorator(_descriptor_72mp7j9gd08.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
@@ -34,10 +34,13 @@ _descriptor_v5583jm3mb8.set = decorator(_descriptor_v5583jm3mb8.set, {
     }
 
     if (!C.prototype[Symbol.metadata].p) {
-      C.prototype[Symbol.metadata].p = {};
+      C.prototype[Symbol.metadata].p = {
+        get: {},
+        set: {}
+      };
     }
 
-    const db = C.prototype[Symbol.metadata].p;
+    const db = C.prototype[Symbol.metadata].p.set;
 
     if (key in db) {
       if (!Array.isArray(db[key])) {
@@ -49,9 +52,9 @@ _descriptor_v5583jm3mb8.set = decorator(_descriptor_v5583jm3mb8.set, {
 
     return db[key] = value;
   }
-}) ?? _descriptor_v5583jm3mb8.set;
+}) ?? _descriptor_72mp7j9gd08.set;
 
-Object.defineProperty(C.prototype, "p", _descriptor_v5583jm3mb8);
+Object.defineProperty(C.prototype, "p", _descriptor_72mp7j9gd08);
 const c = new C();
 c.p = 10;
 console.assert(c.p === 20);

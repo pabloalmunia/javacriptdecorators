@@ -233,7 +233,11 @@ function methodGenerator (kind, className, methodName, decoratorName) {
                     
                     
                   },
-                  defineMetadataGenerator (`${ className }.prototype`, methodName)
+                  defineMetadataGenerator (
+                    `${ className }.prototype`,
+                    methodName,
+                    (kind === 'setter' ? 'set' : kind === 'getter' ? 'get' : undefined)
+                  )
                 ]
               }
             ]
@@ -533,7 +537,7 @@ function classGenerator (className, decoratorName) {
   }];
 }
 
-function defineMetadataGenerator (storage, metaKey) {
+function defineMetadataGenerator (storage, metaKey, subKey) {
   return {
     'type' : 'Property',
     'key'  : {
@@ -691,7 +695,6 @@ function defineMetadataGenerator (storage, metaKey) {
                 }
               ]
             }
-            
           },
           {
             'type'       : 'IfStatement',
@@ -766,7 +769,33 @@ function defineMetadataGenerator (storage, metaKey) {
                     },
                     'right'    : {
                       'type'       : 'ObjectExpression',
-                      'properties' : []
+                      'properties' :
+                        (subKey ?
+                          [{
+                            'type'  : 'Property',
+                            'key'   : {
+                              'type' : 'Identifier',
+                              'name' : 'get'
+                            },
+                            'value' : {
+                              'type'       : 'ObjectExpression',
+                              'properties' : []
+                            },
+                            'kind'  : 'init'
+                          },
+                            {
+                              'type'  : 'Property',
+                              'key'   : {
+                                'type' : 'Identifier',
+                                'name' : 'set'
+                              },
+                              'value' : {
+                                'type'       : 'ObjectExpression',
+                                'properties' : []
+                              },
+                              'kind'  : 'init'
+                            }] :
+                          [])
                     }
                   }
                 }
@@ -783,34 +812,68 @@ function defineMetadataGenerator (storage, metaKey) {
                   'type' : 'Identifier',
                   'name' : 'db'
                 },
-                'init' : {
-                  'type' : 'MemberExpression',
-                  
-                  'object'   : {
-                    'type'     : 'MemberExpression',
-                    'computed' : true,
-                    'object'   : {
-                      'type' : 'Identifier',
-                      'name' : storage
-                    },
-                    'property' : {
-                      'type' : 'MemberExpression',
-                      
-                      'object'   : {
-                        'type' : 'Identifier',
-                        'name' : 'Symbol'
-                      },
-                      'property' : {
-                        'type' : 'Identifier',
-                        'name' : 'metadata'
+                'init' :
+                  (subKey ?
+                      {
+                        'type'     : 'MemberExpression',
+                        'object'   : {
+                          'type'     : 'MemberExpression',
+                          'object'   : {
+                            'type'     : 'MemberExpression',
+                            'computed' : true,
+                            'object'   : {
+                              'type'  : 'Identifier',
+                              'name'  : storage
+                            },
+                            'property' : {
+                              'type'     : 'MemberExpression',
+                              'object'   : {
+                                'type'  : 'Identifier',
+                                'name'  : 'Symbol'
+                              },
+                              'property' : {
+                                'type'  : 'Identifier',
+                                'name'  : 'metadata'
+                              }
+                            }
+                          },
+                          'property' : {
+                            'type'  : 'Identifier',
+                            'name'  : metaKey
+                          }
+                        },
+                        'property' : {
+                          'type'  : 'Identifier',
+                          'name'  : subKey
+                        }
+                      } :
+                      {
+                        'type'     : 'MemberExpression',
+                        'object'   : {
+                          'type'     : 'MemberExpression',
+                          'computed' : true,
+                          'object'   : {
+                            'type' : 'Identifier',
+                            'name' : storage
+                          },
+                          'property' : {
+                            'type'     : 'MemberExpression',
+                            'object'   : {
+                              'type' : 'Identifier',
+                              'name' : 'Symbol'
+                            },
+                            'property' : {
+                              'type' : 'Identifier',
+                              'name' : 'metadata'
+                            }
+                          }
+                        },
+                        'property' : {
+                          'type' : 'Identifier',
+                          'name' : metaKey
+                        }
                       }
-                    }
-                  },
-                  'property' : {
-                    'type' : 'Identifier',
-                    'name' : metaKey
-                  }
-                }
+                  )
               }
             ],
             'kind'         : 'const'

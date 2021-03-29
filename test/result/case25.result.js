@@ -10,9 +10,9 @@ class C {
   }
 }
 
-const _descriptor_2f5n0hjr1gg = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _descriptor_8sanpe8s248 = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_2f5n0hjr1gg.get = meta("b", 2)(_descriptor_2f5n0hjr1gg.get, {
+_descriptor_8sanpe8s248.get = meta("b", 2)(_descriptor_8sanpe8s248.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
@@ -28,10 +28,13 @@ _descriptor_2f5n0hjr1gg.get = meta("b", 2)(_descriptor_2f5n0hjr1gg.get, {
     }
 
     if (!C.prototype[Symbol.metadata].p) {
-      C.prototype[Symbol.metadata].p = {};
+      C.prototype[Symbol.metadata].p = {
+        get: {},
+        set: {}
+      };
     }
 
-    const db = C.prototype[Symbol.metadata].p;
+    const db = C.prototype[Symbol.metadata].p.get;
 
     if (key in db) {
       if (!Array.isArray(db[key])) {
@@ -43,12 +46,12 @@ _descriptor_2f5n0hjr1gg.get = meta("b", 2)(_descriptor_2f5n0hjr1gg.get, {
 
     return db[key] = value;
   }
-}) ?? _descriptor_2f5n0hjr1gg.get;
+}) ?? _descriptor_8sanpe8s248.get;
 
-Object.defineProperty(C.prototype, "p", _descriptor_2f5n0hjr1gg);
-const _descriptor_jv6ad4ss2v = Object.getOwnPropertyDescriptor(C.prototype, "p");
+Object.defineProperty(C.prototype, "p", _descriptor_8sanpe8s248);
+const _descriptor_vsigu5d3ld = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_jv6ad4ss2v.get = meta("a", 1)(_descriptor_jv6ad4ss2v.get, {
+_descriptor_vsigu5d3ld.get = meta("a", 1)(_descriptor_vsigu5d3ld.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
@@ -64,10 +67,13 @@ _descriptor_jv6ad4ss2v.get = meta("a", 1)(_descriptor_jv6ad4ss2v.get, {
     }
 
     if (!C.prototype[Symbol.metadata].p) {
-      C.prototype[Symbol.metadata].p = {};
+      C.prototype[Symbol.metadata].p = {
+        get: {},
+        set: {}
+      };
     }
 
-    const db = C.prototype[Symbol.metadata].p;
+    const db = C.prototype[Symbol.metadata].p.get;
 
     if (key in db) {
       if (!Array.isArray(db[key])) {
@@ -79,9 +85,9 @@ _descriptor_jv6ad4ss2v.get = meta("a", 1)(_descriptor_jv6ad4ss2v.get, {
 
     return db[key] = value;
   }
-}) ?? _descriptor_jv6ad4ss2v.get;
+}) ?? _descriptor_vsigu5d3ld.get;
 
-Object.defineProperty(C.prototype, "p", _descriptor_jv6ad4ss2v);
+Object.defineProperty(C.prototype, "p", _descriptor_vsigu5d3ld);
 const a = new C();
 console.assert(a.p === "a");
 console.log(C.prototype[Symbol.metadata]);

@@ -11,9 +11,9 @@ class C {
   set p(v) {}
 }
 
-const _descriptor_vq8as8pk2k = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _descriptor_susniq6cqio = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_vq8as8pk2k.set = decorator2(_descriptor_vq8as8pk2k.set, {
+_descriptor_susniq6cqio.set = decorator2(_descriptor_susniq6cqio.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
@@ -29,10 +29,13 @@ _descriptor_vq8as8pk2k.set = decorator2(_descriptor_vq8as8pk2k.set, {
     }
 
     if (!C.prototype[Symbol.metadata].p) {
-      C.prototype[Symbol.metadata].p = {};
+      C.prototype[Symbol.metadata].p = {
+        get: {},
+        set: {}
+      };
     }
 
-    const db = C.prototype[Symbol.metadata].p;
+    const db = C.prototype[Symbol.metadata].p.set;
 
     if (key in db) {
       if (!Array.isArray(db[key])) {
@@ -44,12 +47,12 @@ _descriptor_vq8as8pk2k.set = decorator2(_descriptor_vq8as8pk2k.set, {
 
     return db[key] = value;
   }
-}) ?? _descriptor_vq8as8pk2k.set;
+}) ?? _descriptor_susniq6cqio.set;
 
-Object.defineProperty(C.prototype, "p", _descriptor_vq8as8pk2k);
-const _descriptor_se0v0fubjno = Object.getOwnPropertyDescriptor(C.prototype, "p");
+Object.defineProperty(C.prototype, "p", _descriptor_susniq6cqio);
+const _descriptor_bmlt9lpvmn = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_se0v0fubjno.set = decorator1(_descriptor_se0v0fubjno.set, {
+_descriptor_bmlt9lpvmn.set = decorator1(_descriptor_bmlt9lpvmn.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
@@ -65,10 +68,13 @@ _descriptor_se0v0fubjno.set = decorator1(_descriptor_se0v0fubjno.set, {
     }
 
     if (!C.prototype[Symbol.metadata].p) {
-      C.prototype[Symbol.metadata].p = {};
+      C.prototype[Symbol.metadata].p = {
+        get: {},
+        set: {}
+      };
     }
 
-    const db = C.prototype[Symbol.metadata].p;
+    const db = C.prototype[Symbol.metadata].p.set;
 
     if (key in db) {
       if (!Array.isArray(db[key])) {
@@ -80,9 +86,9 @@ _descriptor_se0v0fubjno.set = decorator1(_descriptor_se0v0fubjno.set, {
 
     return db[key] = value;
   }
-}) ?? _descriptor_se0v0fubjno.set;
+}) ?? _descriptor_bmlt9lpvmn.set;
 
-Object.defineProperty(C.prototype, "p", _descriptor_se0v0fubjno);
+Object.defineProperty(C.prototype, "p", _descriptor_bmlt9lpvmn);
 const a = new C();
 console.assert(a.p === "a");
 console.log(C.prototype[Symbol.metadata]);

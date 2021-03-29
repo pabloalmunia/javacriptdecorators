@@ -4,9 +4,9 @@ class C {
   }
 }
 
-const _descriptor_j35fmef7ia = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _descriptor_3i09edp4s2g = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_j35fmef7ia.get = decorator2(_descriptor_j35fmef7ia.get, {
+_descriptor_3i09edp4s2g.get = decorator2(_descriptor_3i09edp4s2g.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
@@ -22,10 +22,13 @@ _descriptor_j35fmef7ia.get = decorator2(_descriptor_j35fmef7ia.get, {
     }
 
     if (!C.prototype[Symbol.metadata].p) {
-      C.prototype[Symbol.metadata].p = {};
+      C.prototype[Symbol.metadata].p = {
+        get: {},
+        set: {}
+      };
     }
 
-    const db = C.prototype[Symbol.metadata].p;
+    const db = C.prototype[Symbol.metadata].p.get;
 
     if (key in db) {
       if (!Array.isArray(db[key])) {
@@ -37,12 +40,12 @@ _descriptor_j35fmef7ia.get = decorator2(_descriptor_j35fmef7ia.get, {
 
     return db[key] = value;
   }
-}) ?? _descriptor_j35fmef7ia.get;
+}) ?? _descriptor_3i09edp4s2g.get;
 
-Object.defineProperty(C.prototype, "p", _descriptor_j35fmef7ia);
-const _descriptor_g4p6nt13g8o = Object.getOwnPropertyDescriptor(C.prototype, "p");
+Object.defineProperty(C.prototype, "p", _descriptor_3i09edp4s2g);
+const _descriptor_rh6qf9g0668 = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_g4p6nt13g8o.get = decorator1(_descriptor_g4p6nt13g8o.get, {
+_descriptor_rh6qf9g0668.get = decorator1(_descriptor_rh6qf9g0668.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
@@ -58,10 +61,13 @@ _descriptor_g4p6nt13g8o.get = decorator1(_descriptor_g4p6nt13g8o.get, {
     }
 
     if (!C.prototype[Symbol.metadata].p) {
-      C.prototype[Symbol.metadata].p = {};
+      C.prototype[Symbol.metadata].p = {
+        get: {},
+        set: {}
+      };
     }
 
-    const db = C.prototype[Symbol.metadata].p;
+    const db = C.prototype[Symbol.metadata].p.get;
 
     if (key in db) {
       if (!Array.isArray(db[key])) {
@@ -73,8 +79,8 @@ _descriptor_g4p6nt13g8o.get = decorator1(_descriptor_g4p6nt13g8o.get, {
 
     return db[key] = value;
   }
-}) ?? _descriptor_g4p6nt13g8o.get;
+}) ?? _descriptor_rh6qf9g0668.get;
 
-Object.defineProperty(C.prototype, "p", _descriptor_g4p6nt13g8o);
+Object.defineProperty(C.prototype, "p", _descriptor_rh6qf9g0668);
 const a = new C();
 console.assert(a.p === "b");

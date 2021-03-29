@@ -9,9 +9,9 @@ class C {
   get p() {}
 }
 
-const _descriptor_am4mhuqjl4o = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _descriptor_u6m2dq16k2g = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_am4mhuqjl4o.get = meta("d", 3)(_descriptor_am4mhuqjl4o.get, {
+_descriptor_u6m2dq16k2g.get = meta("d", 3)(_descriptor_u6m2dq16k2g.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
@@ -27,10 +27,13 @@ _descriptor_am4mhuqjl4o.get = meta("d", 3)(_descriptor_am4mhuqjl4o.get, {
     }
 
     if (!C.prototype[Symbol.metadata].p) {
-      C.prototype[Symbol.metadata].p = {};
+      C.prototype[Symbol.metadata].p = {
+        get: {},
+        set: {}
+      };
     }
 
-    const db = C.prototype[Symbol.metadata].p;
+    const db = C.prototype[Symbol.metadata].p.get;
 
     if (key in db) {
       if (!Array.isArray(db[key])) {
@@ -42,12 +45,12 @@ _descriptor_am4mhuqjl4o.get = meta("d", 3)(_descriptor_am4mhuqjl4o.get, {
 
     return db[key] = value;
   }
-}) ?? _descriptor_am4mhuqjl4o.get;
+}) ?? _descriptor_u6m2dq16k2g.get;
 
-Object.defineProperty(C.prototype, "p", _descriptor_am4mhuqjl4o);
-const _descriptor_t7gmskrrbmo = Object.getOwnPropertyDescriptor(C.prototype, "p");
+Object.defineProperty(C.prototype, "p", _descriptor_u6m2dq16k2g);
+const _descriptor_phu15finc98 = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_t7gmskrrbmo.get = meta("c", 3)(_descriptor_t7gmskrrbmo.get, {
+_descriptor_phu15finc98.get = meta("c", 3)(_descriptor_phu15finc98.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
@@ -63,10 +66,13 @@ _descriptor_t7gmskrrbmo.get = meta("c", 3)(_descriptor_t7gmskrrbmo.get, {
     }
 
     if (!C.prototype[Symbol.metadata].p) {
-      C.prototype[Symbol.metadata].p = {};
+      C.prototype[Symbol.metadata].p = {
+        get: {},
+        set: {}
+      };
     }
 
-    const db = C.prototype[Symbol.metadata].p;
+    const db = C.prototype[Symbol.metadata].p.get;
 
     if (key in db) {
       if (!Array.isArray(db[key])) {
@@ -78,12 +84,12 @@ _descriptor_t7gmskrrbmo.get = meta("c", 3)(_descriptor_t7gmskrrbmo.get, {
 
     return db[key] = value;
   }
-}) ?? _descriptor_t7gmskrrbmo.get;
+}) ?? _descriptor_phu15finc98.get;
 
-Object.defineProperty(C.prototype, "p", _descriptor_t7gmskrrbmo);
-const _descriptor_o70sc713jmg = Object.getOwnPropertyDescriptor(C.prototype, "p");
+Object.defineProperty(C.prototype, "p", _descriptor_phu15finc98);
+const _descriptor_971idqet3f = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_o70sc713jmg.set = meta("b", 2)(_descriptor_o70sc713jmg.set, {
+_descriptor_971idqet3f.set = meta("b", 2)(_descriptor_971idqet3f.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
@@ -99,10 +105,13 @@ _descriptor_o70sc713jmg.set = meta("b", 2)(_descriptor_o70sc713jmg.set, {
     }
 
     if (!C.prototype[Symbol.metadata].p) {
-      C.prototype[Symbol.metadata].p = {};
+      C.prototype[Symbol.metadata].p = {
+        get: {},
+        set: {}
+      };
     }
 
-    const db = C.prototype[Symbol.metadata].p;
+    const db = C.prototype[Symbol.metadata].p.set;
 
     if (key in db) {
       if (!Array.isArray(db[key])) {
@@ -114,12 +123,12 @@ _descriptor_o70sc713jmg.set = meta("b", 2)(_descriptor_o70sc713jmg.set, {
 
     return db[key] = value;
   }
-}) ?? _descriptor_o70sc713jmg.set;
+}) ?? _descriptor_971idqet3f.set;
 
-Object.defineProperty(C.prototype, "p", _descriptor_o70sc713jmg);
-const _descriptor_06emd2r5uko = Object.getOwnPropertyDescriptor(C.prototype, "p");
+Object.defineProperty(C.prototype, "p", _descriptor_971idqet3f);
+const _descriptor_raacpg8cf28 = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_06emd2r5uko.set = meta("a", 1)(_descriptor_06emd2r5uko.set, {
+_descriptor_raacpg8cf28.set = meta("a", 1)(_descriptor_raacpg8cf28.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
@@ -135,10 +144,13 @@ _descriptor_06emd2r5uko.set = meta("a", 1)(_descriptor_06emd2r5uko.set, {
     }
 
     if (!C.prototype[Symbol.metadata].p) {
-      C.prototype[Symbol.metadata].p = {};
+      C.prototype[Symbol.metadata].p = {
+        get: {},
+        set: {}
+      };
     }
 
-    const db = C.prototype[Symbol.metadata].p;
+    const db = C.prototype[Symbol.metadata].p.set;
 
     if (key in db) {
       if (!Array.isArray(db[key])) {
@@ -150,7 +162,7 @@ _descriptor_06emd2r5uko.set = meta("a", 1)(_descriptor_06emd2r5uko.set, {
 
     return db[key] = value;
   }
-}) ?? _descriptor_06emd2r5uko.set;
+}) ?? _descriptor_raacpg8cf28.set;
 
-Object.defineProperty(C.prototype, "p", _descriptor_06emd2r5uko);
+Object.defineProperty(C.prototype, "p", _descriptor_raacpg8cf28);
 console.log(C.prototype[Symbol.metadata]);
