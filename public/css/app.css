@@ -150,6 +150,12 @@ input:disabled, input[disabled], textarea:disabled, textarea[disabled], select:d
 .subheader {
   height : 2.5rem;
 }
+#shareit {
+  cursor: pointer;
+}
+.section-left .subheader h2 {
+  display : inline-block;
+}
 .section-right .subheader h2 {
   display     : inline-block;
   font-weight : normal;

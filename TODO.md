@@ -35,16 +35,4 @@
 
 ## Done
 
-- [X] Fix an error with code editor
-- [X] Improve and simplify the server code
-- [X] Add transpiler to UI
-- [ ] Transpiler
-  - [X] Class
-  - [ ] Method
-    - [X] Public member
-  - [ ] Getter
-    - [X] Public member
-  - [ ] Setter
-    - [X] Public member
-  - [ ] Field
-    - [X] Public member
+- [X] Send and receive code by URL (share examples)

@@ -1,5 +1,9 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.0.9 - 29/03/2021
+
+- Added share link to source code
+
 ## version 0.0.8 - 29/03/2021
 
 - Fixed an error with getter/setter metadata (see:
