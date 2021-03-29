@@ -48,7 +48,7 @@ class X {
 ```
 
 
-## Functionality not supported
+## Functionality not supported yet
 
 - Decorate private members
 - Decorate static members
