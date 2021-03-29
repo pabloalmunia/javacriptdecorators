@@ -61,3 +61,6 @@ run ('case42');
 run ('case43');
 run ('case44');
 run ('case45');
+
+// Other examples
+run ('example01');

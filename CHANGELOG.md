@@ -1,5 +1,10 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.0.8 - 29/03/2021
+
+- Fixed an error with getter/setter metadata (see:
+https://github.com/tc39/proposal-decorators/issues/375)
+
 ## version 0.0.7 - 29/03/2021
 
 - Fixed an error with the code editor

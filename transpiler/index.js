@@ -291,11 +291,7 @@ function memberGenerator (kind, className, methodName, decoratorName, variableNa
                     
                     
                   },
-                  defineMetadataGenerator (
-                    `${ className }.prototype`,
-                    methodName,
-                    (kind === 'setter' ? 'set' : kind === 'getter' ? 'get' : undefined)
-                  )
+                  defineMetadataGenerator (`${ className }.prototype`, methodName)
                 ]
               }
             ]
@@ -609,7 +605,7 @@ function classGenerator (className, decoratorName) {
   }];
 }
 
-function defineMetadataGenerator (storage, metaKey, subKey) {
+function defineMetadataGenerator (storage, metaKey) {
   return {
     'type' : 'Property',
     'key'  : {
@@ -841,33 +837,7 @@ function defineMetadataGenerator (storage, metaKey, subKey) {
                     },
                     'right'    : {
                       'type'       : 'ObjectExpression',
-                      'properties' :
-                        (subKey ?
-                          [{
-                            'type'  : 'Property',
-                            'key'   : {
-                              'type' : 'Identifier',
-                              'name' : 'get'
-                            },
-                            'value' : {
-                              'type'       : 'ObjectExpression',
-                              'properties' : []
-                            },
-                            'kind'  : 'init'
-                          },
-                            {
-                              'type'  : 'Property',
-                              'key'   : {
-                                'type' : 'Identifier',
-                                'name' : 'set'
-                              },
-                              'value' : {
-                                'type'       : 'ObjectExpression',
-                                'properties' : []
-                              },
-                              'kind'  : 'init'
-                            }] :
-                          [])
+                      'properties' : []
                     }
                   }
                 }
@@ -885,41 +855,7 @@ function defineMetadataGenerator (storage, metaKey, subKey) {
                   'name' : 'db'
                 },
                 'init' :
-                  (subKey ?
-                      {
-                        'type'     : 'MemberExpression',
-                        'object'   : {
-                          'type'     : 'MemberExpression',
-                          'object'   : {
-                            'type'     : 'MemberExpression',
-                            'computed' : true,
-                            'object'   : {
-                              'type' : 'Identifier',
-                              'name' : storage
-                            },
-                            'property' : {
-                              'type'     : 'MemberExpression',
-                              'object'   : {
-                                'type' : 'Identifier',
-                                'name' : 'Symbol'
-                              },
-                              'property' : {
-                                'type' : 'Identifier',
-                                'name' : 'metadata'
-                              }
-                            }
-                          },
-                          'property' : {
-                            'type' : 'Identifier',
-                            'name' : metaKey
-                          }
-                        },
-                        'property' : {
-                          'type' : 'Identifier',
-                          'name' : subKey
-                        }
-                      } :
-                      {
+                  {
                         'type'     : 'MemberExpression',
                         'object'   : {
                           'type'     : 'MemberExpression',
@@ -945,7 +881,6 @@ function defineMetadataGenerator (storage, metaKey, subKey) {
                           'name' : metaKey
                         }
                       }
-                  )
               }
             ],
             'kind'         : 'const'
