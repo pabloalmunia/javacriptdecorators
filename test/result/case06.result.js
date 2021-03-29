@@ -23,7 +23,7 @@ function logged(
 
 class C {}
 
-_result417864b6c7o = logged(C, {
+_result_0pr142nglgg = logged(C, {
   kind: "init-class",
   name: "C",
 
@@ -54,6 +54,6 @@ _result417864b6c7o = logged(C, {
   }
 }) || {};
 
-C = _result417864b6c7o.definition || C;
-_result417864b6c7o.initialize && _result417864b6c7o.initialize.call(C);
+C = _result_0pr142nglgg.definition || C;
+_result_0pr142nglgg.initialize && _result_0pr142nglgg.initialize.call(C);
 new C(1);

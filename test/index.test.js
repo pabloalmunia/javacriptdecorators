@@ -22,24 +22,24 @@ function run (test) {
 }
 
 // Without decorators
-// run ('case00');
-//
-// // Class
-// run ('case01');
-// run ('case02');
-// run ('case03');
-// run ('case03b');
-// run ('case04');
-// run ('case05');
-// run ('case06');
-// run ('case07');
-//
-// // Method
-// run ('case11');
-// run ('case12');
-// run ('case13');
-// run ('case14');
-// run ('case15');
+run ('case00');
+
+// Class
+run ('case01');
+run ('case02');
+run ('case03');
+run ('case03b');
+run ('case04');
+run ('case05');
+run ('case06');
+run ('case07');
+
+// Method
+run ('case11');
+run ('case12');
+run ('case13');
+run ('case14');
+run ('case15');
 
 // Getter
 run ('case21');

@@ -1,17 +1,17 @@
 const recast = require ('recast');
 const walker = require ('../lib/walker.js');
+const clone  = require ('../lib/clone.js');
 const unique = () => Math.random ().toString (32).substring (2);
 
 module.exports = (ast) => {
-  transform (ast);
-  return recast.print (ast, {tabWidth : 2, reuseWhitespace : false}).code;
+  return recast.print (transform (ast), {tabWidth : 2, reuseWhitespace : false}).code;
 };
 
 function transform (ast) {
-  
+  const source = clone(ast);
   // Class
   walker (
-    ast,
+    source,
     (o) => o.type === 'ClassDeclaration',
     (klass, parent) => {
       // Class decorators
@@ -31,7 +31,7 @@ function transform (ast) {
         klass,
         (o) => o.type === 'MethodDefinition' && o.decorators?.length,
         (o, p) => {
-          const className = getClassName (ast, o);
+          const className = getClassName (source, o);
           for (let decorator of (o.decorators || [])) {
             insertAfter (
               parent,
@@ -45,6 +45,7 @@ function transform (ast) {
       
     }
   );
+  return source;
 }
 
 function insertAfter (arr, current, next) {
@@ -324,7 +325,7 @@ function methodGenerator (kind, className, methodName, decoratorName) {
 }
 
 function classInitGenerator (className, decoratorName) {
-  const uniqueName = '_result' + unique ();
+  const uniqueName = '_result_' + unique ();
   return [
     {
       'type'       : 'ExpressionStatement',
