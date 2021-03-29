@@ -1,5 +1,18 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.0.7 - 29/03/2021
+
+- Fixed an error with the code editor
+- Improved server code
+- First Transpiler
+  - Class
+  - Public method
+  - Public getter
+  - Public setter
+  - Public field
+- Add transpiler to the UI
+- Updated the README.md
+
 ## version 0.0.6 - 26/03/2021
 
 - Fixed an error with code editor, as a result the AST is empty

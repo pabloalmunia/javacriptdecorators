@@ -9,25 +9,16 @@
 - [ ] Show a help from homepage
 - [ ] Show the changelog from homepage
 - [ ] Add automatic parser test
-
-## In progress
-
-- [ ] Fix error with class and member decorator execution order
-- [ ] Fix error with more than one class
 - [ ] Transpiler
-  - [X] Class
   - [ ] Method
-    - [X] Public member
     - [ ] Public static
     - [ ] Private member
     - [ ] Private static
   - [ ] Getter
-    - [X] Public member
     - [ ] Public static
     - [ ] Private member
     - [ ] Private static
   - [ ] Setter
-    - [X] Public member
     - [ ] Public static
     - [ ] Private member
     - [ ] Private static
@@ -39,8 +30,21 @@
   - [ ] init:
   - [ ] prop
 
+## In progress
+
+
 ## Done
 
 - [X] Fix an error with code editor
 - [X] Improve and simplify the server code
 - [X] Add transpiler to UI
+- [ ] Transpiler
+  - [X] Class
+  - [ ] Method
+    - [X] Public member
+  - [ ] Getter
+    - [X] Public member
+  - [ ] Setter
+    - [X] Public member
+  - [ ] Field
+    - [X] Public member
