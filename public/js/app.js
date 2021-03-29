@@ -5,7 +5,7 @@ const editor = new CodeFlask (
 );
 const result = new CodeFlask (
   document.querySelector ('#result'),
-  {language : 'js', lineNumbers : true}
+  {language : 'js', lineNumbers : true, readonly: true}
 );
 
 const transpiled = document.querySelector ('#transpiled');

@@ -8,7 +8,7 @@ module.exports = (ast) => {
 };
 
 function transform (ast) {
-  const source = clone(ast);
+  const source = clone (ast);
   // Class
   walker (
     source,
@@ -36,8 +36,54 @@ function transform (ast) {
             insertAfter (
               parent,
               klass,
-              methodGenerator (decorator.kind, className, o.key.name, decorator.expression)
+              memberGenerator (decorator.kind, className, o.key.name, decorator.expression)
             );
+          }
+          o.decorators = undefined;
+        }
+      );
+      
+      // Fields
+      walker (
+        klass,
+        (o) => o.type === 'ClassProperty' && o.decorators?.length,
+        (o, p) => {
+          const className = getClassName (source, o);
+          for (let decorator of (o.decorators || [])) {
+            const variableName = '_initializer_' + unique();
+
+            insertBefore(
+              parent,
+              klass, [{
+              "type": "VariableDeclaration",
+              "declarations": [
+                {
+                  "type": "VariableDeclarator",
+                  "id": {"type": "Identifier", "name": variableName}
+                }
+              ],
+              "kind": "let"
+            }]);
+
+            insertAfter (
+              parent,
+              klass,
+              memberGenerator (
+                decorator.kind,
+                className,
+                o.key.name,
+                decorator.expression,
+                variableName
+              )
+            );
+            o.value = {
+              'type'      : 'CallExpression',
+              'callee'    : {
+                'type' : 'Identifier',
+                'name' : variableName
+              },
+              'arguments' : [o.value]
+            };
           }
           o.decorators = undefined;
         }
@@ -48,12 +94,8 @@ function transform (ast) {
   return source;
 }
 
-function insertAfter (arr, current, next) {
-  arr.splice (arr.indexOf (current) + 1, 0, ...next);
-}
 
-function methodGenerator (kind, className, methodName, decoratorName) {
-  const descriptor = '_descriptor_' + unique ();
+function memberGenerator (kind, className, methodName, decoratorName, variableName = '_descriptor_' + unique ()) {
   return [
     (kind === 'setter' || kind === 'getter') && {
       'type'         : 'VariableDeclaration',
@@ -62,7 +104,7 @@ function methodGenerator (kind, className, methodName, decoratorName) {
           'type' : 'VariableDeclarator',
           'id'   : {
             'type' : 'Identifier',
-            'name' : descriptor
+            'name' : variableName
           },
           'init' : {
             'type'      : 'CallExpression',
@@ -109,31 +151,38 @@ function methodGenerator (kind, className, methodName, decoratorName) {
               'type'     : 'MemberExpression',
               'object'   : {
                 'type' : 'Identifier',
-                'name' : descriptor
+                'name' : variableName
               },
               'property' : {
                 'type' : 'Identifier',
                 'name' : kind === 'setter' ? 'set' : 'get'
               }
             } :
-            {
-              'type'     : 'MemberExpression',
-              'object'   : {
+            (kind === 'field') ?
+              {
+                'type'  : 'Identifier',
+                'start' : 0,
+                'end'   : 1,
+                'name'  : variableName
+              } :
+              {
                 'type'     : 'MemberExpression',
                 'object'   : {
-                  'type' : 'Identifier',
-                  'name' : className
+                  'type'     : 'MemberExpression',
+                  'object'   : {
+                    'type' : 'Identifier',
+                    'name' : className
+                  },
+                  'property' : {
+                    'type' : 'Identifier',
+                    'name' : 'prototype'
+                  }
                 },
                 'property' : {
                   'type' : 'Identifier',
-                  'name' : 'prototype'
+                  'name' : methodName
                 }
               },
-              'property' : {
-                'type' : 'Identifier',
-                'name' : methodName
-              }
-            },
         'operator' : '=',
         'right'    : {
           'type'     : 'LogicalExpression',
@@ -146,33 +195,38 @@ function methodGenerator (kind, className, methodName, decoratorName) {
                   'type'     : 'MemberExpression',
                   'object'   : {
                     'type' : 'Identifier',
-                    'name' : descriptor
+                    'name' : variableName
                   },
                   'property' : {
                     'type' : 'Identifier',
                     'name' : kind === 'setter' ? 'set' : 'get'
                   }
                 } :
-                {
-                  'type' : 'MemberExpression',
-                  
-                  'object'   : {
+                (kind === 'field') ?
+                  {
+                    'type' : 'Identifier',
+                    'name' : 'undefined'
+                  } :
+                  {
                     'type' : 'MemberExpression',
                     
                     'object'   : {
-                      'type' : 'Identifier',
-                      'name' : className
+                      'type' : 'MemberExpression',
+                      
+                      'object'   : {
+                        'type' : 'Identifier',
+                        'name' : className
+                      },
+                      'property' : {
+                        'type' : 'Identifier',
+                        'name' : 'prototype'
+                      }
                     },
                     'property' : {
                       'type' : 'Identifier',
-                      'name' : 'prototype'
+                      'name' : methodName
                     }
                   },
-                  'property' : {
-                    'type' : 'Identifier',
-                    'name' : 'm'
-                  }
-                },
               {
                 'type'       : 'ObjectExpression',
                 'properties' : [
@@ -250,33 +304,47 @@ function methodGenerator (kind, className, methodName, decoratorName) {
                 'type'     : 'MemberExpression',
                 'object'   : {
                   'type' : 'Identifier',
-                  'name' : descriptor
+                  'name' : variableName
                 },
                 'property' : {
                   'type' : 'Identifier',
                   'name' : kind === 'setter' ? 'set' : 'get'
                 }
               } :
-              {
-                'type' : 'MemberExpression',
-                
-                'object'   : {
+              (kind === 'field') ?
+                {
+                  'type'   : 'ArrowFunctionExpression',
+                  'params' : [
+                    {
+                      'type' : 'Identifier',
+                      'name' : 'v'
+                    }
+                  ],
+                  'body'   : {
+                    'type' : 'Identifier',
+                    'name' : 'v'
+                  }
+                } :
+                {
                   'type' : 'MemberExpression',
                   
                   'object'   : {
-                    'type' : 'Identifier',
-                    'name' : className
+                    'type' : 'MemberExpression',
+                    
+                    'object'   : {
+                      'type' : 'Identifier',
+                      'name' : className
+                    },
+                    'property' : {
+                      'type' : 'Identifier',
+                      'name' : 'prototype'
+                    }
                   },
                   'property' : {
                     'type' : 'Identifier',
-                    'name' : 'prototype'
+                    'name' : methodName
                   }
-                },
-                'property' : {
-                  'type' : 'Identifier',
-                  'name' : methodName
                 }
-              }
         }
       }
     },
@@ -315,7 +383,7 @@ function methodGenerator (kind, className, methodName, decoratorName) {
             'type'  : 'Identifier',
             'start' : 246,
             'end'   : 257,
-            'name'  : descriptor
+            'name'  : variableName
           }
         ],
         'optional'  : false
@@ -823,29 +891,29 @@ function defineMetadataGenerator (storage, metaKey, subKey) {
                             'type'     : 'MemberExpression',
                             'computed' : true,
                             'object'   : {
-                              'type'  : 'Identifier',
-                              'name'  : storage
+                              'type' : 'Identifier',
+                              'name' : storage
                             },
                             'property' : {
                               'type'     : 'MemberExpression',
                               'object'   : {
-                                'type'  : 'Identifier',
-                                'name'  : 'Symbol'
+                                'type' : 'Identifier',
+                                'name' : 'Symbol'
                               },
                               'property' : {
-                                'type'  : 'Identifier',
-                                'name'  : 'metadata'
+                                'type' : 'Identifier',
+                                'name' : 'metadata'
                               }
                             }
                           },
                           'property' : {
-                            'type'  : 'Identifier',
-                            'name'  : metaKey
+                            'type' : 'Identifier',
+                            'name' : metaKey
                           }
                         },
                         'property' : {
-                          'type'  : 'Identifier',
-                          'name'  : subKey
+                          'type' : 'Identifier',
+                          'name' : subKey
                         }
                       } :
                       {
@@ -1059,4 +1127,17 @@ function getClassName (ast, member) {
     o => result = o.id.name
   );
   return result;
+}
+
+function insertAfter (arr, current, elements) {
+  arr.splice (arr.indexOf (current) + 1, 0, ...elements);
+}
+
+function insertBefore (arr, current, elements) {
+  const i = arr.indexOf (current);
+  if (i === 0) {
+    arr.unshift (...elements);
+  } else {
+    arr.splice (i, 0, ...elements);
+  }
 }
