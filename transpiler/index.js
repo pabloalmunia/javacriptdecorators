@@ -3,9 +3,12 @@ const walker = require ('../lib/walker.js');
 const clone  = require ('../lib/clone.js');
 const unique = () => Math.random ().toString (32).substring (2);
 
-module.exports = (ast) => {
-  return recast.print (transform (ast), {tabWidth : 2, reuseWhitespace : false}).code;
-};
+module.exports = (ast) =>
+  prettySource (
+    recast.print (
+      transform (ast),
+      {tabWidth : 2, reuseWhitespace : false}
+    ).code);
 
 function transform (ast) {
   const source = clone (ast);
@@ -50,21 +53,22 @@ function transform (ast) {
         (o, p) => {
           const className = getClassName (source, o);
           for (let decorator of (o.decorators || [])) {
-            const variableName = '_initializer_' + unique();
-
-            insertBefore(
+            const variableName = '_initializer_' + unique ();
+            
+            insertBefore (
               parent,
               klass, [{
-              "type": "VariableDeclaration",
-              "declarations": [
-                {
-                  "type": "VariableDeclarator",
-                  "id": {"type": "Identifier", "name": variableName}
-                }
-              ],
-              "kind": "let"
-            }]);
-
+                'type'         : 'VariableDeclaration',
+                'declarations' : [
+                  {
+                    'type' : 'VariableDeclarator',
+                    'id'   : {'type' : 'Identifier', 'name' : variableName}
+                  }
+                ],
+                'kind'         : 'let'
+              }]
+            );
+            
             insertAfter (
               parent,
               klass,
@@ -93,7 +97,6 @@ function transform (ast) {
   );
   return source;
 }
-
 
 function memberGenerator (kind, className, methodName, decoratorName, variableName = '_descriptor_' + unique ()) {
   return [
@@ -1140,4 +1143,22 @@ function insertBefore (arr, current, elements) {
   } else {
     arr.splice (i, 0, ...elements);
   }
+}
+
+function prettySource (source) {
+  const lines = source.split (/\n|\r\n/);
+  for (let n = 0; n < lines.length; n++) {
+    const line = lines[ n ];
+    const next = n + 1 < lines.length ? lines [ n + 1 ] : '';
+    if (!line) {
+      if (next.substring (0, 1) === ' ') {
+        lines.splice (n--, 1);
+      }
+    } else {
+      if (line.substring (0, 1) !== ' ' && next && next.substring (0, 1) !== ' ') {
+        lines.splice (++n, 0, '');
+      }
+    }
+  }
+  return lines.join ('\n');
 }

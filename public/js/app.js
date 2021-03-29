@@ -7,6 +7,26 @@ const result = new CodeFlask (
   document.querySelector ('#result'),
   {language : 'js', lineNumbers : true, readonly: true}
 );
+editor.updateCode(`/*
+ * At this moment, the transpiler only supports
+ * class and public member decorators.
+ */
+@decorator
+class C {
+
+  @decorator
+  p = 10;
+  
+  @decorator
+  m() {}
+  
+  @decorator
+  get x() {}
+  
+  @decorator
+  set x(v) {}
+  
+}`);
 
 const transpiled = document.querySelector ('#transpiled');
 const ast        = document.querySelector ('#ast');
