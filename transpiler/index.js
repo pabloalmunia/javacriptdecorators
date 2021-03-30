@@ -10,14 +10,19 @@ module.exports = (ast) =>
       {tabWidth : 2, reuseWhitespace : false}
     ).code);
 
+
 function transform (ast) {
   const source = clone (ast);
+  let preClassLocation  = 0;
+  let preClassCreated   = false;
+  let decoratorsCreated = 0;
+  
   // By Class
   walker (
     source,
     (o) => o.type === 'ClassDeclaration',
     (klass, parent) => {
-      
+      preClassLocation = parent.indexOf(klass)
       // Static members
       // Methods and fields
       walker (
@@ -40,6 +45,7 @@ function transform (ast) {
                 isStatic      : true
               })
             );
+            decoratorsCreated++;
           }
           o.decorators = undefined;
         }
@@ -54,6 +60,7 @@ function transform (ast) {
             classInitGenerator :
             classGenerator) (klass.id.name, decorator.expression)
         );
+        decoratorsCreated++;
       }
       klass.decorators = undefined;
       
@@ -76,6 +83,7 @@ function transform (ast) {
                 isStatic      : false
               })
             );
+            decoratorsCreated++;
           }
           o.decorators = undefined;
         }
@@ -88,6 +96,7 @@ function transform (ast) {
         (o, p) => {
           const className = getClassName (source, o);
           for (let decorator of (o.decorators || [])) {
+            decoratorsCreated = true;
             const variableName = '_initializer_' + unique ();
             insertBefore (
               parent,
@@ -122,11 +131,15 @@ function transform (ast) {
               },
               'arguments' : [o.value]
             };
+            decoratorsCreated++;
           }
           o.decorators = undefined;
         }
       );
-      
+      if (decoratorsCreated && !preClassCreated) {
+        parent.splice (preClassLocation, 0, ...defineMetadataGenerator());
+        preClassCreated = true;
+      }
     }
   );
   return source;
@@ -334,7 +347,7 @@ function memberGenerator ({
                       'raw'   : 'false'
                     }
                   },
-                  defineMetadataGenerator (
+                  defineMetadataGeneratorCall (
                     isStatic ? className : `${ className }.prototype`,
                     methodName
                   )
@@ -543,7 +556,7 @@ function classInitGenerator (className, decoratorName) {
                     
                     
                   },
-                  defineMetadataGenerator (className, 'constructor')
+                  defineMetadataGeneratorCall (className, 'constructor')
                 ]
               }
             ]
@@ -686,7 +699,7 @@ function classGenerator (className, decoratorName) {
                   },
                   'kind'  : 'init'
                 },
-                defineMetadataGenerator (className, 'constructor')
+                defineMetadataGeneratorCall (className, 'constructor')
               ]
             }
           ],
@@ -702,221 +715,136 @@ function classGenerator (className, decoratorName) {
   }];
 }
 
-function defineMetadataGenerator (storage, metaKey) {
+function defineMetadataGeneratorCall (storage, metaKey) {
   return {
-    'type' : 'Property',
-    'key'  : {
+    'type'  : 'Property',
+    'key'   : {
       'type' : 'Identifier',
       'name' : 'defineMetadata'
     },
-    
     'value' : {
-      'type'   : 'FunctionExpression',
-      'id'     : null,
+      'type'      : 'CallExpression',
+      'callee'    : {
+        'type' : 'Identifier',
+        'name' : '__DefineMetadata'
+      },
+      'arguments' : [
+        {
+          'type' : 'Identifier',
+          'name' : storage
+        },
+        {
+          'type'  : 'Literal',
+          'value' : metaKey
+        }
+      ],
+      'optional'  : false
+    }
+  };
+}
+
+function defineMetadataGenerator () {
+  return [{
+    'type'       : 'IfStatement',
+    'test'       : {
+      'type'     : 'UnaryExpression',
+      'operator' : '!',
+      'prefix'   : true,
+      'argument' : {
+        'type'     : 'MemberExpression',
+        'object'   : {
+          'type' : 'Identifier',
+          'name' : 'Symbol'
+        },
+        'property' : {
+          'type' : 'Identifier',
+          'name' : 'metadata'
+        }
+      }
+    },
+    'consequent' : {
+      'type' : 'BlockStatement',
+      'body' : [
+        {
+          'type'       : 'ExpressionStatement',
+          'expression' : {
+            'type'     : 'AssignmentExpression',
+            'operator' : '=',
+            'left'     : {
+              'type'     : 'MemberExpression',
+              'object'   : {
+                'type' : 'Identifier',
+                'name' : 'Symbol'
+              },
+              'property' : {
+                'type' : 'Identifier',
+                'name' : 'metadata'
+              }
+            },
+            'right'    : {
+              'type'      : 'CallExpression',
+              'callee'    : {
+                'type' : 'Identifier',
+                'name' : 'Symbol'
+              },
+              'arguments' : [],
+              'optional'  : false
+            }
+          }
+        }
+      ]
+    }
+  },
+    {
+      'type'   : 'FunctionDeclaration',
+      'id'     : {
+        'type' : 'Identifier',
+        'name' : '__DefineMetadata'
+      },
       'params' : [
         {
           'type' : 'Identifier',
-          'name' : 'key'
+          'name' : 'base'
         },
         {
           'type' : 'Identifier',
-          'name' : 'value'
+          'name' : 'name'
         }
       ],
       'body'   : {
         'type' : 'BlockStatement',
         'body' : [
           {
-            'type'       : 'IfStatement',
-            'test'       : {
-              'type'     : 'UnaryExpression',
-              'operator' : '!',
-              'argument' : {
-                'type' : 'MemberExpression',
-                
-                'object'   : {
-                  'type' : 'Identifier',
-                  'name' : 'Symbol'
-                },
-                'property' : {
-                  'type' : 'Identifier',
-                  'name' : 'metadata'
-                }
-              },
-              'prefix'   : true
-            },
-            'consequent' : {
-              'type' : 'BlockStatement',
-              'body' : [
+            'type'     : 'ReturnStatement',
+            'argument' : {
+              'type'   : 'FunctionExpression',
+              'params' : [
                 {
-                  'type'       : 'ExpressionStatement',
-                  'expression' : {
-                    'type'     : 'AssignmentExpression',
-                    'operator' : '=',
-                    'left'     : {
-                      'type' : 'MemberExpression',
-                      
-                      'object'   : {
-                        'type' : 'Identifier',
-                        'name' : 'Symbol'
-                      },
-                      'property' : {
-                        'type' : 'Identifier',
-                        'name' : 'metadata'
-                      }
-                    },
-                    'right'    : {
-                      'type'      : 'CallExpression',
-                      'callee'    : {
-                        'type' : 'Identifier',
-                        'name' : 'Symbol'
-                      },
-                      'arguments' : []
-                    }
-                  }
-                }
-              ]
-            }
-            
-          },
-          {
-            'type'       : 'IfStatement',
-            'test'       : {
-              'type'     : 'UnaryExpression',
-              'operator' : '!',
-              'argument' : {
-                'type'     : 'MemberExpression',
-                'computed' : true,
-                'object'   : {
                   'type' : 'Identifier',
-                  'name' : storage
+                  'name' : 'key'
                 },
-                'property' : {
-                  'type' : 'MemberExpression',
-                  
-                  'object'   : {
-                    'type' : 'Identifier',
-                    'name' : 'Symbol'
-                  },
-                  'property' : {
-                    'type' : 'Identifier',
-                    'name' : 'metadata'
-                  }
-                }
-              },
-              'prefix'   : true
-            },
-            'consequent' : {
-              'type' : 'BlockStatement',
-              'body' : [
                 {
-                  'type'       : 'ExpressionStatement',
-                  'expression' : {
-                    'type'     : 'AssignmentExpression',
-                    'operator' : '=',
-                    'left'     : {
-                      'type'     : 'MemberExpression',
-                      'computed' : true,
-                      'object'   : {
-                        'type' : 'Identifier',
-                        'name' : storage
-                      },
-                      'property' : {
-                        'type' : 'MemberExpression',
-                        
-                        'object'   : {
-                          'type' : 'Identifier',
-                          'name' : 'Symbol'
-                        },
-                        'property' : {
-                          'type' : 'Identifier',
-                          'name' : 'metadata'
-                        }
-                      }
-                    },
-                    'right'    : {
-                      'type'      : 'CallExpression',
-                      'callee'    : {
-                        'type' : 'MemberExpression',
-                        
-                        'object'   : {
-                          'type' : 'Identifier',
-                          'name' : 'Object'
-                        },
-                        'property' : {
-                          'type' : 'Identifier',
-                          'name' : 'create'
-                        }
-                      },
-                      'arguments' : [
-                        {
-                          'type'  : 'Literal',
-                          'value' : null,
-                          'raw'   : 'null'
-                        }
-                      ]
-                    }
-                  }
-                }
-              ]
-            }
-          },
-          {
-            'type'       : 'IfStatement',
-            'test'       : {
-              'type'     : 'UnaryExpression',
-              'operator' : '!',
-              'argument' : {
-                'type' : 'MemberExpression',
-                
-                'object'   : {
-                  'type'     : 'MemberExpression',
-                  'computed' : true,
-                  'object'   : {
-                    'type' : 'Identifier',
-                    'name' : storage
-                  },
-                  'property' : {
-                    'type' : 'MemberExpression',
-                    
-                    'object'   : {
-                      'type' : 'Identifier',
-                      'name' : 'Symbol'
-                    },
-                    'property' : {
-                      'type' : 'Identifier',
-                      'name' : 'metadata'
-                    }
-                  }
-                },
-                'property' : {
                   'type' : 'Identifier',
-                  'name' : metaKey
+                  'name' : 'value'
                 }
-              },
-              'prefix'   : true
-            },
-            'consequent' : {
-              'type' : 'BlockStatement',
-              'body' : [
-                {
-                  'type'       : 'ExpressionStatement',
-                  'expression' : {
-                    'type'     : 'AssignmentExpression',
-                    'operator' : '=',
-                    'left'     : {
-                      'type' : 'MemberExpression',
-                      
-                      'object'   : {
+              ],
+              'body'   : {
+                'type' : 'BlockStatement',
+                'body' : [
+                  {
+                    'type'       : 'IfStatement',
+                    'test'       : {
+                      'type'     : 'UnaryExpression',
+                      'operator' : '!',
+                      'prefix'   : true,
+                      'argument' : {
                         'type'     : 'MemberExpression',
-                        'computed' : true,
                         'object'   : {
                           'type' : 'Identifier',
-                          'name' : storage
+                          'name' : 'base'
                         },
                         'property' : {
-                          'type' : 'MemberExpression',
-                          
+                          'type'     : 'MemberExpression',
                           'object'   : {
                             'type' : 'Identifier',
                             'name' : 'Symbol'
@@ -925,142 +853,278 @@ function defineMetadataGenerator (storage, metaKey) {
                             'type' : 'Identifier',
                             'name' : 'metadata'
                           }
-                        }
+                        }, "computed": true
                       },
-                      'property' : {
-                        'type' : 'Identifier',
-                        'name' : metaKey
-                      }
                     },
-                    'right'    : {
-                      'type'       : 'ObjectExpression',
-                      'properties' : []
-                    }
-                  }
-                }
-              ]
-            }
-            
-          },
-          {
-            'type'         : 'VariableDeclaration',
-            'declarations' : [
-              {
-                'type' : 'VariableDeclarator',
-                'id'   : {
-                  'type' : 'Identifier',
-                  'name' : 'db'
-                },
-                'init' :
-                  {
-                    'type'     : 'MemberExpression',
-                    'object'   : {
-                      'type'     : 'MemberExpression',
-                      'computed' : true,
-                      'object'   : {
-                        'type' : 'Identifier',
-                        'name' : storage
-                      },
-                      'property' : {
-                        'type'     : 'MemberExpression',
-                        'object'   : {
-                          'type' : 'Identifier',
-                          'name' : 'Symbol'
-                        },
-                        'property' : {
-                          'type' : 'Identifier',
-                          'name' : 'metadata'
-                        }
-                      }
-                    },
-                    'property' : {
-                      'type' : 'Identifier',
-                      'name' : metaKey
-                    }
-                  }
-              }
-            ],
-            'kind'         : 'const'
-          },
-          {
-            'type'       : 'IfStatement',
-            'test'       : {
-              'type'     : 'BinaryExpression',
-              'operator' : 'in',
-              'left'     : {
-                'type' : 'Identifier',
-                'name' : 'key'
-              },
-              'right'    : {
-                'type' : 'Identifier',
-                'name' : 'db'
-              }
-            },
-            'consequent' : {
-              'type' : 'BlockStatement',
-              'body' : [
-                {
-                  'type'       : 'IfStatement',
-                  'test'       : {
-                    'type'     : 'UnaryExpression',
-                    'operator' : '!',
-                    'argument' : {
-                      'type'      : 'CallExpression',
-                      'callee'    : {
-                        'type' : 'MemberExpression',
-                        
-                        'object'   : {
-                          'type' : 'Identifier',
-                          'name' : 'Array'
-                        },
-                        'property' : {
-                          'type' : 'Identifier',
-                          'name' : 'isArray'
-                        }
-                      },
-                      'arguments' : [
+                    'consequent' : {
+                      'type' : 'BlockStatement',
+                      'body' : [
                         {
-                          'type'     : 'MemberExpression',
-                          'computed' : true,
-                          'object'   : {
-                            'type' : 'Identifier',
-                            'name' : 'db'
-                          },
-                          'property' : {
-                            'type' : 'Identifier',
-                            'name' : 'key'
+                          'type'       : 'ExpressionStatement',
+                          'expression' : {
+                            'type'     : 'AssignmentExpression',
+                            'operator' : '=',
+                            'left'     : {
+                              'type'     : 'MemberExpression',
+                              'object'   : {
+                                'type' : 'Identifier',
+                                'name' : 'base'
+                              },
+                              'property' : {
+                                'type'     : 'MemberExpression',
+                                'object'   : {
+                                  'type' : 'Identifier',
+                                  'name' : 'Symbol'
+                                },
+                                'property' : {
+                                  'type' : 'Identifier',
+                                  'name' : 'metadata'
+                                }
+                              }, "computed": true
+                            },
+                            'right'    : {
+                              'type'      : 'CallExpression',
+                              'callee'    : {
+                                'type'     : 'MemberExpression',
+                                'object'   : {
+                                  'type' : 'Identifier',
+                                  'name' : 'Object'
+                                },
+                                'property' : {
+                                  'type' : 'Identifier',
+                                  'name' : 'create'
+                                }
+                              },
+                              'arguments' : [
+                                {
+                                  'type'  : 'Literal',
+                                  'value' : null,
+                                  'raw'   : 'null'
+                                }
+                              ]
+                            }
                           }
                         }
                       ]
-                    },
-                    'prefix'   : true
+                    }
                   },
-                  'consequent' : {
-                    'type' : 'BlockStatement',
-                    'body' : [
-                      {
-                        'type'     : 'ReturnStatement',
-                        'argument' : {
-                          'type'     : 'AssignmentExpression',
-                          'operator' : '=',
-                          'left'     : {
+                  {
+                    'type'       : 'IfStatement',
+                    'test'       : {
+                      'type'     : 'UnaryExpression',
+                      'operator' : '!',
+                      'prefix'   : true,
+                      'argument' : {
+                        'type'     : 'MemberExpression',
+                        'object'   : {
+                          'type'     : 'MemberExpression',
+                          'object'   : {
+                            'type' : 'Identifier',
+                            'name' : 'base'
+                          },
+                          'property' : {
                             'type'     : 'MemberExpression',
-                            'computed' : true,
                             'object'   : {
                               'type' : 'Identifier',
-                              'name' : 'db'
+                              'name' : 'Symbol'
                             },
                             'property' : {
                               'type' : 'Identifier',
-                              'name' : 'key'
+                              'name' : 'metadata'
+                            }
+                          }, "computed": true
+                        },
+                        'property' : {
+                          'type' : 'Identifier',
+                          'name' : 'name'
+                        }, "computed": true
+                      }
+                    },
+                    'consequent' : {
+                      'type' : 'BlockStatement',
+                      'body' : [
+                        {
+                          'type'       : 'ExpressionStatement',
+                          'expression' : {
+                            'type'     : 'AssignmentExpression',
+                            'operator' : '=',
+                            'left'     : {
+                              'type'     : 'MemberExpression',
+                              'object'   : {
+                                'type'     : 'MemberExpression',
+                                'object'   : {
+                                  'type' : 'Identifier',
+                                  'name' : 'base'
+                                },
+                                'property' : {
+                                  'type'     : 'MemberExpression',
+                                  'object'   : {
+                                    'type' : 'Identifier',
+                                    'name' : 'Symbol'
+                                  },
+                                  'property' : {
+                                    'type' : 'Identifier',
+                                    'name' : 'metadata'
+                                  }
+                                }, "computed": true
+                              },
+                              'property' : {
+                                'type' : 'Identifier',
+                                'name' : 'name'
+                              }, "computed": true
+                            },
+                            'right'    : {
+                              'type'       : 'ObjectExpression',
+                              'properties' : []
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    'type'         : 'VariableDeclaration',
+                    'declarations' : [
+                      {
+                        'type' : 'VariableDeclarator',
+                        'id'   : {
+                          'type' : 'Identifier',
+                          'name' : 'db'
+                        },
+                        'init' : {
+                          'type'     : 'MemberExpression',
+                          'object'   : {
+                            'type'     : 'MemberExpression',
+                            'object'   : {
+                              'type' : 'Identifier',
+                              'name' : 'base'
+                            },
+                            'property' : {
+                              'type'     : 'MemberExpression',
+                              'object'   : {
+                                'type' : 'Identifier',
+                                'name' : 'Symbol'
+                              },
+                              'property' : {
+                                'type' : 'Identifier',
+                                'name' : 'metadata'
+                              }
+                            }, "computed": true
+                          },
+                          'property' : {
+                            'type' : 'Identifier',
+                            'name' : 'name'
+                          }, "computed": true
+                        }
+                      }
+                    ],
+                    'kind'         : 'const'
+                  },
+                  {
+                    'type'       : 'IfStatement',
+                    'test'       : {
+                      'type'     : 'BinaryExpression',
+                      'left'     : {
+                        'type' : 'Identifier',
+                        'name' : 'key'
+                      },
+                      'operator' : 'in',
+                      'right'    : {
+                        'type' : 'Identifier',
+                        'name' : 'db'
+                      }
+                    },
+                    'consequent' : {
+                      'type' : 'BlockStatement',
+                      'body' : [
+                        {
+                          'type'       : 'IfStatement',
+                          'test'       : {
+                            'type'     : 'UnaryExpression',
+                            'operator' : '!',
+                            'prefix'   : true,
+                            'argument' : {
+                              'type'      : 'CallExpression',
+                              'callee'    : {
+                                'type'     : 'MemberExpression',
+                                'object'   : {
+                                  'type' : 'Identifier',
+                                  'name' : 'Array'
+                                },
+                                'property' : {
+                                  'type' : 'Identifier',
+                                  'name' : 'isArray'
+                                }
+                              },
+                              'arguments' : [
+                                {
+                                  'type'     : 'MemberExpression',
+                                  'object'   : {
+                                    'type' : 'Identifier',
+                                    'name' : 'db'
+                                  },
+                                  'property' : {
+                                    'type' : 'Identifier',
+                                    'name' : 'key'
+                                  }, "computed": true
+                                }
+                              ]
                             }
                           },
-                          'right'    : {
-                            'type'     : 'ArrayExpression',
-                            'elements' : [
+                          'consequent' : {
+                            'type' : 'BlockStatement',
+                            'body' : [
                               {
+                                'type'     : 'ReturnStatement',
+                                'argument' : {
+                                  'type'     : 'AssignmentExpression',
+                                  'operator' : '=',
+                                  'left'     : {
+                                    'type'     : 'MemberExpression',
+                                    'object'   : {
+                                      'type' : 'Identifier',
+                                      'name' : 'db'
+                                    },
+                                    'property' : {
+                                      'type' : 'Identifier',
+                                      'name' : 'key'
+                                    },
+                                    'computed' : true
+                                  },
+                                  'right'    : {
+                                    'type'     : 'ArrayExpression',
+                                    'elements' : [
+                                      {
+                                        'type'     : 'MemberExpression',
+                                        'object'   : {
+                                          'type' : 'Identifier',
+                                          'name' : 'db'
+                                        },
+                                        'property' : {
+                                          'type' : 'Identifier',
+                                          'name' : 'key'
+                                        },
+                                        'computed' : true
+                                      },
+                                      {
+                                        'type' : 'Identifier',
+                                        'name' : 'value'
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          'type'     : 'ReturnStatement',
+                          'argument' : {
+                            'type'      : 'CallExpression',
+                            'callee'    : {
+                              'type'     : 'MemberExpression',
+                              'object'   : {
                                 'type'     : 'MemberExpression',
-                                'computed' : true,
                                 'object'   : {
                                   'type' : 'Identifier',
                                   'name' : 'db'
@@ -1068,8 +1132,14 @@ function defineMetadataGenerator (storage, metaKey) {
                                 'property' : {
                                   'type' : 'Identifier',
                                   'name' : 'key'
-                                }
+                                }, "computed": true
                               },
+                              'property' : {
+                                'type' : 'Identifier',
+                                'name' : 'push'
+                              }
+                            },
+                            'arguments' : [
                               {
                                 'type' : 'Identifier',
                                 'name' : 'value'
@@ -1077,21 +1147,17 @@ function defineMetadataGenerator (storage, metaKey) {
                             ]
                           }
                         }
-                      }
-                    ]
-                  }
-                  
-                },
-                {
-                  'type'     : 'ReturnStatement',
-                  'argument' : {
-                    'type'      : 'CallExpression',
-                    'callee'    : {
-                      'type' : 'MemberExpression',
-                      
-                      'object'   : {
+                      ]
+                    },
+                    'alternate'  : null
+                  },
+                  {
+                    'type'     : 'ReturnStatement',
+                    'argument' : {
+                      'type'     : 'AssignmentExpression',
+                      'operator' : '=',
+                      'left'     : {
                         'type'     : 'MemberExpression',
-                        'computed' : true,
                         'object'   : {
                           'type' : 'Identifier',
                           'name' : 'db'
@@ -1099,57 +1165,23 @@ function defineMetadataGenerator (storage, metaKey) {
                         'property' : {
                           'type' : 'Identifier',
                           'name' : 'key'
-                        }
+                        }, "computed": true
                       },
-                      'property' : {
-                        'type' : 'Identifier',
-                        'name' : 'push'
-                      }
-                    },
-                    'arguments' : [
-                      {
+                      'right'    : {
                         'type' : 'Identifier',
                         'name' : 'value'
                       }
-                    ]
+                    }
                   }
-                }
-              ]
-            }
-            
-          },
-          {
-            'type'     : 'ReturnStatement',
-            'argument' : {
-              'type'     : 'AssignmentExpression',
-              'operator' : '=',
-              'left'     : {
-                'type'     : 'MemberExpression',
-                'computed' : true,
-                'object'   : {
-                  'type' : 'Identifier',
-                  'name' : 'db'
-                },
-                'property' : {
-                  'type' : 'Identifier',
-                  'name' : 'key'
-                }
-              },
-              'right'    : {
-                'type' : 'Identifier',
-                'name' : 'value'
+                ]
               }
             }
           }
         ]
       }
-      
-      
-    }
-    
-    
-  };
+    }];
 }
+
 
 function getClassName (ast, member) {
   let result;
@@ -1169,12 +1201,7 @@ function insertAfter (arr, current, elements) {
 }
 
 function insertBefore (arr, current, elements) {
-  const i = arr.indexOf (current);
-  if (i === 0) {
-    arr.unshift (...elements);
-  } else {
-    arr.splice (i, 0, ...elements);
-  }
+  arr.splice (arr.indexOf (current), 0, ...elements);
 }
 
 function prettySource (source) {
