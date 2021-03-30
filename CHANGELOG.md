@@ -1,5 +1,12 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.0.10 - 30/03/2021
+
+- Added the button "send URL" for share examples
+- Added static members transpiler
+- Replaced `prop` with `accessor` and `prop-field` with `auto-accessor`.
+  See https://github.com/tc39/proposal-decorators/pull/364
+
 ## version 0.0.9 - 29/03/2021
 
 - Added share link to source code

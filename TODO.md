@@ -2,6 +2,7 @@
 
 ## TODO
 
+- [ ] Direct execution into the web tool
 - [ ] Predefined examples
 - [ ] JSON navigation
 - [ ] Sync JSON navigation and code
@@ -14,7 +15,7 @@
     - [ ] Private member
     - [ ] Private static
   - [ ] Getter
-   - [ ] Private member
+    - [ ] Private member
     - [ ] Private static
   - [ ] Setter
     - [ ] Private member
@@ -30,24 +31,3 @@
 
 ## Done
 
-- [X] Send and receive code by URL (share examples)
-- [ ] Transpiler
-  - [ ] Method
-    - [X] Public static
-  - [ ] Getter
-    - [X] Public static
-  - [ ] Setter
-    - [X] Public static
-  - [ ] Field
-    - [X] Public static
-- [X] X] Send and receive code by URL (share examples)
-- [ ] Transpiler
-  - [ ] Method
-    - [X] Public static
-  - [ ] Getter
-    - [X] Public static
-  - [ ] Setter
-    - [X] Public static
-  - [ ] Field
-    - [X] Public static
-- [X] Replace `prop` with `accessor` and `prop-field` with `auto-accessor`
