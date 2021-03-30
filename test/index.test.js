@@ -61,6 +61,7 @@ run ('case42');
 run ('case43');
 run ('case44');
 run ('case45');
+runParse ('case49');
 
 // Static method
 run ('case51');

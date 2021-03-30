@@ -55,11 +55,11 @@ function DecoratorParser (ParentParser) {
         const node   = this.startNode ();
         this.next ();
         node.expression = this.parseMaybeAssign ();
-        if (this.value === 'prop') {
+        if (this.value === 'accessor') {
           const branch = this._branch ();
           branch.next ();
           if (branch.type.label === 'name') {
-            node.kind = 'prop-';
+            node.kind = 'auto-accessor';
             this.next ();
           }
         } else {
@@ -73,11 +73,12 @@ function DecoratorParser (ParentParser) {
       const node        = fn.call (this, noIn, refDestructuringErrors);
       node.decorators   = decorators.map (d => {
         d.kind +=
-          node.type === 'FieldDefinition' ? 'field' :
-            node.type === 'ClassDeclaration' ? 'class' :
-              node.kind === 'get' ? 'getter' :
-                node.kind === 'set' ? 'setter' :
-                  node.kind;
+          d.kind === 'auto-accessor' ? '' :
+            node.type === 'FieldDefinition' ? 'field' :
+              node.type === 'ClassDeclaration' ? 'class' :
+                node.kind === 'get' ? 'getter' :
+                  node.kind === 'set' ? 'setter' :
+                    node.kind;
         return d;
       });
       decorators.length = 0;

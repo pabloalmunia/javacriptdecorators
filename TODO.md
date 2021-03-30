@@ -40,3 +40,14 @@
     - [X] Public static
   - [ ] Field
     - [X] Public static
+- [X] X] Send and receive code by URL (share examples)
+- [ ] Transpiler
+  - [ ] Method
+    - [X] Public static
+  - [ ] Getter
+    - [X] Public static
+  - [ ] Setter
+    - [X] Public static
+  - [ ] Field
+    - [X] Public static
+- [X] Replace `prop` with `accessor` and `prop-field` with `auto-accessor`
