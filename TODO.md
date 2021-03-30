@@ -11,24 +11,19 @@
 - [ ] Add automatic parser test
 - [ ] Transpiler
   - [ ] Method
-    - [ ] Public static
     - [ ] Private member
     - [ ] Private static
   - [ ] Getter
-    - [ ] Public static
-    - [ ] Private member
+   - [ ] Private member
     - [ ] Private static
   - [ ] Setter
-    - [ ] Public static
     - [ ] Private member
     - [ ] Private static
   - [ ] Field
-    - [ ] Public member
-    - [ ] Public static
     - [ ] Private member
     - [ ] Private static
   - [ ] init:
-  - [ ] prop
+  - [ ] accessor
 
 ## In progress
 
@@ -36,3 +31,12 @@
 ## Done
 
 - [X] Send and receive code by URL (share examples)
+- [ ] Transpiler
+  - [ ] Method
+    - [X] Public static
+  - [ ] Getter
+    - [X] Public static
+  - [ ] Setter
+    - [X] Public static
+  - [ ] Field
+    - [X] Public static

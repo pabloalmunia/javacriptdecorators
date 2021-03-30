@@ -22,6 +22,15 @@ class X {
 }
 ```
 
+#### static methods
+
+```js
+class C {
+  @decorator
+  static M() {}
+}
+```
+
 ### Getter/Setters
 
 ```js
@@ -38,6 +47,22 @@ class X {
 }
 ```
 
+#### static getter/setter
+
+```js
+class A {
+  @decorator
+  static get P() {}
+}
+```
+
+```js
+class A {
+  @decorator
+  static set P(v) {}
+}
+```
+
 ### Fields
 
 ```js
@@ -47,12 +72,20 @@ class X {
 }
 ```
 
+#### static field
+
+```js
+class A {
+  @decorator
+  static P = 1;
+}
+```
+
 
 ## Functionality not supported yet
 
 - Decorate private members
-- Decorate static members
 - Decorators of type `@init:`.
-- Field modifiers of type `prop`
+- Field modifiers with the keyword `accesor`
 - Export `export` or `export default`
 - Anonymous class

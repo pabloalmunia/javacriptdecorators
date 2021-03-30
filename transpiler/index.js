@@ -12,11 +12,39 @@ module.exports = (ast) =>
 
 function transform (ast) {
   const source = clone (ast);
-  // Class
+  // By Class
   walker (
     source,
     (o) => o.type === 'ClassDeclaration',
     (klass, parent) => {
+      
+      // Static members
+      // Methods and fields
+      walker (
+        klass,
+        (o) => (o.type === 'MethodDefinition' || o.type === 'ClassProperty') && o.static && o.decorators?.length,
+        (o, p) => {
+          const className = getClassName (source, o);
+          for (let decorator of (o.decorators || [])) {
+            insertAfter (
+              parent,
+              klass,
+              memberGenerator ({
+                kind          : decorator.kind,
+                className     : className,
+                methodName    : o.key.name,
+                decoratorName : decorator.expression,
+                variableName  : (decorator.kind === 'getter' || decorator.kind === 'setter' ?
+                  '_descriptor_' :
+                  '_initializer_') + unique (),
+                isStatic      : true
+              })
+            );
+          }
+          o.decorators = undefined;
+        }
+      );
+      
       // Class decorators
       for (let decorator of (klass.decorators || [])) {
         insertAfter (
@@ -32,14 +60,21 @@ function transform (ast) {
       // Methods
       walker (
         klass,
-        (o) => o.type === 'MethodDefinition' && o.decorators?.length,
+        (o) => o.type === 'MethodDefinition' && !o.static && o.decorators?.length,
         (o, p) => {
           const className = getClassName (source, o);
           for (let decorator of (o.decorators || [])) {
             insertAfter (
               parent,
               klass,
-              memberGenerator (decorator.kind, className, o.key.name, decorator.expression)
+              memberGenerator ({
+                kind          : decorator.kind,
+                className     : className,
+                methodName    : o.key.name,
+                decoratorName : decorator.expression,
+                variableName  : '_descriptor_' + unique (),
+                isStatic      : false
+              })
             );
           }
           o.decorators = undefined;
@@ -54,7 +89,6 @@ function transform (ast) {
           const className = getClassName (source, o);
           for (let decorator of (o.decorators || [])) {
             const variableName = '_initializer_' + unique ();
-            
             insertBefore (
               parent,
               klass, [{
@@ -68,17 +102,17 @@ function transform (ast) {
                 'kind'         : 'let'
               }]
             );
-            
             insertAfter (
               parent,
               klass,
-              memberGenerator (
-                decorator.kind,
-                className,
-                o.key.name,
-                decorator.expression,
-                variableName
-              )
+              memberGenerator ({
+                kind          : decorator.kind,
+                className     : className,
+                methodName    : o.key.name,
+                decoratorName : decorator.expression,
+                variableName  : variableName,
+                isStatic      : o.static
+              })
             );
             o.value = {
               'type'      : 'CallExpression',
@@ -98,7 +132,14 @@ function transform (ast) {
   return source;
 }
 
-function memberGenerator (kind, className, methodName, decoratorName, variableName = '_descriptor_' + unique ()) {
+function memberGenerator ({
+                            kind,
+                            className,
+                            methodName,
+                            decoratorName,
+                            variableName,
+                            isStatic
+                          }) {
   return [
     (kind === 'setter' || kind === 'getter') && {
       'type'         : 'VariableDeclaration',
@@ -123,17 +164,22 @@ function memberGenerator (kind, className, methodName, decoratorName, variableNa
               }
             },
             'arguments' : [
-              {
-                'type'     : 'MemberExpression',
-                'object'   : {
+              (isStatic) ?
+                {
                   'type' : 'Identifier',
                   'name' : className
+                } :
+                {
+                  'type'     : 'MemberExpression',
+                  'object'   : {
+                    'type' : 'Identifier',
+                    'name' : className
+                  },
+                  'property' : {
+                    'type' : 'Identifier',
+                    'name' : 'prototype'
+                  }
                 },
-                'property' : {
-                  'type' : 'Identifier',
-                  'name' : 'prototype'
-                }
-              },
               {
                 'type'  : 'Literal',
                 'value' : methodName
@@ -163,24 +209,28 @@ function memberGenerator (kind, className, methodName, decoratorName, variableNa
             } :
             (kind === 'field') ?
               {
-                'type'  : 'Identifier',
-                'start' : 0,
-                'end'   : 1,
-                'name'  : variableName
+                'type' : 'Identifier',
+                'name' : (isStatic ? 'const ' : '') + variableName
               } :
               {
                 'type'     : 'MemberExpression',
-                'object'   : {
-                  'type'     : 'MemberExpression',
-                  'object'   : {
-                    'type' : 'Identifier',
-                    'name' : className
-                  },
-                  'property' : {
-                    'type' : 'Identifier',
-                    'name' : 'prototype'
-                  }
-                },
+                'object'   :
+                  (isStatic) ?
+                    {
+                      'type' : 'Identifier',
+                      'name' : className
+                    } :
+                    {
+                      'type'     : 'MemberExpression',
+                      'object'   : {
+                        'type' : 'Identifier',
+                        'name' : className
+                      },
+                      'property' : {
+                        'type' : 'Identifier',
+                        'name' : 'prototype'
+                      }
+                    },
                 'property' : {
                   'type' : 'Identifier',
                   'name' : methodName
@@ -211,20 +261,24 @@ function memberGenerator (kind, className, methodName, decoratorName, variableNa
                     'name' : 'undefined'
                   } :
                   {
-                    'type' : 'MemberExpression',
-                    
-                    'object'   : {
-                      'type' : 'MemberExpression',
-                      
-                      'object'   : {
-                        'type' : 'Identifier',
-                        'name' : className
-                      },
-                      'property' : {
-                        'type' : 'Identifier',
-                        'name' : 'prototype'
-                      }
-                    },
+                    'type'     : 'MemberExpression',
+                    'object'   :
+                      (isStatic) ?
+                        {
+                          'type' : 'Identifier',
+                          'name' : className
+                        } :
+                        {
+                          'type'     : 'MemberExpression',
+                          'object'   : {
+                            'type' : 'Identifier',
+                            'name' : className
+                          },
+                          'property' : {
+                            'type' : 'Identifier',
+                            'name' : 'prototype'
+                          }
+                        },
                     'property' : {
                       'type' : 'Identifier',
                       'name' : methodName
@@ -244,37 +298,28 @@ function memberGenerator (kind, className, methodName, decoratorName, variableNa
                       'type'  : 'Literal',
                       'value' : kind
                     }
-                    
-                    
                   },
                   {
-                    'type' : 'Property',
-                    'key'  : {
+                    'type'  : 'Property',
+                    'key'   : {
                       'type' : 'Identifier',
                       'name' : 'name'
                     },
-                    
                     'value' : {
                       'type'  : 'Literal',
                       'value' : methodName
                     }
-                    
-                    
                   },
                   {
-                    'type' : 'Property',
-                    'key'  : {
+                    'type'  : 'Property',
+                    'key'   : {
                       'type' : 'Identifier',
                       'name' : 'isStatic'
                     },
-                    
                     'value' : {
                       'type'  : 'Literal',
-                      'value' : false,
-                      'raw'   : 'false'
+                      'value' : !!isStatic
                     }
-                    
-                    
                   },
                   {
                     'type' : 'Property',
@@ -288,10 +333,11 @@ function memberGenerator (kind, className, methodName, decoratorName, variableNa
                       'value' : false,
                       'raw'   : 'false'
                     }
-                    
-                    
                   },
-                  defineMetadataGenerator (`${ className }.prototype`, methodName)
+                  defineMetadataGenerator (
+                    isStatic ? className : `${ className }.prototype`,
+                    methodName
+                  )
                 ]
               }
             ]
@@ -325,20 +371,24 @@ function memberGenerator (kind, className, methodName, decoratorName, variableNa
                   }
                 } :
                 {
-                  'type' : 'MemberExpression',
-                  
-                  'object'   : {
-                    'type' : 'MemberExpression',
-                    
-                    'object'   : {
-                      'type' : 'Identifier',
-                      'name' : className
-                    },
-                    'property' : {
-                      'type' : 'Identifier',
-                      'name' : 'prototype'
-                    }
-                  },
+                  'type'     : 'MemberExpression',
+                  'object'   :
+                    (isStatic) ?
+                      {
+                        'type' : 'Identifier',
+                        'name' : className
+                      } :
+                      {
+                        'type'     : 'MemberExpression',
+                        'object'   : {
+                          'type' : 'Identifier',
+                          'name' : className
+                        },
+                        'property' : {
+                          'type' : 'Identifier',
+                          'name' : 'prototype'
+                        }
+                      },
                   'property' : {
                     'type' : 'Identifier',
                     'name' : methodName
@@ -347,47 +397,94 @@ function memberGenerator (kind, className, methodName, decoratorName, variableNa
         }
       }
     },
-    (kind === 'setter' || kind === 'getter') && {
-      'type'       : 'ExpressionStatement',
-      'expression' : {
-        'type'      : 'CallExpression',
-        'callee'    : {
-          'type'     : 'MemberExpression',
-          'object'   : {
-            'type' : 'Identifier',
-            'name' : 'Object'
-          },
-          'property' : {
-            'type' : 'Identifier',
-            'name' : 'defineProperty'
-          }
-        },
-        'arguments' : [
-          {
+    (kind === 'setter' || kind === 'getter') ?
+      {
+        'type'       : 'ExpressionStatement',
+        'expression' : {
+          'type'      : 'CallExpression',
+          'callee'    : {
             'type'     : 'MemberExpression',
             'object'   : {
               'type' : 'Identifier',
-              'name' : className
+              'name' : 'Object'
             },
             'property' : {
               'type' : 'Identifier',
-              'name' : 'prototype'
+              'name' : 'defineProperty'
             }
           },
-          {
-            'type'  : 'Literal',
-            'value' : methodName
-          },
-          {
-            'type'  : 'Identifier',
-            'start' : 246,
-            'end'   : 257,
-            'name'  : variableName
+          'arguments' : [
+            (isStatic) ?
+              {
+                'type' : 'Identifier',
+                'name' : className
+              } :
+              {
+                'type'     : 'MemberExpression',
+                'object'   : {
+                  'type' : 'Identifier',
+                  'name' : className
+                },
+                'property' : {
+                  'type' : 'Identifier',
+                  'name' : 'prototype'
+                }
+              },
+            {
+              'type'  : 'Literal',
+              'value' : methodName
+            },
+            {
+              'type'  : 'Identifier',
+              'start' : 246,
+              'end'   : 257,
+              'name'  : variableName
+            }
+          ],
+          'optional'  : false
+        }
+      } :
+      (isStatic && kind === 'field') ?
+        {
+          'type'       : 'ExpressionStatement',
+          'expression' : {
+            'type'     : 'AssignmentExpression',
+            'operator' : '=',
+            'left'     : {
+              'type'     : 'MemberExpression',
+              'object'   : {
+                'type' : 'Identifier',
+                'name' : className
+              },
+              'property' : {
+                'type' : 'Identifier',
+                'name' : methodName
+              }
+            },
+            'right'    : {
+              'type'      : 'CallExpression',
+              'callee'    : {
+                'type' : 'Identifier',
+                'name' : variableName
+              },
+              'arguments' : [
+                {
+                  'type'     : 'MemberExpression',
+                  'object'   : {
+                    'type' : 'Identifier',
+                    'name' : className
+                  },
+                  'property' : {
+                    'type' : 'Identifier',
+                    'name' : methodName
+                  }
+                }
+              ],
+              'optional'  : false
+            }
           }
-        ],
-        'optional'  : false
-      }
-    }
+        } :
+        undefined
   ];
 }
 
@@ -856,31 +953,31 @@ function defineMetadataGenerator (storage, metaKey) {
                 },
                 'init' :
                   {
+                    'type'     : 'MemberExpression',
+                    'object'   : {
+                      'type'     : 'MemberExpression',
+                      'computed' : true,
+                      'object'   : {
+                        'type' : 'Identifier',
+                        'name' : storage
+                      },
+                      'property' : {
                         'type'     : 'MemberExpression',
                         'object'   : {
-                          'type'     : 'MemberExpression',
-                          'computed' : true,
-                          'object'   : {
-                            'type' : 'Identifier',
-                            'name' : storage
-                          },
-                          'property' : {
-                            'type'     : 'MemberExpression',
-                            'object'   : {
-                              'type' : 'Identifier',
-                              'name' : 'Symbol'
-                            },
-                            'property' : {
-                              'type' : 'Identifier',
-                              'name' : 'metadata'
-                            }
-                          }
+                          'type' : 'Identifier',
+                          'name' : 'Symbol'
                         },
                         'property' : {
                           'type' : 'Identifier',
-                          'name' : metaKey
+                          'name' : 'metadata'
                         }
                       }
+                    },
+                    'property' : {
+                      'type' : 'Identifier',
+                      'name' : metaKey
+                    }
+                  }
               }
             ],
             'kind'         : 'const'

@@ -62,5 +62,33 @@ run ('case43');
 run ('case44');
 run ('case45');
 
+// Static method
+run ('case51');
+run ('case52');
+run ('case53');
+run ('case54');
+run ('case55');
+
+// // Static getter
+run ('case61');
+run ('case62');
+run ('case63');
+run ('case64');
+run ('case65');
+
+// Static setter
+run ('case71');
+run ('case72');
+run ('case73');
+run ('case74');
+run ('case75');
+
+// Static field
+run ('case81');
+run ('case82');
+run ('case83');
+run ('case84');
+run ('case85');
+
 // Other examples
 run ('example01');

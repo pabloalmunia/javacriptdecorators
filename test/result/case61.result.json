@@ -1,0 +1,85 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 65,
+  "body": [
+    {
+      "type": "ClassDeclaration",
+      "start": 18,
+      "end": 65,
+      "id": {
+        "type": "Identifier",
+        "start": 24,
+        "end": 25,
+        "name": "A"
+      },
+      "superClass": null,
+      "body": {
+        "type": "ClassBody",
+        "start": 26,
+        "end": 65,
+        "body": [
+          {
+            "type": "MethodDefinition",
+            "start": 45,
+            "end": 62,
+            "kind": "get",
+            "static": true,
+            "computed": false,
+            "key": {
+              "type": "Identifier",
+              "start": 56,
+              "end": 57,
+              "name": "P"
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "start": 57,
+              "end": 62,
+              "id": null,
+              "expression": false,
+              "generator": false,
+              "async": false,
+              "params": [],
+              "body": {
+                "type": "BlockStatement",
+                "start": 60,
+                "end": 62,
+                "body": []
+              }
+            },
+            "decorators": [
+              {
+                "type": "Decorator",
+                "start": 31,
+                "end": 41,
+                "expression": {
+                  "type": "Identifier",
+                  "start": 32,
+                  "end": 41,
+                  "name": "decorator"
+                },
+                "kind": "getter"
+              }
+            ]
+          }
+        ]
+      },
+      "decorators": [
+        {
+          "type": "Decorator",
+          "start": 0,
+          "end": 16,
+          "expression": {
+            "type": "Identifier",
+            "start": 1,
+            "end": 16,
+            "name": "class_decorator"
+          },
+          "kind": "class"
+        }
+      ]
+    }
+  ],
+  "sourceType": "script"
+}

@@ -4,28 +4,26 @@ function decorator(context) {
   };
 }
 
-let _initializer_15dke2pktq;
-
 class C {
-  p = _initializer_15dke2pktq(10);
+  static P = 10;
 }
 
-_initializer_15dke2pktq = decorator(undefined, {
+const _initializer_pchkg65oo5g = decorator(undefined, {
   kind: "field",
-  name: "p",
-  isStatic: false,
+  name: "P",
+  isStatic: true,
   isPrivate: false,
   defineMetadata: function(key, value) {
     if (!Symbol.metadata) {
       Symbol.metadata = Symbol();
     }
-    if (!C.prototype[Symbol.metadata]) {
-      C.prototype[Symbol.metadata] = Object.create(null);
+    if (!C[Symbol.metadata]) {
+      C[Symbol.metadata] = Object.create(null);
     }
-    if (!C.prototype[Symbol.metadata].p) {
-      C.prototype[Symbol.metadata].p = {};
+    if (!C[Symbol.metadata].P) {
+      C[Symbol.metadata].P = {};
     }
-    const db = C.prototype[Symbol.metadata].p;
+    const db = C[Symbol.metadata].P;
     if (key in db) {
       if (!Array.isArray(db[key])) {
         return db[key] = [db[key], value];
@@ -36,6 +34,6 @@ _initializer_15dke2pktq = decorator(undefined, {
   }
 }) ?? (v => v);
 
-const c = new C();
+C.P = _initializer_pchkg65oo5g(C.P);
 
-console.assert(c.p === 20);
+console.assert(C.P === 20);

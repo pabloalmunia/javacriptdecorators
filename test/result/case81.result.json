@@ -1,0 +1,75 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 61,
+  "body": [
+    {
+      "type": "ClassDeclaration",
+      "start": 18,
+      "end": 61,
+      "id": {
+        "type": "Identifier",
+        "start": 24,
+        "end": 25,
+        "name": "A"
+      },
+      "superClass": null,
+      "body": {
+        "type": "ClassBody",
+        "start": 26,
+        "end": 61,
+        "body": [
+          {
+            "type": "ClassProperty",
+            "start": 45,
+            "end": 57,
+            "static": true,
+            "computed": false,
+            "key": {
+              "type": "Identifier",
+              "start": 52,
+              "end": 53,
+              "name": "P"
+            },
+            "value": {
+              "type": "Literal",
+              "start": 56,
+              "end": 57,
+              "value": 1,
+              "raw": "1"
+            },
+            "decorators": [
+              {
+                "type": "Decorator",
+                "start": 31,
+                "end": 41,
+                "expression": {
+                  "type": "Identifier",
+                  "start": 32,
+                  "end": 41,
+                  "name": "decorator"
+                },
+                "kind": "field"
+              }
+            ]
+          }
+        ]
+      },
+      "decorators": [
+        {
+          "type": "Decorator",
+          "start": 0,
+          "end": 16,
+          "expression": {
+            "type": "Identifier",
+            "start": 1,
+            "end": 16,
+            "name": "class_decorator"
+          },
+          "kind": "class"
+        }
+      ]
+    }
+  ],
+  "sourceType": "script"
+}
