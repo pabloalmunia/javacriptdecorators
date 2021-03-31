@@ -37,23 +37,28 @@ fetch ('/version/').then (res => {
 const message = document.querySelector ('#message');
 
 document.querySelector ('#shareit').addEventListener ('click', () => {
+  const sourceCode =     editor.getCode ();
+  const compressCode = LZString.compressToBase64(sourceCode);
+  const urlCode = 'https://javascriptdecorators.org?source=' + encodeURIComponent(compressCode);
+  // console.log('sourceCode', sourceCode);
+  // console.log('compressCode', compressCode);
+  // console.log('urlCode', urlCode);
   
-  var data = {
-    'domain'      : 'link.javascriptdecorators.org',
-    'originalURL' : 'https://javascriptdecorators.org?source=' + LZString.compressToBase64 (editor.getCode ())
-  };
-  fetch ('https://api.short.io/links/public', {
+ fetch ('https://api.short.io/links/public', {
     method  : 'post',
     headers : {
       'accept'        : 'application/json',
       'Content-Type'  : 'application/json',
       'authorization' : 'TwuBiPBuWidiu75VIVklwvUlIRxuyYUT'
     },
-    body    : JSON.stringify (data)
+    body    : JSON.stringify ({
+      'domain'      : 'link.javascriptdecorators.org',
+      'originalURL' : urlCode
+    })
   }).then (function (response) {
     return response.json ();
-  }).then (function (data) {
-    return navigator.clipboard.writeText (data.shortURL);
+  }).then (function (res) {
+    return navigator.clipboard.writeText (res.shortURL);
   }).then (() => {
     message.innerHTML = 'URL copied to clipboard';
     setTimeout (() => message.innerHTML = '', 4000);
@@ -100,7 +105,10 @@ function analyze() {
 
 const paramSource = getParameterByName ('source');
 if (paramSource) {
-  editor.updateCode (LZString.decompressFromBase64 (paramSource));
+  const decompressCode = LZString.decompressFromBase64 (paramSource)
+  // console.log('paramSource', paramSource);
+  // console.log('decompressCode', decompressCode);
+  editor.updateCode (decompressCode);
 } else {
   editor.updateCode (`/*
  * At this moment, the transpiler only supports

@@ -1,5 +1,9 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.0.12 - 31/03/2021
+
+- Fixed an error with link generation
+
 ## version 0.0.11 - 31/03/2021
 
 - Refactorized defineMetadata
