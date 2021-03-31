@@ -1,5 +1,10 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.0.11 - 31/03/2021
+
+- Refactorized defineMetadata
+- Added support to private method decorator
+
 ## version 0.0.10 - 30/03/2021
 
 - Added the button "send URL" for share examples

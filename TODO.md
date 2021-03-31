@@ -12,7 +12,6 @@
 - [ ] Add automatic parser test
 - [ ] Transpiler
   - [ ] Method
-    - [ ] Private member
     - [ ] Private static
   - [ ] Getter
     - [ ] Private member

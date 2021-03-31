@@ -31,6 +31,15 @@ class C {
 }
 ```
 
+#### private methods
+
+```js
+class C {
+  #m() {}
+}
+```
+
+
 ### Getter/Setters
 
 ```js
@@ -84,8 +93,8 @@ class A {
 
 ## Functionality not supported yet
 
-- Decorate private members
-- Decorators of type `@init:`.
-- Field modifiers with the keyword `accesor`
-- Export `export` or `export default`
-- Anonymous class
+- Private getter/setter and private field decorators.
+- `@init:` decorators.
+- Keyword `accesor`.
+- Export `export` or `export default`.
+- Anonymous class.
