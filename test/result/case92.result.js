@@ -1,11 +1,6 @@
 function decorator(value, context) {
   if (context.kind === "method") {
-    return function(...args) {
-      console.log(`starting ${context.name} with arguments ${args.join(", ")}`);
-      const ret = value.call(this, ...args);
-      console.log(`ending ${context.name}`);
-      return ret;
-    };
+    value.extra = true;
   }
 }
 
@@ -32,16 +27,29 @@ function __DefineMetadata(base, name) {
   };
 }
 
+const _symbol_5cplvorl13g = Symbol();
+
 class C {
-  m() {}
+  _temp_468tblb099g() {}
+  static [_symbol_5cplvorl13g] = decorator(C.prototype._temp_468tblb099g, {
+    kind: "method",
+    name: "#m",
+    isStatic: false,
+    isPrivate: true,
+    access: {
+      get: C.prototype[_symbol_5cplvorl13g]
+    },
+    defineMetadata: __DefineMetadata(C.prototype, "#m")
+  }) ?? C.prototype._temp_468tblb099g;
+  #m = C[_symbol_5cplvorl13g];
+  [_symbol_5cplvorl13g]() {
+    return this.#m;
+  }
+  checker() {
+    return this.#m.extra;
+  }
 }
 
-C.prototype.m = decorator(C.prototype.m, {
-  kind: "method",
-  name: "m",
-  isStatic: false,
-  isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "m")
-}) ?? C.prototype.m;
+delete C.prototype._temp_468tblb099g;
 
-new C().m();
+console.log(new C().checker());

@@ -1,67 +1,54 @@
+if (!Symbol.metadata) {
+  Symbol.metadata = Symbol();
+}
+
+function __DefineMetadata(base, name) {
+  return function(key, value) {
+    if (!base[Symbol.metadata]) {
+      base[Symbol.metadata] = Object.create(null);
+    }
+    if (!base[Symbol.metadata][name]) {
+      base[Symbol.metadata][name] = {};
+    }
+    const db = base[Symbol.metadata][name];
+    if (key in db) {
+      if (!Array.isArray(db[key])) {
+        return db[key] = [db[key], value];
+      }
+      return db[key].push(value);
+    }
+    return db[key] = value;
+  };
+}
+
 class C {
   static get P() {
     return "a";
   }
 }
 
-const _descriptor_7n3kd960i6 = Object.getOwnPropertyDescriptor(C, "P");
+const _descriptor_argiet8rgp8 = Object.getOwnPropertyDescriptor(C, "P");
 
-_descriptor_7n3kd960i6.get = decorator2(_descriptor_7n3kd960i6.get, {
+_descriptor_argiet8rgp8.get = decorator2(_descriptor_argiet8rgp8.get, {
   kind: "getter",
   name: "P",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
-    }
-    if (!C[Symbol.metadata]) {
-      C[Symbol.metadata] = Object.create(null);
-    }
-    if (!C[Symbol.metadata].P) {
-      C[Symbol.metadata].P = {};
-    }
-    const db = C[Symbol.metadata].P;
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
-      }
-      return db[key].push(value);
-    }
-    return db[key] = value;
-  }
-}) ?? _descriptor_7n3kd960i6.get;
+  defineMetadata: __DefineMetadata(C, "P")
+}) ?? _descriptor_argiet8rgp8.get;
 
-Object.defineProperty(C, "P", _descriptor_7n3kd960i6);
+Object.defineProperty(C, "P", _descriptor_argiet8rgp8);
 
-const _descriptor_1uhej0j2398 = Object.getOwnPropertyDescriptor(C, "P");
+const _descriptor_bu1sqirlna8 = Object.getOwnPropertyDescriptor(C, "P");
 
-_descriptor_1uhej0j2398.get = decorator1(_descriptor_1uhej0j2398.get, {
+_descriptor_bu1sqirlna8.get = decorator1(_descriptor_bu1sqirlna8.get, {
   kind: "getter",
   name: "P",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
-    }
-    if (!C[Symbol.metadata]) {
-      C[Symbol.metadata] = Object.create(null);
-    }
-    if (!C[Symbol.metadata].P) {
-      C[Symbol.metadata].P = {};
-    }
-    const db = C[Symbol.metadata].P;
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
-      }
-      return db[key].push(value);
-    }
-    return db[key] = value;
-  }
-}) ?? _descriptor_1uhej0j2398.get;
+  defineMetadata: __DefineMetadata(C, "P")
+}) ?? _descriptor_bu1sqirlna8.get;
 
-Object.defineProperty(C, "P", _descriptor_1uhej0j2398);
+Object.defineProperty(C, "P", _descriptor_bu1sqirlna8);
 
 console.assert(C.p === "a");

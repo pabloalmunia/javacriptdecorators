@@ -5,7 +5,7 @@ const EXT_ERROR = '.err';
 const readFile  = (file) => fs.readFileSync (path.join (__dirname, file)).toString ();
 const writeFile = (file, data) => fs.writeFileSync (path.join (__dirname, file), data);
 const words     = (source) => source
-  .split (/\s|\(|\)/)
+  .split (/\s|\(|\)|\.|\[|]/)
   .filter (x => x)
   .map (x => x.substring (0, 1) === '_' ? '_' : x);
 

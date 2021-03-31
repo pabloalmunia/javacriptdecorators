@@ -1,25 +1,16 @@
-let _initializer_b5gvd82lg5o;
-
-class A {
-  p = _initializer_b5gvd82lg5o(1);
+if (!Symbol.metadata) {
+  Symbol.metadata = Symbol();
 }
 
-_initializer_b5gvd82lg5o = decorator(undefined, {
-  kind: "field",
-  name: "p",
-  isStatic: false,
-  isPrivate: false,
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
+function __DefineMetadata(base, name) {
+  return function(key, value) {
+    if (!base[Symbol.metadata]) {
+      base[Symbol.metadata] = Object.create(null);
     }
-    if (!A.prototype[Symbol.metadata]) {
-      A.prototype[Symbol.metadata] = Object.create(null);
+    if (!base[Symbol.metadata][name]) {
+      base[Symbol.metadata][name] = {};
     }
-    if (!A.prototype[Symbol.metadata].p) {
-      A.prototype[Symbol.metadata].p = {};
-    }
-    const db = A.prototype[Symbol.metadata].p;
+    const db = base[Symbol.metadata][name];
     if (key in db) {
       if (!Array.isArray(db[key])) {
         return db[key] = [db[key], value];
@@ -27,5 +18,19 @@ _initializer_b5gvd82lg5o = decorator(undefined, {
       return db[key].push(value);
     }
     return db[key] = value;
-  }
+  };
+}
+
+let _initializer_pg7kkjua6s;
+
+class A {
+  p = _initializer_pg7kkjua6s(1);
+}
+
+_initializer_pg7kkjua6s = decorator(undefined, {
+  kind: "field",
+  name: "p",
+  isStatic: false,
+  isPrivate: false,
+  defineMetadata: __DefineMetadata(A.prototype, "p")
 }) ?? (v => v);

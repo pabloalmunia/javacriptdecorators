@@ -1,25 +1,16 @@
-class A {
-  get p() {}
+if (!Symbol.metadata) {
+  Symbol.metadata = Symbol();
 }
 
-const _descriptor_9vl2dg9n978 = Object.getOwnPropertyDescriptor(A.prototype, "p");
-
-_descriptor_9vl2dg9n978.get = decorator(_descriptor_9vl2dg9n978.get, {
-  kind: "getter",
-  name: "p",
-  isStatic: false,
-  isPrivate: false,
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
+function __DefineMetadata(base, name) {
+  return function(key, value) {
+    if (!base[Symbol.metadata]) {
+      base[Symbol.metadata] = Object.create(null);
     }
-    if (!A.prototype[Symbol.metadata]) {
-      A.prototype[Symbol.metadata] = Object.create(null);
+    if (!base[Symbol.metadata][name]) {
+      base[Symbol.metadata][name] = {};
     }
-    if (!A.prototype[Symbol.metadata].p) {
-      A.prototype[Symbol.metadata].p = {};
-    }
-    const db = A.prototype[Symbol.metadata].p;
+    const db = base[Symbol.metadata][name];
     if (key in db) {
       if (!Array.isArray(db[key])) {
         return db[key] = [db[key], value];
@@ -27,7 +18,21 @@ _descriptor_9vl2dg9n978.get = decorator(_descriptor_9vl2dg9n978.get, {
       return db[key].push(value);
     }
     return db[key] = value;
-  }
-}) ?? _descriptor_9vl2dg9n978.get;
+  };
+}
 
-Object.defineProperty(A.prototype, "p", _descriptor_9vl2dg9n978);
+class A {
+  get p() {}
+}
+
+const _descriptor_4ppjtu6dglg = Object.getOwnPropertyDescriptor(A.prototype, "p");
+
+_descriptor_4ppjtu6dglg.get = decorator(_descriptor_4ppjtu6dglg.get, {
+  kind: "getter",
+  name: "p",
+  isStatic: false,
+  isPrivate: false,
+  defineMetadata: __DefineMetadata(A.prototype, "p")
+}) ?? _descriptor_4ppjtu6dglg.get;
+
+Object.defineProperty(A.prototype, "p", _descriptor_4ppjtu6dglg);

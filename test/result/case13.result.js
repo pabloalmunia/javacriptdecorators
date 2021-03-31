@@ -10,6 +10,29 @@ function decorator2(value, context) {
   }
 }
 
+if (!Symbol.metadata) {
+  Symbol.metadata = Symbol();
+}
+
+function __DefineMetadata(base, name) {
+  return function(key, value) {
+    if (!base[Symbol.metadata]) {
+      base[Symbol.metadata] = Object.create(null);
+    }
+    if (!base[Symbol.metadata][name]) {
+      base[Symbol.metadata][name] = {};
+    }
+    const db = base[Symbol.metadata][name];
+    if (key in db) {
+      if (!Array.isArray(db[key])) {
+        return db[key] = [db[key], value];
+      }
+      return db[key].push(value);
+    }
+    return db[key] = value;
+  };
+}
+
 class C {
   m() {}
 }
@@ -19,32 +42,7 @@ C.prototype.m = decorator2(C.prototype.m, {
   name: "m",
   isStatic: false,
   isPrivate: false,
-
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
-    }
-
-    if (!C.prototype[Symbol.metadata]) {
-      C.prototype[Symbol.metadata] = Object.create(null);
-    }
-
-    if (!C.prototype[Symbol.metadata].m) {
-      C.prototype[Symbol.metadata].m = {};
-    }
-
-    const db = C.prototype[Symbol.metadata].m;
-
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
-      }
-
-      return db[key].push(value);
-    }
-
-    return db[key] = value;
-  }
+  defineMetadata: __DefineMetadata(C.prototype, "m")
 }) ?? C.prototype.m;
 
 C.prototype.m = decorator1(C.prototype.m, {
@@ -52,33 +50,9 @@ C.prototype.m = decorator1(C.prototype.m, {
   name: "m",
   isStatic: false,
   isPrivate: false,
-
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
-    }
-
-    if (!C.prototype[Symbol.metadata]) {
-      C.prototype[Symbol.metadata] = Object.create(null);
-    }
-
-    if (!C.prototype[Symbol.metadata].m) {
-      C.prototype[Symbol.metadata].m = {};
-    }
-
-    const db = C.prototype[Symbol.metadata].m;
-
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
-      }
-
-      return db[key].push(value);
-    }
-
-    return db[key] = value;
-  }
+  defineMetadata: __DefineMetadata(C.prototype, "m")
 }) ?? C.prototype.m;
 
 console.log(new C().m.one);
+
 console.log(new C().m.two);

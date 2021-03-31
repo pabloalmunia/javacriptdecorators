@@ -7,64 +7,51 @@ function decorator2(value, context) {
   context.defineMetadata("two", 2);
 }
 
+if (!Symbol.metadata) {
+  Symbol.metadata = Symbol();
+}
+
+function __DefineMetadata(base, name) {
+  return function(key, value) {
+    if (!base[Symbol.metadata]) {
+      base[Symbol.metadata] = Object.create(null);
+    }
+    if (!base[Symbol.metadata][name]) {
+      base[Symbol.metadata][name] = {};
+    }
+    const db = base[Symbol.metadata][name];
+    if (key in db) {
+      if (!Array.isArray(db[key])) {
+        return db[key] = [db[key], value];
+      }
+      return db[key].push(value);
+    }
+    return db[key] = value;
+  };
+}
+
 class C {
   static P = 10;
 }
 
-const _initializer_j4dktk5qvc = decorator2(undefined, {
+const _initializer_836vnm4vlmg = decorator2(undefined, {
   kind: "field",
   name: "P",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
-    }
-    if (!C[Symbol.metadata]) {
-      C[Symbol.metadata] = Object.create(null);
-    }
-    if (!C[Symbol.metadata].P) {
-      C[Symbol.metadata].P = {};
-    }
-    const db = C[Symbol.metadata].P;
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
-      }
-      return db[key].push(value);
-    }
-    return db[key] = value;
-  }
+  defineMetadata: __DefineMetadata(C, "P")
 }) ?? (v => v);
 
-C.P = _initializer_j4dktk5qvc(C.P);
+C.P = _initializer_836vnm4vlmg(C.P);
 
-const _initializer_7a4p37nap5g = decorator1(undefined, {
+const _initializer_bj86q2a4v0o = decorator1(undefined, {
   kind: "field",
   name: "P",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
-    }
-    if (!C[Symbol.metadata]) {
-      C[Symbol.metadata] = Object.create(null);
-    }
-    if (!C[Symbol.metadata].P) {
-      C[Symbol.metadata].P = {};
-    }
-    const db = C[Symbol.metadata].P;
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
-      }
-      return db[key].push(value);
-    }
-    return db[key] = value;
-  }
+  defineMetadata: __DefineMetadata(C, "P")
 }) ?? (v => v);
 
-C.P = _initializer_7a4p37nap5g(C.P);
+C.P = _initializer_bj86q2a4v0o(C.P);
 
 console.log(C[Symbol.metadata]);

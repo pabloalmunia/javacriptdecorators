@@ -4,26 +4,19 @@ function decorator(context) {
   };
 }
 
-class C {
-  static P = 10;
+if (!Symbol.metadata) {
+  Symbol.metadata = Symbol();
 }
 
-const _initializer_pchkg65oo5g = decorator(undefined, {
-  kind: "field",
-  name: "P",
-  isStatic: true,
-  isPrivate: false,
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
+function __DefineMetadata(base, name) {
+  return function(key, value) {
+    if (!base[Symbol.metadata]) {
+      base[Symbol.metadata] = Object.create(null);
     }
-    if (!C[Symbol.metadata]) {
-      C[Symbol.metadata] = Object.create(null);
+    if (!base[Symbol.metadata][name]) {
+      base[Symbol.metadata][name] = {};
     }
-    if (!C[Symbol.metadata].P) {
-      C[Symbol.metadata].P = {};
-    }
-    const db = C[Symbol.metadata].P;
+    const db = base[Symbol.metadata][name];
     if (key in db) {
       if (!Array.isArray(db[key])) {
         return db[key] = [db[key], value];
@@ -31,9 +24,21 @@ const _initializer_pchkg65oo5g = decorator(undefined, {
       return db[key].push(value);
     }
     return db[key] = value;
-  }
+  };
+}
+
+class C {
+  static P = 10;
+}
+
+const _initializer_u487b0mn8jg = decorator(undefined, {
+  kind: "field",
+  name: "P",
+  isStatic: true,
+  isPrivate: false,
+  defineMetadata: __DefineMetadata(C, "P")
 }) ?? (v => v);
 
-C.P = _initializer_pchkg65oo5g(C.P);
+C.P = _initializer_u487b0mn8jg(C.P);
 
 console.assert(C.P === 20);

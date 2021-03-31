@@ -1,3 +1,26 @@
+if (!Symbol.metadata) {
+  Symbol.metadata = Symbol();
+}
+
+function __DefineMetadata(base, name) {
+  return function(key, value) {
+    if (!base[Symbol.metadata]) {
+      base[Symbol.metadata] = Object.create(null);
+    }
+    if (!base[Symbol.metadata][name]) {
+      base[Symbol.metadata][name] = {};
+    }
+    const db = base[Symbol.metadata][name];
+    if (key in db) {
+      if (!Array.isArray(db[key])) {
+        return db[key] = [db[key], value];
+      }
+      return db[key].push(value);
+    }
+    return db[key] = value;
+  };
+}
+
 class A {
   static set P(v) {}
 }
@@ -5,53 +28,17 @@ class A {
 A = class_decorator(A, {
   kind: "class",
   name: "A",
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
-    }
-    if (!A[Symbol.metadata]) {
-      A[Symbol.metadata] = Object.create(null);
-    }
-    if (!A[Symbol.metadata].constructor) {
-      A[Symbol.metadata].constructor = {};
-    }
-    const db = A[Symbol.metadata].constructor;
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
-      }
-      return db[key].push(value);
-    }
-    return db[key] = value;
-  }
+  defineMetadata: __DefineMetadata(A, "constructor")
 }) ?? A;
 
-const _descriptor_dmc1rik9p18 = Object.getOwnPropertyDescriptor(A, "P");
+const _descriptor_ngtsoc15u7g = Object.getOwnPropertyDescriptor(A, "P");
 
-_descriptor_dmc1rik9p18.set = decorator(_descriptor_dmc1rik9p18.set, {
+_descriptor_ngtsoc15u7g.set = decorator(_descriptor_ngtsoc15u7g.set, {
   kind: "setter",
   name: "P",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
-    }
-    if (!A[Symbol.metadata]) {
-      A[Symbol.metadata] = Object.create(null);
-    }
-    if (!A[Symbol.metadata].P) {
-      A[Symbol.metadata].P = {};
-    }
-    const db = A[Symbol.metadata].P;
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
-      }
-      return db[key].push(value);
-    }
-    return db[key] = value;
-  }
-}) ?? _descriptor_dmc1rik9p18.set;
+  defineMetadata: __DefineMetadata(A, "P")
+}) ?? _descriptor_ngtsoc15u7g.set;
 
-Object.defineProperty(A, "P", _descriptor_dmc1rik9p18);
+Object.defineProperty(A, "P", _descriptor_ngtsoc15u7g);

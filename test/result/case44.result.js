@@ -7,30 +7,19 @@ function decorator2(value, context) {
   context.defineMetadata("two", 2);
 }
 
-let _initializer_uoojdg919oo;
-
-let _initializer_53c1r0chbi8;
-
-class C {
-  p = _initializer_53c1r0chbi8(_initializer_uoojdg919oo(10));
+if (!Symbol.metadata) {
+  Symbol.metadata = Symbol();
 }
 
-_initializer_53c1r0chbi8 = decorator2(undefined, {
-  kind: "field",
-  name: "p",
-  isStatic: false,
-  isPrivate: false,
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
+function __DefineMetadata(base, name) {
+  return function(key, value) {
+    if (!base[Symbol.metadata]) {
+      base[Symbol.metadata] = Object.create(null);
     }
-    if (!C.prototype[Symbol.metadata]) {
-      C.prototype[Symbol.metadata] = Object.create(null);
+    if (!base[Symbol.metadata][name]) {
+      base[Symbol.metadata][name] = {};
     }
-    if (!C.prototype[Symbol.metadata].p) {
-      C.prototype[Symbol.metadata].p = {};
-    }
-    const db = C.prototype[Symbol.metadata].p;
+    const db = base[Symbol.metadata][name];
     if (key in db) {
       if (!Array.isArray(db[key])) {
         return db[key] = [db[key], value];
@@ -38,33 +27,31 @@ _initializer_53c1r0chbi8 = decorator2(undefined, {
       return db[key].push(value);
     }
     return db[key] = value;
-  }
+  };
+}
+
+let _initializer_jfsu70lbqpg;
+
+let _initializer_m1ee092g9g;
+
+class C {
+  p = _initializer_m1ee092g9g(_initializer_jfsu70lbqpg(10));
+}
+
+_initializer_m1ee092g9g = decorator2(undefined, {
+  kind: "field",
+  name: "p",
+  isStatic: false,
+  isPrivate: false,
+  defineMetadata: __DefineMetadata(C.prototype, "p")
 }) ?? (v => v);
 
-_initializer_uoojdg919oo = decorator1(undefined, {
+_initializer_jfsu70lbqpg = decorator1(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
-    }
-    if (!C.prototype[Symbol.metadata]) {
-      C.prototype[Symbol.metadata] = Object.create(null);
-    }
-    if (!C.prototype[Symbol.metadata].p) {
-      C.prototype[Symbol.metadata].p = {};
-    }
-    const db = C.prototype[Symbol.metadata].p;
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
-      }
-      return db[key].push(value);
-    }
-    return db[key] = value;
-  }
+  defineMetadata: __DefineMetadata(C.prototype, "p")
 }) ?? (v => v);
 
 const a = new C();

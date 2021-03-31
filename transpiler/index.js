@@ -12,32 +12,44 @@ module.exports = (ast) =>
 
 
 function transform (ast) {
-  const source = clone (ast);
-  let preClassLocation  = 0;
+  const source          = clone (ast);
   let preClassCreated   = false;
   let decoratorsCreated = 0;
   
+  //-----------------------------------
   // By Class
+  //-----------------------------------
   walker (
     source,
-    (o) => o.type === 'ClassDeclaration',
+    (o) => {
+      return o.type === 'ClassDeclaration';
+    },
     (klass, parent) => {
-      preClassLocation = parent.indexOf(klass)
+      
+      const className        = klass.id.name;
+      const preClassLocation = parent.indexOf (klass);
+      
+      //---------------------------------
       // Static members
-      // Methods and fields
+      // Public methods and fields
+      //---------------------------------
       walker (
         klass,
-        (o) => (o.type === 'MethodDefinition' || o.type === 'ClassProperty') && o.static && o.decorators?.length,
+        (o) => {
+          return (o.type === 'MethodDefinition' || o.type === 'ClassProperty') &&
+            o.static &&
+            o.key.type !== 'PrivateName' &&
+            o.decorators?.length;
+        },
         (o, p) => {
-          const className = getClassName (source, o);
           for (let decorator of (o.decorators || [])) {
             insertAfter (
               parent,
               klass,
-              memberGenerator ({
+              publicMemberGenerator ({
                 kind          : decorator.kind,
                 className     : className,
-                methodName    : o.key.name,
+                elementName   : o.key.name,
                 decoratorName : decorator.expression,
                 variableName  : (decorator.kind === 'getter' || decorator.kind === 'setter' ?
                   '_descriptor_' :
@@ -51,7 +63,9 @@ function transform (ast) {
         }
       );
       
+      //---------------------------------
       // Class decorators
+      //---------------------------------
       for (let decorator of (klass.decorators || [])) {
         insertAfter (
           parent,
@@ -64,39 +78,119 @@ function transform (ast) {
       }
       klass.decorators = undefined;
       
+      //---------------------------------
       // Methods
+      //---------------------------------
       walker (
         klass,
-        (o) => o.type === 'MethodDefinition' && !o.static && o.decorators?.length,
+        (o) => {
+          return o.type === 'MethodDefinition' &&
+            !o.static &&
+            o.decorators?.length;
+        },
         (o, p) => {
-          const className = getClassName (source, o);
-          for (let decorator of (o.decorators || [])) {
-            insertAfter (
-              parent,
-              klass,
-              memberGenerator ({
-                kind          : decorator.kind,
-                className     : className,
-                methodName    : o.key.name,
-                decoratorName : decorator.expression,
-                variableName  : '_descriptor_' + unique (),
-                isStatic      : false
-              })
-            );
+          if (o.key.type === 'PrivateName') {
+            //--------
+            // Private
+            //--------
+            const symbolName         = '_symbol_' + unique ();
+            const tempName           = '_temp_' + unique ();
+            const elementName        = o.key.id.name;
+            const elementPrivateName = '#' + elementName;
+            const beforeClass        = privateMemberBeforeGenerator (symbolName);
+            const afterClass         = privateMemberAfterGenerator (className, tempName);
+            let replaceElement;
+            for (let decorator of (o.decorators || [])) {
+              if (!replaceElement) {
+                replaceElement = privateFirstMemberGenerator ({
+                  kind          : decorator.kind,
+                  element       : o,
+                  decoratorName : decorator.expression,
+                  tempName,
+                  symbolName,
+                  className,
+                  elementName,
+                  elementPrivateName
+                });
+              } else {
+                privateNextMemberGenerator (
+                  replaceElement,
+                  {
+                    kind          : decorator.kind,
+                    decoratorName : decorator.expression,
+                    tempName,
+                    symbolName,
+                    className,
+                    elementPrivateName
+                  }
+                );
+                
+              }
+            }
+            insertBefore (parent, klass, beforeClass);
+            replace (klass.body.body, o, replaceElement);
+            insertAfter (parent, klass, afterClass);
+            
+            //
+            //
+            // let nextDecoratorPosition;
+            // let privateDecoratorsCreated = 0;
+            // for (let decorator of (o.decorators || [])) {
+            //   const {beforeClass, replaceElement, afterClass} = privateMemberGenerator ({
+            //     kind          : decorator.kind,
+            //     className     : className,
+            //     element       : o,
+            //     decoratorName : decorator.expression
+            //   });
+            //   if (!privateDecoratorsCreated) {
+            //     insertBefore (parent, klass, beforeClass);
+            //     replace (klass.body.body, o, replaceElement);
+            //     insertAfter (parent, klass, afterClass);
+            //     nextDecoratorPosition = replaceElement[1].value.left.arguments;
+            //   } else {
+            //     replaceElement[1].value.left.arguments[0] = nextDecoratorPosition[0]
+            //     nextDecoratorPosition[0] = replaceElement[1].value
+            //   }
+            //   privateDecoratorsCreated++
+            //   ;
             decoratorsCreated++;
+          } else {
+            //--------
+            // Public
+            //--------
+            for (let decorator of (o.decorators || [])) {
+              insertAfter (
+                parent,
+                klass,
+                publicMemberGenerator ({
+                  kind          : decorator.kind,
+                  className     : className,
+                  elementName   : o.key.name,
+                  decoratorName : decorator.expression,
+                  variableName  : '_descriptor_' + unique (),
+                  isStatic      : false
+                })
+              );
+              decoratorsCreated++;
+            }
           }
           o.decorators = undefined;
         }
       );
       
-      // Fields
+      //---------------------------------
+      // Public fields
+      //---------------------------------
       walker (
         klass,
-        (o) => o.type === 'ClassProperty' && o.decorators?.length,
+        (o) => {
+          return o.type === 'ClassProperty' &&
+            o.key.type !== 'PrivateName' &&
+            o.decorators?.length;
+        },
         (o, p) => {
-          const className = getClassName (source, o);
           for (let decorator of (o.decorators || [])) {
-            decoratorsCreated = true;
+            decoratorsCreated  = true;
             const variableName = '_initializer_' + unique ();
             insertBefore (
               parent,
@@ -114,10 +208,10 @@ function transform (ast) {
             insertAfter (
               parent,
               klass,
-              memberGenerator ({
+              publicMemberGenerator ({
                 kind          : decorator.kind,
                 className     : className,
-                methodName    : o.key.name,
+                elementName   : o.key.name,
                 decoratorName : decorator.expression,
                 variableName  : variableName,
                 isStatic      : o.static
@@ -136,23 +230,21 @@ function transform (ast) {
           o.decorators = undefined;
         }
       );
+      
+      //-------------------------------
+      // Global helpers
+      //-------------------------------
       if (decoratorsCreated && !preClassCreated) {
-        parent.splice (preClassLocation, 0, ...defineMetadataGenerator());
+        parent.splice (preClassLocation, 0, ...defineMetadataGenerator ());
         preClassCreated = true;
       }
     }
-  );
+  )
+  ;
   return source;
 }
 
-function memberGenerator ({
-                            kind,
-                            className,
-                            methodName,
-                            decoratorName,
-                            variableName,
-                            isStatic
-                          }) {
+function publicMemberGenerator ({kind, className, elementName, decoratorName, variableName, isStatic}) {
   return [
     (kind === 'setter' || kind === 'getter') && {
       'type'         : 'VariableDeclaration',
@@ -195,7 +287,7 @@ function memberGenerator ({
                 },
               {
                 'type'  : 'Literal',
-                'value' : methodName
+                'value' : elementName
               }
             ]
           }
@@ -246,7 +338,7 @@ function memberGenerator ({
                     },
                 'property' : {
                   'type' : 'Identifier',
-                  'name' : methodName
+                  'name' : elementName
                 }
               },
         'operator' : '=',
@@ -294,7 +386,7 @@ function memberGenerator ({
                         },
                     'property' : {
                       'type' : 'Identifier',
-                      'name' : methodName
+                      'name' : elementName
                     }
                   },
               {
@@ -320,7 +412,7 @@ function memberGenerator ({
                     },
                     'value' : {
                       'type'  : 'Literal',
-                      'value' : methodName
+                      'value' : elementName
                     }
                   },
                   {
@@ -349,7 +441,7 @@ function memberGenerator ({
                   },
                   defineMetadataGeneratorCall (
                     isStatic ? className : `${ className }.prototype`,
-                    methodName
+                    elementName
                   )
                 ]
               }
@@ -404,7 +496,7 @@ function memberGenerator ({
                       },
                   'property' : {
                     'type' : 'Identifier',
-                    'name' : methodName
+                    'name' : elementName
                   }
                 }
         }
@@ -445,13 +537,11 @@ function memberGenerator ({
               },
             {
               'type'  : 'Literal',
-              'value' : methodName
+              'value' : elementName
             },
             {
-              'type'  : 'Identifier',
-              'start' : 246,
-              'end'   : 257,
-              'name'  : variableName
+              'type' : 'Identifier',
+              'name' : variableName
             }
           ],
           'optional'  : false
@@ -471,7 +561,7 @@ function memberGenerator ({
               },
               'property' : {
                 'type' : 'Identifier',
-                'name' : methodName
+                'name' : elementName
               }
             },
             'right'    : {
@@ -489,7 +579,7 @@ function memberGenerator ({
                   },
                   'property' : {
                     'type' : 'Identifier',
-                    'name' : methodName
+                    'name' : elementName
                   }
                 }
               ],
@@ -498,6 +588,427 @@ function memberGenerator ({
           }
         } :
         undefined
+  ];
+}
+
+function privateMemberBeforeGenerator (symbolName) {
+  return [{
+    'type'         : 'VariableDeclaration',
+    'kind'         : 'const',
+    'declarations' : [
+      {
+        'type' : 'VariableDeclarator',
+        'id'   : {
+          'type' : 'Identifier',
+          'name' : symbolName
+        },
+        'init' : {
+          'type'      : 'CallExpression',
+          'callee'    : {
+            'type' : 'Identifier',
+            'name' : 'Symbol'
+          },
+          'arguments' : []
+        }
+      }
+    ]
+  }];
+}
+
+function privateFirstMemberGenerator ({kind, className, element, elementName, elementPrivateName, decoratorName, tempName, symbolName}) {
+  return [
+    {
+      'type'  : 'MethodDefinition',
+      'kind'  : 'method',
+      'key'   : {
+        'type' : 'Identifier',
+        'name' : tempName
+      },
+      'value' : element.value
+    },
+    {
+      'type'     : 'ClassProperty',
+      'static'   : true,
+      'computed' : true,
+      'key'      : {
+        'type' : 'Identifier',
+        'name' : symbolName
+      },
+      'value'    : {
+        'type'     : 'LogicalExpression',
+        'left'     : {
+          'type'      : 'CallExpression',
+          'callee'    : decoratorName,
+          'arguments' : [
+            {
+              'type'     : 'MemberExpression',
+              'object'   : {
+                'type'     : 'MemberExpression',
+                'object'   : {
+                  'type' : 'Identifier',
+                  'name' : className
+                },
+                'property' : {
+                  'type' : 'Identifier',
+                  'name' : 'prototype'
+                }
+              },
+              'property' : {
+                'type' : 'Identifier',
+                'name' : tempName
+              }
+            },
+            {
+              'type'       : 'ObjectExpression',
+              'properties' : [
+                {
+                  'type'  : 'Property',
+                  'key'   : {
+                    'type' : 'Identifier',
+                    'name' : 'kind'
+                  },
+                  'value' : {
+                    'type'  : 'Literal',
+                    'value' : kind
+                  },
+                  'kind'  : 'init'
+                },
+                {
+                  'type'  : 'Property',
+                  'key'   : {
+                    'type' : 'Identifier',
+                    'name' : 'name'
+                  },
+                  'value' : {
+                    'type'  : 'Literal',
+                    'value' : elementPrivateName
+                  },
+                  'kind'  : 'init'
+                },
+                {
+                  'type'  : 'Property',
+                  'key'   : {
+                    'type' : 'Identifier',
+                    'name' : 'isStatic'
+                  },
+                  'value' : {
+                    'type'  : 'Literal',
+                    'value' : false
+                  },
+                  'kind'  : 'init'
+                },
+                {
+                  'type'  : 'Property',
+                  'key'   : {
+                    'type' : 'Identifier',
+                    'name' : 'isPrivate'
+                  },
+                  'value' : {
+                    'type'  : 'Literal',
+                    'value' : true
+                  },
+                  'kind'  : 'init'
+                },
+                {
+                  'type'  : 'Property',
+                  'key'   : {
+                    'type' : 'Identifier',
+                    'name' : 'access'
+                  },
+                  'value' : {
+                    'type'       : 'ObjectExpression',
+                    'properties' : [
+                      {
+                        'type'  : 'Property',
+                        'key'   : {
+                          'type' : 'Identifier',
+                          'name' : 'get'
+                        },
+                        'value' : {
+                          'type'     : 'MemberExpression',
+                          'object'   : {
+                            'type'     : 'MemberExpression',
+                            'object'   : {
+                              'type' : 'Identifier',
+                              'name' : className
+                            },
+                            'property' : {
+                              'type' : 'Identifier',
+                              'name' : 'prototype'
+                            }
+                          },
+                          'property' : {
+                            'type' : 'Identifier',
+                            'name' : symbolName
+                          },
+                          'computed' : true
+                        },
+                        'kind'  : 'init'
+                      }
+                    ]
+                  },
+                  'kind'  : 'init'
+                },
+                defineMetadataGeneratorCall (`${ className }.prototype`, elementPrivateName)
+              ]
+            }
+          ],
+          'optional'  : false
+        },
+        'operator' : '??',
+        'right'    : {
+          'type'     : 'MemberExpression',
+          'object'   : {
+            'type'     : 'MemberExpression',
+            'object'   : {
+              'type' : 'Identifier',
+              'name' : className
+            },
+            'property' : {
+              'type' : 'Identifier',
+              'name' : 'prototype'
+            }
+          },
+          'property' : {
+            'type' : 'Identifier',
+            'name' : tempName
+          }
+        }
+      }
+    },
+    {
+      'type'  : 'ClassProperty',
+      'key'   : {
+        'type' : 'PrivateName',
+        'name' : elementName,
+        'id'   : {
+          'type' : 'Identifier',
+          'name' : elementName
+        }
+      },
+      'value' : {
+        'type'     : 'MemberExpression',
+        'object'   : {
+          'type' : 'Identifier',
+          'name' : className
+        },
+        'property' : {
+          'type' : 'Identifier',
+          'name' : symbolName
+        },
+        'computed' : true,
+        'optional' : false
+      }
+    },
+    {
+      'type'     : 'MethodDefinition',
+      'kind'     : 'method',
+      'computed' : true,
+      'key'      : {
+        'type' : 'Identifier',
+        'name' : symbolName
+      },
+      'value'    : {
+        'type'   : 'FunctionExpression',
+        'params' : [],
+        'body'   : {
+          'type' : 'BlockStatement',
+          'body' : [
+            {
+              'type'     : 'ReturnStatement',
+              'argument' : {
+                'type'     : 'MemberExpression',
+                'object'   : {
+                  'type' : 'ThisExpression'
+                },
+                'property' : {
+                  'type' : 'PrivateName',
+                  'name' : elementName,
+                  'id'   : {
+                    'type' : 'Identifier',
+                    'name' : elementName
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ];
+}
+
+function privateNextMemberGenerator (descriptor, {kind, className, elementPrivateName, decoratorName, tempName, symbolName}) {
+  descriptor.splice (descriptor.length - 2, 0,
+    {
+      'type'     : 'ClassProperty',
+      'static'   : true,
+      'computed' : true,
+      'key'      : {
+        'type' : 'Identifier',
+        'name' : symbolName
+      },
+      'value'    : {
+        'type'     : 'LogicalExpression',
+        'left'     : {
+          'type'      : 'CallExpression',
+          'callee'    : decoratorName,
+          'arguments' : [
+            {
+              'type'     : 'MemberExpression',
+              'object'   : {
+                'type' : 'Identifier',
+                'name' : className
+              },
+              'property' : {
+                'type' : 'Identifier',
+                'name' : symbolName
+              },
+              'computed' : true
+            },
+            {
+              'type'       : 'ObjectExpression',
+              'properties' : [
+                {
+                  'type'  : 'Property',
+                  'key'   : {
+                    'type' : 'Identifier',
+                    'name' : 'kind'
+                  },
+                  'value' : {
+                    'type'  : 'Literal',
+                    'value' : kind
+                  },
+                  'kind'  : 'init'
+                },
+                {
+                  'type'  : 'Property',
+                  'key'   : {
+                    'type' : 'Identifier',
+                    'name' : 'name'
+                  },
+                  'value' : {
+                    'type'  : 'Literal',
+                    'value' : elementPrivateName
+                  },
+                  'kind'  : 'init'
+                },
+                {
+                  'type'  : 'Property',
+                  'key'   : {
+                    'type' : 'Identifier',
+                    'name' : 'isStatic'
+                  },
+                  'value' : {
+                    'type'  : 'Literal',
+                    'value' : false
+                  },
+                  'kind'  : 'init'
+                },
+                {
+                  'type'  : 'Property',
+                  'key'   : {
+                    'type' : 'Identifier',
+                    'name' : 'isPrivate'
+                  },
+                  'value' : {
+                    'type'  : 'Literal',
+                    'value' : true
+                  },
+                  'kind'  : 'init'
+                },
+                {
+                  'type'  : 'Property',
+                  'key'   : {
+                    'type' : 'Identifier',
+                    'name' : 'access'
+                  },
+                  'value' : {
+                    'type'       : 'ObjectExpression',
+                    'properties' : [
+                      {
+                        'type'  : 'Property',
+                        'key'   : {
+                          'type' : 'Identifier',
+                          'name' : 'get'
+                        },
+                        'value' : {
+                          'type'     : 'MemberExpression',
+                          'object'   : {
+                            'type'     : 'MemberExpression',
+                            'object'   : {
+                              'type' : 'Identifier',
+                              'name' : className
+                            },
+                            'property' : {
+                              'type' : 'Identifier',
+                              'name' : 'prototype'
+                            }
+                          },
+                          'property' : {
+                            'type' : 'Identifier',
+                            'name' : symbolName
+                          },
+                          'computed' : true
+                        },
+                        'kind'  : 'init'
+                      }
+                    ]
+                  },
+                  'kind'  : 'init'
+                },
+                defineMetadataGeneratorCall (`${ className }.prototype`, elementPrivateName)
+              ]
+            }
+          ],
+          'optional'  : false
+        },
+        'operator' : '??',
+        'right'    : {
+          'type'     : 'MemberExpression',
+          'object'   : {
+            'type' : 'Identifier',
+            'name' : className
+          },
+          'property' : {
+            'type' : 'Identifier',
+            'name' : symbolName
+          },
+          'computed' : true
+        }
+      }
+    }
+  );
+}
+
+function privateMemberAfterGenerator (className, tempName) {
+  return [
+    {
+      'type'       : 'ExpressionStatement',
+      'expression' : {
+        'type'     : 'UnaryExpression',
+        'operator' : 'delete',
+        'prefix'   : true,
+        'argument' : {
+          'type'     : 'MemberExpression',
+          'object'   : {
+            'type'     : 'MemberExpression',
+            'object'   : {
+              'type' : 'Identifier',
+              'name' : className
+            },
+            'property' : {
+              'type' : 'Identifier',
+              'name' : 'prototype'
+            }
+          },
+          'property' : {
+            'type' : 'Identifier',
+            'name' : tempName
+          }
+        }
+      }
+    }
   ];
 }
 
@@ -838,12 +1349,12 @@ function defineMetadataGenerator () {
                       'operator' : '!',
                       'prefix'   : true,
                       'argument' : {
-                        'type'     : 'MemberExpression',
-                        'object'   : {
+                        'type'        : 'MemberExpression',
+                        'object'      : {
                           'type' : 'Identifier',
                           'name' : 'base'
                         },
-                        'property' : {
+                        'property'    : {
                           'type'     : 'MemberExpression',
                           'object'   : {
                             'type' : 'Identifier',
@@ -853,8 +1364,8 @@ function defineMetadataGenerator () {
                             'type' : 'Identifier',
                             'name' : 'metadata'
                           }
-                        }, "computed": true
-                      },
+                        }, 'computed' : true
+                      }
                     },
                     'consequent' : {
                       'type' : 'BlockStatement',
@@ -865,12 +1376,12 @@ function defineMetadataGenerator () {
                             'type'     : 'AssignmentExpression',
                             'operator' : '=',
                             'left'     : {
-                              'type'     : 'MemberExpression',
-                              'object'   : {
+                              'type'        : 'MemberExpression',
+                              'object'      : {
                                 'type' : 'Identifier',
                                 'name' : 'base'
                               },
-                              'property' : {
+                              'property'    : {
                                 'type'     : 'MemberExpression',
                                 'object'   : {
                                   'type' : 'Identifier',
@@ -880,7 +1391,7 @@ function defineMetadataGenerator () {
                                   'type' : 'Identifier',
                                   'name' : 'metadata'
                                 }
-                              }, "computed": true
+                              }, 'computed' : true
                             },
                             'right'    : {
                               'type'      : 'CallExpression',
@@ -915,14 +1426,14 @@ function defineMetadataGenerator () {
                       'operator' : '!',
                       'prefix'   : true,
                       'argument' : {
-                        'type'     : 'MemberExpression',
-                        'object'   : {
-                          'type'     : 'MemberExpression',
-                          'object'   : {
+                        'type'        : 'MemberExpression',
+                        'object'      : {
+                          'type'        : 'MemberExpression',
+                          'object'      : {
                             'type' : 'Identifier',
                             'name' : 'base'
                           },
-                          'property' : {
+                          'property'    : {
                             'type'     : 'MemberExpression',
                             'object'   : {
                               'type' : 'Identifier',
@@ -932,12 +1443,12 @@ function defineMetadataGenerator () {
                               'type' : 'Identifier',
                               'name' : 'metadata'
                             }
-                          }, "computed": true
+                          }, 'computed' : true
                         },
-                        'property' : {
+                        'property'    : {
                           'type' : 'Identifier',
                           'name' : 'name'
-                        }, "computed": true
+                        }, 'computed' : true
                       }
                     },
                     'consequent' : {
@@ -949,14 +1460,14 @@ function defineMetadataGenerator () {
                             'type'     : 'AssignmentExpression',
                             'operator' : '=',
                             'left'     : {
-                              'type'     : 'MemberExpression',
-                              'object'   : {
-                                'type'     : 'MemberExpression',
-                                'object'   : {
+                              'type'        : 'MemberExpression',
+                              'object'      : {
+                                'type'        : 'MemberExpression',
+                                'object'      : {
                                   'type' : 'Identifier',
                                   'name' : 'base'
                                 },
-                                'property' : {
+                                'property'    : {
                                   'type'     : 'MemberExpression',
                                   'object'   : {
                                     'type' : 'Identifier',
@@ -966,12 +1477,12 @@ function defineMetadataGenerator () {
                                     'type' : 'Identifier',
                                     'name' : 'metadata'
                                   }
-                                }, "computed": true
+                                }, 'computed' : true
                               },
-                              'property' : {
+                              'property'    : {
                                 'type' : 'Identifier',
                                 'name' : 'name'
-                              }, "computed": true
+                              }, 'computed' : true
                             },
                             'right'    : {
                               'type'       : 'ObjectExpression',
@@ -992,14 +1503,14 @@ function defineMetadataGenerator () {
                           'name' : 'db'
                         },
                         'init' : {
-                          'type'     : 'MemberExpression',
-                          'object'   : {
-                            'type'     : 'MemberExpression',
-                            'object'   : {
+                          'type'        : 'MemberExpression',
+                          'object'      : {
+                            'type'        : 'MemberExpression',
+                            'object'      : {
                               'type' : 'Identifier',
                               'name' : 'base'
                             },
-                            'property' : {
+                            'property'    : {
                               'type'     : 'MemberExpression',
                               'object'   : {
                                 'type' : 'Identifier',
@@ -1009,12 +1520,12 @@ function defineMetadataGenerator () {
                                 'type' : 'Identifier',
                                 'name' : 'metadata'
                               }
-                            }, "computed": true
+                            }, 'computed' : true
                           },
-                          'property' : {
+                          'property'    : {
                             'type' : 'Identifier',
                             'name' : 'name'
-                          }, "computed": true
+                          }, 'computed' : true
                         }
                       }
                     ],
@@ -1058,15 +1569,15 @@ function defineMetadataGenerator () {
                               },
                               'arguments' : [
                                 {
-                                  'type'     : 'MemberExpression',
-                                  'object'   : {
+                                  'type'        : 'MemberExpression',
+                                  'object'      : {
                                     'type' : 'Identifier',
                                     'name' : 'db'
                                   },
-                                  'property' : {
+                                  'property'    : {
                                     'type' : 'Identifier',
                                     'name' : 'key'
-                                  }, "computed": true
+                                  }, 'computed' : true
                                 }
                               ]
                             }
@@ -1124,15 +1635,15 @@ function defineMetadataGenerator () {
                             'callee'    : {
                               'type'     : 'MemberExpression',
                               'object'   : {
-                                'type'     : 'MemberExpression',
-                                'object'   : {
+                                'type'        : 'MemberExpression',
+                                'object'      : {
                                   'type' : 'Identifier',
                                   'name' : 'db'
                                 },
-                                'property' : {
+                                'property'    : {
                                   'type' : 'Identifier',
                                   'name' : 'key'
-                                }, "computed": true
+                                }, 'computed' : true
                               },
                               'property' : {
                                 'type' : 'Identifier',
@@ -1157,15 +1668,15 @@ function defineMetadataGenerator () {
                       'type'     : 'AssignmentExpression',
                       'operator' : '=',
                       'left'     : {
-                        'type'     : 'MemberExpression',
-                        'object'   : {
+                        'type'        : 'MemberExpression',
+                        'object'      : {
                           'type' : 'Identifier',
                           'name' : 'db'
                         },
-                        'property' : {
+                        'property'    : {
                           'type' : 'Identifier',
                           'name' : 'key'
-                        }, "computed": true
+                        }, 'computed' : true
                       },
                       'right'    : {
                         'type' : 'Identifier',
@@ -1182,26 +1693,16 @@ function defineMetadataGenerator () {
     }];
 }
 
-
-function getClassName (ast, member) {
-  let result;
-  walker (
-    ast,
-    o => {
-      const v = o.type === 'ClassDeclaration' && o.body.body.indexOf (member) !== -1;
-      return v;
-    },
-    o => result = o.id.name
-  );
-  return result;
-}
-
 function insertAfter (arr, current, elements) {
   arr.splice (arr.indexOf (current) + 1, 0, ...elements);
 }
 
 function insertBefore (arr, current, elements) {
   arr.splice (arr.indexOf (current), 0, ...elements);
+}
+
+function replace (arr, current, elements) {
+  arr.splice (arr.indexOf (current), 1, ...elements);
 }
 
 function prettySource (source) {

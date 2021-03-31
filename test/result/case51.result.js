@@ -9,6 +9,29 @@ function decorator(value, context) {
   }
 }
 
+if (!Symbol.metadata) {
+  Symbol.metadata = Symbol();
+}
+
+function __DefineMetadata(base, name) {
+  return function(key, value) {
+    if (!base[Symbol.metadata]) {
+      base[Symbol.metadata] = Object.create(null);
+    }
+    if (!base[Symbol.metadata][name]) {
+      base[Symbol.metadata][name] = {};
+    }
+    const db = base[Symbol.metadata][name];
+    if (key in db) {
+      if (!Array.isArray(db[key])) {
+        return db[key] = [db[key], value];
+      }
+      return db[key].push(value);
+    }
+    return db[key] = value;
+  };
+}
+
 class C {
   static M() {}
 }
@@ -16,25 +39,7 @@ class C {
 C = class_decorator(C, {
   kind: "class",
   name: "C",
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
-    }
-    if (!C[Symbol.metadata]) {
-      C[Symbol.metadata] = Object.create(null);
-    }
-    if (!C[Symbol.metadata].constructor) {
-      C[Symbol.metadata].constructor = {};
-    }
-    const db = C[Symbol.metadata].constructor;
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
-      }
-      return db[key].push(value);
-    }
-    return db[key] = value;
-  }
+  defineMetadata: __DefineMetadata(C, "constructor")
 }) ?? C;
 
 C.M = decorator(C.M, {
@@ -42,25 +47,7 @@ C.M = decorator(C.M, {
   name: "M",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
-    }
-    if (!C[Symbol.metadata]) {
-      C[Symbol.metadata] = Object.create(null);
-    }
-    if (!C[Symbol.metadata].M) {
-      C[Symbol.metadata].M = {};
-    }
-    const db = C[Symbol.metadata].M;
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
-      }
-      return db[key].push(value);
-    }
-    return db[key] = value;
-  }
+  defineMetadata: __DefineMetadata(C, "M")
 }) ?? C.M;
 
 C.M();

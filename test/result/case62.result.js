@@ -4,30 +4,19 @@ function decorator(value, context) {
   };
 }
 
-class C {
-  static get P() {
-    return "a";
-  }
+if (!Symbol.metadata) {
+  Symbol.metadata = Symbol();
 }
 
-const _descriptor_bmj68is25q8 = Object.getOwnPropertyDescriptor(C, "P");
-
-_descriptor_bmj68is25q8.get = decorator(_descriptor_bmj68is25q8.get, {
-  kind: "getter",
-  name: "P",
-  isStatic: true,
-  isPrivate: false,
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
+function __DefineMetadata(base, name) {
+  return function(key, value) {
+    if (!base[Symbol.metadata]) {
+      base[Symbol.metadata] = Object.create(null);
     }
-    if (!C[Symbol.metadata]) {
-      C[Symbol.metadata] = Object.create(null);
+    if (!base[Symbol.metadata][name]) {
+      base[Symbol.metadata][name] = {};
     }
-    if (!C[Symbol.metadata].P) {
-      C[Symbol.metadata].P = {};
-    }
-    const db = C[Symbol.metadata].P;
+    const db = base[Symbol.metadata][name];
     if (key in db) {
       if (!Array.isArray(db[key])) {
         return db[key] = [db[key], value];
@@ -35,9 +24,25 @@ _descriptor_bmj68is25q8.get = decorator(_descriptor_bmj68is25q8.get, {
       return db[key].push(value);
     }
     return db[key] = value;
-  }
-}) ?? _descriptor_bmj68is25q8.get;
+  };
+}
 
-Object.defineProperty(C, "P", _descriptor_bmj68is25q8);
+class C {
+  static get P() {
+    return "a";
+  }
+}
+
+const _descriptor_mfnluc4vcag = Object.getOwnPropertyDescriptor(C, "P");
+
+_descriptor_mfnluc4vcag.get = decorator(_descriptor_mfnluc4vcag.get, {
+  kind: "getter",
+  name: "P",
+  isStatic: true,
+  isPrivate: false,
+  defineMetadata: __DefineMetadata(C, "P")
+}) ?? _descriptor_mfnluc4vcag.get;
+
+Object.defineProperty(C, "P", _descriptor_mfnluc4vcag);
 
 console.assert(C.P === "b");

@@ -13,7 +13,6 @@ function logged(
           console.log(`constructing an instance of ${name} with arguments ${args.join(", ")}`);
         }
       },
-
       initialize() {
         console.log(`finished defining ${this.name}`);
       }
@@ -21,39 +20,39 @@ function logged(
   }
 }
 
-class C {}
+if (!Symbol.metadata) {
+  Symbol.metadata = Symbol();
+}
 
-_result_0pr142nglgg = logged(C, {
-  kind: "init-class",
-  name: "C",
-
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
+function __DefineMetadata(base, name) {
+  return function(key, value) {
+    if (!base[Symbol.metadata]) {
+      base[Symbol.metadata] = Object.create(null);
     }
-
-    if (!C[Symbol.metadata]) {
-      C[Symbol.metadata] = Object.create(null);
+    if (!base[Symbol.metadata][name]) {
+      base[Symbol.metadata][name] = {};
     }
-
-    if (!C[Symbol.metadata].constructor) {
-      C[Symbol.metadata].constructor = {};
-    }
-
-    const db = C[Symbol.metadata].constructor;
-
+    const db = base[Symbol.metadata][name];
     if (key in db) {
       if (!Array.isArray(db[key])) {
         return db[key] = [db[key], value];
       }
-
       return db[key].push(value);
     }
-
     return db[key] = value;
-  }
+  };
+}
+
+class C {}
+
+_result_sl40uui3b7o = logged(C, {
+  kind: "init-class",
+  name: "C",
+  defineMetadata: __DefineMetadata(C, "constructor")
 }) || {};
 
-C = _result_0pr142nglgg.definition || C;
-_result_0pr142nglgg.initialize && _result_0pr142nglgg.initialize.call(C);
+C = _result_sl40uui3b7o.definition || C;
+
+_result_sl40uui3b7o.initialize && _result_sl40uui3b7o.initialize.call(C);
+
 new C(1);

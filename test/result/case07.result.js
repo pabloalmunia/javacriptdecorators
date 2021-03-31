@@ -2,80 +2,56 @@ const unique = () => Math.random().toString(32).substring(2);
 
 function decorator(klass) {
   const u = unique();
-
   klass.prototype[u] = function() {
     return u;
   };
 }
 
+if (!Symbol.metadata) {
+  Symbol.metadata = Symbol();
+}
+
+function __DefineMetadata(base, name) {
+  return function(key, value) {
+    if (!base[Symbol.metadata]) {
+      base[Symbol.metadata] = Object.create(null);
+    }
+    if (!base[Symbol.metadata][name]) {
+      base[Symbol.metadata][name] = {};
+    }
+    const db = base[Symbol.metadata][name];
+    if (key in db) {
+      if (!Array.isArray(db[key])) {
+        return db[key] = [db[key], value];
+      }
+      return db[key].push(value);
+    }
+    return db[key] = value;
+  };
+}
+
 class C {}
 
-_result87cugekd3fo = decorator(C, {
+_result_10572msq73g = decorator(C, {
   kind: "init-class",
   name: "C",
-
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
-    }
-
-    if (!C[Symbol.metadata]) {
-      C[Symbol.metadata] = Object.create(null);
-    }
-
-    if (!C[Symbol.metadata].constructor) {
-      C[Symbol.metadata].constructor = {};
-    }
-
-    const db = C[Symbol.metadata].constructor;
-
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
-      }
-
-      return db[key].push(value);
-    }
-
-    return db[key] = value;
-  }
+  defineMetadata: __DefineMetadata(C, "constructor")
 }) || {};
 
-C = _result87cugekd3fo.definition || C;
-_result87cugekd3fo.initialize && _result87cugekd3fo.initialize.call(C);
+C = _result_10572msq73g.definition || C;
+
+_result_10572msq73g.initialize && _result_10572msq73g.initialize.call(C);
+
 class B extends C {}
 
-_resultu2ki2o7es9 = decorator(B, {
+_result_kl4td40nngg = decorator(B, {
   kind: "init-class",
   name: "B",
-
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
-    }
-
-    if (!B[Symbol.metadata]) {
-      B[Symbol.metadata] = Object.create(null);
-    }
-
-    if (!B[Symbol.metadata].constructor) {
-      B[Symbol.metadata].constructor = {};
-    }
-
-    const db = B[Symbol.metadata].constructor;
-
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
-      }
-
-      return db[key].push(value);
-    }
-
-    return db[key] = value;
-  }
+  defineMetadata: __DefineMetadata(B, "constructor")
 }) || {};
 
-B = _resultu2ki2o7es9.definition || B;
-_resultu2ki2o7es9.initialize && _resultu2ki2o7es9.initialize.call(B);
+B = _result_kl4td40nngg.definition || B;
+
+_result_kl4td40nngg.initialize && _result_kl4td40nngg.initialize.call(B);
+
 new B(1);

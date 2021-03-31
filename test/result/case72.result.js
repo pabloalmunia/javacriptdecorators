@@ -4,6 +4,29 @@ function decorator(value, context) {
   };
 }
 
+if (!Symbol.metadata) {
+  Symbol.metadata = Symbol();
+}
+
+function __DefineMetadata(base, name) {
+  return function(key, value) {
+    if (!base[Symbol.metadata]) {
+      base[Symbol.metadata] = Object.create(null);
+    }
+    if (!base[Symbol.metadata][name]) {
+      base[Symbol.metadata][name] = {};
+    }
+    const db = base[Symbol.metadata][name];
+    if (key in db) {
+      if (!Array.isArray(db[key])) {
+        return db[key] = [db[key], value];
+      }
+      return db[key].push(value);
+    }
+    return db[key] = value;
+  };
+}
+
 class C {
   static #P = 0;
   static set P(v) {
@@ -14,35 +37,17 @@ class C {
   }
 }
 
-const _descriptor_c90gfmedoi = Object.getOwnPropertyDescriptor(C, "P");
+const _descriptor_145om69mf1 = Object.getOwnPropertyDescriptor(C, "P");
 
-_descriptor_c90gfmedoi.set = decorator(_descriptor_c90gfmedoi.set, {
+_descriptor_145om69mf1.set = decorator(_descriptor_145om69mf1.set, {
   kind: "setter",
   name: "P",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: function(key, value) {
-    if (!Symbol.metadata) {
-      Symbol.metadata = Symbol();
-    }
-    if (!C[Symbol.metadata]) {
-      C[Symbol.metadata] = Object.create(null);
-    }
-    if (!C[Symbol.metadata].P) {
-      C[Symbol.metadata].P = {};
-    }
-    const db = C[Symbol.metadata].P;
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
-      }
-      return db[key].push(value);
-    }
-    return db[key] = value;
-  }
-}) ?? _descriptor_c90gfmedoi.set;
+  defineMetadata: __DefineMetadata(C, "P")
+}) ?? _descriptor_145om69mf1.set;
 
-Object.defineProperty(C, "P", _descriptor_c90gfmedoi);
+Object.defineProperty(C, "P", _descriptor_145om69mf1);
 
 C.P = 10;
 
