@@ -107,11 +107,19 @@ class A {
 }
 ```
 
+#### private field
+
+```js
+class A {
+  @decorator
+  #p = 1;
+}
+```
 
 ## Functionality not supported yet
 
-- Private getter/setter and private field decorators.
+- Private and Static members as `static #m() {}`
 - `@init:` decorators.
-- Keyword `accesor`.
+- Keyword `accessor`.
 - Export `export` or `export default`.
 - Anonymous class.

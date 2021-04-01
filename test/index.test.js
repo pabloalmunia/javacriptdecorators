@@ -112,5 +112,12 @@ run ('case113');
 run ('case114');
 run ('case115');
 
+// Private Setter
+run ('case121');
+run ('case122');
+run ('case123');
+run ('case124');
+run ('case125');
+
 // Other examples
 run ('example01');

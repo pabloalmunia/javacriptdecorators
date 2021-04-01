@@ -156,43 +156,104 @@ function transform (ast) {
       );
       
       //---------------------------------
-      // Public fields
+      // Fields
       //---------------------------------
       walker (
         klass,
         (o) => {
           return o.type === 'ClassProperty' &&
-            o.key.type !== 'PrivateName' &&
             o.decorators?.length;
         },
         (o, p) => {
+          const symbolGetName  = '_symbol_' + unique ();
+          const symbolSetName  = '_symbol_' + unique ();
+          let isFirst = true;
           for (let decorator of (o.decorators || [])) {
-            decoratorsCreated  = true;
-            const variableName = '_initializer_' + unique ();
+            decoratorsCreated    = true;
+            const variableName   = '_initializer_' + unique ();
+            const elementsBefore = [{
+              'type'         : 'VariableDeclaration',
+              'declarations' : [
+                {
+                  'type' : 'VariableDeclarator',
+                  'id'   : {'type' : 'Identifier', 'name' : variableName}
+                }
+              ],
+              'kind'         : 'let'
+            }];
+            if (o.key.type === 'PrivateName' && isFirst) {
+              elementsBefore.push (
+                {
+                  'type'         : 'VariableDeclaration',
+                  'declarations' : [
+                    {
+                      'type' : 'VariableDeclarator',
+                      'id'   : {
+                        'type' : 'Identifier',
+                        'name' : symbolGetName
+                      },
+                      'init' : {
+                        'type'      : 'CallExpression',
+                        'callee'    : {
+                          'type' : 'Identifier',
+                          'name' : 'Symbol'
+                        },
+                        'arguments' : []
+                      }
+                    }
+                  ],
+                  'kind'         : 'const'
+                },
+                {
+                  'type'         : 'VariableDeclaration',
+                  'declarations' : [
+                    {
+                      'type' : 'VariableDeclarator',
+                      'id'   : {
+                        'type' : 'Identifier',
+                        'name' : symbolSetName
+                      },
+                      'init' : {
+                        'type'      : 'CallExpression',
+                        'callee'    : {
+                          'type' : 'Identifier',
+                          'name' : 'Symbol'
+                        },
+                        'arguments' : []
+                      }
+                    }
+                  ],
+                  'kind'         : 'const'
+                }
+              );
+            }
             insertBefore (
               parent,
-              klass, [{
-                'type'         : 'VariableDeclaration',
-                'declarations' : [
-                  {
-                    'type' : 'VariableDeclarator',
-                    'id'   : {'type' : 'Identifier', 'name' : variableName}
-                  }
-                ],
-                'kind'         : 'let'
-              }]
+              klass,
+              elementsBefore
             );
             insertAfter (
               parent,
               klass,
-              publicMemberGenerator ({
-                kind          : decorator.kind,
-                className     : className,
-                elementName   : o.key.name,
-                decoratorName : decorator.expression,
-                variableName  : variableName,
-                isStatic      : o.static
-              })
+              o.key.type === 'PrivateName' ?
+                privateFieldGenerator ({
+                  kind          : decorator.kind,
+                  elementName   : o.key.name,
+                  decoratorName : decorator.expression,
+                  className,
+                  variableName,
+                  symbolGetName,
+                  symbolSetName
+                  
+                }) :
+                publicMemberGenerator ({
+                  kind          : decorator.kind,
+                  elementName   : o.key.name,
+                  decoratorName : decorator.expression,
+                  isStatic      : o.static,
+                  className,
+                  variableName
+                })
             );
             o.value = {
               'type'      : 'CallExpression',
@@ -202,6 +263,96 @@ function transform (ast) {
               },
               'arguments' : [o.value]
             };
+            if (o.key.type === 'PrivateName' && isFirst) {
+              isFirst = false;
+              insertAfter (klass.body.body, o, [
+              {
+                'type'     : 'MethodDefinition',
+                'kind'     : 'method',
+                'computed' : true,
+                'key'      : {
+                  'type' : 'Identifier',
+                  'name' : symbolGetName
+                },
+                'value'    : {
+                  'type'   : 'FunctionExpression',
+                  'params' : [],
+                  'body'   : {
+                    'type' : 'BlockStatement',
+                    'body' : [
+                      {
+                        'type'     : 'ReturnStatement',
+                        'argument' : {
+                          'type'     : 'MemberExpression',
+                          'object'   : {
+                            'type' : 'ThisExpression'
+                          },
+                          'computed' : false,
+                          'optional' : false,
+                          'property' : {
+                            'type' : 'PrivateName',
+                            'name' : o.key.name,
+                            'id'   : {
+                              'type' : 'Identifier',
+                              'name' : o.key.name
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                'type'     : 'MethodDefinition',
+                'kind'     : 'method',
+                'computed' : true,
+                'key'      : {
+                  'type' : 'Identifier',
+                  'name' : symbolSetName
+                },
+                'value'    : {
+                  'type'   : 'FunctionExpression',
+                  'params' : [
+                    {
+                      'type' : 'Identifier',
+                      'name' : 'v'
+                    }
+                  ],
+                  'body'   : {
+                    'type' : 'BlockStatement',
+                    'body' : [
+                      {
+                        'type'       : 'ExpressionStatement',
+                        'expression' : {
+                          'type'     : 'AssignmentExpression',
+                          'operator' : '=',
+                          'left'     : {
+                            'type'     : 'MemberExpression',
+                            'object'   : {
+                              'type' : 'ThisExpression'
+                            },
+                            'property' : {
+                              'type' : 'PrivateName',
+                              'name' : o.key.name,
+                              'id'   : {
+                                'type' : 'Identifier',
+                                'name' : o.key.name
+                              }
+                            }
+                          },
+                          'right'    : {
+                            'type' : 'Identifier',
+                            'name' : 'v'
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]);
+            }
             decoratorsCreated++;
           }
           o.decorators = undefined;
@@ -568,6 +719,173 @@ function publicMemberGenerator ({kind, className, elementName, decoratorName, va
   ];
 }
 
+function privateFieldGenerator ({kind, className, elementName, decoratorName, variableName, symbolGetName, symbolSetName}) {
+  return [
+    {
+      'type'       : 'ExpressionStatement',
+      'expression' : {
+        'type'     : 'AssignmentExpression',
+        'left'     :
+          {
+            'type' : 'Identifier',
+            'name' : variableName
+          },
+        'operator' : '=',
+        'right'    : {
+          'type'     : 'LogicalExpression',
+          'left'     : {
+            'type'      : 'CallExpression',
+            'callee'    : decoratorName,
+            'arguments' : [
+              {
+                'type' : 'Identifier',
+                'name' : 'undefined'
+              },
+              {
+                'type'       : 'ObjectExpression',
+                'properties' : [
+                  {
+                    'type' : 'Property',
+                    'key'  : {
+                      'type' : 'Identifier',
+                      'name' : 'kind'
+                    },
+                    
+                    'value' : {
+                      'type'  : 'Literal',
+                      'value' : kind
+                    }
+                  },
+                  {
+                    'type'  : 'Property',
+                    'key'   : {
+                      'type' : 'Identifier',
+                      'name' : 'name'
+                    },
+                    'value' : {
+                      'type'  : 'Literal',
+                      'value' : '#' + elementName
+                    }
+                  },
+                  {
+                    'type'  : 'Property',
+                    'key'   : {
+                      'type' : 'Identifier',
+                      'name' : 'access'
+                    },
+                    'value' : {
+                      'type'       : 'ObjectExpression',
+                      'properties' : [
+                        {
+                          'type'  : 'Property',
+                          'key'   : {
+                            'type' : 'Identifier',
+                            'name' : 'get'
+                          },
+                          'value' : {
+                            'type'     : 'MemberExpression',
+                            'object'   : {
+                              'type'     : 'MemberExpression',
+                              'object'   : {
+                                'type' : 'Identifier',
+                                'name' : className
+                              },
+                              'property' : {
+                                'type' : 'Identifier',
+                                'name' : 'prototype'
+                              }
+                            },
+                            'property' : {
+                              'type' : 'Identifier',
+                              'name' : symbolGetName
+                            },
+                            'computed' : true
+                          },
+                          'kind'  : 'init'
+                        },
+                        {
+                          'type'  : 'Property',
+                          'key'   : {
+                            'type' : 'Identifier',
+                            'name' : 'set'
+                          },
+                          'value' : {
+                            'type'     : 'MemberExpression',
+                            'object'   : {
+                              'type'     : 'MemberExpression',
+                              'object'   : {
+                                'type' : 'Identifier',
+                                'name' : className
+                              },
+                              'property' : {
+                                'type' : 'Identifier',
+                                'name' : 'prototype'
+                              }
+                            },
+                            'property' : {
+                              'type' : 'Identifier',
+                              'name' : symbolSetName
+                            },
+                            'computed' : true
+                          },
+                          'kind'  : 'init'
+                        }
+                      ]
+                    },
+                    'kind'  : 'init'
+                  },
+                  {
+                    'type'  : 'Property',
+                    'key'   : {
+                      'type' : 'Identifier',
+                      'name' : 'isStatic'
+                    },
+                    'value' : {
+                      'type'  : 'Literal',
+                      'value' : false
+                    }
+                  },
+                  {
+                    'type' : 'Property',
+                    'key'  : {
+                      'type' : 'Identifier',
+                      'name' : 'isPrivate'
+                    },
+                    
+                    'value' : {
+                      'type'  : 'Literal',
+                      'value' : true
+                    }
+                  },
+                  defineMetadataGeneratorCall (
+                    className + '.prototype',
+                    '#' + elementName
+                  )
+                ]
+              }
+            ]
+          },
+          'operator' : '??',
+          'right'    :
+            {
+              'type'   : 'ArrowFunctionExpression',
+              'params' : [
+                {
+                  'type' : 'Identifier',
+                  'name' : 'v'
+                }
+              ],
+              'body'   : {
+                'type' : 'Identifier',
+                'name' : 'v'
+              }
+            }
+        }
+      }
+    }
+  ];
+}
+
 function privateMemberBeforeGenerator (symbolName) {
   return [{
     'type'         : 'VariableDeclaration',
@@ -770,8 +1088,8 @@ function privateFirstMemberGenerator ({kind, className, element, elementName, el
           'params' : [
             (kind === 'setter') ?
               {
-                "type": "Identifier",
-                "name": "v"
+                'type' : 'Identifier',
+                'name' : 'v'
               } :
               undefined
           ],
@@ -812,10 +1130,10 @@ function privateFirstMemberGenerator ({kind, className, element, elementName, el
                   'arguments' : [
                     (kind === 'setter') ?
                       {
-                        "type": "Identifier",
-                        "start": 406,
-                        "end": 407,
-                        "name": "v"
+                        'type'  : 'Identifier',
+                        'start' : 406,
+                        'end'   : 407,
+                        'name'  : 'v'
                       } :
                       undefined
                   ]
@@ -865,31 +1183,31 @@ function privateFirstMemberGenerator ({kind, className, element, elementName, el
           'body' : [
             (kind === 'getter' || kind === 'setter') ?
               {
-                "type": "ReturnStatement",
-                "argument": {
-                  "type": "CallExpression",
-                 "callee": {
-                    "type": "MemberExpression",
-                    "object": {
-                      "type": "MemberExpression",
-                      "object": {
-                        "type": "Identifier",
-                        "name": className
+                'type'     : 'ReturnStatement',
+                'argument' : {
+                  'type'      : 'CallExpression',
+                  'callee'    : {
+                    'type'     : 'MemberExpression',
+                    'object'   : {
+                      'type'     : 'MemberExpression',
+                      'object'   : {
+                        'type' : 'Identifier',
+                        'name' : className
                       },
-                      "property": {
-                        "type": "Identifier",
-                        "name": symbolName
+                      'property' : {
+                        'type' : 'Identifier',
+                        'name' : symbolName
                       },
-                      "computed": true
+                      'computed' : true
                     },
-                    "property": {
-                      "type": "Identifier",
-                      "name": "bind"
+                    'property' : {
+                      'type' : 'Identifier',
+                      'name' : 'bind'
                     }
                   },
-                  "arguments": [
+                  'arguments' : [
                     {
-                      "type": "ThisExpression",
+                      'type' : 'ThisExpression'
                     }
                   ]
                 }
