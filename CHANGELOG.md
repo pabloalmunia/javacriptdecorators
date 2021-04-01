@@ -1,6 +1,10 @@
 # JavascriptDecorators.org - CHANGELOG
 
-## versio 0.0.13 - 01/04/2021
+## version 0.0.14 - 01/04/2021
+
+- Added direct execution from the UI
+
+## version 0.0.13 - 01/04/2021
 
 - Added support to private getter/setter decorator
 

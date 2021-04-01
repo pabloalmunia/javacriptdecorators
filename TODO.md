@@ -2,7 +2,6 @@
 
 ## TODO
 
-- [ ] Direct execution into the web tool
 - [ ] Predefined examples
 - [ ] JSON navigation
 - [ ] Sync JSON navigation and code
