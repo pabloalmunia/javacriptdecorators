@@ -72,6 +72,23 @@ class A {
 }
 ```
 
+
+#### private getter/setter
+
+```js
+class A {
+  @decorator
+  get #p() {}
+}
+```
+
+```js
+class A {
+  @decorator
+  set #p(v) {}
+}
+```
+
 ### Fields
 
 ```js
