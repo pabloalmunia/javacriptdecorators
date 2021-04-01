@@ -130,29 +130,6 @@ function transform (ast) {
             insertBefore (parent, klass, beforeClass);
             replace (klass.body.body, o, replaceElement);
             insertAfter (parent, klass, afterClass);
-            
-            //
-            //
-            // let nextDecoratorPosition;
-            // let privateDecoratorsCreated = 0;
-            // for (let decorator of (o.decorators || [])) {
-            //   const {beforeClass, replaceElement, afterClass} = privateMemberGenerator ({
-            //     kind          : decorator.kind,
-            //     className     : className,
-            //     element       : o,
-            //     decoratorName : decorator.expression
-            //   });
-            //   if (!privateDecoratorsCreated) {
-            //     insertBefore (parent, klass, beforeClass);
-            //     replace (klass.body.body, o, replaceElement);
-            //     insertAfter (parent, klass, afterClass);
-            //     nextDecoratorPosition = replaceElement[1].value.left.arguments;
-            //   } else {
-            //     replaceElement[1].value.left.arguments[0] = nextDecoratorPosition[0]
-            //     nextDecoratorPosition[0] = replaceElement[1].value
-            //   }
-            //   privateDecoratorsCreated++
-            //   ;
             decoratorsCreated++;
           } else {
             //--------
@@ -776,30 +753,102 @@ function privateFirstMemberGenerator ({kind, className, element, elementName, el
         }
       }
     },
-    {
-      'type'  : 'ClassProperty',
-      'key'   : {
-        'type' : 'PrivateName',
-        'name' : elementName,
-        'id'   : {
-          'type' : 'Identifier',
-          'name' : elementName
+    (kind === 'getter' || kind === 'setter') ?
+      {
+        'type'  : 'MethodDefinition',
+        'kind'  : (kind === 'getter') ? 'get' : 'set',
+        'key'   : {
+          'type' : 'PrivateName',
+          'name' : elementName,
+          'id'   : {
+            'type' : 'Identifier',
+            'name' : elementName
+          }
+        },
+        'value' : {
+          'type'   : 'FunctionExpression',
+          'params' : [
+            (kind === 'setter') ?
+              {
+                "type": "Identifier",
+                "name": "v"
+              } :
+              undefined
+          ],
+          'body'   : {
+            'type' : 'BlockStatement',
+            'body' : [
+              {
+                'type'     : 'ReturnStatement',
+                'argument' : {
+                  'type'      : 'CallExpression',
+                  'callee'    : {
+                    'type'      : 'CallExpression',
+                    'callee'    : {
+                      'type'     : 'MemberExpression',
+                      'object'   : {
+                        'type'     : 'MemberExpression',
+                        'object'   : {
+                          'type' : 'Identifier',
+                          'name' : className
+                        },
+                        'property' : {
+                          'type' : 'Identifier',
+                          'name' : symbolName
+                        },
+                        'computed' : true
+                      },
+                      'property' : {
+                        'type' : 'Identifier',
+                        'name' : 'bind'
+                      }
+                    },
+                    'arguments' : [
+                      {
+                        'type' : 'ThisExpression'
+                      }
+                    ]
+                  },
+                  'arguments' : [
+                    (kind === 'setter') ?
+                      {
+                        "type": "Identifier",
+                        "start": 406,
+                        "end": 407,
+                        "name": "v"
+                      } :
+                      undefined
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      } :
+      {
+        'type'  : 'ClassProperty',
+        'key'   : {
+          'type' : 'PrivateName',
+          'name' : elementName,
+          'id'   : {
+            'type' : 'Identifier',
+            'name' : elementName
+          }
+        },
+        'value' : {
+          'type'     : 'MemberExpression',
+          'object'   : {
+            'type' : 'Identifier',
+            'name' : className
+          },
+          'property' : {
+            'type' : 'Identifier',
+            'name' : symbolName
+          },
+          'computed' : true,
+          'optional' : false
         }
       },
-      'value' : {
-        'type'     : 'MemberExpression',
-        'object'   : {
-          'type' : 'Identifier',
-          'name' : className
-        },
-        'property' : {
-          'type' : 'Identifier',
-          'name' : symbolName
-        },
-        'computed' : true,
-        'optional' : false
-      }
-    },
     {
       'type'     : 'MethodDefinition',
       'kind'     : 'method',
@@ -814,23 +863,54 @@ function privateFirstMemberGenerator ({kind, className, element, elementName, el
         'body'   : {
           'type' : 'BlockStatement',
           'body' : [
-            {
-              'type'     : 'ReturnStatement',
-              'argument' : {
-                'type'     : 'MemberExpression',
-                'object'   : {
-                  'type' : 'ThisExpression'
-                },
-                'property' : {
-                  'type' : 'PrivateName',
-                  'name' : elementName,
-                  'id'   : {
-                    'type' : 'Identifier',
-                    'name' : elementName
+            (kind === 'getter' || kind === 'setter') ?
+              {
+                "type": "ReturnStatement",
+                "argument": {
+                  "type": "CallExpression",
+                 "callee": {
+                    "type": "MemberExpression",
+                    "object": {
+                      "type": "MemberExpression",
+                      "object": {
+                        "type": "Identifier",
+                        "name": className
+                      },
+                      "property": {
+                        "type": "Identifier",
+                        "name": symbolName
+                      },
+                      "computed": true
+                    },
+                    "property": {
+                      "type": "Identifier",
+                      "name": "bind"
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "ThisExpression",
+                    }
+                  ]
+                }
+              } :
+              {
+                'type'     : 'ReturnStatement',
+                'argument' : {
+                  'type'     : 'MemberExpression',
+                  'object'   : {
+                    'type' : 'ThisExpression'
+                  },
+                  'property' : {
+                    'type' : 'PrivateName',
+                    'name' : elementName,
+                    'id'   : {
+                      'type' : 'Identifier',
+                      'name' : elementName
+                    }
                   }
                 }
               }
-            }
           ]
         }
       }

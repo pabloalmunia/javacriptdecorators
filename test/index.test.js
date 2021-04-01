@@ -98,5 +98,19 @@ run ('case093');
 run ('case094');
 run ('case095');
 
+// Private Getter
+run ('case101');
+run ('case102');
+run ('case103');
+run ('case104');
+run ('case105');
+//
+// Private Setter
+run ('case111');
+run ('case112');
+run ('case113');
+run ('case114');
+run ('case115');
+
 // Other examples
 run ('example01');
