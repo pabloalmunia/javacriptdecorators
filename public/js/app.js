@@ -56,6 +56,11 @@ document.querySelector ('#run').addEventListener ('click', () => {
                 .map (show)
                 .join (' ') + '</pre></div>';
           },
+          assert (assertion, ...args) {
+            if (!assertion) {
+              console.error('Assertion error', ...args);
+            }
+          },
           info : this.log,
           warn : this.log
         };
