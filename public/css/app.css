@@ -24,8 +24,9 @@
   --input-focus-color         : #0288d1;
   --input-invalid-color       : #d32f2f;
   --button-hover-back-color   : #277529;
-  --button-back-color         : #308732;
-  --button-fore-color         : #f8f8f8;
+  --button-hover-fore-color   : #f8f8f8;
+  --button-back-color         : #D0D0D0;
+  --button-fore-color         : #333;
   --button-border-color       : transparent;
   --button-hover-border-color : transparent;
   --button-group-border-color : rgba(124, 124, 124, 0.54);
@@ -107,6 +108,7 @@ a.button:hover,
 a.button:focus, label.button:hover, label.button:focus, .button:hover, .button:focus,
 a[role="button"]:hover,
 a[role="button"]:focus, label[role="button"]:hover, label[role="button"]:focus, [role="button"]:hover, [role="button"]:focus {
+  color        : var(--button-hover-fore-color);
   background   : var(--button-hover-back-color);
   border-color : var(--button-hover-border-color);
 }
@@ -136,24 +138,28 @@ input:disabled, input[disabled], textarea:disabled, textarea[disabled], select:d
   position : absolute;
   top      : 0;
   left     : 0;
-  bottom   : 0;
+  bottom   : 1px;
   width    : 50%;
-  float    : left;
 }
 .section-right {
   position : absolute;
   top      : 0;
   left     : 50%;
-  bottom   : 0;
+  bottom   : 1px;
   width    : 50%;
+  right    : 1px;
 }
 .subheader {
   height : 2.5rem;
 }
 #shareit {
-  cursor: pointer;
+  cursor   : pointer;
+  position : absolute;
+  top      : 12px;
+  right    : 156px;
 }
-.section-left .subheader h2 {
+.section-left .subheader h2,
+.section-left .subfooter h3 {
   display : inline-block;
 }
 .section-right .subheader h2 {
@@ -166,10 +172,17 @@ input:disabled, input[disabled], textarea:disabled, textarea[disabled], select:d
   font-weight : bold;
   cursor      : inherit;
 }
+.section-left #run {
+  position : absolute;
+  top      : 4px;
+  right    : 84px;
+  margin   : 0;
+}
 .section-left #analyze {
   position : absolute;
-  top      : 0;
-  right    : 0;
+  top      : 4px;
+  right    : 3px;
+  margin   : 0;
 }
 .section-left #code,
 .section-right #result {
@@ -181,9 +194,76 @@ input:disabled, input[disabled], textarea:disabled, textarea[disabled], select:d
   border   : 1px solid grey;
 }
 .section-left #code {
-  left : 0;
+  left   : 0;
+  bottom : 3em;
+}
+#console-open:checked + .section-left #code {
+  bottom : 40%;
+}
+.section-left .subfooter {
+  position : absolute;
+  bottom   : 1px;
+  left     : 1px;
+  width    : 100%;
+  height   : 3em;
+}
+#console-open:checked + .section-left .subfooter {
+  bottom : calc(40% - 3em);
+}
+.section-left .subfooter h3 {
+  cursor : pointer;
+}
+.section-left .subfooter h3:before {
+  margin-right : 0.5em;
+  content      : url("data:image/svg+xml;chartset=UTF-8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 320 512\"><path d=\"M85.165 475.751C81.727 472.61 80.008 468.314 80.008 464.001C80.008 460.11 81.415 456.22 84.258 453.142L266.227 256.001L84.258 58.86C78.258 52.36 78.633 42.22 85.165 36.251C91.665 30.251 101.758 30.657 107.758 37.142L299.758 245.142C305.446 251.298 305.446 260.704 299.758 266.86L107.758 474.86C101.758 481.345 91.665 481.751 85.165 475.751Z\"/></svg>")
+}
+#console-open:checked + .section-left .subfooter h3:before {
+  content : url("data:image/svg+xml;chartset=UTF-8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 448 512\"><path d=\"M4.249 181.141C7.39 177.703 11.686 175.984 15.999 175.984C19.89 175.984 23.78 177.391 26.858 180.234L223.999 362.203L421.14 180.234C427.64 174.234 437.78 174.609 443.749 181.141C449.749 187.641 449.343 197.734 442.858 203.734L234.858 395.734C228.702 401.422 219.296 401.422 213.14 395.734L5.14 203.734C-1.345 197.734 -1.751 187.641 4.249 181.141Z\"/></svg>")
+}
+.section-left #console {
+  position         : absolute;
+  bottom           : 1px;
+  left             : 1px;
+  width            : calc(100% - 3px);
+  height           : calc(40% - 3em);
+  display          : none;
+  background-color : #333333;
+  overflow         : auto;
+  font-family      : monospace;
+  font-size        : 14px;
+}
+#console-open:checked + .section-left #console {
+  display : block;
+}
+#console-clear {
+  display : none;
+}
+#console-open:checked + .section-left #console-clear {
+  display  : inline-block;
+  cursor   : pointer;
+  position : absolute;
+  top      : 12px;
+  right    : 12px;
+}
+.section-left #console .log {
+  position : relative;
+  color    : #FFFFFF;
+}
+.section-left #console .error {
+  position         : relative;
+  color            : #FF8080;
+  background-color : #290000
+}
+.section-left #console .time {
+  opacity     : 0.75;
+  display     : block;
+  float       : left;
+  margin-left : 8px;
+}
+.section-left #console .msg {
+  display : block;
+  margin  : 0 0 0 110px;
 }
 .section-right #result {
   right : 0;
 }
-
