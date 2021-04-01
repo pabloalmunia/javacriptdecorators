@@ -1,5 +1,9 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.0.15 - 01/04/2021
+
+- Added support to private field decorator
+
 ## version 0.0.14 - 01/04/2021
 
 - Added direct execution from the UI
