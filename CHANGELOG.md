@@ -1,5 +1,9 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## versio 0.0.13 - 01/04/2021
+
+- Added support to private getter/setter decorator
+
 ## version 0.0.12 - 31/03/2021
 
 - Fixed an error with link generation
