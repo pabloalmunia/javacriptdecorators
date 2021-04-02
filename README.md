@@ -416,7 +416,7 @@ The metadata defined for the decorator with `context.defineMetadata()` is locate
 `X.prototype[Symbol.metadata]['#p']` where `X` is the class, and `#p` is the private property name.
 
 
-#### static private member getter
+#### static private getter
 
 ```js
 class X {
@@ -455,7 +455,7 @@ The metadata defined for the decorator with `context.defineMetadata()` is locate
 `X[Symbol.metadata]['#P']` where `X` is the class and `#P` is the private method name.
 
 
-#### static private member setter
+#### static private setter
 
 ```js
 class X {
@@ -599,7 +599,7 @@ The metadata defined for the decorator with `context.defineMetadata()` is locate
 `X.prototype[Symbol.metadata]['#p']` where `X` is the class, and `#p` is the private property name.
 
 
-#### static private member field
+#### static private field
 
 ```js
 class X {
