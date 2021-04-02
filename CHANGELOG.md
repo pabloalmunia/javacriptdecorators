@@ -1,5 +1,11 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.0.16 - 02/04/2021
+
+- Added support to static private method decorator
+- Added support to static private accessor decorator
+- Added support to static private field decorator
+
 ## version 0.0.15 - 01/04/2021
 
 - Added support to private field decorator

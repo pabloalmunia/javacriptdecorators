@@ -5,7 +5,29 @@ The tools are entirely experimental and evolving. There is no guarantee of they 
 
 ## Supported functionality
 
-### Class
+- [Class decorators](#class-decorators)
+- [Methods](#methods)
+  - [public member method](#public-member-method)
+  - [static methods](#static-methods)
+  - [private member methods](#private-member-methods)
+  - [static private member methods](#static-private-member-methods)
+- [Accessor decorators](#accessor-decorators)
+  - [public member getter](#public-member-getter)
+  - [public member setter](#public-member-setter)
+  - [static getter](#static-getter)
+  - [static setter](#static-setter)
+  - [private getter](#private-getter)
+  - [private setter](#private-setter)
+  - [static private getter](#static-private-getter)
+  - [static private setter](#static-private-setter)
+- [Field decorators](#field-decorators)
+  - [public member field](#public-member-field)
+  - [static field](#static-field)
+  - [private field](#private-field)
+  - [static private field](#static-private-field)
+
+
+### Class decorators
 
 ```js
 @decorator
@@ -143,9 +165,48 @@ The metadata defined for the decorator with `context.defineMetadata()` is locate
 `X.prototype[Symbol.metadata]['#m']` where `X` is the class and `#m` is the private method name.
 
 
-### Accessors
+#### static private member methods
 
-#### getter
+```js
+class X {
+  @decorator
+  static #m() {}
+}
+```
+
+The decorator function receives:
+
+- `value` with the method
+
+- `context` with this object:
+
+```js
+{
+  "kind": "method",
+  "name": "#m",
+  "access": {
+    "get": () => { /* ... */ }, 
+    "set": (v) => { /* ... */ },
+  }
+  "isStatic": true,
+  "isPrivate": true,
+  "defineMetadata": (key, value) => { /* ... */ }
+}
+```
+
+The decorator function can return:
+
+- `undefined`, nothing is replaced
+
+- a new function that replaces the previous method  passed as the first parameter
+
+The metadata defined for the decorator with `context.defineMetadata()` is located on
+`X[Symbol.metadata]['#m']` where `X` is the class and `#m` is the private method name.
+
+
+### Accessor decorators
+
+#### public member getter
 
 ```js
 class X {
@@ -180,7 +241,7 @@ The metadata defined for the decorator with `context.defineMetadata()` is locate
 `X.prototype[Symbol.metadata].m` where `X` is the class, and `p` is the property name.
 
 
-#### setter
+#### public member setter
 
 ```js
 class X {
@@ -355,7 +416,87 @@ The metadata defined for the decorator with `context.defineMetadata()` is locate
 `X.prototype[Symbol.metadata]['#p']` where `X` is the class, and `#p` is the private property name.
 
 
-### Fields
+#### static private member getter
+
+```js
+class X {
+  @decorator
+  static #get P() {}
+}
+```
+
+The decorator function receives:
+
+- `value` with the method
+
+- `context` with this object:
+
+```js
+{
+  "kind": "getter",
+  "name": "#P",
+  "access": {
+    "get": () => { /* ... */ }, 
+    "set": (v) => { /* ... */ },
+  }
+  "isStatic": true,
+  "isPrivate": true,
+  "defineMetadata": (key, value) => { /* ... */ }
+}
+```
+
+The decorator function can return:
+
+- `undefined`, nothing is replaced
+
+- a new function that replaces the previous method  passed as the first parameter
+
+The metadata defined for the decorator with `context.defineMetadata()` is located on
+`X[Symbol.metadata]['#P']` where `X` is the class and `#P` is the private method name.
+
+
+#### static private member setter
+
+```js
+class X {
+  @decorator
+  static #set P() {}
+}
+```
+
+The decorator function receives:
+
+- `value` with the method
+
+- `context` with this object:
+
+```js
+{
+  "kind": "setter",
+  "name": "#P",
+  "access": {
+    "get": () => { /* ... */ }, 
+    "set": (v) => { /* ... */ },
+  }
+  "isStatic": true,
+  "isPrivate": true,
+  "defineMetadata": (key, value) => { /* ... */ }
+}
+```
+
+The decorator function can return:
+
+- `undefined`, nothing is replaced
+
+- a new function that replaces the previous method  passed as the first parameter
+
+The metadata defined for the decorator with `context.defineMetadata()` is located on
+`X[Symbol.metadata]['#P']` where `X` is the class and `#P` is the private method name.
+
+
+### Field decorators
+
+#### public member field
 
 ```js
 class X {
@@ -458,10 +599,49 @@ The metadata defined for the decorator with `context.defineMetadata()` is locate
 `X.prototype[Symbol.metadata]['#p']` where `X` is the class, and `#p` is the private property name.
 
 
+#### static private member field
+
+```js
+class X {
+  @decorator
+  static #set P = 0;
+}
+```
+
+The decorator function receives:
+
+- `value` with the method
+
+- `context` with this object:
+
+```js
+{
+  "kind": "setter",
+  "name": "#P",
+  "access": {
+    "get": () => { /* ... */ }, 
+    "set": (v) => { /* ... */ },
+  }
+  "isStatic": true,
+  "isPrivate": true,
+  "defineMetadata": (key, value) => { /* ... */ }
+}
+```
+
+The decorator function can return:
+
+- `undefined`, nothing is replaced
+
+- a new function whose return will be used as the initial value of the property.
+
+The metadata defined for the decorator with `context.defineMetadata()` is located on
+`X[Symbol.metadata]['#P']` where `X` is the class and `#P` is the private method name.
+
+
 ## Functionality not supported yet
 
-- Private and Static members as `static #m() {}`
 - `@init:` decorators.
 - Keyword `accessor`.
 - Export `export` or `export default`.
 - Anonymous class.
+
