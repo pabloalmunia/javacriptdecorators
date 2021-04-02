@@ -1,6 +1,5 @@
 function decorator(value, context) {
-  console.log("value", value);
-  console.log("context", context);
+  return v => v * 100;
 }
 
 if (!Symbol.metadata) {
@@ -26,16 +25,16 @@ function __DefineMetadata(base, name) {
   };
 }
 
-const _symbol_2lgunr7hq08 = Symbol();
+const _symbol_spjra34bd5o = Symbol();
 
-const _symbol_l9uk3fle77 = Symbol();
+const _symbol_f71hjrpc48o = Symbol();
 
 class A {
   static #p = 2;
-  static [_symbol_2lgunr7hq08]() {
+  static [_symbol_spjra34bd5o]() {
     return A.#p;
   }
-  static [_symbol_l9uk3fle77](v) {
+  static [_symbol_f71hjrpc48o](v) {
     A.#p = v;
   }
   static check() {
@@ -43,18 +42,18 @@ class A {
   }
 }
 
-const _initializer_vpoh90mrobg = decorator(undefined, {
+const _initializer_mc1esmac3bg = decorator(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: A[_symbol_2lgunr7hq08],
-    set: A[_symbol_l9uk3fle77]
+    get: A[_symbol_spjra34bd5o],
+    set: A[_symbol_f71hjrpc48o]
   },
   isStatic: true,
   isPrivate: true,
   defineMetadata: __DefineMetadata(A, "#p")
 }) ?? (v => v);
 
-A[_symbol_l9uk3fle77](_initializer_vpoh90mrobg(A[_symbol_2lgunr7hq08]()));
+A[_symbol_f71hjrpc48o](_initializer_mc1esmac3bg(A[_symbol_spjra34bd5o]()));
 
-console.assert(A.check() === 2);
+console.assert(A.check() === 200);

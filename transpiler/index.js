@@ -172,16 +172,19 @@ function transform (ast) {
           for (let decorator of (o.decorators || [])) {
             decoratorsCreated    = true;
             const variableName   = '_initializer_' + unique ();
-            const elementsBefore = [{
-              'type'         : 'VariableDeclaration',
-              'declarations' : [
-                {
-                  'type' : 'VariableDeclarator',
-                  'id'   : {'type' : 'Identifier', 'name' : variableName}
-                }
-              ],
-              'kind'         : 'let'
-            }];
+            const elementsBefore = [];
+            if (!o.static) {
+              elementsBefore.push ({
+                'type'         : 'VariableDeclaration',
+                'declarations' : [
+                  {
+                    'type' : 'VariableDeclarator',
+                    'id'   : {'type' : 'Identifier', 'name' : variableName}
+                  }
+                ],
+                'kind'         : 'let'
+              });
+            }
             if (o.key.type === 'PrivateName' && isFirst) {
               elementsBefore.push (
                 {
@@ -257,20 +260,23 @@ function transform (ast) {
                   variableName
                 })
             );
-            o.value = {
-              'type'      : 'CallExpression',
-              'callee'    : {
-                'type' : 'Identifier',
-                'name' : variableName
-              },
-              'arguments' : [o.value]
-            };
+            if (!o.static) {
+              o.value = {
+                'type'      : 'CallExpression',
+                'callee'    : {
+                  'type' : 'Identifier',
+                  'name' : variableName
+                },
+                'arguments' : [o.value]
+              };
+            }
             if (o.key.type === 'PrivateName' && isFirst) {
               isFirst = false;
               insertAfter (klass.body.body, o, [
                 {
                   'type'     : 'MethodDefinition',
                   'kind'     : 'method',
+                  'static'   : o.static,
                   'computed' : true,
                   'key'      : {
                     'type' : 'Identifier',
@@ -313,6 +319,7 @@ function transform (ast) {
                 {
                   'type'     : 'MethodDefinition',
                   'kind'     : 'method',
+                  'static'   : o.static,
                   'computed' : true,
                   'key'      : {
                     'type' : 'Identifier',
@@ -739,7 +746,7 @@ function privateFieldGenerator ({kind, className, elementName, decoratorName, va
         'left'     :
           {
             'type' : 'Identifier',
-            'name' : variableName
+            'name' : (isStatic ? 'const ' : '') + variableName
           },
         'operator' : '=',
         'right'    : {
@@ -903,7 +910,53 @@ function privateFieldGenerator ({kind, className, elementName, decoratorName, va
             }
         }
       }
-    }
+    },
+    isStatic ? {
+        'type'       : 'ExpressionStatement',
+        'expression' : {
+          'type'      : 'CallExpression',
+          'callee'    : {
+            'type'     : 'MemberExpression',
+            'object'   : {
+              'type' : 'Identifier',
+              'name' : className
+            },
+            'property' : {
+              'type' : 'Identifier',
+              'name' : symbolSetName
+            },
+            'computed' : true
+          },
+          'arguments' : [
+            {
+              'type'      : 'CallExpression',
+              'callee'    : {
+                'type' : 'Identifier',
+                'name' : variableName
+              },
+              'arguments' : [
+                {
+                  'type'      : 'CallExpression',
+                  'callee'    : {
+                    'type'     : 'MemberExpression',
+                    'object'   : {
+                      'type' : 'Identifier',
+                      'name' : className
+                    },
+                    'property' : {
+                      'type' : 'Identifier',
+                      'name' : symbolGetName
+                    },
+                    'computed' : true
+                  },
+                  'arguments' : []
+                }
+              ]
+            }
+          ]
+        }
+      } :
+      undefined
   ];
 }
 

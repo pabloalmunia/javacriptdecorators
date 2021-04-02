@@ -1,8 +1,3 @@
-function decorator(value, context) {
-  console.log("value", value);
-  console.log("context", context);
-}
-
 if (!Symbol.metadata) {
   Symbol.metadata = Symbol();
 }
@@ -26,27 +21,16 @@ function __DefineMetadata(base, name) {
   };
 }
 
-const _symbol_sn8v8tgiis = Symbol();
+let _initializer_o67evu6ll78;
 
-const _symbol_r5ujehndvb = Symbol();
-
-const _symbol_0uiufmeftlo = Symbol();
-
-class A {
-  static #p = _symbol_sn8v8tgiis(2);
-  static check() {
-    return A.#p;
-  }
+class C {
+  p = _initializer_o67evu6ll78(10);
 }
 
-const _symbol_sn8v8tgiis = decorator(undefined, {
-  kind: "field",
+C.prototype.p = decorator(C.prototype.p, {
+  kind: "auto-accessor",
   name: "p",
-  isStatic: true,
+  isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(A, "p")
-}) ?? (v => v);
-
-A.p = _symbol_sn8v8tgiis(A.p);
-
-console.assert(A.check() === 2);
+  defineMetadata: __DefineMetadata(C.prototype, "p")
+}) ?? C.prototype.p;

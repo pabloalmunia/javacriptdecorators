@@ -61,7 +61,7 @@ run ('case042');
 run ('case043');
 run ('case044');
 run ('case045');
-runParse ('case049');
+run ('case049');
 
 // Static method
 run ('case051');
@@ -140,12 +140,12 @@ run ('case153');
 run ('case154');
 run ('case155');
 
-// Static Private Setter
-// run ('case161');
-// run ('case162');
-// run ('case163');
-// run ('case164');
-// run ('case165');
+// Static Private Field
+run ('case161');
+run ('case162');
+run ('case163');
+run ('case164');
+run ('case165');
 
 // Other examples
 run ('example01');
