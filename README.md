@@ -6,7 +6,7 @@ The tools are entirely experimental and evolving. There is no guarantee of they 
 ## Supported functionality
 
 - [Class decorators](#class-decorators)
-- [Methods](#methods)
+- [Method decorators](#method-decorators)
   - [public member method](#public-member-method)
   - [static methods](#static-methods)
   - [private member methods](#private-member-methods)
@@ -59,7 +59,7 @@ The metadata defined for the decorator with `context.defineMetadata()` is locate
 `X[Symbol.metadata].constructor` where `X` is the class.
 
 
-### Methods
+### Method decorators
 
 #### public member method
 
