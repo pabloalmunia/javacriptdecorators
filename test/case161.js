@@ -5,11 +5,11 @@ function decorator (value, context) {
 
 class A {
   @decorator
-  #p = 2;
+  static #p = 2;
   
-  check() {
-    return this.#p;
+  static check() {
+    return A.#p;
   }
   
 }
-console.assert(new A().check() === 2);
+console.assert(A.check() === 2);

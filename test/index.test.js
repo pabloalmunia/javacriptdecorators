@@ -119,5 +119,33 @@ run ('case123');
 run ('case124');
 run ('case125');
 
+// Static Private Method
+run ('case131');
+run ('case132');
+run ('case133');
+run ('case134');
+run ('case135');
+
+// Static Private Getter
+run ('case141');
+run ('case142');
+run ('case143');
+run ('case144');
+run ('case145');
+
+// Static Private Setter
+run ('case151');
+run ('case152');
+run ('case153');
+run ('case154');
+run ('case155');
+
+// Static Private Setter
+// run ('case161');
+// run ('case162');
+// run ('case163');
+// run ('case164');
+// run ('case165');
+
 // Other examples
 run ('example01');

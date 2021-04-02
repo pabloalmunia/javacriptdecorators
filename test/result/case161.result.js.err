@@ -26,35 +26,27 @@ function __DefineMetadata(base, name) {
   };
 }
 
-let _initializer_e698e56rtp8;
+const _symbol_sn8v8tgiis = Symbol();
 
-const _symbol_u9auapovm3o = Symbol();
+const _symbol_r5ujehndvb = Symbol();
 
-const _symbol_16leh8lkf2o = Symbol();
+const _symbol_0uiufmeftlo = Symbol();
 
 class A {
-  #p = _initializer_e698e56rtp8(2);
-  [_symbol_u9auapovm3o]() {
-    return this.#p;
-  }
-  [_symbol_16leh8lkf2o](v) {
-    this.#p = v;
-  }
-  check() {
-    return this.#p;
+  static #p = _symbol_sn8v8tgiis(2);
+  static check() {
+    return A.#p;
   }
 }
 
-_initializer_e698e56rtp8 = decorator(undefined, {
+const _symbol_sn8v8tgiis = decorator(undefined, {
   kind: "field",
-  name: "#p",
-  access: {
-    get: A.prototype[_symbol_u9auapovm3o],
-    set: A.prototype[_symbol_16leh8lkf2o]
-  },
-  isStatic: false,
-  isPrivate: true,
-  defineMetadata: __DefineMetadata(A.prototype, "#p")
+  name: "p",
+  isStatic: true,
+  isPrivate: false,
+  defineMetadata: __DefineMetadata(A, "p")
 }) ?? (v => v);
 
-console.assert(new A().check() === 2);
+A.p = _symbol_sn8v8tgiis(A.p);
+
+console.assert(A.check() === 2);
