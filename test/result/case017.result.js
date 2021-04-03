@@ -1,11 +1,17 @@
 function decorator(value, context) {
-  console.log("value", value);
-  console.log("context", context);
-  return {
-    initialize() {
-      this.test = 10;
-    }
-  };
+  if (context.kind === "init-method") {
+    return {
+      method(...args) {
+        console.log(`starting ${context.name} with arguments ${args.join(", ")}`);
+        const ret = value.call(this, ...args);
+        console.log(`ending ${context.name}`);
+        return ret;
+      },
+      initialize() {
+        console.log(`initializing ${context.name}`);
+      }
+    };
+  }
 }
 
 if (!Symbol.metadata) {
@@ -47,16 +53,21 @@ function __applyDecorator(result, origin, collection) {
   throw new TypeError("invalid decorator return");
 }
 
-const _class_initializers_ia8koshaj0g = [];
+const _member_initializers_mc0d6ocvgf8 = [];
 
-class C {}
+class C {
+  constructor() {
+    _member_initializers_mc0d6ocvgf8.forEach(initialize => initialize.call(this));
+  }
+  m() {}
+}
 
-C = __applyDecorator(decorator(C, {
-  kind: "init-class",
-  name: "C",
-  defineMetadata: __DefineMetadata(C, "constructor")
-}), C, _class_initializers_ia8koshaj0g);
+C.prototype.m = __applyDecorator(decorator(C.prototype.m, {
+  kind: "init-method",
+  name: "m",
+  isStatic: false,
+  isPrivate: false,
+  defineMetadata: __DefineMetadata(C.prototype, "m")
+}), C.prototype.m, _member_initializers_mc0d6ocvgf8);
 
-_class_initializers_ia8koshaj0g.forEach(initialize => initialize.call(C, C));
-
-console.assert(C.test === 10);
+new C().m();

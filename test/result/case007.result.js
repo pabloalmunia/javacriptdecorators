@@ -54,12 +54,12 @@ function __applyDecorator(result, origin, collection) {
     if (typeof result.initialize === "function") {
       collection.push(result.initialize);
     }
-    return result.get || result.set || result.definition || origin;
+    return result.method || result.get || result.set || result.definition || origin;
   }
   throw new TypeError("invalid decorator return");
 }
 
-const _class_initializers_utkcekgt72g = [];
+const _class_initializers_42f91u84p4o = [];
 
 class C {}
 
@@ -67,8 +67,8 @@ C = __applyDecorator(logged(C, {
   kind: "init-class",
   name: "C",
   defineMetadata: __DefineMetadata(C, "constructor")
-}), C, _class_initializers_utkcekgt72g);
+}), C, _class_initializers_42f91u84p4o);
 
-_class_initializers_utkcekgt72g.forEach(initialize => initialize.call(C, C));
+_class_initializers_42f91u84p4o.forEach(initialize => initialize.call(C, C));
 
 new C(1);

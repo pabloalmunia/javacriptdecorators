@@ -47,16 +47,21 @@ function __applyDecorator(result, origin, collection) {
   throw new TypeError("invalid decorator return");
 }
 
-const _class_initializers_ia8koshaj0g = [];
+const _member_initializers_8d9hr81voq = [];
 
-class C {}
+class C {
+  constructor() {
+    _member_initializers_8d9hr81voq.forEach(initialize => initialize.call(this));
+  }
+  m() {}
+}
 
-C = __applyDecorator(decorator(C, {
-  kind: "init-class",
-  name: "C",
-  defineMetadata: __DefineMetadata(C, "constructor")
-}), C, _class_initializers_ia8koshaj0g);
+C.prototype.m = __applyDecorator(decorator(C.prototype.m, {
+  kind: "init-method",
+  name: "m",
+  isStatic: false,
+  isPrivate: false,
+  defineMetadata: __DefineMetadata(C.prototype, "m")
+}), C.prototype.m, _member_initializers_8d9hr81voq);
 
-_class_initializers_ia8koshaj0g.forEach(initialize => initialize.call(C, C));
-
-console.assert(C.test === 10);
+console.assert(new C().test === 10);

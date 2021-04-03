@@ -27,12 +27,17 @@ function transform (ast) {
     },
     (klass, parent) => {
       
-      let decoratorsCreated     = 0;
-      let initDecoratorsCreated = 0; // TODO: remove and put 0
-      const className           = klass.id.name;
-      const i                   = parent.indexOf (klass);
-      preClassLocation          = preClassLocation || i;
-      let nextElement           = parent[ i + 1 ] || null;
+      let decoratorsCreated         = 0;
+      let initDecoratorsCreated     = 0;
+      const className               = klass.id.name;
+      const i                       = parent.indexOf (klass);
+      preClassLocation              = preClassLocation || i;
+      let nextElement               = parent[ i + 1 ] || null;
+      const classInitializersName   = '_class_initializers_' + unique ();
+      let classInitializersCreated  = false;
+      const memberInitializersName  = '_member_initializers_' + unique ();
+      let memberInitializersCreated = false;
+      const staticInitializersName  = '_static_initializers_' + unique ();
       
       //---------------------------------
       // Static members
@@ -71,11 +76,7 @@ function transform (ast) {
       //---------------------------------
       // Class decorators
       //---------------------------------
-      const classInitializersName = '_class_initializers_' + unique ();
       for (let decorator of (klass.decorators || [])) {
-        if (decorator.kind === 'init-class') {
-          initDecoratorsCreated++;
-        }
         insertAfter (
           parent,
           klass,
@@ -84,36 +85,40 @@ function transform (ast) {
             classGenerator (klass.id.name, decorator.expression)
         );
         decoratorsCreated++;
-      }
-      if (initDecoratorsCreated) {
-        insertBefore (parent, klass, [{
-          'type'         : 'VariableDeclaration',
-          'declarations' : [{
-            'type' : 'VariableDeclarator',
-            'id'   : {'type' : 'Identifier', 'name' : classInitializersName},
-            'init' : {'type' : 'ArrayExpression', 'elements' : []}
-          }],
-          'kind'         : 'const'
-        }]);
-        insertBeforeNext (parent, nextElement, [{
-          'type'       : 'ExpressionStatement',
-          'expression' : {
-            'type'      : 'CallExpression',
-            'callee'    : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : classInitializersName}, 'property' : {'type' : 'Identifier', 'name' : 'forEach'}},
-            'arguments' : [
-              {
-                'type'       : 'ArrowFunctionExpression',
-                'expression' : true,
-                'params'     : [{'type' : 'Identifier', 'name' : 'initialize'}],
-                'body'       : {
-                  'type'      : 'CallExpression',
-                  'callee'    : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : 'initialize'}, 'property' : {'type' : 'Identifier', 'name' : 'call'}},
-                  'arguments' : [{'type' : 'Identifier', 'name' : className}, {'type' : 'Identifier', 'name' : className}]
-                }
+        if (decorator.kind === 'init-class') {
+          initDecoratorsCreated++;
+          if (!classInitializersCreated) {
+            classInitializersCreated = true;
+            insertBefore (parent, klass, [{
+              'type'         : 'VariableDeclaration',
+              'declarations' : [{
+                'type' : 'VariableDeclarator',
+                'id'   : {'type' : 'Identifier', 'name' : classInitializersName},
+                'init' : {'type' : 'ArrayExpression', 'elements' : []}
+              }],
+              'kind'         : 'const'
+            }]);
+            insertBeforeNext (parent, nextElement, [{
+              'type'       : 'ExpressionStatement',
+              'expression' : {
+                'type'      : 'CallExpression',
+                'callee'    : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : classInitializersName}, 'property' : {'type' : 'Identifier', 'name' : 'forEach'}},
+                'arguments' : [
+                  {
+                    'type'       : 'ArrowFunctionExpression',
+                    'expression' : true,
+                    'params'     : [{'type' : 'Identifier', 'name' : 'initialize'}],
+                    'body'       : {
+                      'type'      : 'CallExpression',
+                      'callee'    : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : 'initialize'}, 'property' : {'type' : 'Identifier', 'name' : 'call'}},
+                      'arguments' : [{'type' : 'Identifier', 'name' : className}, {'type' : 'Identifier', 'name' : className}]
+                    }
+                  }
+                ]
               }
-            ]
+            }]);
           }
-        }]);
+        }
       }
       klass.decorators = undefined;
       
@@ -175,20 +180,62 @@ function transform (ast) {
             //--------
             // Public
             //--------
-            for (let decorator of (o.decorators || [])) {
+            for (let n = (o.decorators || []).length; --n > -1;) {
+              const decorator = o.decorators[ n ];
               insertAfter (
                 parent,
                 klass,
                 publicMemberGenerator ({
-                  kind          : decorator.kind,
-                  className     : className,
-                  elementName   : o.key.name,
-                  decoratorName : decorator.expression,
-                  variableName  : '_descriptor_' + unique (),
-                  isStatic      : false
+                  kind             : decorator.kind,
+                  className        : className,
+                  elementName      : o.key.name,
+                  decoratorName    : decorator.expression,
+                  variableName     : '_descriptor_' + unique (),
+                  initializersName : memberInitializersName,
+                  isStatic         : false
                 })
               );
               decoratorsCreated++;
+              if (decorator.kind.substring (0, 5) === 'init-') {
+                initDecoratorsCreated++;
+                if (!memberInitializersCreated) {
+                  memberInitializersCreated = true;
+                  insertBefore (parent, klass, [{
+                    'type'         : 'VariableDeclaration',
+                    'declarations' : [{
+                      'type' : 'VariableDeclarator',
+                      'id'   : {'type' : 'Identifier', 'name' : memberInitializersName},
+                      'init' : {'type' : 'ArrayExpression', 'elements' : []}
+                    }],
+                    'kind'         : 'const'
+                  }]);
+                  addIntoConstructor (klass, [{
+                    'type'       : 'ExpressionStatement',
+                    'expression' : {
+                      'type'      : 'CallExpression',
+                      'callee'    : {
+                        'type'     : 'MemberExpression',
+                        'object'   : {'type' : 'Identifier', 'name' : memberInitializersName},
+                        'property' : {'type' : 'Identifier', 'name' : 'forEach'}
+                      },
+                      'arguments' : [
+                        {
+                          'type'   : 'ArrowFunctionExpression',
+                          'params' : [{'type' : 'Identifier', 'name' : 'initialize'}],
+                          'body'   : {
+                            'type'      : 'CallExpression',
+                            'callee'    : {
+                              'type'                                                                : 'MemberExpression',
+                              'object' : {'type' : 'Identifier', 'name' : 'initialize'}, 'property' : {'type' : 'Identifier', 'name' : 'call'}
+                            },
+                            'arguments' : [{'type' : 'ThisExpression'}]
+                          }
+                        }
+                      ]
+                    }
+                  }]);
+                }
+              }
             }
           }
           o.decorators = undefined;
@@ -209,6 +256,9 @@ function transform (ast) {
           const symbolSetName = '_symbol_' + unique ();
           let isFirst         = true;
           for (let decorator of (o.decorators || [])) {
+            if (decorator.kind === 'init-field') {
+              throw new TypeError ('wrong decorator @init: with a field');
+            }
             decoratorsCreated    = true;
             const variableName   = '_initializer_' + unique ();
             const elementsBefore = [];
@@ -435,51 +485,100 @@ function transform (ast) {
   return source;
 }
 
-function publicMemberGenerator ({kind, className, elementName, decoratorName, variableName, isStatic}) {
+function publicMemberGenerator ({kind, className, elementName, decoratorName, variableName, initializersName, isStatic}) {
+  const isInit        = kind.substring (0, 5) === 'init-';
+  const decoratorCall = {
+    'type'      : 'CallExpression',
+    'callee'    : decoratorName,
+    'arguments' : [
+      (kind === 'setter' || kind === 'getter' || kind === 'init-setter' || kind === 'init-getter') ?
+        {
+          'type'     : 'MemberExpression',
+          'object'   : {
+            'type' : 'Identifier',
+            'name' : variableName
+          },
+          'property' : {
+            'type' : 'Identifier',
+            'name' : kind === 'setter' || kind === 'init-setter' ? 'set' : 'get'
+          }
+        } :
+        (kind === 'field') ?
+          {'type' : 'Identifier', 'name' : 'undefined'} :
+          {
+            'type'     : 'MemberExpression',
+            'object'   :
+              (isStatic) ?
+                {'type' : 'Identifier', 'name' : className} :
+                {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : className}, 'property' : {'type' : 'Identifier', 'name' : 'prototype'}},
+            'property' : {'type' : 'Identifier', 'name' : elementName}
+          },
+      {
+        'type'       : 'ObjectExpression',
+        'properties' : [
+          {
+            'type'  : 'Property',
+            'key'   : {'type' : 'Identifier', 'name' : 'kind'},
+            'value' : {'type' : 'Literal', 'value' : kind}
+          },
+          {
+            'type'  : 'Property',
+            'key'   : {'type' : 'Identifier', 'name' : 'name'},
+            'value' : {'type' : 'Literal', 'value' : elementName}
+          },
+          {
+            'type'  : 'Property',
+            'key'   : {'type' : 'Identifier', 'name' : 'isStatic'},
+            'value' : {'type' : 'Literal', 'value' : !!isStatic}
+          },
+          {
+            'type'  : 'Property',
+            'key'   : {'type' : 'Identifier', 'name' : 'isPrivate'},
+            'value' : {'type' : 'Literal', 'value' : false}
+          },
+          defineMetadataGeneratorCall (
+            isStatic ? className : `${ className }.prototype`,
+            elementName
+          )
+        ]
+      }
+    ]
+  };
+  const defaultValue  = (kind === 'setter' || kind === 'getter') ?
+    {
+      'type'     : 'MemberExpression',
+      'object'   : {'type' : 'Identifier', 'name' : variableName},
+      'property' : {'type' : 'Identifier', 'name' : kind === 'setter' ? 'set' : 'get'}
+    } :
+    (kind === 'field') ?
+      {
+        'type'   : 'ArrowFunctionExpression',
+        'params' : [{'type' : 'Identifier', 'name' : 'v'}],
+        'body'   : {'type' : 'Identifier', 'name' : 'v'}
+      } :
+      {
+        'type'     : 'MemberExpression',
+        'object'   :
+          (isStatic) ?
+            {'type' : 'Identifier', 'name' : className} :
+            {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : className}, 'property' : {'type' : 'Identifier', 'name' : 'prototype'}},
+        'property' : {'type' : 'Identifier', 'name' : elementName}
+      };
   return [
     (kind === 'setter' || kind === 'getter') && {
       'type'         : 'VariableDeclaration',
       'declarations' : [
         {
           'type' : 'VariableDeclarator',
-          'id'   : {
-            'type' : 'Identifier',
-            'name' : variableName
-          },
+          'id'   : {'type' : 'Identifier', 'name' : variableName},
           'init' : {
             'type'      : 'CallExpression',
-            'callee'    : {
-              'type'     : 'MemberExpression',
-              'object'   : {
-                'type' : 'Identifier',
-                'name' : 'Object'
-              },
-              'property' : {
-                'type' : 'Identifier',
-                'name' : 'getOwnPropertyDescriptor'
-              }
-            },
+            'callee'    : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : 'Object'}, 'property' : {'type' : 'Identifier', 'name' : 'getOwnPropertyDescriptor'}},
             'arguments' : [
               (isStatic) ?
-                {
-                  'type' : 'Identifier',
-                  'name' : className
-                } :
-                {
-                  'type'     : 'MemberExpression',
-                  'object'   : {
-                    'type' : 'Identifier',
-                    'name' : className
-                  },
-                  'property' : {
-                    'type' : 'Identifier',
-                    'name' : 'prototype'
-                  }
-                },
-              {
-                'type'  : 'Literal',
-                'value' : elementName
-              }
+                {'type' : 'Identifier', 'name' : className} :
+                {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : className}, 'property' : {'type' : 'Identifier', 'name' : 'prototype'}},
+              {'type' : 'Literal', 'value' : elementName}
             ]
           }
         }
@@ -533,164 +632,26 @@ function publicMemberGenerator ({kind, className, elementName, decoratorName, va
                 }
               },
         'operator' : '=',
-        'right'    : {
-          'type'     : 'LogicalExpression',
-          'left'     : {
+        'right'    : isInit ?
+          {
             'type'      : 'CallExpression',
-            'callee'    : decoratorName,
+            'callee'    : {'type' : 'Identifier', 'name' : '__applyDecorator'},
             'arguments' : [
-              (kind === 'setter' || kind === 'getter') ?
-                {
-                  'type'     : 'MemberExpression',
-                  'object'   : {
-                    'type' : 'Identifier',
-                    'name' : variableName
-                  },
-                  'property' : {
-                    'type' : 'Identifier',
-                    'name' : kind === 'setter' ? 'set' : 'get'
-                  }
-                } :
-                (kind === 'field') ?
-                  {
-                    'type' : 'Identifier',
-                    'name' : 'undefined'
-                  } :
-                  {
-                    'type'     : 'MemberExpression',
-                    'object'   :
-                      (isStatic) ?
-                        {
-                          'type' : 'Identifier',
-                          'name' : className
-                        } :
-                        {
-                          'type'     : 'MemberExpression',
-                          'object'   : {
-                            'type' : 'Identifier',
-                            'name' : className
-                          },
-                          'property' : {
-                            'type' : 'Identifier',
-                            'name' : 'prototype'
-                          }
-                        },
-                    'property' : {
-                      'type' : 'Identifier',
-                      'name' : elementName
-                    }
-                  },
+              decoratorCall,
+              defaultValue,
               {
-                'type'       : 'ObjectExpression',
-                'properties' : [
-                  {
-                    'type' : 'Property',
-                    'key'  : {
-                      'type' : 'Identifier',
-                      'name' : 'kind'
-                    },
-                    
-                    'value' : {
-                      'type'  : 'Literal',
-                      'value' : kind
-                    }
-                  },
-                  {
-                    'type'  : 'Property',
-                    'key'   : {
-                      'type' : 'Identifier',
-                      'name' : 'name'
-                    },
-                    'value' : {
-                      'type'  : 'Literal',
-                      'value' : elementName
-                    }
-                  },
-                  {
-                    'type'  : 'Property',
-                    'key'   : {
-                      'type' : 'Identifier',
-                      'name' : 'isStatic'
-                    },
-                    'value' : {
-                      'type'  : 'Literal',
-                      'value' : !!isStatic
-                    }
-                  },
-                  {
-                    'type' : 'Property',
-                    'key'  : {
-                      'type' : 'Identifier',
-                      'name' : 'isPrivate'
-                    },
-                    
-                    'value' : {
-                      'type'  : 'Literal',
-                      'value' : false,
-                      'raw'   : 'false'
-                    }
-                  },
-                  defineMetadataGeneratorCall (
-                    isStatic ? className : `${ className }.prototype`,
-                    elementName
-                  )
-                ]
+                'type' : 'Identifier',
+                'name' : initializersName
               }
-            ]
-          },
-          'operator' : '??',
-          'right'    :
-            (kind === 'setter' || kind === 'getter') ?
-              {
-                'type'     : 'MemberExpression',
-                'object'   : {
-                  'type' : 'Identifier',
-                  'name' : variableName
-                },
-                'property' : {
-                  'type' : 'Identifier',
-                  'name' : kind === 'setter' ? 'set' : 'get'
-                }
-              } :
-              (kind === 'field') ?
-                {
-                  'type'   : 'ArrowFunctionExpression',
-                  'params' : [
-                    {
-                      'type' : 'Identifier',
-                      'name' : 'v'
-                    }
-                  ],
-                  'body'   : {
-                    'type' : 'Identifier',
-                    'name' : 'v'
-                  }
-                } :
-                {
-                  'type'     : 'MemberExpression',
-                  'object'   :
-                    (isStatic) ?
-                      {
-                        'type' : 'Identifier',
-                        'name' : className
-                      } :
-                      {
-                        'type'     : 'MemberExpression',
-                        'object'   : {
-                          'type' : 'Identifier',
-                          'name' : className
-                        },
-                        'property' : {
-                          'type' : 'Identifier',
-                          'name' : 'prototype'
-                        }
-                      },
-                  'property' : {
-                    'type' : 'Identifier',
-                    'name' : elementName
-                  }
-                }
-        }
+            ],
+            'optional'  : false
+          } :
+          {
+            'type'     : 'LogicalExpression',
+            'left'     : decoratorCall,
+            'operator' : '??',
+            'right'    : defaultValue
+          }
       }
     },
     (kind === 'setter' || kind === 'getter') ?
@@ -2228,12 +2189,19 @@ function applyDecoratorGenerator () {
                     'type'     : 'LogicalExpression',
                     'left'     : {
                       'type'     : 'LogicalExpression',
-                      'left'     : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : 'result'}, 'property' : {'type' : 'Identifier', 'name' : 'get'}},
+                      'left'     : {
+                        'type'     : 'LogicalExpression',
+                        'left'     : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : 'result'}, 'property' : {'type' : 'Identifier', 'name' : 'method'}},
+                        'operator' : '||',
+                        'right'    : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : 'result'}, 'property' : {'type' : 'Identifier', 'name' : 'get'}}
+                      },
                       'operator' : '||',
                       'right'    : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : 'result'}, 'property' : {'type' : 'Identifier', 'name' : 'set'}}
                     },
                     'operator' : '||',
-                    'right'    : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : 'result'}, 'property' : {'type' : 'Identifier', 'name' : 'definition'}}
+                    'right'    : {
+                      'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : 'result'}, 'property' : {'type' : 'Identifier', 'name' : 'definition'}
+                    }
                   },
                   'operator' : '||',
                   'right'    : {'type' : 'Identifier', 'name' : 'origin'}
@@ -2252,6 +2220,40 @@ function applyDecoratorGenerator () {
       ]
     }
   };
+}
+
+function addIntoConstructor (klass, elements) {
+  let foundConstructor = false;
+  walker (
+    klass.body.body,
+    (o) => o.kind === 'constructor',
+    (o) => {
+      foundConstructor = true;
+      o.value.body.body.push (...elements);
+    }
+  );
+  if (!foundConstructor) {
+    klass.body.body.unshift ({
+      'type'  : 'MethodDefinition',
+      'kind'  : 'constructor',
+      'key'   : {'type' : 'Identifier', 'name' : 'constructor'},
+      'value' : {
+        'type'   : 'FunctionExpression',
+        'params' : [],
+        'body'   : {
+          'type' : 'BlockStatement',
+          'body' : [
+            (klass.superClass) ? {
+                'type'       : 'ExpressionStatement',
+                'expression' : {'type' : 'CallExpression', 'callee' : {'type' : 'Super'}, 'arguments' : []}
+              } :
+              undefined,
+            ...elements
+          ]
+        }
+      }
+    });
+  }
 }
 
 function insertAfter (arr, current, elements) {

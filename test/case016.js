@@ -8,8 +8,10 @@ function decorator (value, context) {
   }
 }
 
-@init:decorator
+
 class C {
+  @init:decorator
+  m() {}
 }
 
-console.assert(C.test === 10);
+console.assert(new C().test === 10);

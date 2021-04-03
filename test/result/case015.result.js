@@ -31,7 +31,7 @@ class C {
   m() {}
 }
 
-C.prototype.m = decorator("test2")(C.prototype.m, {
+C.prototype.m = decorator("test1")(C.prototype.m, {
   kind: "method",
   name: "m",
   isStatic: false,
@@ -39,7 +39,7 @@ C.prototype.m = decorator("test2")(C.prototype.m, {
   defineMetadata: __DefineMetadata(C.prototype, "m")
 }) ?? C.prototype.m;
 
-C.prototype.m = decorator("test1")(C.prototype.m, {
+C.prototype.m = decorator("test2")(C.prototype.m, {
   kind: "method",
   name: "m",
   isStatic: false,
