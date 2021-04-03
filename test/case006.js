@@ -1,24 +1,10 @@
-function logged (value, {kind, name}) {
-  if (kind === 'init-class') {
-    return {
-      definition : class extends value {
-        constructor (...args) {
-          super ();
-          console.log (`constructing an instance of ${ name } with arguments ${ args.join (', ') }`);
-        }
-      },
-      
-      initialize () {
-        console.log (`finished defining ${ this.name }`);
-      }
-    };
-  }
-  
-  // ...
+function tracer (value, context) {
+  console.log("value", value);
+  console.log("context", context);
 }
 
-@init:logged
+@init:tracer
 class C {
 }
 
-new C (1);
+console.log(C);

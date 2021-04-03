@@ -10,7 +10,7 @@ The tools are entirely experimental and evolving. There is no guarantee of they 
   - [public member method](#public-member-method)
   - [static methods](#static-methods)
   - [private member methods](#private-member-methods)
-  - [static private member methods](#static-private-member-methods)
+  - [static private member methods](#static-private-methods)
 - [Accessor decorators](#accessor-decorators)
   - [public member getter](#public-member-getter)
   - [public member setter](#public-member-setter)
@@ -165,7 +165,7 @@ The metadata defined for the decorator with `context.defineMetadata()` is locate
 `X.prototype[Symbol.metadata]['#m']` where `X` is the class and `#m` is the private method name.
 
 
-#### static private member methods
+#### static private methods
 
 ```js
 class X {

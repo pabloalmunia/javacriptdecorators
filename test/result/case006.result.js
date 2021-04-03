@@ -1,23 +1,6 @@
-function logged(
-  value,
-  {
-    kind,
-    name
-  }
-) {
-  if (kind === "init-class") {
-    return {
-      definition: class extends value {
-        constructor(...args) {
-          super();
-          console.log(`constructing an instance of ${name} with arguments ${args.join(", ")}`);
-        }
-      },
-      initialize() {
-        console.log(`finished defining ${this.name}`);
-      }
-    };
-  }
+function tracer(value, context) {
+  console.log("value", value);
+  console.log("context", context);
 }
 
 if (!Symbol.metadata) {
@@ -43,16 +26,32 @@ function __DefineMetadata(base, name) {
   };
 }
 
+function __applyDecorator(result, origin, collection) {
+  if (typeof result === "undefined") {
+    return origin;
+  }
+  if (typeof result === "function") {
+    return result;
+  }
+  if (typeof result === "object") {
+    if (typeof result.initialize === "function") {
+      collection.push(result.initialize);
+    }
+    return result.get || result.set || result.definition || origin;
+  }
+  throw new TypeError("invalid decorator return");
+}
+
+const _class_initializers_7cro9j5cjag = [];
+
 class C {}
 
-_result_22ocpbk4i98 = logged(C, {
+C = __applyDecorator(tracer(C, {
   kind: "init-class",
   name: "C",
   defineMetadata: __DefineMetadata(C, "constructor")
-}) || {};
+}), C, _class_initializers_7cro9j5cjag);
 
-C = _result_22ocpbk4i98.definition || C;
+_class_initializers_7cro9j5cjag.forEach(initialize => initialize.call(C, C));
 
-_result_22ocpbk4i98.initialize && _result_22ocpbk4i98.initialize.call(C);
-
-new C(1);
+console.log(C);

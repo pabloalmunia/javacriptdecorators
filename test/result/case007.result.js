@@ -1,10 +1,23 @@
-const unique = () => Math.random().toString(32).substring(2);
-
-function decorator(klass) {
-  const u = unique();
-  klass.prototype[u] = function() {
-    return u;
-  };
+function logged(
+  value,
+  {
+    kind,
+    name
+  }
+) {
+  if (kind === "init-class") {
+    return {
+      definition: class extends value {
+        constructor(...args) {
+          super();
+          console.log(`constructing an instance of ${name} with arguments ${args.join(", ")}`);
+        }
+      },
+      initialize() {
+        console.log(`finished defining ${this.name}`);
+      }
+    };
+  }
 }
 
 if (!Symbol.metadata) {
@@ -30,28 +43,32 @@ function __DefineMetadata(base, name) {
   };
 }
 
+function __applyDecorator(result, origin, collection) {
+  if (typeof result === "undefined") {
+    return origin;
+  }
+  if (typeof result === "function") {
+    return result;
+  }
+  if (typeof result === "object") {
+    if (typeof result.initialize === "function") {
+      collection.push(result.initialize);
+    }
+    return result.get || result.set || result.definition || origin;
+  }
+  throw new TypeError("invalid decorator return");
+}
+
+const _class_initializers_utkcekgt72g = [];
+
 class C {}
 
-_result_i5cchd6nafo = decorator(C, {
+C = __applyDecorator(logged(C, {
   kind: "init-class",
   name: "C",
   defineMetadata: __DefineMetadata(C, "constructor")
-}) || {};
+}), C, _class_initializers_utkcekgt72g);
 
-C = _result_i5cchd6nafo.definition || C;
+_class_initializers_utkcekgt72g.forEach(initialize => initialize.call(C, C));
 
-_result_i5cchd6nafo.initialize && _result_i5cchd6nafo.initialize.call(C);
-
-class B extends C {}
-
-_result_8c3ov1eviq8 = decorator(B, {
-  kind: "init-class",
-  name: "B",
-  defineMetadata: __DefineMetadata(B, "constructor")
-}) || {};
-
-B = _result_8c3ov1eviq8.definition || B;
-
-_result_8c3ov1eviq8.initialize && _result_8c3ov1eviq8.initialize.call(B);
-
-new B(1);
+new C(1);

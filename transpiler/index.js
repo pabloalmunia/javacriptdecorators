@@ -12,9 +12,10 @@ module.exports = (ast) =>
 
 
 function transform (ast) {
-  const source          = clone (ast);
-  let preClassCreated   = false;
-  let decoratorsCreated = 0;
+  const source              = clone (ast);
+  let defineMetadataCreated = false;
+  let applyDecoratorCreated = false;
+  let preClassLocation      = null;
   
   //-----------------------------------
   // By Class
@@ -26,8 +27,12 @@ function transform (ast) {
     },
     (klass, parent) => {
       
-      const className        = klass.id.name;
-      const preClassLocation = parent.indexOf (klass);
+      let decoratorsCreated     = 0;
+      let initDecoratorsCreated = 0; // TODO: remove and put 0
+      const className           = klass.id.name;
+      const i                   = parent.indexOf (klass);
+      preClassLocation          = preClassLocation || i;
+      let nextElement           = parent[ i + 1 ] || null;
       
       //---------------------------------
       // Static members
@@ -66,15 +71,49 @@ function transform (ast) {
       //---------------------------------
       // Class decorators
       //---------------------------------
+      const classInitializersName = '_class_initializers_' + unique ();
       for (let decorator of (klass.decorators || [])) {
+        if (decorator.kind === 'init-class') {
+          initDecoratorsCreated++;
+        }
         insertAfter (
           parent,
           klass,
-          (decorator.kind === 'init-class' ?
-            classInitGenerator :
-            classGenerator) (klass.id.name, decorator.expression)
+          decorator.kind === 'init-class' ?
+            classInitGenerator (klass.id.name, decorator.expression, classInitializersName) :
+            classGenerator (klass.id.name, decorator.expression)
         );
         decoratorsCreated++;
+      }
+      if (initDecoratorsCreated) {
+        insertBefore (parent, klass, [{
+          'type'         : 'VariableDeclaration',
+          'declarations' : [{
+            'type' : 'VariableDeclarator',
+            'id'   : {'type' : 'Identifier', 'name' : classInitializersName},
+            'init' : {'type' : 'ArrayExpression', 'elements' : []}
+          }],
+          'kind'         : 'const'
+        }]);
+        insertBeforeNext (parent, nextElement, [{
+          'type'       : 'ExpressionStatement',
+          'expression' : {
+            'type'      : 'CallExpression',
+            'callee'    : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : classInitializersName}, 'property' : {'type' : 'Identifier', 'name' : 'forEach'}},
+            'arguments' : [
+              {
+                'type'       : 'ArrowFunctionExpression',
+                'expression' : true,
+                'params'     : [{'type' : 'Identifier', 'name' : 'initialize'}],
+                'body'       : {
+                  'type'      : 'CallExpression',
+                  'callee'    : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : 'initialize'}, 'property' : {'type' : 'Identifier', 'name' : 'call'}},
+                  'arguments' : [{'type' : 'Identifier', 'name' : className}, {'type' : 'Identifier', 'name' : className}]
+                }
+              }
+            ]
+          }
+        }]);
       }
       klass.decorators = undefined;
       
@@ -381,10 +420,16 @@ function transform (ast) {
       //-------------------------------
       // Global helpers
       //-------------------------------
-      if (decoratorsCreated && !preClassCreated) {
+      if (decoratorsCreated && !defineMetadataCreated) {
         parent.splice (preClassLocation, 0, ...defineMetadataGenerator ());
-        preClassCreated = true;
+        preClassLocation += 2;
+        defineMetadataCreated = true;
       }
+      if (initDecoratorsCreated && !applyDecoratorCreated) {
+        parent.splice (preClassLocation++, 0, applyDecoratorGenerator ());
+        applyDecoratorCreated = true;
+      }
+      
     }
   );
   return source;
@@ -1519,148 +1564,57 @@ function privateMemberAfterGenerator (className, tempName, isStatic) {
   ];
 }
 
-function classInitGenerator (className, decoratorName) {
-  const uniqueName = '_result_' + unique ();
+function classInitGenerator (className, decoratorName, collection) {
   return [
     {
       'type'       : 'ExpressionStatement',
       'expression' : {
         'type'     : 'AssignmentExpression',
         'operator' : '=',
-        'left'     : {
-          'type' : 'Identifier',
-          'name' : uniqueName
-        },
-        'right'    : {
-          'type'     : 'LogicalExpression',
-          'operator' : '||',
-          'left'     : {
-            'type'      : 'CallExpression',
-            'callee'    : decoratorName,
-            'arguments' : [
-              {
-                'type' : 'Identifier',
-                'name' : className
-              },
-              {
-                'type'       : 'ObjectExpression',
-                'properties' : [
-                  {
-                    'type' : 'Property',
-                    'key'  : {
-                      'type' : 'Identifier',
-                      'name' : 'kind'
-                    },
-                    
-                    'value' : {
-                      'type'  : 'Literal',
-                      'value' : 'init-class',
-                      'raw'   : '"init-class"'
-                    }
-                    
-                    
-                  },
-                  {
-                    'type' : 'Property',
-                    'key'  : {
-                      'type' : 'Identifier',
-                      'name' : 'name'
-                    },
-                    
-                    'value' : {
-                      'type'  : 'Literal',
-                      'value' : className
-                    }
-                    
-                    
-                  },
-                  defineMetadataGeneratorCall (className, 'constructor')
-                ]
-              }
-            ]
-          },
-          'right'    : {
-            'type'       : 'ObjectExpression',
-            'properties' : []
-          }
-        }
-      }
-    },
-    {
-      'type'       : 'ExpressionStatement',
-      'expression' : {
-        'type'     : 'AssignmentExpression',
-        'operator' : '=',
-        'left'     : {
-          'type' : 'Identifier',
-          'name' : className
-        },
-        'right'    : {
-          'type'     : 'LogicalExpression',
-          'operator' : '||',
-          'left'     : {
-            'type' : 'MemberExpression',
-            
-            'object'   : {
-              'type' : 'Identifier',
-              'name' : uniqueName
-            },
-            'property' : {
-              'type' : 'Identifier',
-              'name' : 'definition'
-            }
-          },
-          'right'    : {
-            'type' : 'Identifier',
-            'name' : className
-          }
-        }
-      }
-    },
-    {
-      'type'       : 'ExpressionStatement',
-      'expression' : {
-        'type'     : 'LogicalExpression',
-        'operator' : '&&',
-        'left'     : {
-          'type' : 'MemberExpression',
-          
-          'object'   : {
-            'type' : 'Identifier',
-            'name' : uniqueName
-          },
-          'property' : {
-            'type' : 'Identifier',
-            'name' : 'initialize'
-          }
-        },
+        'left'     : {'type' : 'Identifier', 'name' : className},
         'right'    : {
           'type'      : 'CallExpression',
-          'callee'    : {
-            'type' : 'MemberExpression',
-            
-            'object'   : {
-              'type' : 'MemberExpression',
-              
-              'object'   : {
-                'type' : 'Identifier',
-                'name' : uniqueName
-              },
-              'property' : {
-                'type' : 'Identifier',
-                'name' : 'initialize'
-              }
-            },
-            'property' : {
-              'type' : 'Identifier',
-              'name' : 'call'
-            }
-          },
+          'callee'    : {'type' : 'Identifier', 'name' : '__applyDecorator'},
           'arguments' : [
             {
-              'type' : 'Identifier',
-              'name' : className
-            }
+              'type'      : 'CallExpression',
+              'callee'    : decoratorName,
+              'arguments' : [
+                {'type' : 'Identifier', 'name' : className},
+                {
+                  'type'       : 'ObjectExpression',
+                  'properties' : [
+                    {
+                      'type'  : 'Property',
+                      'key'   : {'type' : 'Identifier', 'name' : 'kind'},
+                      'value' : {'type' : 'Literal', 'value' : 'init-class'},
+                      'kind'  : 'init'
+                    },
+                    {
+                      'type'  : 'Property',
+                      'key'   : {'type' : 'Identifier', 'name' : 'name'},
+                      'value' : {'type' : 'Literal', 'value' : className},
+                      'kind'  : 'init'
+                    },
+                    {
+                      'type'  : 'Property',
+                      'key'   : {'type' : 'Identifier', 'name' : 'defineMetadata'},
+                      'value' : {
+                        'type'      : 'CallExpression',
+                        'callee'    : {'type' : 'Identifier', 'name' : '__DefineMetadata'},
+                        'arguments' : [
+                          {'type' : 'Identifier', 'name' : className},
+                          {'type' : 'Literal', 'value' : 'constructor'}
+                        ]
+                      },
+                      'kind'  : 'init'
+                    }
+                  ]
+                }
+              ]
+            },
+            {'type' : 'Identifier', 'name' : className},
+            {'type' : 'Identifier', 'name' : collection}
           ]
         }
       }
@@ -2200,12 +2154,119 @@ function defineMetadataGenerator () {
     }];
 }
 
+function applyDecoratorGenerator () {
+  return {
+    'type'   : 'FunctionDeclaration',
+    'id'     : {'type' : 'Identifier', 'name' : '__applyDecorator'},
+    'params' : [
+      {'type' : 'Identifier', 'name' : 'result'},
+      {'type' : 'Identifier', 'name' : 'origin'},
+      {'type' : 'Identifier', 'name' : 'collection'}
+    ],
+    'body'   : {
+      'type' : 'BlockStatement',
+      'body' : [
+        {
+          'type'       : 'IfStatement',
+          'test'       : {
+            'type'     : 'BinaryExpression',
+            'left'     : {'type' : 'UnaryExpression', 'operator' : 'typeof', 'prefix' : true, 'argument' : {'type' : 'Identifier', 'name' : 'result'}},
+            'operator' : '===',
+            'right'    : {'type' : 'Literal', 'value' : 'undefined'}
+          },
+          'consequent' : {'type' : 'BlockStatement', 'body' : [{'type' : 'ReturnStatement', 'argument' : {'type' : 'Identifier', 'name' : 'origin'}}]}
+        },
+        {
+          'type'       : 'IfStatement',
+          'test'       : {
+            'type'     : 'BinaryExpression',
+            'left'     : {'type' : 'UnaryExpression', 'operator' : 'typeof', 'prefix' : true, 'argument' : {'type' : 'Identifier', 'name' : 'result'}},
+            'operator' : '===',
+            'right'    : {'type' : 'Literal', 'value' : 'function'}
+          },
+          'consequent' : {'type' : 'BlockStatement', 'body' : [{'type' : 'ReturnStatement', 'argument' : {'type' : 'Identifier', 'name' : 'result'}}]}
+        },
+        {
+          'type'       : 'IfStatement',
+          'test'       : {
+            'type'     : 'BinaryExpression',
+            'left'     : {'type' : 'UnaryExpression', 'operator' : 'typeof', 'prefix' : true, 'argument' : {'type' : 'Identifier', 'name' : 'result'}},
+            'operator' : '===',
+            'right'    : {'type' : 'Literal', 'value' : 'object'}
+          },
+          'consequent' : {
+            'type' : 'BlockStatement',
+            'body' : [
+              {
+                'type'       : 'IfStatement',
+                'test'       : {
+                  'type'     : 'BinaryExpression',
+                  'left'     : {'type' : 'UnaryExpression', 'operator' : 'typeof', 'prefix' : true, 'argument' : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : 'result'}, 'property' : {'type' : 'Identifier', 'name' : 'initialize'}}},
+                  'operator' : '===',
+                  'right'    : {'type' : 'Literal', 'value' : 'function'}
+                },
+                'consequent' : {
+                  'type' : 'BlockStatement',
+                  'body' : [
+                    {
+                      'type'       : 'ExpressionStatement',
+                      'expression' : {
+                        'type'      : 'CallExpression', 'callee' : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : 'collection'}, 'property' : {'type' : 'Identifier', 'name' : 'push'}},
+                        'arguments' : [
+                          {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : 'result'}, 'property' : {'type' : 'Identifier', 'name' : 'initialize'}}
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                'type'     : 'ReturnStatement',
+                'argument' : {
+                  'type'     : 'LogicalExpression',
+                  'left'     : {
+                    'type'     : 'LogicalExpression',
+                    'left'     : {
+                      'type'     : 'LogicalExpression',
+                      'left'     : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : 'result'}, 'property' : {'type' : 'Identifier', 'name' : 'get'}},
+                      'operator' : '||',
+                      'right'    : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : 'result'}, 'property' : {'type' : 'Identifier', 'name' : 'set'}}
+                    },
+                    'operator' : '||',
+                    'right'    : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : 'result'}, 'property' : {'type' : 'Identifier', 'name' : 'definition'}}
+                  },
+                  'operator' : '||',
+                  'right'    : {'type' : 'Identifier', 'name' : 'origin'}
+                }
+              }
+            ]
+          }
+        },
+        {
+          'type'     : 'ThrowStatement',
+          'argument' : {
+            'type'      : 'NewExpression', 'callee' : {'type' : 'Identifier', 'name' : 'TypeError'},
+            'arguments' : [{'type' : 'Literal', 'value' : 'invalid decorator return'}]
+          }
+        }
+      ]
+    }
+  };
+}
+
 function insertAfter (arr, current, elements) {
   arr.splice (arr.indexOf (current) + 1, 0, ...elements);
 }
 
 function insertBefore (arr, current, elements) {
   arr.splice (arr.indexOf (current), 0, ...elements);
+}
+
+function insertBeforeNext (arr, next, elements) {
+  if (next !== null) {
+    return arr.splice (arr.indexOf (next), 0, ...elements);
+  }
+  arr.push (...elements);
 }
 
 function replace (arr, current, elements) {

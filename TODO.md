@@ -1,5 +1,6 @@
 # JavascriptDecorartos.org
 
+
 ## TODO
 
 - [ ] Predefined examples
@@ -11,17 +12,10 @@
 - [ ] Show the changelog from homepage
 - [ ] Add completed automatic test
 - [ ] Transpiler
-  - [ ] Method
-    - [ ] Private static
-  - [ ] Getter
-    - [ ] Private static
-  - [ ] Setter
-    - [ ] Private static
-  - [ ] Field
-    - [ ] Private member
-    - [ ] Private static
   - [ ] init:
   - [ ] accessor
+  - [ ] export
+
 
 ## In progress
 
