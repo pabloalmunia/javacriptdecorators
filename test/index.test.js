@@ -65,20 +65,24 @@ run ('case036');
 run ('case037');
 run ('case038');
 
-// // Field
-// run ('case041');
-// run ('case042');
-// run ('case043');
-// run ('case044');
-// run ('case045');
-// run ('case049');
-//
-// // Static method
-// run ('case051');
-// run ('case052');
-// run ('case053');
-// run ('case054');
-// run ('case055');
+// Field
+run ('case041');
+run ('case042');
+run ('case043');
+run ('case044');
+run ('case045');
+run ('case049');
+
+// Static method
+run ('case051');
+run ('case052');
+run ('case053');
+run ('case054');
+run ('case055');
+run ('case056');
+run ('case057');
+run ('case058');
+
 //
 // // // Static getter
 // run ('case061');

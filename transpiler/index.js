@@ -58,14 +58,15 @@ function transform (ast) {
               parent,
               klass,
               publicMemberGenerator ({
-                kind          : decorator.kind,
-                className     : className,
-                elementName   : o.key.name,
-                decoratorName : decorator.expression,
-                variableName  : (decorator.kind === 'getter' || decorator.kind === 'setter' ?
+                kind             : decorator.kind,
+                className        : className,
+                elementName      : o.key.name,
+                decoratorName    : decorator.expression,
+                variableName     : (decorator.kind === 'getter' || decorator.kind === 'setter' ?
                   '_descriptor_' :
                   '_initializer_') + unique (),
-                isStatic      : true
+                initializersName : staticInitializersName,
+                isStatic         : true
               })
             );
             decoratorsCreated++;
@@ -583,7 +584,11 @@ function publicMemberGenerator ({kind, className, elementName, decoratorName, va
     {
       'type'     : 'MemberExpression',
       'object'   : {'type' : 'Identifier', 'name' : variableName},
-      'property' : {'type' : 'Identifier', 'name' : kind === 'setter' || kind === 'init-setter' ? 'set' : 'get'}
+      'property' : {
+        'type' : 'Identifier', 'name' : kind === 'setter' || kind === 'init-setter' ?
+          'set' :
+          'get'
+      }
     } :
     (kind === 'field') ?
       {
@@ -629,7 +634,11 @@ function publicMemberGenerator ({kind, className, elementName, decoratorName, va
             {
               'type'     : 'MemberExpression',
               'object'   : {'type' : 'Identifier', 'name' : variableName},
-              'property' : {'type' : 'Identifier', 'name' : kind === 'setter' || kind === 'init-setter' ? 'set' : 'get'}
+              'property' : {
+                'type' : 'Identifier', 'name' : kind === 'setter' || kind === 'init-setter' ?
+                  'set' :
+                  'get'
+              }
             } :
             (kind === 'field') ?
               {
