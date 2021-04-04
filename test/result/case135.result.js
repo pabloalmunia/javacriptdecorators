@@ -27,36 +27,36 @@ function __DefineMetadata(base, name) {
   };
 }
 
-const _symbol_1a6512q2n78 = Symbol();
+const _symbol_4b6omeak7j = Symbol();
 
 class C {
-  static _temp_5k18pev7o7g() {}
-  static [_symbol_1a6512q2n78] = decorator("test1")(C._temp_5k18pev7o7g, {
+  static _temp_00b1mpm1glg() {}
+  static [_symbol_4b6omeak7j] = decorator("test1")(C._temp_00b1mpm1glg, {
     kind: "method",
     name: "#M",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_symbol_1a6512q2n78]
+      get: C[_symbol_4b6omeak7j]
     },
     defineMetadata: __DefineMetadata(C, "#M")
-  }) ?? C._temp_5k18pev7o7g;
-  static [_symbol_1a6512q2n78] = decorator("test2")(C[_symbol_1a6512q2n78], {
+  }) ?? C._temp_00b1mpm1glg;
+  static [_symbol_4b6omeak7j] = decorator("test2")(C[_symbol_4b6omeak7j], {
     kind: "method",
     name: "#M",
-    isStatic: false,
+    isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_symbol_1a6512q2n78]
+      get: C[_symbol_4b6omeak7j]
     },
     defineMetadata: __DefineMetadata(C, "#M")
-  }) ?? C[_symbol_1a6512q2n78];
-  static #M = C[_symbol_1a6512q2n78];
-  static [_symbol_1a6512q2n78]() {
+  }) ?? C[_symbol_4b6omeak7j];
+  static #M = C[_symbol_4b6omeak7j];
+  static [_symbol_4b6omeak7j]() {
     return this.#M;
   }
 }
 
-delete C._temp_5k18pev7o7g;
+delete C._temp_00b1mpm1glg;
 
 console.log(C[Symbol.metadata]);

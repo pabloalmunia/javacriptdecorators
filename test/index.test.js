@@ -103,48 +103,57 @@ run ('case075');
 run ('case076');
 run ('case077');
 run ('case078');
+
+// Static field
+run ('case081');
+run ('case082');
+run ('case083');
+run ('case084');
+run ('case085');
+
+// Private Method
+run ('case091');
+run ('case092');
+run ('case093');
+run ('case094');
+run ('case095');
+run ('case096');
+
+// Private Getter
+run ('case101');
+run ('case102');
+run ('case103');
+run ('case104');
+run ('case105');
+run ('case106');
+run ('case107');
+run ('case108');
 //
-// // Static field
-// run ('case081');
-// run ('case082');
-// run ('case083');
-// run ('case084');
-// run ('case085');
-//
-// // Private Method
-// run ('case091');
-// run ('case092');
-// run ('case093');
-// run ('case094');
-// run ('case095');
-//
-// // Private Getter
-// run ('case101');
-// run ('case102');
-// run ('case103');
-// run ('case104');
-// run ('case105');
-// //
-// // Private Setter
-// run ('case111');
-// run ('case112');
-// run ('case113');
-// run ('case114');
-// run ('case115');
-//
-// // Private Setter
-// run ('case121');
-// run ('case122');
-// run ('case123');
-// run ('case124');
-// run ('case125');
-//
-// // Static Private Method
-// run ('case131');
-// run ('case132');
-// run ('case133');
-// run ('case134');
-// run ('case135');
+// Private Setter
+run ('case111');
+run ('case112');
+run ('case113');
+run ('case114');
+run ('case115');
+run ('case116');
+run ('case117');
+run ('case118');
+
+// Private Setter
+run ('case121');
+run ('case122');
+run ('case123');
+run ('case124');
+run ('case125');
+
+// Static Private Method
+run ('case131');
+run ('case132');
+run ('case133');
+run ('case134');
+run ('case135');
+run ('case136');
+run ('case137');
 //
 // // Static Private Getter
 // run ('case141');
