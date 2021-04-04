@@ -7,13 +7,13 @@ The tools are entirely experimental and evolving. There is no guarantee of they 
 
 - [Class decorators](#class-decorators)
 - [Method decorators](#method-decorators)
-  - [public member method](#public-member-method)
+  - [public method](#public-method)
   - [static methods](#static-methods)
   - [private member methods](#private-member-methods)
   - [static private member methods](#static-private-methods)
 - [Accessor decorators](#accessor-decorators)
-  - [public member getter](#public-member-getter)
-  - [public member setter](#public-member-setter)
+  - [public getter](#public-getter)
+  - [public setter](#public-setter)
   - [static getter](#static-getter)
   - [static setter](#static-setter)
   - [private getter](#private-getter)
@@ -21,7 +21,7 @@ The tools are entirely experimental and evolving. There is no guarantee of they 
   - [static private getter](#static-private-getter)
   - [static private setter](#static-private-setter)
 - [Field decorators](#field-decorators)
-  - [public member field](#public-member-field)
+  - [public field](#public-field)
   - [static field](#static-field)
   - [private field](#private-field)
   - [static private field](#static-private-field)
@@ -55,13 +55,22 @@ The decorator function can return:
 
 - a new class that replaces the previous class  passed as the first parameter
 
+- if the decorator is called with `@init:` must be return an object with this structure:
+
+```js
+{
+  definition() {},  // a new class that replaces the previous class  passed as the first parameter
+  initialize() {}   // a function to initialize the class after applying all decorators (`this` is the class)
+}
+```
+
 The metadata defined for the decorator with `context.defineMetadata()` is located on
 `X[Symbol.metadata].constructor` where `X` is the class.
 
 
 ### Method decorators
 
-#### public member method
+#### public method
 
 ```js
 class X {
@@ -91,6 +100,15 @@ The decorator function can return:
 - `undefined`, nothing is replaced
 
 - a new function that replaces the previous method  passed as the first parameter
+
+- if the decorator is called with `@init:` must be return an object with this structure:
+
+```js
+{
+  method() {},      // a new function that replaces the previous method  passed as the first parameter
+  initialize() {}   // a function to initialize the object after the constructor call (`this` is the object instance)
+}
+```
 
 The metadata defined for the decorator with `context.defineMetadata()` is located on
 `X.prototype[Symbol.metadata].m` where `X` is the class, and `m` is the method name.
@@ -124,7 +142,16 @@ The decorator function can return:
 
 - `undefined`, nothing is replaced
 
-- a new function that replaces the previous method  passed as the first parameter
+- a new function that replaces the previous method passed as the first parameter
+
+- if the decorator is called with `@init:` must be return an object with this structure:
+
+```js
+{
+  method() {},      // a new function that replaces the previous method  passed as the first parameter
+  initialize() {}   // a function to initialize the class
+}
+```
 
 The metadata defined for the decorator with `context.defineMetadata()` is located on
 `X[Symbol.metadata].m` where `X` is the class, and `m` is the static method name.
@@ -160,6 +187,15 @@ The decorator function can return:
 - `undefined`, nothing is replaced
 
 - a new function that replaces the previous method  passed as the first parameter
+
+- if the decorator is called with `@init:` must be return an object with this structure:
+
+```js
+{
+  method() {},      // a new function that replaces the previous method  passed as the first parameter
+  initialize() {}   // a function to initialize the object after the constructor call (`this` is the object instance)
+}
+```
 
 The metadata defined for the decorator with `context.defineMetadata()` is located on
 `X.prototype[Symbol.metadata]['#m']` where `X` is the class and `#m` is the private method name.
@@ -200,13 +236,23 @@ The decorator function can return:
 
 - a new function that replaces the previous method  passed as the first parameter
 
+
+- if the decorator is called with `@init:` must be return an object with this structure:
+
+```js
+{
+  method() {},      // a new function that replaces the previous method  passed as the first parameter
+  initialize() {}   // a function to initialize the class
+}
+```
+
 The metadata defined for the decorator with `context.defineMetadata()` is located on
 `X[Symbol.metadata]['#m']` where `X` is the class and `#m` is the private method name.
 
 
 ### Accessor decorators
 
-#### public member getter
+#### public getter
 
 ```js
 class X {
@@ -237,11 +283,20 @@ The decorator function can return:
 
 - a new function that replaces the previous get method  passed as the first parameter
 
+- if the decorator is called with `@init:` must be return an object with this structure:
+
+```js
+{
+  get() {},         // a new function that replaces the previous method  passed as the first parameter
+  initialize() {}   // a function to initialize the object after the constructor call (`this` is the object instance)
+}
+```
+
 The metadata defined for the decorator with `context.defineMetadata()` is located on
 `X.prototype[Symbol.metadata].m` where `X` is the class, and `p` is the property name.
 
 
-#### public member setter
+#### public setter
 
 ```js
 class X {
@@ -271,6 +326,15 @@ The decorator function can return:
 - `undefined`, nothing is replaced
 
 - a new function that replaces the previous set method  passed as the first parameter
+
+- if the decorator is called with `@init:` must be return an object with this structure:
+
+```js
+{
+  set() {},         // a new function that replaces the previous method  passed as the first parameter
+  initialize() {}   // a function to initialize the object after the constructor call (`this` is the object instance)
+}
+```
 
 The metadata defined for the decorator with `context.defineMetadata()` is located on
 `X.prototype[Symbol.metadata].m` where `X` is the class, and `p` is the property name.
@@ -307,6 +371,15 @@ The decorator function can return:
 
 - a new function that replaces the previous get method passed as the first parameter
 
+- if the decorator is called with `@init:` must be return an object with this structure:
+
+```js
+{
+  get() {},         // a new function that replaces the previous method  passed as the first parameter
+  initialize() {}   // a function to initialize the class
+}
+```
+
 The metadata defined for the decorator with `context.defineMetadata()` is located on
 `X[Symbol.metadata].P` where `X` is the class, and `P` is the property name.
 
@@ -341,6 +414,15 @@ The decorator function can return:
 - `undefined`, nothing is replaced
 
 - a new function that replaces the previous set method passed as the first parameter
+
+- if the decorator is called with `@init:` must be return an object with this structure:
+
+```js
+{
+  set() {},         // a new function that replaces the previous method  passed as the first parameter
+  initialize() {}   // a function to initialize the class
+}
+```
 
 The metadata defined for the decorator with `context.defineMetadata()` is located on
 `X[Symbol.metadata].P` where `X` is the class, and `P` is the property name.
@@ -377,6 +459,15 @@ The decorator function can return:
 
 - a new function that replaces the previous get method  passed as the first parameter
 
+- if the decorator is called with `@init:` must be return an object with this structure:
+
+```js
+{
+  get() {},         // a new function that replaces the previous method  passed as the first parameter
+  initialize() {}   // a function to initialize the object after the constructor call (`this` is the object instance)
+}
+```
+
 The metadata defined for the decorator with `context.defineMetadata()` is located on
 `X.prototype[Symbol.metadata]['#p']` where `X` is the class, and `#p` is the private property name.
 
@@ -411,6 +502,15 @@ The decorator function can return:
 - `undefined`, nothing is replaced
 
 - a new function that replaces the previous get method  passed as the first parameter
+
+- if the decorator is called with `@init:` must be return an object with this structure:
+
+```js
+{
+  set() {},         // a new function that replaces the previous method  passed as the first parameter
+  initialize() {}   // a function to initialize the object after the constructor call (`this` is the object instance)
+}
+```
 
 The metadata defined for the decorator with `context.defineMetadata()` is located on
 `X.prototype[Symbol.metadata]['#p']` where `X` is the class, and `#p` is the private property name.
@@ -451,6 +551,16 @@ The decorator function can return:
 
 - a new function that replaces the previous method  passed as the first parameter
 
+
+- if the decorator is called with `@init:` must be return an object with this structure:
+
+```js
+{
+  get() {},         // a new function that replaces the previous method  passed as the first parameter
+  initialize() {}   // a function to initialize the class
+}
+```
+
 The metadata defined for the decorator with `context.defineMetadata()` is located on
 `X[Symbol.metadata]['#P']` where `X` is the class and `#P` is the private method name.
 
@@ -490,13 +600,22 @@ The decorator function can return:
 
 - a new function that replaces the previous method  passed as the first parameter
 
+- if the decorator is called with `@init:` must be return an object with this structure:
+
+```js
+{
+  set() {},         // a new function that replaces the previous method  passed as the first parameter
+  initialize() {}   // a function to initialize the class
+}
+```
+
 The metadata defined for the decorator with `context.defineMetadata()` is located on
 `X[Symbol.metadata]['#P']` where `X` is the class and `#P` is the private method name.
 
 
 ### Field decorators
 
-#### public member field
+#### public field
 
 ```js
 class X {
@@ -640,7 +759,6 @@ The metadata defined for the decorator with `context.defineMetadata()` is locate
 
 ## Functionality not supported yet
 
-- `@init:` decorators.
 - Keyword `accessor`.
 - Export `export` or `export default`.
 - Anonymous class.

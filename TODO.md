@@ -12,7 +12,6 @@
 - [ ] Show the changelog from homepage
 - [ ] Add completed automatic test
 - [ ] Transpiler
-  - [ ] init:
   - [ ] accessor
   - [ ] export
 

@@ -1,5 +1,9 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.0.17 - 04/02/2021
+
+- Added support to @init: decorators for class, method, setter and getter
+
 ## version 0.0.16 - 02/04/2021
 
 - Added support to static private method decorator
