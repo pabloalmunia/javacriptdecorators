@@ -71,7 +71,8 @@ run ('case042');
 run ('case043');
 run ('case044');
 run ('case045');
-run ('case049');
+run ('case046');
+// run ('case049');
 
 // Static method
 run ('case051');
@@ -110,6 +111,7 @@ run ('case082');
 run ('case083');
 run ('case084');
 run ('case085');
+run ('case086');
 
 // Private Method
 run ('case091');
@@ -145,6 +147,7 @@ run ('case122');
 run ('case123');
 run ('case124');
 run ('case125');
+run ('case126');
 
 // Static Private Method
 run ('case131');

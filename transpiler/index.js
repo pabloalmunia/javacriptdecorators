@@ -249,7 +249,11 @@ function transform (ast) {
                   'type'         : 'VariableDeclaration',
                   'declarations' : [{
                     'type' : 'VariableDeclarator',
-                    'id'   : {'type' : 'Identifier', 'name' : o.static ? staticInitializersName : memberInitializersName},
+                    'id'   : {
+                      'type' : 'Identifier', 'name' : o.static ?
+                        staticInitializersName :
+                        memberInitializersName
+                    },
                     'init' : {'type' : 'ArrayExpression', 'elements' : []}
                   }],
                   'kind'         : 'const'
@@ -276,30 +280,30 @@ function transform (ast) {
                   }]);
                 } else {
                   addIntoConstructor (klass, [{
-                  'type'       : 'ExpressionStatement',
-                  'expression' : {
-                    'type'      : 'CallExpression',
-                    'callee'    : {
-                      'type'     : 'MemberExpression',
-                      'object'   : {'type' : 'Identifier', 'name' : memberInitializersName},
-                      'property' : {'type' : 'Identifier', 'name' : 'forEach'}
-                    },
-                    'arguments' : [
-                      {
-                        'type'   : 'ArrowFunctionExpression',
-                        'params' : [{'type' : 'Identifier', 'name' : 'initialize'}],
-                        'body'   : {
-                          'type'      : 'CallExpression',
-                          'callee'    : {
-                            'type'                                                                : 'MemberExpression',
-                            'object' : {'type' : 'Identifier', 'name' : 'initialize'}, 'property' : {'type' : 'Identifier', 'name' : 'call'}
-                          },
-                          'arguments' : [{'type' : 'ThisExpression'}]
+                    'type'       : 'ExpressionStatement',
+                    'expression' : {
+                      'type'      : 'CallExpression',
+                      'callee'    : {
+                        'type'     : 'MemberExpression',
+                        'object'   : {'type' : 'Identifier', 'name' : memberInitializersName},
+                        'property' : {'type' : 'Identifier', 'name' : 'forEach'}
+                      },
+                      'arguments' : [
+                        {
+                          'type'   : 'ArrowFunctionExpression',
+                          'params' : [{'type' : 'Identifier', 'name' : 'initialize'}],
+                          'body'   : {
+                            'type'      : 'CallExpression',
+                            'callee'    : {
+                              'type'                                                                : 'MemberExpression',
+                              'object' : {'type' : 'Identifier', 'name' : 'initialize'}, 'property' : {'type' : 'Identifier', 'name' : 'call'}
+                            },
+                            'arguments' : [{'type' : 'ThisExpression'}]
+                          }
                         }
-                      }
-                    ]
-                  }
-                }]);
+                      ]
+                    }
+                  }]);
                 }
               }
             }
@@ -314,9 +318,78 @@ function transform (ast) {
         klass,
         (o) => {
           return o.type === 'ClassProperty' &&
-            o.decorators?.length;
+            (o.decorators?.length || o.accessor);
         },
         (o, p) => {
+          if (o.accessor) {
+            const propertyName = o.key.name;
+            const privateName  = '_property_' + unique ();
+            const isStatic     = o.static;
+            const isPrivate    = o.key.type === 'PrivateName';
+            
+            // Transform current field to private
+            o.key.type = 'PrivateName';
+            o.key.name = privateName;
+            o.key.id   = {type : 'Identifier', name : privateName};
+            
+            insertAfter (klass.body.body, o, [
+              {
+                'type'   : 'MethodDefinition',
+                'kind'   : 'get',
+                'static' : isStatic,
+                'key'    : isPrivate ?
+                  {'type' : 'PrivateName', 'name' : propertyName, 'id' : {'type' : 'Identifier', 'name' : propertyName}} :
+                  {'type' : 'Identifier', 'name' : propertyName},
+                'value'  : {
+                  'type'   : 'FunctionExpression',
+                  'params' : [],
+                  'body'   : {
+                    'type' : 'BlockStatement',
+                    'body' : [
+                      {
+                        'type'     : 'ReturnStatement',
+                        'argument' : {
+                          'type'     : 'MemberExpression',
+                          'object'   : {'type' : 'ThisExpression'},
+                          'property' : {'type' : 'PrivateName', 'name' : privateName, 'id' : {'type' : 'Identifier', 'name' : privateName}}
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                'type'   : 'MethodDefinition',
+                'kind'   : 'set',
+                'static' : isStatic,
+                'key'    : isPrivate ?
+                  {'type' : 'PrivateName', 'name' : propertyName, 'id' : {'type' : 'Identifier', 'name' : propertyName}} :
+                  {'type' : 'Identifier', 'name' : propertyName},
+                'value'  : {
+                  'type'   : 'FunctionExpression',
+                  'params' : [{'type' : 'Identifier', 'name' : 'v'}],
+                  'body'   : {
+                    'type' : 'BlockStatement',
+                    'body' : [
+                      {
+                        'type'       : 'ExpressionStatement',
+                        'expression' : {
+                          'type'     : 'AssignmentExpression',
+                          'operator' : '=',
+                          'left'     : {
+                            'type'     : 'MemberExpression',
+                            'object'   : {'type' : 'ThisExpression'},
+                            'property' : {'type' : 'PrivateName', 'name' : privateName, 'id' : {'type' : 'Identifier', 'name' : privateName}}
+                          },
+                          'right'    : {'type' : 'Identifier', 'name' : 'v'}
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]);
+          }
           const symbolGetName = '_symbol_' + unique ();
           const symbolSetName = '_symbol_' + unique ();
           let isFirst         = true;
@@ -1197,7 +1270,7 @@ function privateFirstMemberGenerator ({kind, className, element, elementName, el
                   },
                   'arguments' : [
                     (kind === 'setter' || kind === 'init-setter') ?
-                      {'type'  : 'Identifier', 'name'  : 'v'} :
+                      {'type' : 'Identifier', 'name' : 'v'} :
                       undefined
                   ]
                 }
