@@ -237,10 +237,11 @@ if (paramSource) {
  * - static method, getter/setter, and field decorator
  * - static private method, getter/setter, and field decorator.
  * - @init: decorators
+ * - accessor keyword
  *
  * It's not supported yet:
- * - accessor keyword
- * - export clause.
+ * - accessor keyword with private fields
+ * - export clause
  */
 
 function decorator(value, context) {

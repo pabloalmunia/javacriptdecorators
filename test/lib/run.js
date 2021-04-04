@@ -8,7 +8,7 @@ const delFile   = (file) => fs.unlinkSync (path.join (__dirname, file));
 const words     = (source) => source
   .split (/\s|\(|\)|\.|\[|]/)
   .filter (x => x)
-  .map (x => x.substring (0, 1) === '_' ? '_' : x);
+  .map (x => x.substring (0, 1) === '_' ? '_' : x.substring (0, 2) === '#_' ? '#_' : x);
 
 module.exports = (label, getTest, getResult, transform, stringify, parse) => {
   
