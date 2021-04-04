@@ -236,8 +236,9 @@ if (paramSource) {
  * - private method, getter/setter, and field decorator
  * - static method, getter/setter, and field decorator
  * - static private method, getter/setter, and field decorator.
- * It's not supported yet:
  * - @init: decorators
+ *
+ * It's not supported yet:
  * - accessor keyword
  * - export clause.
  */

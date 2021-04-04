@@ -32,6 +32,12 @@ function DecoratorParser (ParentParser) {
           refDestructuringErrors
         );
       }
+      if (this.value === 'accessor') {
+        this.next ();
+        const node    = super.parseClassElement.call (this, noIn, refDestructuringErrors);
+        node.accessor = true;
+        return node;
+      }
       return super.parseClassElement.call (this, noIn, refDestructuringErrors);
     }
     
@@ -70,8 +76,8 @@ function DecoratorParser (ParentParser) {
     }
     
     assignDecorators (decorators, fn, noIn, refDestructuringErrors) {
-      const node        = fn.call (this, noIn, refDestructuringErrors);
-      node.decorators   = decorators.map (d => {
+      const node      = fn.call (this, noIn, refDestructuringErrors);
+      node.decorators = decorators.map (d => {
         d.kind +=
           d.kind === 'auto-accessor' ? '' :
             node.type === 'FieldDefinition' ? 'field' :
@@ -81,6 +87,9 @@ function DecoratorParser (ParentParser) {
                     node.kind;
         return d;
       });
+      if (node.decorators.find (d => d.kind === 'auto-accessor')) {
+        node.accessor = true;
+      }
       decorators.length = 0;
       return node;
     }
