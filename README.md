@@ -11,7 +11,7 @@ The tools are entirely experimental and evolving. There is no guarantee of they 
   - [static methods](#static-methods)
   - [private member methods](#private-member-methods)
   - [static private member methods](#static-private-methods)
-- [Accessor decorators](#accessor-decorators)
+- [Getter and setter decorators](#getter-and-setter-decorators)
   - [public getter](#public-getter)
   - [public setter](#public-setter)
   - [static getter](#static-getter)
@@ -43,9 +43,9 @@ The decorator function receives:
 
 ```js
 {
-  "kind": "class",
-  "name": "X",
-  "defineMetadata": (key, value) => { /* ... */ }
+  kind: "class",
+  name: "X",
+  defineMetadata: (key, value) => { /* ... */ }
 }
 ```
 
@@ -87,11 +87,11 @@ The decorator function receives:
 
 ```js
 {
-  "kind": "method",
-  "name": "m",
-  "isStatic": false,
-  "isPrivate": false,
-  "defineMetadata": (key, value) => { /* ... */ }
+  kind: "method",
+  name: "m",
+  isStatic: false,
+  isPrivate: false,
+  defineMetadata: (key, value) => { /* ... */ }
 }
 ```
 
@@ -130,11 +130,11 @@ The decorator function receives:
 
 ```js
 {
-  "kind": "method",
-  "name": "M",
-  "isStatic": true,
-  "isPrivate": false,
-  "defineMetadata": (key, value) => { /* ... */ }
+  kind: "method",
+  name: "M",
+  isStatic: true,
+  isPrivate: false,
+  defineMetadata: (key, value) => { /* ... */ }
 }
 ```
 
@@ -174,11 +174,11 @@ The decorator function receives:
 
 ```js
 {
-  "kind": "method",
-  "name": "#m",
-  "isStatic": false,
-  "isPrivate": true,
-  "defineMetadata": (key, value) => { /* ... */ }
+  kind: "method",
+  name: "#m",
+  isStatic: false,
+  isPrivate: true,
+  defineMetadata: (key, value) => { /* ... */ }
 }
 ```
 
@@ -218,15 +218,15 @@ The decorator function receives:
 
 ```js
 {
-  "kind": "method",
-  "name": "#m",
-  "access": {
-    "get": () => { /* ... */ }, 
-    "set": (v) => { /* ... */ },
+  kind: "method",
+  name: "#m",
+  access: {
+    get: () => { /* ... */ }, 
+    set: (v) => { /* ... */ },
   }
-  "isStatic": true,
-  "isPrivate": true,
-  "defineMetadata": (key, value) => { /* ... */ }
+  isStatic: true,
+  isPrivate: true,
+  defineMetadata: (key, value) => { /* ... */ }
 }
 ```
 
@@ -235,7 +235,6 @@ The decorator function can return:
 - `undefined`, nothing is replaced
 
 - a new function that replaces the previous method  passed as the first parameter
-
 
 - if the decorator is called with `@init:` must be return an object with this structure:
 
@@ -250,7 +249,7 @@ The metadata defined for the decorator with `context.defineMetadata()` is locate
 `X[Symbol.metadata]['#m']` where `X` is the class and `#m` is the private method name.
 
 
-### Accessor decorators
+### Getter and setter decorators
 
 #### public getter
 
@@ -269,11 +268,11 @@ The decorator function receives:
 
 ```js
 {
-  "kind": "getter",
-  "name": "p",
-  "isStatic": false,
-  "isPrivate": false,
-  "defineMetadata": (key, value) => { /* ... */ }
+  kind: "getter",
+  name: "p",
+  isStatic: false,
+  isPrivate: false,
+  defineMetadata: (key, value) => { /* ... */ }
 }
 ```
 
@@ -313,11 +312,11 @@ The decorator function receives:
 
 ```js
 {
-  "kind": "setter",
-  "name": "p",
-  "isStatic": false,
-  "isPrivate": false,
-  "defineMetadata": (key, value) => { /* ... */ }
+  kind: "setter",
+  name: "p",
+  isStatic: false,
+  isPrivate: false,
+  defineMetadata: (key, value) => { /* ... */ }
 }
 ```
 
@@ -357,11 +356,11 @@ The decorator function receives:
 
 ```js
 {
-  "kind": "getter",
-  "name": "P",
-  "isStatic": true,
-  "isPrivate": false,
-  "defineMetadata": (key, value) => { /* ... */ }
+  kind: "getter",
+  name: "P",
+  isStatic: true,
+  isPrivate: false,
+  defineMetadata: (key, value) => { /* ... */ }
 }
 ```
 
@@ -401,11 +400,11 @@ The decorator function receives:
 
 ```js
 {
-  "kind": "setter",
-  "name": "P",
-  "isStatic": true,
-  "isPrivate": false,
-  "defineMetadata": (key, value) => { /* ... */ }
+  kind: "setter",
+  name: "P",
+  isStatic: true,
+  isPrivate: false,
+  defineMetadata: (key, value) => { /* ... */ }
 }
 ```
 
@@ -445,11 +444,11 @@ The decorator function receives:
 
 ```js
 {
-  "kind": "getter",
-  "name": "#p",
-  "isStatic": false,
-  "isPrivate": true,
-  "defineMetadata": (key, value) => { /* ... */ }
+  kind: "getter",
+  name: "#p",
+  isStatic: false,
+  isPrivate: true,
+  defineMetadata: (key, value) => { /* ... */ }
 }
 ```
 
@@ -489,11 +488,11 @@ The decorator function receives:
 
 ```js
 {
-  "kind": "setter",
-  "name": "#p",
-  "isStatic": false,
-  "isPrivate": true,
-  "defineMetadata": (key, value) => { /* ... */ }
+  kind: "setter",
+  name: "#p",
+  isStatic: false,
+  isPrivate: true,
+  defineMetadata: (key, value) => { /* ... */ }
 }
 ```
 
@@ -533,15 +532,15 @@ The decorator function receives:
 
 ```js
 {
-  "kind": "getter",
-  "name": "#P",
-  "access": {
-    "get": () => { /* ... */ }, 
-    "set": (v) => { /* ... */ },
+  kind: "getter",
+  name: "#P",
+  access: {
+    get: () => { /* ... */ }, 
+    set: (v) => { /* ... */ },
   }
-  "isStatic": true,
-  "isPrivate": true,
-  "defineMetadata": (key, value) => { /* ... */ }
+  isStatic: true,
+  isPrivate: true,
+  defineMetadata: (key, value) => { /* ... */ }
 }
 ```
 
@@ -582,15 +581,15 @@ The decorator function receives:
 
 ```js
 {
-  "kind": "setter",
-  "name": "#P",
-  "access": {
-    "get": () => { /* ... */ }, 
-    "set": (v) => { /* ... */ },
+  kind: "setter",
+  name: "#P",
+  access: {
+    get: () => { /* ... */ }, 
+    set: (v) => { /* ... */ },
   }
-  "isStatic": true,
-  "isPrivate": true,
-  "defineMetadata": (key, value) => { /* ... */ }
+  isStatic: true,
+  isPrivate: true,
+  defineMetadata: (key, value) => { /* ... */ }
 }
 ```
 
@@ -632,11 +631,11 @@ The decorator function receives:
 
 ```js
 {
-kind: "field",
+  kind: "field",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  "defineMetadata": (key, value) => { /* ... */ }
+  defineMetadata: (key, value) => { /* ... */ }
 }
 ```
 
@@ -645,6 +644,49 @@ The decorator function can return:
 - `undefined`, nothing is replaced
 
 - a new function whose return will be used as the initial value of the property.
+
+The metadata defined for the decorator with `context.defineMetadata()` is located on
+`X.prototype[Symbol.metadata].p` where `X` is the class, and `p` is the property name.
+
+
+#### public field with accessor
+
+```js
+class X {
+  @decorator accessor
+  p = 10;
+}
+```
+
+The decorator function receives:
+
+- `value` is an object with a method `get()` and other method `set()` over the original property.
+
+- `context` with this object:
+
+```js
+{
+  kind: "auto-accesor",
+  name: "p",
+  isStatic: false,
+  isPrivate: false,
+  defineMetadata: (key, value) => { /* ... */ }
+}
+```
+
+The decorator function can return:
+
+- `undefined`, nothing is replaced
+
+- an object with this structure:
+
+```js
+{
+  get() {},         // a new get that replaces the previous get passed into the first parameter
+  set(v) {},        // a new get that replaces the previous set passed into the first parameter
+  initialize() {}   // a function to initialize the propety value
+}
+```
 
 The metadata defined for the decorator with `context.defineMetadata()` is located on
 `X.prototype[Symbol.metadata].p` where `X` is the class, and `p` is the property name.
@@ -666,11 +708,11 @@ The decorator function receives:
 
 ```js
 {
-kind: "field",
+  kind: "field",
   name: "P",
   isStatic: true,
   isPrivate: false,
-  "defineMetadata": (key, value) => { /* ... */ }
+  defineMetadata: (key, value) => { /* ... */ }
 }
 ```
 
@@ -679,6 +721,50 @@ The decorator function can return:
 - `undefined`, nothing is replaced
 
 - a new function whose return will be used as the initial value of the property.
+
+The metadata defined for the decorator with `context.defineMetadata()` is located on
+`X[Symbol.metadata].P` where `X` is the class, and `P` is the static property name.
+
+
+
+#### static field with accessor
+
+```js
+class X {
+  @decorator accessor
+  static p = 10;
+}
+```
+
+The decorator function receives:
+
+- `value` is an object with a method `get()` and other method `set()` over the original property.
+
+- `context` with this object:
+
+```js
+{
+  kind: "auto-accesor",
+  name: "p",
+  isStatic: true,
+  isPrivate: false,
+  defineMetadata: (key, value) => { /* ... */ }
+}
+```
+
+The decorator function can return:
+
+- `undefined`, nothing is replaced
+
+- an object with this structure:
+
+```js
+{
+  get() {},         // a new get that replaces the previous get passed into the first parameter
+  set(v) {},        // a new get that replaces the previous set passed into the first parameter
+  initialize() {}   // a function to initialize the static property value
+}
+```
 
 The metadata defined for the decorator with `context.defineMetadata()` is located on
 `X[Symbol.metadata].P` where `X` is the class, and `P` is the static property name.
@@ -700,11 +786,11 @@ The decorator function receives:
 
 ```js
 {
-kind: "field",
+  kind: "field",
   name: "#p",
   isStatic: true,
   isPrivate: false,
-  "defineMetadata": (key, value) => { /* ... */ }
+  defineMetadata: (key, value) => { /* ... */ }
 }
 ```
 
@@ -735,15 +821,15 @@ The decorator function receives:
 
 ```js
 {
-  "kind": "setter",
-  "name": "#P",
-  "access": {
-    "get": () => { /* ... */ }, 
-    "set": (v) => { /* ... */ },
+  kind: "setter",
+  name: "#P",
+  access: {
+    get: () => { /* ... */ }, 
+    set: (v) => { /* ... */ },
   }
-  "isStatic": true,
-  "isPrivate": true,
-  "defineMetadata": (key, value) => { /* ... */ }
+  isStatic: true,
+  isPrivate: true,
+  defineMetadata: (key, value) => { /* ... */ }
 }
 ```
 

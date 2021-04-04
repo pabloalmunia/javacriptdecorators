@@ -1,18 +1,17 @@
-# JavascriptDecorartos.org
+# JavascriptDecorators.org
 
 
 ## TODO
 
 - [ ] Predefined examples
 - [ ] Resizeable panels
-- [ ] JSON navigation
-- [ ] Sync JSON navigation and code
-- [ ] Client transformation
+- [ ] AST navigation
+- [ ] Sync AST navigation and code
 - [ ] Show a help from homepage
 - [ ] Show the changelog from homepage
-- [ ] Add completed automatic test
+- [ ] Complete automatic tests
 - [ ] Transpiler
-  - [ ] accessor
+  - [ ] accessor with private fields
   - [ ] export
 
 
