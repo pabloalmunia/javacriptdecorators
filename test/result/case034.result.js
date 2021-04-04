@@ -34,29 +34,29 @@ class C {
   set p(v) {}
 }
 
-const _descriptor_k1k1c6kfo0o = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _descriptor_cqf9dr7u6dg = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_k1k1c6kfo0o.set = decorator2(_descriptor_k1k1c6kfo0o.set, {
+_descriptor_cqf9dr7u6dg.set = decorator1(_descriptor_cqf9dr7u6dg.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   defineMetadata: __DefineMetadata(C.prototype, "p")
-}) ?? _descriptor_k1k1c6kfo0o.set;
+}) ?? _descriptor_cqf9dr7u6dg.set;
 
-Object.defineProperty(C.prototype, "p", _descriptor_k1k1c6kfo0o);
+Object.defineProperty(C.prototype, "p", _descriptor_cqf9dr7u6dg);
 
-const _descriptor_kc0d6o0rkag = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _descriptor_0rlsth94e0o = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_kc0d6o0rkag.set = decorator1(_descriptor_kc0d6o0rkag.set, {
+_descriptor_0rlsth94e0o.set = decorator2(_descriptor_0rlsth94e0o.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   defineMetadata: __DefineMetadata(C.prototype, "p")
-}) ?? _descriptor_kc0d6o0rkag.set;
+}) ?? _descriptor_0rlsth94e0o.set;
 
-Object.defineProperty(C.prototype, "p", _descriptor_kc0d6o0rkag);
+Object.defineProperty(C.prototype, "p", _descriptor_0rlsth94e0o);
 
 const a = new C();
 

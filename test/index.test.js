@@ -44,21 +44,27 @@ run ('case015');
 run ('case016');
 run ('case017');
 run ('case018');
-//
-// // Getter
-// run ('case021');
-// run ('case022');
-// run ('case023');
-// run ('case024');
-// run ('case025');
-//
-// // Setter
-// run ('case031');
-// run ('case032');
-// run ('case033');
-// run ('case034');
-// run ('case035');
-//
+
+// Getter
+run ('case021');
+run ('case022');
+run ('case023');
+run ('case024');
+run ('case025');
+run ('case026');
+run ('case027');
+run ('case028');
+
+// Setter
+run ('case031');
+run ('case032');
+run ('case033');
+run ('case034');
+run ('case035');
+run ('case036');
+run ('case037');
+run ('case038');
+
 // // Field
 // run ('case041');
 // run ('case042');

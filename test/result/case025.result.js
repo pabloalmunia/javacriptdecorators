@@ -33,29 +33,29 @@ class C {
   }
 }
 
-const _descriptor_1uird3bvpsg = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _descriptor_ragvpomibtg = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_1uird3bvpsg.get = meta("b", 2)(_descriptor_1uird3bvpsg.get, {
+_descriptor_ragvpomibtg.get = meta("a", 1)(_descriptor_ragvpomibtg.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   defineMetadata: __DefineMetadata(C.prototype, "p")
-}) ?? _descriptor_1uird3bvpsg.get;
+}) ?? _descriptor_ragvpomibtg.get;
 
-Object.defineProperty(C.prototype, "p", _descriptor_1uird3bvpsg);
+Object.defineProperty(C.prototype, "p", _descriptor_ragvpomibtg);
 
-const _descriptor_rombbeao8j = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _descriptor_j8276es9kig = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_rombbeao8j.get = meta("a", 1)(_descriptor_rombbeao8j.get, {
+_descriptor_j8276es9kig.get = meta("b", 2)(_descriptor_j8276es9kig.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   defineMetadata: __DefineMetadata(C.prototype, "p")
-}) ?? _descriptor_rombbeao8j.get;
+}) ?? _descriptor_j8276es9kig.get;
 
-Object.defineProperty(C.prototype, "p", _descriptor_rombbeao8j);
+Object.defineProperty(C.prototype, "p", _descriptor_j8276es9kig);
 
 const a = new C();
 
