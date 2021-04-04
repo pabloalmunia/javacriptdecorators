@@ -83,20 +83,26 @@ run ('case056');
 run ('case057');
 run ('case058');
 
-//
-// // // Static getter
-// run ('case061');
-// run ('case062');
-// run ('case063');
-// run ('case064');
-// run ('case065');
-//
-// // Static setter
-// run ('case071');
-// run ('case072');
-// run ('case073');
-// run ('case074');
-// run ('case075');
+
+// // Static getter
+run ('case061');
+run ('case062');
+run ('case063');
+run ('case064');
+run ('case065');
+run ('case066');
+run ('case067');
+run ('case068');
+
+// Static setter
+run ('case071');
+run ('case072');
+run ('case073');
+run ('case074');
+run ('case075');
+run ('case076');
+run ('case077');
+run ('case078');
 //
 // // Static field
 // run ('case081');
