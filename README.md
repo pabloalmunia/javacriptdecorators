@@ -3,31 +3,32 @@
 
 The tools are entirely experimental and evolving. There is no guarantee of they follow the proposed standard correctly.
 
-## Supported functionality
-
 - [Class decorators](#class-decorators)
 - [Method decorators](#method-decorators)
-  - [public method](#public-method)
-  - [static methods](#static-methods)
-  - [private member methods](#private-member-methods)
-  - [static private member methods](#static-private-methods)
+  - [Public method](#public-method)
+  - [Static methods](#static-methods)
+  - [Private member methods](#private-member-methods)
+  - [Static private member methods](#static-private-methods)
 - [Getter and setter decorators](#getter-and-setter-decorators)
-  - [public getter](#public-getter)
-  - [public setter](#public-setter)
-  - [static getter](#static-getter)
-  - [static setter](#static-setter)
-  - [private getter](#private-getter)
-  - [private setter](#private-setter)
-  - [static private getter](#static-private-getter)
-  - [static private setter](#static-private-setter)
+  - [Public getter](#public-getter)
+  - [Public setter](#public-setter)
+  - [Static getter](#static-getter)
+  - [Static setter](#static-setter)
+  - [Private getter](#private-getter)
+  - [Private setter](#private-setter)
+  - [Static private getter](#static-private-getter)
+  - [Static private setter](#static-private-setter)
 - [Field decorators](#field-decorators)
   - [public field](#public-field)
+  - [public field width accessor](#public-field-width-accessor)
   - [static field](#static-field)
+  - [static field width accessor](#static-field-width-accessor)
   - [private field](#private-field)
   - [static private field](#static-private-field)
+- [Functionality not supported yet](functionality-not-supported-yet)
 
 
-### Class decorators
+## Class decorators
 
 ```js
 @decorator
@@ -35,7 +36,7 @@ class X {
 }
 ```
 
-The decorator function receives:
+#### decorator parameters
 
 - `value` the class
 
@@ -49,7 +50,7 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+#### decorator return
 
 - `undefined`, nothing is replaced
 
@@ -64,13 +65,14 @@ The decorator function can return:
 }
 ```
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+#### metadata location
+
 `X[Symbol.metadata].constructor` where `X` is the class.
 
 
-### Method decorators
+## Method decorators
 
-#### public method
+### Public method
 
 ```js
 class X {
@@ -79,7 +81,7 @@ class X {
 }
 ```
 
-The decorator function receives:
+##### decorator parameters
 
 - `value` with the method
 
@@ -95,7 +97,8 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+#### decorator return
+
 
 - `undefined`, nothing is replaced
 
@@ -110,10 +113,12 @@ The decorator function can return:
 }
 ```
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+#### metadata location
+
 `X.prototype[Symbol.metadata].m` where `X` is the class, and `m` is the method name.
 
-#### static methods
+
+### Static methods
 
 ```js
 class X {
@@ -122,7 +127,7 @@ class X {
 }
 ```
 
-The decorator function receives:
+##### decorator parameters
 
 - `value` the method
 
@@ -138,7 +143,7 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+##### decorator return
 
 - `undefined`, nothing is replaced
 
@@ -153,11 +158,12 @@ The decorator function can return:
 }
 ```
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+##### metada location
+
 `X[Symbol.metadata].m` where `X` is the class, and `m` is the static method name.
 
 
-#### private member methods
+### Private method
 
 ```js
 class X {
@@ -166,7 +172,7 @@ class X {
 }
 ```
 
-The decorator function receives:
+##### decorator parameters
 
 - `value` with the method
 
@@ -182,7 +188,7 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+##### decorator return
 
 - `undefined`, nothing is replaced
 
@@ -197,11 +203,12 @@ The decorator function can return:
 }
 ```
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+##### metadata location
+
 `X.prototype[Symbol.metadata]['#m']` where `X` is the class and `#m` is the private method name.
 
 
-#### static private methods
+### Static private method
 
 ```js
 class X {
@@ -210,7 +217,7 @@ class X {
 }
 ```
 
-The decorator function receives:
+##### decorator parameters
 
 - `value` with the method
 
@@ -230,7 +237,7 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+##### decorator return
 
 - `undefined`, nothing is replaced
 
@@ -245,13 +252,14 @@ The decorator function can return:
 }
 ```
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+##### metadata location
+
 `X[Symbol.metadata]['#m']` where `X` is the class and `#m` is the private method name.
 
 
-### Getter and setter decorators
+## Getter and setter decorators
 
-#### public getter
+### Public getter
 
 ```js
 class X {
@@ -260,7 +268,7 @@ class X {
 }
 ```
 
-The decorator function receives:
+##### decorator parameters
 
 - `value` with the get method
 
@@ -276,7 +284,7 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+##### decorator return
 
 - `undefined`, nothing is replaced
 
@@ -291,11 +299,12 @@ The decorator function can return:
 }
 ```
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+##### metadata location
+
 `X.prototype[Symbol.metadata].m` where `X` is the class, and `p` is the property name.
 
 
-#### public setter
+### Public setter
 
 ```js
 class X {
@@ -304,7 +313,7 @@ class X {
 }
 ```
 
-The decorator function receives:
+##### decorator parameters
 
 - `value` with the set method
 
@@ -320,7 +329,7 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+##### decorator return
 
 - `undefined`, nothing is replaced
 
@@ -335,11 +344,12 @@ The decorator function can return:
 }
 ```
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+##### metadata location
+
 `X.prototype[Symbol.metadata].m` where `X` is the class, and `p` is the property name.
 
 
-#### static getter
+### Static getter
 
 ```js
 class X {
@@ -348,7 +358,7 @@ class X {
 }
 ```
 
-The decorator function receives:
+##### decorator parameters
 
 - `value` with the get method
 
@@ -364,7 +374,7 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+##### decorator return
 
 - `undefined`, nothing is replaced
 
@@ -379,11 +389,12 @@ The decorator function can return:
 }
 ```
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+##### metadata location
+
 `X[Symbol.metadata].P` where `X` is the class, and `P` is the property name.
 
 
-#### static setter
+### Static setter
 
 ```js
 class X {
@@ -392,7 +403,7 @@ class X {
 }
 ```
 
-The decorator function receives:
+##### decorator parameters
 
 - `value` with the set method
 
@@ -408,7 +419,7 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+##### decorator return
 
 - `undefined`, nothing is replaced
 
@@ -423,11 +434,12 @@ The decorator function can return:
 }
 ```
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+##### decorator parameters
+
 `X[Symbol.metadata].P` where `X` is the class, and `P` is the property name.
 
 
-#### private getter
+### Private getter
 
 ```js
 class X {
@@ -436,7 +448,7 @@ class X {
 }
 ```
 
-The decorator function receives:
+##### decorator parameters
 
 - `value` with the get method
 
@@ -452,7 +464,7 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+##### decorator return
 
 - `undefined`, nothing is replaced
 
@@ -467,11 +479,12 @@ The decorator function can return:
 }
 ```
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+##### metadata location
+
 `X.prototype[Symbol.metadata]['#p']` where `X` is the class, and `#p` is the private property name.
 
 
-#### private setter
+### Private setter
 
 ```js
 class X {
@@ -480,7 +493,7 @@ class X {
 }
 ```
 
-The decorator function receives:
+##### decorator parameters
 
 - `value` with the set method
 
@@ -496,7 +509,7 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+##### decorator return
 
 - `undefined`, nothing is replaced
 
@@ -511,11 +524,12 @@ The decorator function can return:
 }
 ```
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+##### metadata location
+
 `X.prototype[Symbol.metadata]['#p']` where `X` is the class, and `#p` is the private property name.
 
 
-#### static private getter
+### Static private getter
 
 ```js
 class X {
@@ -524,7 +538,7 @@ class X {
 }
 ```
 
-The decorator function receives:
+##### decorator parameters
 
 - `value` with the method
 
@@ -544,7 +558,7 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+##### decorator return
 
 - `undefined`, nothing is replaced
 
@@ -560,11 +574,12 @@ The decorator function can return:
 }
 ```
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+##### metadata location
+
 `X[Symbol.metadata]['#P']` where `X` is the class and `#P` is the private method name.
 
 
-#### static private setter
+### Static private setter
 
 ```js
 class X {
@@ -573,7 +588,7 @@ class X {
 }
 ```
 
-The decorator function receives:
+##### decorator parameters
 
 - `value` with the method
 
@@ -593,7 +608,7 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+##### decorator return
 
 - `undefined`, nothing is replaced
 
@@ -608,13 +623,14 @@ The decorator function can return:
 }
 ```
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+##### metadata location
+
 `X[Symbol.metadata]['#P']` where `X` is the class and `#P` is the private method name.
 
 
-### Field decorators
+## Field decorators
 
-#### public field
+### Public field
 
 ```js
 class X {
@@ -623,7 +639,7 @@ class X {
 }
 ```
 
-The decorator function receives:
+##### decorator parameters
 
 - `value` with the set method
 
@@ -639,17 +655,18 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+##### decorator return
 
 - `undefined`, nothing is replaced
 
 - a new function whose return will be used as the initial value of the property.
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+##### metadata location
+
 `X.prototype[Symbol.metadata].p` where `X` is the class, and `p` is the property name.
 
 
-#### public field with accessor
+### Public field with accessor
 
 ```js
 class X {
@@ -658,9 +675,13 @@ class X {
 }
 ```
 
-The decorator function receives:
+##### decorator parameters
 
 - `value` is an object with a method `get()` and other method `set()` over the original property.
+
+```js
+{ get: <function>, set: <function> }
+```
 
 - `context` with this object:
 
@@ -674,7 +695,7 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+##### decorator return
 
 - `undefined`, nothing is replaced
 
@@ -688,10 +709,11 @@ The decorator function can return:
 }
 ```
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+##### metadata location
+
 `X.prototype[Symbol.metadata].p` where `X` is the class, and `p` is the property name.
 
-#### static field
+### Static field
 
 ```js
 class X {
@@ -700,7 +722,7 @@ class X {
 }
 ```
 
-The decorator function receives:
+##### decorator parameters
 
 - `value` with the set method
 
@@ -716,18 +738,18 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+##### decorator return
 
 - `undefined`, nothing is replaced
 
 - a new function whose return will be used as the initial value of the property.
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+##### metadata location
+
 `X[Symbol.metadata].P` where `X` is the class, and `P` is the static property name.
 
 
-
-#### static field with accessor
+### Static field with accessor
 
 ```js
 class X {
@@ -736,9 +758,13 @@ class X {
 }
 ```
 
-The decorator function receives:
+##### decorator parameters
 
-- `value` is an object with a method `get()` and other method `set()` over the original property.
+- `value` is an object with a method `get()` and other method `set()` over the original property:
+
+```js
+{ get: <function>, set: <function> }
+```
 
 - `context` with this object:
 
@@ -752,7 +778,7 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+##### decorator return
 
 - `undefined`, nothing is replaced
 
@@ -766,10 +792,12 @@ The decorator function can return:
 }
 ```
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+##### metadata location
+
 `X[Symbol.metadata].P` where `X` is the class, and `P` is the static property name.
 
-#### private field
+
+### private field
 
 ```js
 class A {
@@ -778,7 +806,7 @@ class A {
 }
 ```
 
-The decorator function receives:
+##### decorator parameters
 
 - `value` with the set method
 
@@ -794,17 +822,18 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+##### decorator return
 
 - `undefined`, nothing is replaced
 
 - a new function whose return will be used as the initial value of the property.
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+##### metadata location
+
 `X.prototype[Symbol.metadata]['#p']` where `X` is the class, and `#p` is the private property name.
 
 
-#### static private field
+### Static private field
 
 ```js
 class X {
@@ -813,7 +842,7 @@ class X {
 }
 ```
 
-The decorator function receives:
+##### decorator parameters
 
 - `value` with the method
 
@@ -833,19 +862,20 @@ The decorator function receives:
 }
 ```
 
-The decorator function can return:
+##### decorator return
 
 - `undefined`, nothing is replaced
 
 - a new function whose return will be used as the initial value of the property.
 
-The metadata defined for the decorator with `context.defineMetadata()` is located on
+##### metadata location
+
 `X[Symbol.metadata]['#P']` where `X` is the class and `#P` is the private method name.
 
 
 ## Functionality not supported yet
 
-- Keyword `accessor`.
+- Keyword `accessor` with private fields.
 - Export `export` or `export default`.
 - Anonymous class.
 
