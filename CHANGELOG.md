@@ -1,5 +1,9 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.1.1 - 05/02/2021
+
+- Fixed an error with accessor transpilation when the decorator don't return an initialize function.
+
 ## version 0.1.0 - 04/02/2021
 
 - Added support to `accessor`

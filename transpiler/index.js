@@ -770,11 +770,22 @@ function accessorGenerator ({className, initializeName, propertyName, decoratorN
         'operator' : '=',
         'left'     : {'type' : 'Identifier', 'name' : initializeName},
         'right'    : {
-          'type'     : 'MemberExpression',
-          'object'   : {'type' : 'Identifier', 'name' : resultName},
-          'property' : {'type' : 'Identifier', 'name' : 'initialize'}
+          'type'     : 'LogicalExpression',
+          'left'     : {
+            'type'     : 'MemberExpression',
+            'object'   : {'type' : 'Identifier', 'name' : resultName},
+            'property' : {'type' : 'Identifier', 'name' : 'initialize'}
+          },
+          'operator' : '||',
+          'right'    : {
+            'type'       : 'ArrowFunctionExpression',
+            'expression' : true,
+            'params'     : [{'type' : 'Identifier', 'name' : 'v'}],
+            'body'       : {'type' : 'Identifier', 'name' : 'v'}
+          }
         }
       }
+      
     },
     {
       'type'       : 'ExpressionStatement',
@@ -847,20 +858,20 @@ function accessorGenerator ({className, initializeName, propertyName, decoratorN
           'operator' : '=',
           'left'     : {
             'type'     : 'MemberExpression',
-            'object'   : {'type'  : 'Identifier', 'name'  : className},
-            'property' : {'type'  : 'Identifier', 'name'  : propertyName}
+            'object'   : {'type' : 'Identifier', 'name' : className},
+            'property' : {'type' : 'Identifier', 'name' : propertyName}
           },
           'right'    : {
             'type'      : 'CallExpression',
             'callee'    : {
-              'type'  : 'Identifier',
-              'name'  : initializeName
+              'type' : 'Identifier',
+              'name' : initializeName
             },
             'arguments' : [
               {
                 'type'     : 'MemberExpression',
-                'object'   : {'type'  : 'Identifier', 'name'  : className},
-                'property' : {'type'  : 'Identifier', 'name'  : propertyName}
+                'object'   : {'type' : 'Identifier', 'name' : className},
+                'property' : {'type' : 'Identifier', 'name' : propertyName}
               }
             ]
           }

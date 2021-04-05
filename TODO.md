@@ -3,7 +3,6 @@
 
 ## TODO
 
-- [ ] Predefined examples
 - [ ] Resizeable panels
 - [ ] AST navigation
 - [ ] Sync AST navigation and code
@@ -16,6 +15,8 @@
 
 
 ## In progress
+
+- [ ] Examples
 
 
 ## Done
