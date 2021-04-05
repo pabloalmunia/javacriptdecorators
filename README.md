@@ -7,8 +7,8 @@ The tools are entirely experimental and evolving. There is no guarantee of they 
 - [Method decorators](#method-decorators)
   - [Public method](#public-method)
   - [Static methods](#static-methods)
-  - [Private member methods](#private-member-methods)
-  - [Static private member methods](#static-private-methods)
+  - [Private methods](#private-method)
+  - [Static private member method](#static-private-method)
 - [Getter and setter decorators](#getter-and-setter-decorators)
   - [Public getter](#public-getter)
   - [Public setter](#public-setter)
@@ -25,7 +25,7 @@ The tools are entirely experimental and evolving. There is no guarantee of they 
   - [static field with accessor](#static-field-with-accessor)
   - [private field](#private-field)
   - [static private field](#static-private-field)
-- [Functionality not supported yet](functionality-not-supported-yet)
+- [Functionality not supported yet](#functionality-not-supported-yet)
 
 
 ## Class decorators
