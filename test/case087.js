@@ -3,7 +3,7 @@ function deco(value, name) {
     initialize(v) {return v * 2}
   }}
 class C {
-  @deco accessor static P = 10;
+  @deco static accessor P = 10;
 }
 
 console.assert(C.P === 20);

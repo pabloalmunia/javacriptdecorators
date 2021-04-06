@@ -29,23 +29,23 @@ function __DefineMetadata(base, name) {
   };
 }
 
-let _initializer_k2ekp1odh3g;
+let _initializer_qsd9ll7fr4o;
 
 class C {
-  static #_property_m10tj79vjqo = 10;
+  static #_property_1mu5ceoomt8 = 10;
   static get P() {
-    return this.#_property_m10tj79vjqo;
+    return this.#_property_1mu5ceoomt8;
   }
   static set P(v) {
-    this.#_property_m10tj79vjqo = v;
+    this.#_property_1mu5ceoomt8 = v;
   }
 }
 
-const _descriptor_d06qhsd2dd8 = Object.getOwnPropertyDescriptor(C, "P");
+const _descriptor_0pmqfecm1hg = Object.getOwnPropertyDescriptor(C, "P");
 
-const _result_4g34rm9djfo = deco({
-  get: _descriptor_d06qhsd2dd8.get,
-  set: _descriptor_d06qhsd2dd8.set
+const _result_vpobsngfqs8 = deco({
+  get: _descriptor_0pmqfecm1hg.get,
+  set: _descriptor_0pmqfecm1hg.set
 }, {
   kind: "auto-accessor",
   name: "P",
@@ -54,13 +54,13 @@ const _result_4g34rm9djfo = deco({
   defineMetadata: __DefineMetadata(C, "P")
 });
 
-_initializer_k2ekp1odh3g = _result_4g34rm9djfo.initialize;
+_initializer_qsd9ll7fr4o = _result_vpobsngfqs8.initialize || (v => v);
 
 Object.defineProperty(C, "P", {
-  get: _result_4g34rm9djfo.get || _descriptor_d06qhsd2dd8.get,
-  set: _result_4g34rm9djfo.set || _descriptor_d06qhsd2dd8.set
+  get: _result_vpobsngfqs8.get || _descriptor_0pmqfecm1hg.get,
+  set: _result_vpobsngfqs8.set || _descriptor_0pmqfecm1hg.set
 });
 
-C.P = _initializer_k2ekp1odh3g(C.P);
+C.P = _initializer_qsd9ll7fr4o(C.P);
 
 console.assert(C.P === 20);

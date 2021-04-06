@@ -32,8 +32,22 @@ function DecoratorParser (ParentParser) {
           refDestructuringErrors
         );
       }
-      if (this.value === 'accessor') {
+      if (this.value === 'static') {
+        const branch = this._branch ();
+        branch.next ();
+        if (branch.value === 'accessor') {
+          this.next ();
+          this.next ();
+          const node    = super.parseClassElement.call (this, noIn, refDestructuringErrors);
+          node.static   = true;
+          node.accessor = true;
+          return node;
+        }
+      } else if (this.value === 'accessor') {
         this.next ();
+        if (this.value === 'static') {
+          throw new Error ('"static" keyword must included before "accessor" keyword');
+        }
         const node    = super.parseClassElement.call (this, noIn, refDestructuringErrors);
         node.accessor = true;
         return node;
@@ -61,7 +75,21 @@ function DecoratorParser (ParentParser) {
         const node   = this.startNode ();
         this.next ();
         node.expression = this.parseMaybeAssign ();
-        if (this.value === 'accessor') {
+        if (this.value === 'static') {
+          const branch = this._branch ();
+          branch.next ();
+          if (branch.value === 'accessor') {
+            branch.next ();
+            if (branch.type.label === 'name') {
+              node.kind = 'auto-accessor';
+              this.next ();
+              this.next ();
+              node.static = true;
+            }
+          } else {
+            node.kind = isInit ? 'init-' : '';
+          }
+        } else if (this.value === 'accessor') {
           const branch = this._branch ();
           branch.next ();
           if (branch.type.label === 'name') {
@@ -129,6 +157,11 @@ function normalize (ast) {
       'end'   : o.end,
       'name'  : o.name
     }
+  );
+  walker (
+    ast,
+    (o) => o.type === 'ClassProperty' && o.decorators && o.decorators.find(x => x.static),
+    (o) => o.static = true
   );
   return ast;
 }

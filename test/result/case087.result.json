@@ -131,9 +131,8 @@
         "body": [
           {
             "type": "ClassProperty",
-            "start": 110,
+            "start": 117,
             "end": 123,
-            "static": true,
             "computed": false,
             "key": {
               "type": "Identifier",
@@ -152,17 +151,19 @@
               {
                 "type": "Decorator",
                 "start": 95,
-                "end": 109,
+                "end": 116,
                 "expression": {
                   "type": "Identifier",
                   "start": 96,
                   "end": 100,
                   "name": "deco"
                 },
-                "kind": "auto-accessor"
+                "kind": "auto-accessor",
+                "static": true
               }
             ],
-            "accessor": true
+            "accessor": true,
+            "static": true
           }
         ]
       }
