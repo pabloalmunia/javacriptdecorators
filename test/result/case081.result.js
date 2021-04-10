@@ -31,7 +31,7 @@ A = class_decorator(A, {
   defineMetadata: __DefineMetadata(A, "constructor")
 }) ?? A;
 
-const _initializer_aekp90hdopo = decorator(undefined, {
+const _initializer_27qt7dofppo = decorator(undefined, {
   kind: "field",
   name: "P",
   isStatic: true,
@@ -39,4 +39,4 @@ const _initializer_aekp90hdopo = decorator(undefined, {
   defineMetadata: __DefineMetadata(A, "P")
 }) ?? (v => v);
 
-A.P = _initializer_aekp90hdopo(A.P);
+A.P = _initializer_27qt7dofppo.call(A, A.P);

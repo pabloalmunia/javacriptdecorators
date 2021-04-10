@@ -21,15 +21,15 @@ function __DefineMetadata(base, name) {
   };
 }
 
-let _initializer_43t0070c9bg;
+let _initializer_4b3lor2r5lo;
 
-let _initializer_r2s2qc6qma;
+let _initializer_hcoe0a24ga;
 
 class C {
-  p = _initializer_r2s2qc6qma(_initializer_43t0070c9bg());
+  p = _initializer_hcoe0a24ga.call(this, _initializer_4b3lor2r5lo.call(this, ));
 }
 
-_initializer_r2s2qc6qma = decorator2(undefined, {
+_initializer_hcoe0a24ga = decorator2(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
@@ -37,7 +37,7 @@ _initializer_r2s2qc6qma = decorator2(undefined, {
   defineMetadata: __DefineMetadata(C.prototype, "p")
 }) ?? (v => v);
 
-_initializer_43t0070c9bg = decorator1(undefined, {
+_initializer_4b3lor2r5lo = decorator1(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,

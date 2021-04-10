@@ -32,7 +32,7 @@ class C {
   static F = 20;
 }
 
-const _initializer_kj5l5iprn3g = meta("d", 3)(undefined, {
+const _initializer_2bphai095b8 = meta("d", 3)(undefined, {
   kind: "field",
   name: "F",
   isStatic: true,
@@ -40,9 +40,9 @@ const _initializer_kj5l5iprn3g = meta("d", 3)(undefined, {
   defineMetadata: __DefineMetadata(C, "F")
 }) ?? (v => v);
 
-C.F = _initializer_kj5l5iprn3g(C.F);
+C.F = _initializer_2bphai095b8.call(C, C.F);
 
-const _initializer_rqqmn6e59f8 = meta("c", 3)(undefined, {
+const _initializer_bcp5r8vl89g = meta("c", 3)(undefined, {
   kind: "field",
   name: "F",
   isStatic: true,
@@ -50,9 +50,9 @@ const _initializer_rqqmn6e59f8 = meta("c", 3)(undefined, {
   defineMetadata: __DefineMetadata(C, "F")
 }) ?? (v => v);
 
-C.F = _initializer_rqqmn6e59f8(C.F);
+C.F = _initializer_bcp5r8vl89g.call(C, C.F);
 
-const _initializer_3vhobfpiej8 = meta("b", 2)(undefined, {
+const _initializer_90enuej2m78 = meta("b", 2)(undefined, {
   kind: "field",
   name: "P",
   isStatic: true,
@@ -60,9 +60,9 @@ const _initializer_3vhobfpiej8 = meta("b", 2)(undefined, {
   defineMetadata: __DefineMetadata(C, "P")
 }) ?? (v => v);
 
-C.P = _initializer_3vhobfpiej8(C.P);
+C.P = _initializer_90enuej2m78.call(C, C.P);
 
-const _initializer_1mq45orucp = meta("a", 1)(undefined, {
+const _initializer_obq8fjp6eho = meta("a", 1)(undefined, {
   kind: "field",
   name: "P",
   isStatic: true,
@@ -70,6 +70,6 @@ const _initializer_1mq45orucp = meta("a", 1)(undefined, {
   defineMetadata: __DefineMetadata(C, "P")
 }) ?? (v => v);
 
-C.P = _initializer_1mq45orucp(C.P);
+C.P = _initializer_obq8fjp6eho.call(C, C.P);
 
 console.log(C[Symbol.metadata]);

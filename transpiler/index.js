@@ -365,8 +365,8 @@ function transform (ast) {
               if (!o.static) {
                 o.value = {
                   'type'      : 'CallExpression',
-                  'callee'    : {'type' : 'Identifier', 'name' : initializeName},
-                  'arguments' : [o.value]
+                  'callee'    : {'type' : 'MemberExpression', 'object': {'type': 'Identifier', 'name' : initializeName}, 'property': {'type': 'Identifier', 'name': 'call'}},
+                  'arguments' : [{'type': 'ThisExpression'}, o.value]
                 };
               }
               insertAfter (
@@ -387,15 +387,15 @@ function transform (ast) {
               throw new TypeError ('wrong decorator @init: with a field');
             }
             decoratorsCreated++;
-            const variableName   = '_initializer_' + unique ();
-            const elementsBefore = [];
+            const initializerName = '_initializer_' + unique ();
+            const elementsBefore  = [];
             if (!o.static) {
               elementsBefore.push ({
                 'type'         : 'VariableDeclaration',
                 'declarations' : [
                   {
                     'type' : 'VariableDeclarator',
-                    'id'   : {'type' : 'Identifier', 'name' : variableName}
+                    'id'   : {'type' : 'Identifier', 'name' : initializerName}
                   }
                 ],
                 'kind'         : 'let'
@@ -419,7 +419,7 @@ function transform (ast) {
                   decoratorName : decorator.expression,
                   isStatic      : !!o.static,
                   className,
-                  variableName,
+                  variableName  : initializerName,
                   symbolGetName,
                   symbolSetName
                   
@@ -430,14 +430,14 @@ function transform (ast) {
                   decoratorName : decorator.expression,
                   isStatic      : o.static,
                   className,
-                  variableName
+                  variableName : initializerName
                 })
             );
             if (!o.static) {
               o.value = {
                 'type'      : 'CallExpression',
-                'callee'    : {'type' : 'Identifier', 'name' : variableName},
-                'arguments' : [o.value]
+                'callee'    : {'type' : 'MemberExpression', 'object': {'type': 'Identifier', 'name' : initializerName}, 'property': {'type': 'Identifier', 'name': 'call'}},
+                'arguments' : [{'type': 'ThisExpression'}, o.value]
               };
             }
             if (o.key.type === 'PrivateName' && isFirst) {
@@ -1042,8 +1042,9 @@ function publicMemberGenerator ({kind, className, elementName, decoratorName, va
             },
             'right'    : {
               'type'      : 'CallExpression',
-              'callee'    : {'type' : 'Identifier', 'name' : variableName},
+              'callee'    : {'type' : 'MemberExpression', 'object': {'type': 'Identifier', 'name' : variableName}, 'property': {'type': 'Identifier', 'name': 'call'}},
               'arguments' : [
+                {'type' : 'Identifier', 'name' : className},
                 {
                   'type'     : 'MemberExpression',
                   'object'   : {'type' : 'Identifier', 'name' : className},

@@ -1,5 +1,9 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.1.3 - 10/02/2021
+
+- Fixed errors with `this` of field initialize function.
+
 ## version 0.1.2 - 06/02/2021
 
 - Fixed an error with accessor and static keywords. The previous version accept `accesor static`,

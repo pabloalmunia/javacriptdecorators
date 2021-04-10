@@ -34,7 +34,7 @@ class C {
   static P = 10;
 }
 
-const _initializer_pn79q3lodf8 = decorator2(undefined, {
+const _initializer_f33gd7ou67g = decorator2(undefined, {
   kind: "field",
   name: "P",
   isStatic: true,
@@ -42,9 +42,9 @@ const _initializer_pn79q3lodf8 = decorator2(undefined, {
   defineMetadata: __DefineMetadata(C, "P")
 }) ?? (v => v);
 
-C.P = _initializer_pn79q3lodf8(C.P);
+C.P = _initializer_f33gd7ou67g.call(C, C.P);
 
-const _initializer_m72t5va9p1 = decorator1(undefined, {
+const _initializer_pc5i97f89n = decorator1(undefined, {
   kind: "field",
   name: "P",
   isStatic: true,
@@ -52,6 +52,6 @@ const _initializer_m72t5va9p1 = decorator1(undefined, {
   defineMetadata: __DefineMetadata(C, "P")
 }) ?? (v => v);
 
-C.P = _initializer_m72t5va9p1(C.P);
+C.P = _initializer_pc5i97f89n.call(C, C.P);
 
 console.log(C[Symbol.metadata]);

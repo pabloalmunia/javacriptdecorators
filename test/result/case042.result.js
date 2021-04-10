@@ -27,13 +27,13 @@ function __DefineMetadata(base, name) {
   };
 }
 
-let _initializer_c0nl825c8do;
+let _initializer_934t0evb5do;
 
 class C {
-  p = _initializer_c0nl825c8do(10);
+  p = _initializer_934t0evb5do.call(this, 10);
 }
 
-_initializer_c0nl825c8do = decorator(undefined, {
+_initializer_934t0evb5do = decorator(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,

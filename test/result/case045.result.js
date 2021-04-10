@@ -27,20 +27,20 @@ function __DefineMetadata(base, name) {
   };
 }
 
-let _initializer_8stad1nmrbg;
+let _initializer_1eqs1bsc69g;
 
-let _initializer_4mecqomc3hg;
+let _initializer_nudtf3fhnb8;
 
-let _initializer_gtfkvivi5bg;
+let _initializer_jgdhecf919;
 
-let _initializer_5269m54ui7o;
+let _initializer_6hcrqbnu7mo;
 
 class C {
-  p = _initializer_4mecqomc3hg(_initializer_8stad1nmrbg(10));
-  f = _initializer_5269m54ui7o(_initializer_gtfkvivi5bg(20));
+  p = _initializer_nudtf3fhnb8.call(this, _initializer_1eqs1bsc69g.call(this, 10));
+  f = _initializer_6hcrqbnu7mo.call(this, _initializer_jgdhecf919.call(this, 20));
 }
 
-_initializer_5269m54ui7o = meta("d", 3)(undefined, {
+_initializer_6hcrqbnu7mo = meta("d", 3)(undefined, {
   kind: "field",
   name: "f",
   isStatic: false,
@@ -48,7 +48,7 @@ _initializer_5269m54ui7o = meta("d", 3)(undefined, {
   defineMetadata: __DefineMetadata(C.prototype, "f")
 }) ?? (v => v);
 
-_initializer_gtfkvivi5bg = meta("c", 3)(undefined, {
+_initializer_jgdhecf919 = meta("c", 3)(undefined, {
   kind: "field",
   name: "f",
   isStatic: false,
@@ -56,7 +56,7 @@ _initializer_gtfkvivi5bg = meta("c", 3)(undefined, {
   defineMetadata: __DefineMetadata(C.prototype, "f")
 }) ?? (v => v);
 
-_initializer_4mecqomc3hg = meta("b", 2)(undefined, {
+_initializer_nudtf3fhnb8 = meta("b", 2)(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
@@ -64,7 +64,7 @@ _initializer_4mecqomc3hg = meta("b", 2)(undefined, {
   defineMetadata: __DefineMetadata(C.prototype, "p")
 }) ?? (v => v);
 
-_initializer_8stad1nmrbg = meta("a", 1)(undefined, {
+_initializer_1eqs1bsc69g = meta("a", 1)(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,

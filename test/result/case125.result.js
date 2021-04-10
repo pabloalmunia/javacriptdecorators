@@ -27,81 +27,81 @@ function __DefineMetadata(base, name) {
   };
 }
 
-let _initializer_3r9u9kfasp;
+let _initializer_kaagnamsel8;
 
-const _symbol_5i7incmpf6 = Symbol();
+const _symbol_3vuhdnfi2qg = Symbol();
 
-const _symbol_bakoeh0e0u = Symbol();
+const _symbol_7sc5cb6qf98 = Symbol();
 
-let _initializer_85nmc2ha9t;
+let _initializer_q8mahnn417g;
 
-let _initializer_s7phv0brveo;
+let _initializer_chp8ksl10ko;
 
-const _symbol_9u2d083gv9g = Symbol();
+const _symbol_q2qfeg0qr2o = Symbol();
 
-const _symbol_dr525g234s8 = Symbol();
+const _symbol_hmbd27gt3vo = Symbol();
 
-let _initializer_i8l8seh7t6o;
+let _initializer_p3kp4ggrfe;
 
 class C {
-  #p = _initializer_85nmc2ha9t(_initializer_3r9u9kfasp(10));
-  [_symbol_5i7incmpf6]() {
+  #p = _initializer_q8mahnn417g.call(this, _initializer_kaagnamsel8.call(this, 10));
+  [_symbol_3vuhdnfi2qg]() {
     return this.#p;
   }
-  [_symbol_bakoeh0e0u](v) {
+  [_symbol_7sc5cb6qf98](v) {
     this.#p = v;
   }
-  #f = _initializer_i8l8seh7t6o(_initializer_s7phv0brveo(20));
-  [_symbol_9u2d083gv9g]() {
+  #f = _initializer_p3kp4ggrfe.call(this, _initializer_chp8ksl10ko.call(this, 20));
+  [_symbol_q2qfeg0qr2o]() {
     return this.#f;
   }
-  [_symbol_dr525g234s8](v) {
+  [_symbol_hmbd27gt3vo](v) {
     this.#f = v;
   }
 }
 
-_initializer_i8l8seh7t6o = meta("d", 3)(undefined, {
+_initializer_p3kp4ggrfe = meta("d", 3)(undefined, {
   kind: "field",
   name: "#f",
   access: {
-    get: C.prototype[_symbol_9u2d083gv9g],
-    set: C.prototype[_symbol_dr525g234s8]
+    get: C.prototype[_symbol_q2qfeg0qr2o],
+    set: C.prototype[_symbol_hmbd27gt3vo]
   },
   isStatic: false,
   isPrivate: true,
   defineMetadata: __DefineMetadata(C.prototype, "#f")
 }) ?? (v => v);
 
-_initializer_s7phv0brveo = meta("c", 3)(undefined, {
+_initializer_chp8ksl10ko = meta("c", 3)(undefined, {
   kind: "field",
   name: "#f",
   access: {
-    get: C.prototype[_symbol_9u2d083gv9g],
-    set: C.prototype[_symbol_dr525g234s8]
+    get: C.prototype[_symbol_q2qfeg0qr2o],
+    set: C.prototype[_symbol_hmbd27gt3vo]
   },
   isStatic: false,
   isPrivate: true,
   defineMetadata: __DefineMetadata(C.prototype, "#f")
 }) ?? (v => v);
 
-_initializer_85nmc2ha9t = meta("b", 2)(undefined, {
+_initializer_q8mahnn417g = meta("b", 2)(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C.prototype[_symbol_5i7incmpf6],
-    set: C.prototype[_symbol_bakoeh0e0u]
+    get: C.prototype[_symbol_3vuhdnfi2qg],
+    set: C.prototype[_symbol_7sc5cb6qf98]
   },
   isStatic: false,
   isPrivate: true,
   defineMetadata: __DefineMetadata(C.prototype, "#p")
 }) ?? (v => v);
 
-_initializer_3r9u9kfasp = meta("a", 1)(undefined, {
+_initializer_kaagnamsel8 = meta("a", 1)(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C.prototype[_symbol_5i7incmpf6],
-    set: C.prototype[_symbol_bakoeh0e0u]
+    get: C.prototype[_symbol_3vuhdnfi2qg],
+    set: C.prototype[_symbol_7sc5cb6qf98]
   },
   isStatic: false,
   isPrivate: true,

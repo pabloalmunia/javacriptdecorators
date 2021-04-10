@@ -21,13 +21,13 @@ function __DefineMetadata(base, name) {
   };
 }
 
-let _initializer_9r9mc0ggtb;
+let _initializer_6cje59b4i4o;
 
 class A {
-  p = _initializer_9r9mc0ggtb(1);
+  p = _initializer_6cje59b4i4o.call(this, 1);
 }
 
-_initializer_9r9mc0ggtb = decorator(undefined, {
+_initializer_6cje59b4i4o = decorator(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,

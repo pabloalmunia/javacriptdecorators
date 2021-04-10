@@ -25,18 +25,18 @@ function __DefineMetadata(base, name) {
   };
 }
 
-let _initializer_o550h83imi8;
+let _initializer_2v1t6ssilug;
 
-const _symbol_rfetsqkiar = Symbol();
+const _symbol_n25tjp2m08 = Symbol();
 
-const _symbol_9anc8ac54t8 = Symbol();
+const _symbol_2q0gkhsonqg = Symbol();
 
 class A {
-  #p = _initializer_o550h83imi8(2);
-  [_symbol_rfetsqkiar]() {
+  #p = _initializer_2v1t6ssilug.call(this, 2);
+  [_symbol_n25tjp2m08]() {
     return this.#p;
   }
-  [_symbol_9anc8ac54t8](v) {
+  [_symbol_2q0gkhsonqg](v) {
     this.#p = v;
   }
   check() {
@@ -44,12 +44,12 @@ class A {
   }
 }
 
-_initializer_o550h83imi8 = decorator(undefined, {
+_initializer_2v1t6ssilug = decorator(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: A.prototype[_symbol_rfetsqkiar],
-    set: A.prototype[_symbol_9anc8ac54t8]
+    get: A.prototype[_symbol_n25tjp2m08],
+    set: A.prototype[_symbol_2q0gkhsonqg]
   },
   isStatic: false,
   isPrivate: true,

@@ -26,18 +26,18 @@ function __DefineMetadata(base, name) {
   };
 }
 
-let _initializer_e698e56rtp8;
+let _initializer_1f235hdc3ig;
 
-const _symbol_u9auapovm3o = Symbol();
+const _symbol_lab5qp22is8 = Symbol();
 
-const _symbol_16leh8lkf2o = Symbol();
+const _symbol_oe25aj3lqo = Symbol();
 
 class A {
-  #p = _initializer_e698e56rtp8(2);
-  [_symbol_u9auapovm3o]() {
+  #p = _initializer_1f235hdc3ig.call(this, 2);
+  [_symbol_lab5qp22is8]() {
     return this.#p;
   }
-  [_symbol_16leh8lkf2o](v) {
+  [_symbol_oe25aj3lqo](v) {
     this.#p = v;
   }
   check() {
@@ -45,12 +45,12 @@ class A {
   }
 }
 
-_initializer_e698e56rtp8 = decorator(undefined, {
+_initializer_1f235hdc3ig = decorator(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: A.prototype[_symbol_u9auapovm3o],
-    set: A.prototype[_symbol_16leh8lkf2o]
+    get: A.prototype[_symbol_lab5qp22is8],
+    set: A.prototype[_symbol_oe25aj3lqo]
   },
   isStatic: false,
   isPrivate: true,

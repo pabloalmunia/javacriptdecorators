@@ -31,7 +31,7 @@ class C {
   static P = 10;
 }
 
-const _initializer_e7hm2unf5c8 = decorator(undefined, {
+const _initializer_mc8c4rgsq2o = decorator(undefined, {
   kind: "field",
   name: "P",
   isStatic: true,
@@ -39,6 +39,6 @@ const _initializer_e7hm2unf5c8 = decorator(undefined, {
   defineMetadata: __DefineMetadata(C, "P")
 }) ?? (v => v);
 
-C.P = _initializer_e7hm2unf5c8(C.P);
+C.P = _initializer_mc8c4rgsq2o.call(C, C.P);
 
 console.assert(C.P === 20);

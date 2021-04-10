@@ -25,7 +25,7 @@ class C {
   static P;
 }
 
-const _initializer_vdbluv844m8 = decorator2(undefined, {
+const _initializer_tg804e5t5c8 = decorator2(undefined, {
   kind: "field",
   name: "P",
   isStatic: true,
@@ -33,9 +33,9 @@ const _initializer_vdbluv844m8 = decorator2(undefined, {
   defineMetadata: __DefineMetadata(C, "P")
 }) ?? (v => v);
 
-C.P = _initializer_vdbluv844m8(C.P);
+C.P = _initializer_tg804e5t5c8.call(C, C.P);
 
-const _initializer_6gr0sb7pqn8 = decorator1(undefined, {
+const _initializer_pplkduur3no = decorator1(undefined, {
   kind: "field",
   name: "P",
   isStatic: true,
@@ -43,4 +43,4 @@ const _initializer_6gr0sb7pqn8 = decorator1(undefined, {
   defineMetadata: __DefineMetadata(C, "P")
 }) ?? (v => v);
 
-C.P = _initializer_6gr0sb7pqn8(C.P);
+C.P = _initializer_pplkduur3no.call(C, C.P);
