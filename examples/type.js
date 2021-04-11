@@ -11,7 +11,6 @@ function type (kind, options = {silence : false}) {
               return;
             }
           }
-          debugger;
           if (kind === 'string' && options.match && !v.match(options.match)) {
             if (!options.silence) {
               throw new TypeError (`the property ".${ context.name }" must be match with ${options.name}`);
@@ -45,9 +44,21 @@ class Test {
   a = [];
   @email accessor
   email = '';
+  
+  #priv = '';
+  get name() {
+    return this.#priv;
+  }
+  @type('string', {silence: true})
+  set name(v) {
+    this.#priv = v;
+  }
 }
 
 const t = new Test();
+t.name = 'Pablo';
+t.name = 1;
+console.log(t.name);
 t.email = 'p@p.com'
 t.email = '.cp'
 console.log(t.email);
