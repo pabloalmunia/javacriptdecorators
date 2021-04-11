@@ -365,8 +365,8 @@ function transform (ast) {
               if (!o.static) {
                 o.value = {
                   'type'      : 'CallExpression',
-                  'callee'    : {'type' : 'MemberExpression', 'object': {'type': 'Identifier', 'name' : initializeName}, 'property': {'type': 'Identifier', 'name': 'call'}},
-                  'arguments' : [{'type': 'ThisExpression'}, o.value]
+                  'callee'    : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : initializeName}, 'property' : {'type' : 'Identifier', 'name' : 'call'}},
+                  'arguments' : [{'type' : 'ThisExpression'}, o.value]
                 };
               }
               insertAfter (
@@ -430,14 +430,14 @@ function transform (ast) {
                   decoratorName : decorator.expression,
                   isStatic      : o.static,
                   className,
-                  variableName : initializerName
+                  variableName  : initializerName
                 })
             );
             if (!o.static) {
               o.value = {
                 'type'      : 'CallExpression',
-                'callee'    : {'type' : 'MemberExpression', 'object': {'type': 'Identifier', 'name' : initializerName}, 'property': {'type': 'Identifier', 'name': 'call'}},
-                'arguments' : [{'type': 'ThisExpression'}, o.value]
+                'callee'    : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : initializerName}, 'property' : {'type' : 'Identifier', 'name' : 'call'}},
+                'arguments' : [{'type' : 'ThisExpression'}, o.value]
               };
             }
             if (o.key.type === 'PrivateName' && isFirst) {
@@ -1042,7 +1042,7 @@ function publicMemberGenerator ({kind, className, elementName, decoratorName, va
             },
             'right'    : {
               'type'      : 'CallExpression',
-              'callee'    : {'type' : 'MemberExpression', 'object': {'type': 'Identifier', 'name' : variableName}, 'property': {'type': 'Identifier', 'name': 'call'}},
+              'callee'    : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : variableName}, 'property' : {'type' : 'Identifier', 'name' : 'call'}},
               'arguments' : [
                 {'type' : 'Identifier', 'name' : className},
                 {
