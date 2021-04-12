@@ -92,7 +92,7 @@ function DecoratorParser (ParentParser) {
         } else if (this.value === 'accessor') {
           const branch = this._branch ();
           branch.next ();
-          if (branch.type.label === 'name') {
+          if (branch.type.label === 'name' || branch.type.label === 'privateName') {
             node.kind = 'auto-accessor';
             this.next ();
           }
