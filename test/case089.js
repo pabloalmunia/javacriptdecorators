@@ -16,8 +16,8 @@ class C {
   @deco1
   @deco2
   accessor
-  p;
+  static p;
 }
-const c = new C();
-c.p = 10;
-console.log(c.p);
+
+C.p = 10;
+console.log(C.p);
