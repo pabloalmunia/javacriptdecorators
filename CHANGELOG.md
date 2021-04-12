@@ -1,5 +1,9 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.1.4 - 12/02/2021
+
+- Fixed an error when a RegExp is included as parameter.
+
 ## version 0.1.3 - 10/02/2021
 
 - Fixed errors with `this` of field initialize function.
