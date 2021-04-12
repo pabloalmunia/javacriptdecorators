@@ -32,42 +32,41 @@ The tools are entirely experimental and evolving. There is no guarantee of they 
 
 ```js
 @decorator
-class X {
-}
+class MyClass {}
 ```
 
 #### decorator parameters
 
-- `value` the class
+- `value` is the class itself
 
-- `context` with this object:
+- `context` is this object:
 
 ```js
 {
   kind: "class",
-  name: "X",
-  defineMetadata: (key, value) => { /* ... */ }
+  name: "MyClass",
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-#### decorator return
+#### if decorator return value is:
 
 - `undefined`, nothing is replaced
 
-- a new class that replaces the previous class  passed as the first parameter
+- a new class, it replaces the previous class which was passed as the first parameter
 
-- if the decorator is called with `@init:` must be return an object with this structure:
+#### if the decorator is called with `@init:`, it must return an object with this structure:
 
 ```js
 {
-  definition() {},  // a new class that replaces the previous class  passed as the first parameter
-  initialize() {}   // a function to initialize the class after applying all decorators (`this` is the class)
+  definition() {},  // replaces the previous class which was passed as the first parameter
+  initialize() {},  // called after definition
 }
 ```
 
 #### metadata location
 
-`X[Symbol.metadata].constructor` where `X` is the class.
+`MyClass[Symbol.metadata].constructor`
 
 
 ## Method decorators
@@ -75,186 +74,188 @@ class X {
 ### Public method
 
 ```js
-class X {
+class MyClass {
   @decorator
-  m() {}
+  someMethod() {}
 }
 ```
 
 ##### decorator parameters
 
-- `value` with the method
+- `value` is the method itself
 
-- `context` with this object:
+- `context` is this object:
 
 ```js
 {
   kind: "method",
-  name: "m",
+  name: "someMethod",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: (key, value) => { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-#### decorator return
+#### if decorator return value is:
 
 
 - `undefined`, nothing is replaced
 
-- a new function that replaces the previous method  passed as the first parameter
+- a new function, it replaces the previous method which was passed as the first parameter
 
-- if the decorator is called with `@init:` must be return an object with this structure:
+#### if the decorator is called with `@init:`, it must return an object with this structure:
 
 ```js
 {
-  method() {},      // a new function that replaces the previous method  passed as the first parameter
-  initialize() {}   // a function to initialize the object after the constructor call (`this` is the object instance)
+  method() {},      // replaces the previous method which was passed as the first parameter
+  initialize() {},  // called in constructor
 }
 ```
 
 #### metadata location
 
-`X.prototype[Symbol.metadata].m` where `X` is the class, and `m` is the method name.
+`MyClass.prototype[Symbol.metadata].someMethod`
 
 
 ### Static methods
 
 ```js
-class X {
+class MyClass {
   @decorator
-  static M() {}
+  static someMethod() {}
 }
 ```
 
 ##### decorator parameters
 
-- `value` the method
+- `value` is the method itself
 
-- `context` with this object:
+- `context` is this object:
 
 ```js
 {
   kind: "method",
-  name: "M",
+  name: "someMethod",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: (key, value) => { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-##### decorator return
+##### if decorator return value is:
 
 - `undefined`, nothing is replaced
 
-- a new function that replaces the previous method passed as the first parameter
+- a new function, it replaces the previous method which was passed as the first parameter
 
-- if the decorator is called with `@init:` must be return an object with this structure:
+#### if the decorator is called with `@init:`, it must return an object with this structure:
 
 ```js
 {
-  method() {},      // a new function that replaces the previous method  passed as the first parameter
-  initialize() {}   // a function to initialize the class
+  method() {},       // replaces the previous method which was passed as the first parameter
+  initialize() {},   // called after definiton
 }
 ```
 
 ##### metada location
 
-`X[Symbol.metadata].m` where `X` is the class, and `m` is the static method name.
+`MyClass[Symbol.metadata].someMethod`
 
 
 ### Private method
 
 ```js
-class X {
+class MyClass {
   @decorator
-  #m() {}
+  #someMethod() {}
 }
 ```
 
 ##### decorator parameters
 
-- `value` with the method
+- `value` is the method itself
 
-- `context` with this object:
+- `context` is this object:
 
 ```js
 {
   kind: "method",
-  name: "#m",
+  name: "#someMethod",
+  access: {
+    get() { /* ... */ },
+  },
   isStatic: false,
   isPrivate: true,
-  defineMetadata: (key, value) => { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-##### decorator return
+##### if decorator return value is:
 
 - `undefined`, nothing is replaced
 
-- a new function that replaces the previous method  passed as the first parameter
+- a new function, it replaces the previous method which was passed as the first parameter
 
-- if the decorator is called with `@init:` must be return an object with this structure:
+#### if the decorator is called with `@init:`, it must return an object with this structure:
 
 ```js
 {
-  method() {},      // a new function that replaces the previous method  passed as the first parameter
-  initialize() {}   // a function to initialize the object after the constructor call (`this` is the object instance)
+  method() {},      // replaces the previous method which was passed as the first parameter
+  initialize() {},   // called in constructor
 }
 ```
 
 ##### metadata location
 
-`X.prototype[Symbol.metadata]['#m']` where `X` is the class and `#m` is the private method name.
+`MyClass.prototype[Symbol.metadata]['#someMethod']`
 
 
 ### Static private method
 
 ```js
-class X {
+class MyClass {
   @decorator
-  static #m() {}
+  static #someMethod() {}
 }
 ```
 
 ##### decorator parameters
 
-- `value` with the method
+- `value` is the method itself
 
-- `context` with this object:
+- `context` is this object:
 
 ```js
 {
   kind: "method",
-  name: "#m",
+  name: "#someMethod",
   access: {
-    get: () => { /* ... */ }, 
-    set: (v) => { /* ... */ },
-  }
+    get() { /* ... */ },
+  },
   isStatic: true,
   isPrivate: true,
-  defineMetadata: (key, value) => { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-##### decorator return
+##### if decorator return value is:
 
 - `undefined`, nothing is replaced
 
-- a new function that replaces the previous method  passed as the first parameter
+- a new function, it replaces the previous method which was passed as the first parameter
 
-- if the decorator is called with `@init:` must be return an object with this structure:
+#### if the decorator is called with `@init:`, it must return an object with this structure:
 
 ```js
 {
-  method() {},      // a new function that replaces the previous method  passed as the first parameter
-  initialize() {}   // a function to initialize the class
+  method() {},       // replaces the previous method which was passed as the first parameter
+  initialize() {},   // called after definition
 }
 ```
 
 ##### metadata location
 
-`X[Symbol.metadata]['#m']` where `X` is the class and `#m` is the private method name.
+`MyClass[Symbol.metadata]['#someMethod']`
 
 
 ## Getter and setter decorators
@@ -262,370 +263,374 @@ class X {
 ### Public getter
 
 ```js
-class X {
+class MyClass {
   @decorator
-  get p() {}
+  get someGetter() {}
 }
 ```
 
 ##### decorator parameters
 
-- `value` with the get method
+- `value` is the getter itself
 
-- `context` with this object:
+- `context` is this object:
 
 ```js
 {
   kind: "getter",
-  name: "p",
+  name: "someGetter",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: (key, value) => { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-##### decorator return
+##### if decorator return value is:
 
 - `undefined`, nothing is replaced
 
-- a new function that replaces the previous get method  passed as the first parameter
+- a new function, it replaces the previous getter which was passed as the first parameter
 
-- if the decorator is called with `@init:` must be return an object with this structure:
+#### if the decorator is called with `@init:`, it must return an object with this structure:
 
 ```js
 {
-  get() {},         // a new function that replaces the previous method  passed as the first parameter
-  initialize() {}   // a function to initialize the object after the constructor call (`this` is the object instance)
+  get() {},          // replaces the previous getterwhich was passed as the first parameter
+  initialize() {},   // called in constructor
 }
 ```
 
 ##### metadata location
 
-`X.prototype[Symbol.metadata].m` where `X` is the class, and `p` is the property name.
+`MyClass.prototype[Symbol.metadata].someGetter`
 
 
 ### Public setter
 
 ```js
-class X {
+class MyClass {
   @decorator
-  set p(v) {}
+  set someSetter(value) {}
 }
 ```
 
 ##### decorator parameters
 
-- `value` with the set method
+- `value` is the setter itself
 
-- `context` with this object:
+- `context` is this object:
 
 ```js
 {
   kind: "setter",
-  name: "p",
+  name: "someSetter",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: (key, value) => { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-##### decorator return
+##### if decorator return value is:
 
 - `undefined`, nothing is replaced
 
-- a new function that replaces the previous set method  passed as the first parameter
+- a new function, it replaces the previous setter which was passed as the first parameter
 
-- if the decorator is called with `@init:` must be return an object with this structure:
+#### if the decorator is called with `@init:`, it must return an object with this structure:
 
 ```js
 {
-  set() {},         // a new function that replaces the previous method  passed as the first parameter
-  initialize() {}   // a function to initialize the object after the constructor call (`this` is the object instance)
+  set(value) {},     // replaces the previous setter which was passed as the first parameter
+  initialize() {},   // called in constructor
 }
 ```
 
 ##### metadata location
 
-`X.prototype[Symbol.metadata].m` where `X` is the class, and `p` is the property name.
+`MyClass.prototype[Symbol.metadata].someSetter`
 
 
 ### Static getter
 
 ```js
-class X {
+class MyClass {
   @decorator
-  static get P() {}
+  static get someGetter() {}
 }
 ```
 
 ##### decorator parameters
 
-- `value` with the get method
+- `value` is the getter itself
 
-- `context` with this object:
+- `context` is this object:
 
 ```js
 {
   kind: "getter",
-  name: "P",
+  name: "someGetter",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: (key, value) => { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-##### decorator return
+##### if decorator return value is:
 
 - `undefined`, nothing is replaced
 
-- a new function that replaces the previous get method passed as the first parameter
+- a new function, it replaces the previous getter which was passed as the first parameter
 
-- if the decorator is called with `@init:` must be return an object with this structure:
+#### if the decorator is called with `@init:` it must return an object with this structure:
 
 ```js
 {
-  get() {},         // a new function that replaces the previous method  passed as the first parameter
-  initialize() {}   // a function to initialize the class
+  get() {},          // replaces the previous getter which was passed as the first parameter
+  initialize() {},   // called after definition
 }
 ```
 
 ##### metadata location
 
-`X[Symbol.metadata].P` where `X` is the class, and `P` is the property name.
+`MyClass[Symbol.metadata].someGetter`
 
 
 ### Static setter
 
 ```js
-class X {
+class MyClass {
   @decorator
-  static set P(v) {}
+  static set someSetter(value) {}
 }
 ```
 
 ##### decorator parameters
 
-- `value` with the set method
+- `value` is the setter itself
 
-- `context` with this object:
+- `context` is this object:
 
 ```js
 {
   kind: "setter",
-  name: "P",
+  name: "someSetter",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: (key, value) => { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-##### decorator return
+##### if decorator return value is:
 
 - `undefined`, nothing is replaced
 
-- a new function that replaces the previous set method passed as the first parameter
+- a new function, it replaces the previous setter which was passed as the first parameter
 
-- if the decorator is called with `@init:` must be return an object with this structure:
+#### if the decorator is called with `@init:`, it must return an object with this structure:
 
 ```js
 {
-  set() {},         // a new function that replaces the previous method  passed as the first parameter
-  initialize() {}   // a function to initialize the class
+  set(value) {},          // replaces the previous setter which was passed as the first parameter
+  initialize() {},   // called after definition
 }
 ```
 
-##### decorator parameters
+##### metadata location
 
-`X[Symbol.metadata].P` where `X` is the class, and `P` is the property name.
+`MyClass[Symbol.metadata].someSetter`
 
 
 ### Private getter
 
 ```js
-class X {
+class MyClass {
   @decorator
-  get #p() {}
+  get #someGetter() {}
 }
 ```
 
 ##### decorator parameters
 
-- `value` with the get method
+- `value` is the getter itself
 
-- `context` with this object:
+- `context` is this object:
 
 ```js
 {
   kind: "getter",
-  name: "#p",
+  name: "#someGetter",
+  access: {
+    get() { /* ... */ },
+  },
   isStatic: false,
   isPrivate: true,
-  defineMetadata: (key, value) => { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-##### decorator return
+##### if decorator return value is:
 
 - `undefined`, nothing is replaced
 
-- a new function that replaces the previous get method  passed as the first parameter
+- a new function, it replaces the previous getter which was passed as the first parameter
 
-- if the decorator is called with `@init:` must be return an object with this structure:
+#### if the decorator is called with `@init:`, it must return an object with this structure:
 
 ```js
 {
-  get() {},         // a new function that replaces the previous method  passed as the first parameter
-  initialize() {}   // a function to initialize the object after the constructor call (`this` is the object instance)
+  get() {},          // replaces the previous getter which was passed as the first parameter
+  initialize() {},   // called in constructor
 }
 ```
 
 ##### metadata location
 
-`X.prototype[Symbol.metadata]['#p']` where `X` is the class, and `#p` is the private property name.
+`MyClass.prototype[Symbol.metadata]['#someGetter']`
 
 
 ### Private setter
 
 ```js
-class X {
+class MyClass {
   @decorator
-  set #p(v) {}
+  set #someSetter(value) {}
 }
 ```
 
 ##### decorator parameters
 
-- `value` with the set method
+- `value` is the setter itself
 
-- `context` with this object:
+- `context` is this object:
 
 ```js
 {
   kind: "setter",
-  name: "#p",
+  name: "#someSetter",
+  access: {
+    set(value) { /* ... */ },
+  },
   isStatic: false,
   isPrivate: true,
-  defineMetadata: (key, value) => { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-##### decorator return
+##### if decorator return value is:
 
 - `undefined`, nothing is replaced
 
-- a new function that replaces the previous get method  passed as the first parameter
+- a new function, it replaces the previous setter which was passed as the first parameter
 
-- if the decorator is called with `@init:` must be return an object with this structure:
+#### if the decorator is called with `@init:`, it must return an object with this structure:
 
 ```js
 {
-  set() {},         // a new function that replaces the previous method  passed as the first parameter
-  initialize() {}   // a function to initialize the object after the constructor call (`this` is the object instance)
+  set(value) {},          // replaces the previous setter which was passed as the first parameter
+  initialize() {},   // called in constructor
 }
 ```
 
 ##### metadata location
 
-`X.prototype[Symbol.metadata]['#p']` where `X` is the class, and `#p` is the private property name.
+`MyClass.prototype[Symbol.metadata]['#someSetter']`
 
 
 ### Static private getter
 
 ```js
-class X {
+class MyClass {
   @decorator
-  static #get P() {}
+  static get #someGetter() {}
 }
 ```
 
 ##### decorator parameters
 
-- `value` with the method
+- `value` is the getter itself
 
-- `context` with this object:
+- `context` is this object:
 
 ```js
 {
   kind: "getter",
-  name: "#P",
+  name: "#someGetter",
   access: {
-    get: () => { /* ... */ }, 
-    set: (v) => { /* ... */ },
-  }
+    get() { /* ... */ },
+  },
   isStatic: true,
   isPrivate: true,
-  defineMetadata: (key, value) => { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-##### decorator return
+##### if decorator return value is:
 
 - `undefined`, nothing is replaced
 
-- a new function that replaces the previous method  passed as the first parameter
+- a new function, it replaces the previous getter which was passed as the first parameter
 
 
-- if the decorator is called with `@init:` must be return an object with this structure:
+#### if the decorator is called with `@init:` must be return an object with this structure:
 
 ```js
 {
-  get() {},         // a new function that replaces the previous method  passed as the first parameter
-  initialize() {}   // a function to initialize the class
+  get() {},          // replaces the previous getter which was passed as the first parameter
+  initialize() {},   // called after definition
 }
 ```
 
 ##### metadata location
 
-`X[Symbol.metadata]['#P']` where `X` is the class and `#P` is the private method name.
+`MyClass[Symbol.metadata]['#someGetter']`
 
 
 ### Static private setter
 
 ```js
-class X {
+class MyClass {
   @decorator
-  static #set P() {}
+  static set #someSetter(value) {}
 }
 ```
 
 ##### decorator parameters
 
-- `value` with the method
+- `value` is the setter itself
 
-- `context` with this object:
+- `context` is this object:
 
 ```js
 {
   kind: "setter",
-  name: "#P",
+  name: "#someSetter",
   access: {
-    get: () => { /* ... */ }, 
-    set: (v) => { /* ... */ },
-  }
+    set(value) { /* ... */ },
+  },
   isStatic: true,
   isPrivate: true,
-  defineMetadata: (key, value) => { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-##### decorator return
+##### if decorator return value is:
 
 - `undefined`, nothing is replaced
 
-- a new function that replaces the previous method  passed as the first parameter
+- a new function, it replaces the previous setter which was passed as the first parameter
 
-- if the decorator is called with `@init:` must be return an object with this structure:
+#### if the decorator is called with `@init:` must be return an object with this structure:
 
 ```js
 {
-  set() {},         // a new function that replaces the previous method  passed as the first parameter
-  initialize() {}   // a function to initialize the class
+  set(value) {},          // replaces the previous setter which was passed as the first parameter
+  initialize() {},   // called after definition
 }
 ```
 
 ##### metadata location
 
-`X[Symbol.metadata]['#P']` where `X` is the class and `#P` is the private method name.
+`MyClass[Symbol.metadata]['#someSetter']`
 
 
 ## Field decorators
@@ -633,69 +638,65 @@ class X {
 ### Public field
 
 ```js
-class X {
+class MyClass {
   @decorator
-  p = 10;
+  someField = 10;
 }
 ```
 
 ##### decorator parameters
 
-- `value` with the set method
+- `value` is field itself
 
 - `context` with this object:
 
 ```js
 {
   kind: "field",
-  name: "p",
+  name: "someField",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: (key, value) => { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-##### decorator return
+##### if decorator return value is:
 
 - `undefined`, nothing is replaced
 
-- a new function whose return will be used as the initial value of the property.
+- a new function, its return value will be used as the initial value of the field.
 
 ##### metadata location
 
-`X.prototype[Symbol.metadata].p` where `X` is the class, and `p` is the property name.
+`MyClass.prototype[Symbol.metadata].someField`
 
 
 ### Public field with accessor
 
 ```js
-class X {
-  @decorator accessor
-  p = 10;
+class MyClass {
+  @decorator 
+  accessor someField = 10;
 }
 ```
 
 ##### decorator parameters
 
-- `value` is an object with a method `get()` and other method `set()` over the original property.
+- `value` is the accessor field itself (a getter and setter pair)
 
-```js
-{ get: <function>, set: <function> }
-```
-
-- `context` with this object:
+- `context` is this object:
 
 ```js
 {
   kind: "auto-accesor",
-  name: "p",
+  name: "someField",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: (key, value) => { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-##### decorator return
+##### if decorator return value is:
 
 - `undefined`, nothing is replaced
 
@@ -703,82 +704,78 @@ class X {
 
 ```js
 {
-  get() {},         // a new get that replaces the previous get passed into the first parameter
-  set(v) {},        // a new get that replaces the previous set passed into the first parameter
-  initialize() {}   // a function to initialize the propety value
+  get() {},                      // replaces previous getter which was passed in the first parameter
+  set(value) {},                 // replaces previous setter which was passed in the first parameter
+  initialize(initialValue) {},   // initializes accessor initial value
 }
 ```
 
 ##### metadata location
 
-`X.prototype[Symbol.metadata].p` where `X` is the class, and `p` is the property name.
+`MyClass.prototype[Symbol.metadata].someField`
 
 ### Static field
 
 ```js
-class X {
+class MyClass {
   @decorator
-  static P = 1;
+  static someField = 1;
 }
 ```
 
 ##### decorator parameters
 
-- `value` with the set method
+- `value` is the field itself
 
-- `context` with this object:
+- `context` is this object:
 
 ```js
 {
   kind: "field",
-  name: "P",
+  name: "someField",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: (key, value) => { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-##### decorator return
+##### if decorator return value is:
 
 - `undefined`, nothing is replaced
 
-- a new function whose return will be used as the initial value of the property.
+- a new function, its return value will be used as the initial value of the field.
 
 ##### metadata location
 
-`X[Symbol.metadata].P` where `X` is the class, and `P` is the static property name.
+`MyClass[Symbol.metadata].someField`
 
 
 ### Static field with accessor
 
 ```js
-class X {
-  @decorator accessor
-  static p = 10;
+class MyClass {
+  @decorator
+  static accessor someField = 10;
 }
 ```
 
 ##### decorator parameters
 
-- `value` is an object with a method `get()` and other method `set()` over the original property:
+- `value` is the accessor field itself (a getter and setter pair)
 
-```js
-{ get: <function>, set: <function> }
-```
-
-- `context` with this object:
+- `context` is this object:
 
 ```js
 {
   kind: "auto-accesor",
-  name: "p",
+  name: "someField",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: (key, value) => { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-##### decorator return
+##### if decorator return value is:
 
 - `undefined`, nothing is replaced
 
@@ -786,91 +783,91 @@ class X {
 
 ```js
 {
-  get() {},         // a new get that replaces the previous get passed into the first parameter
-  set(v) {},        // a new get that replaces the previous set passed into the first parameter
-  initialize() {}   // a function to initialize the static property value
+  get() {},                      // replaces previous getter which was passed in the first parameter
+  set(value) {},                 // replaces previous setter which was passed in the first parameter
+  initialize(initialValue) {},   // initializes accessor initial value
 }
 ```
 
 ##### metadata location
 
-`X[Symbol.metadata].P` where `X` is the class, and `P` is the static property name.
+`MyClass[Symbol.metadata].someField`
 
 
 ### private field
 
 ```js
-class A {
+class MyClass {
   @decorator
-  #p = 1;
+  #someField = 1;
 }
 ```
 
 ##### decorator parameters
 
-- `value` with the set method
+- `value` is the field itself
 
-- `context` with this object:
+- `context` is this object:
 
 ```js
 {
   kind: "field",
-  name: "#p",
+  name: "#someField",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: (key, value) => { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-##### decorator return
+##### if decorator return value is:
 
 - `undefined`, nothing is replaced
 
-- a new function whose return will be used as the initial value of the property.
+- a new function, its return value will be used as the initial value of the field.
 
 ##### metadata location
 
-`X.prototype[Symbol.metadata]['#p']` where `X` is the class, and `#p` is the private property name.
+`MyClass.prototype[Symbol.metadata]['#someField']`
 
 
 ### Static private field
 
 ```js
-class X {
+class MyClass {
   @decorator
-  static #set P = 0;
+  static #someField = 0;
 }
 ```
 
 ##### decorator parameters
 
-- `value` with the method
+- `value` is the field itself
 
-- `context` with this object:
+- `context` is this object:
 
 ```js
 {
   kind: "setter",
-  name: "#P",
+  name: "#someField",
   access: {
-    get: () => { /* ... */ }, 
-    set: (v) => { /* ... */ },
-  }
+    get() { /* ... */ },
+    set(value) { /* ... */ },
+  },
   isStatic: true,
   isPrivate: true,
-  defineMetadata: (key, value) => { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
 }
 ```
 
-##### decorator return
+##### if decorator return value is:
 
 - `undefined`, nothing is replaced
 
-- a new function whose return will be used as the initial value of the property.
+- a new function, its return value will be used as the initial value of the field.
 
 ##### metadata location
 
-`X[Symbol.metadata]['#P']` where `X` is the class and `#P` is the private method name.
+`MyClass[Symbol.metadata]['#someField']`
 
 
 ## Functionality not supported yet
