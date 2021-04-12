@@ -105,14 +105,18 @@ function DecoratorParser (ParentParser) {
     
     assignDecorators (decorators, fn, noIn, refDestructuringErrors) {
       const node      = fn.call (this, noIn, refDestructuringErrors);
+      if (decorators.find(x => x.kind === 'auto-accessor')) {
+        node.accessor = true
+      }
       node.decorators = decorators.map (d => {
         d.kind +=
           d.kind === 'auto-accessor' ? '' :
-            node.type === 'FieldDefinition' ? 'field' :
-              node.type === 'ClassDeclaration' ? 'class' :
-                node.kind === 'get' ? 'getter' :
-                  node.kind === 'set' ? 'setter' :
-                    node.kind;
+            node.accessor ? 'auto-accessor' :
+              node.type === 'FieldDefinition' ? 'field' :
+                node.type === 'ClassDeclaration' ? 'class' :
+                  node.kind === 'get' ? 'getter' :
+                    node.kind === 'set' ? 'setter' :
+                      node.kind;
         return d;
       });
       if (node.decorators.find (d => d.kind === 'auto-accessor')) {
@@ -160,7 +164,7 @@ function normalize (ast) {
   );
   walker (
     ast,
-    (o) => o.type === 'ClassProperty' && o.decorators && o.decorators.find(x => x.static),
+    (o) => o.type === 'ClassProperty' && o.decorators && o.decorators.find (x => x.static),
     (o) => o.static = true
   );
   return ast;
