@@ -27,40 +27,40 @@ function __DefineMetadata(base, name) {
   };
 }
 
-const _symbol_sauh7kang6g = Symbol();
+const _symbol_mn0llls3ep8 = Symbol();
 
 class C {
-  static _temp_121rgm0lti8() {
+  static _temp_v1ojfckdtm8() {
     return "a";
   }
-  static [_symbol_sauh7kang6g] = meta("a", 1)(C._temp_121rgm0lti8, {
+  static [_symbol_mn0llls3ep8] = meta("a", 1)(C._temp_v1ojfckdtm8, {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_symbol_sauh7kang6g]
+      get: C[_symbol_mn0llls3ep8]
     },
     defineMetadata: __DefineMetadata(C, "#p")
-  }) ?? C._temp_121rgm0lti8;
-  static [_symbol_sauh7kang6g] = meta("b", 2)(C[_symbol_sauh7kang6g], {
+  }) ?? C._temp_v1ojfckdtm8;
+  static [_symbol_mn0llls3ep8] = meta("b", 2)(C[_symbol_mn0llls3ep8], {
     kind: "getter",
     name: "#p",
-    isStatic: false,
+    isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_symbol_sauh7kang6g]
+      get: C[_symbol_mn0llls3ep8]
     },
     defineMetadata: __DefineMetadata(C, "#p")
-  }) ?? C[_symbol_sauh7kang6g];
+  }) ?? C[_symbol_mn0llls3ep8];
   static get #p() {
-    return C[_symbol_sauh7kang6g].bind(this)();
+    return C[_symbol_mn0llls3ep8].bind(this)();
   }
-  static [_symbol_sauh7kang6g]() {
-    return C[_symbol_sauh7kang6g].bind(this);
+  static [_symbol_mn0llls3ep8]() {
+    return C[_symbol_mn0llls3ep8].bind(this);
   }
 }
 
-delete C._temp_121rgm0lti8;
+delete C._temp_v1ojfckdtm8;
 
 console.log(C[Symbol.metadata]);

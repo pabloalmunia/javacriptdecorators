@@ -29,38 +29,38 @@ function __DefineMetadata(base, name) {
   };
 }
 
-let _initializer_qsd9ll7fr4o;
+let _initializer_pvq10r16rrg;
 
 class C {
-  static #_property_1mu5ceoomt8 = 10;
+  static #_property_9vhid56k1eg = 10;
   static get P() {
-    return this.#_property_1mu5ceoomt8;
+    return this.#_property_9vhid56k1eg;
   }
   static set P(v) {
-    this.#_property_1mu5ceoomt8 = v;
+    this.#_property_9vhid56k1eg = v;
   }
 }
 
-const _descriptor_0pmqfecm1hg = Object.getOwnPropertyDescriptor(C, "P");
+const _descriptor_ke9qsho9m4 = Object.getOwnPropertyDescriptor(C, "P");
 
-const _result_vpobsngfqs8 = deco({
-  get: _descriptor_0pmqfecm1hg.get,
-  set: _descriptor_0pmqfecm1hg.set
+const _result_dbh4c38bjho = deco({
+  get: _descriptor_ke9qsho9m4.get,
+  set: _descriptor_ke9qsho9m4.set
 }, {
   kind: "auto-accessor",
   name: "P",
   isStatic: true,
   isPrivate: false,
   defineMetadata: __DefineMetadata(C, "P")
-});
+}) || {};
 
-_initializer_qsd9ll7fr4o = _result_vpobsngfqs8.initialize || (v => v);
+_initializer_pvq10r16rrg = _result_dbh4c38bjho.initialize || (v => v);
 
 Object.defineProperty(C, "P", {
-  get: _result_vpobsngfqs8.get || _descriptor_0pmqfecm1hg.get,
-  set: _result_vpobsngfqs8.set || _descriptor_0pmqfecm1hg.set
+  get: _result_dbh4c38bjho.get || _descriptor_ke9qsho9m4.get,
+  set: _result_dbh4c38bjho.set || _descriptor_ke9qsho9m4.set
 });
 
-C.P = _initializer_qsd9ll7fr4o(C.P);
+C.P = _initializer_pvq10r16rrg(C.P);
 
 console.assert(C.P === 20);

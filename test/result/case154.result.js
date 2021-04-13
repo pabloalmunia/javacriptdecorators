@@ -30,39 +30,39 @@ function __DefineMetadata(base, name) {
   };
 }
 
-const _symbol_dj46ge8k9bg = Symbol();
+const _symbol_7jbcn8u3j0o = Symbol();
 
 class C {
-  static _temp_5nre5booc4g(v) {}
-  static [_symbol_dj46ge8k9bg] = decorator1(C._temp_5nre5booc4g, {
+  static _temp_bnhrarneofo(v) {}
+  static [_symbol_7jbcn8u3j0o] = decorator1(C._temp_bnhrarneofo, {
     kind: "setter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_symbol_dj46ge8k9bg]
+      get: C[_symbol_7jbcn8u3j0o]
     },
     defineMetadata: __DefineMetadata(C, "#p")
-  }) ?? C._temp_5nre5booc4g;
-  static [_symbol_dj46ge8k9bg] = decorator2(C[_symbol_dj46ge8k9bg], {
+  }) ?? C._temp_bnhrarneofo;
+  static [_symbol_7jbcn8u3j0o] = decorator2(C[_symbol_7jbcn8u3j0o], {
     kind: "setter",
     name: "#p",
-    isStatic: false,
+    isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_symbol_dj46ge8k9bg]
+      get: C[_symbol_7jbcn8u3j0o]
     },
     defineMetadata: __DefineMetadata(C, "#p")
-  }) ?? C[_symbol_dj46ge8k9bg];
+  }) ?? C[_symbol_7jbcn8u3j0o];
   static set #p(v) {
-    return C[_symbol_dj46ge8k9bg].bind(this)(v);
+    return C[_symbol_7jbcn8u3j0o].bind(this)(v);
   }
-  static [_symbol_dj46ge8k9bg]() {
-    return C[_symbol_dj46ge8k9bg].bind(this);
+  static [_symbol_7jbcn8u3j0o]() {
+    return C[_symbol_7jbcn8u3j0o].bind(this);
   }
 }
 
-delete C._temp_5nre5booc4g;
+delete C._temp_bnhrarneofo;
 
 const a = new C();
 

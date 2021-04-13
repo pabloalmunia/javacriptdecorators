@@ -33,41 +33,41 @@ class C {
   static P = 10;
 }
 
-const _descriptor_gdshglabdd = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _descriptor_q48ocj4tke8 = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_gdshglabdd.get = meta("c", 3)(_descriptor_gdshglabdd.get, {
+_descriptor_q48ocj4tke8.get = meta("c", 3)(_descriptor_q48ocj4tke8.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   defineMetadata: __DefineMetadata(C.prototype, "p")
-}) ?? _descriptor_gdshglabdd.get;
+}) ?? _descriptor_q48ocj4tke8.get;
 
-Object.defineProperty(C.prototype, "p", _descriptor_gdshglabdd);
+Object.defineProperty(C.prototype, "p", _descriptor_q48ocj4tke8);
 
-const _descriptor_v7rm6m05ksg = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _descriptor_beb23amtoe = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_v7rm6m05ksg.set = meta("b", 2)(_descriptor_v7rm6m05ksg.set, {
+_descriptor_beb23amtoe.set = meta("a", 1)(_descriptor_beb23amtoe.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   defineMetadata: __DefineMetadata(C.prototype, "p")
-}) ?? _descriptor_v7rm6m05ksg.set;
+}) ?? _descriptor_beb23amtoe.set;
 
-Object.defineProperty(C.prototype, "p", _descriptor_v7rm6m05ksg);
+Object.defineProperty(C.prototype, "p", _descriptor_beb23amtoe);
 
-const _descriptor_a0lpkum0dn = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _descriptor_lj4gr40rl6o = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_a0lpkum0dn.set = meta("a", 1)(_descriptor_a0lpkum0dn.set, {
+_descriptor_lj4gr40rl6o.set = meta("b", 2)(_descriptor_lj4gr40rl6o.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   defineMetadata: __DefineMetadata(C.prototype, "p")
-}) ?? _descriptor_a0lpkum0dn.set;
+}) ?? _descriptor_lj4gr40rl6o.set;
 
-Object.defineProperty(C.prototype, "p", _descriptor_a0lpkum0dn);
+Object.defineProperty(C.prototype, "p", _descriptor_lj4gr40rl6o);
 
 C = meta("className", "C")(C, {
   kind: "class",
@@ -75,7 +75,7 @@ C = meta("className", "C")(C, {
   defineMetadata: __DefineMetadata(C, "constructor")
 }) ?? C;
 
-const _initializer_0nf00nit958 = meta("static_property", 10)(undefined, {
+const _initializer_48ooladbjog = meta("static_property", 10)(undefined, {
   kind: "field",
   name: "P",
   isStatic: true,
@@ -83,6 +83,6 @@ const _initializer_0nf00nit958 = meta("static_property", 10)(undefined, {
   defineMetadata: __DefineMetadata(C, "P")
 }) ?? (v => v);
 
-C.P = _initializer_0nf00nit958(C.P);
+C.P = _initializer_48ooladbjog.call(C, C.P);
 
 console.log(C.prototype[Symbol.metadata]);

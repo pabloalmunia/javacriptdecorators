@@ -1,10 +1,4 @@
-function deco(value, name) {
-  return {
-    initialize(v) {
-      return v * 2;
-    }
-  };
-}
+function deco(value, name) {}
 
 if (!Symbol.metadata) {
   Symbol.metadata = Symbol();
@@ -29,23 +23,23 @@ function __DefineMetadata(base, name) {
   };
 }
 
-let _initializer_v4a3qp7ncb8;
+let _initializer_bb032skolbo;
 
 class C {
-  #_property_p98orlnh9s8 = _initializer_v4a3qp7ncb8.call(this, 10);
+  #_property_ikv0uij7uv8 = _initializer_bb032skolbo.call(this, 10);
   get p() {
-    return this.#_property_p98orlnh9s8;
+    return this.#_property_ikv0uij7uv8;
   }
   set p(v) {
-    this.#_property_p98orlnh9s8 = v;
+    this.#_property_ikv0uij7uv8 = v;
   }
 }
 
-const _descriptor_qdev7g1gmn8 = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _descriptor_ag84adus77 = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-const _result_ia6i6sc9u6 = deco({
-  get: _descriptor_qdev7g1gmn8.get,
-  set: _descriptor_qdev7g1gmn8.set
+const _result_00uno7eq3p = deco({
+  get: _descriptor_ag84adus77.get,
+  set: _descriptor_ag84adus77.set
 }, {
   kind: "auto-accessor",
   name: "p",
@@ -54,11 +48,11 @@ const _result_ia6i6sc9u6 = deco({
   defineMetadata: __DefineMetadata(C.prototype, "p")
 }) || {};
 
-_initializer_v4a3qp7ncb8 = _result_ia6i6sc9u6.initialize || (v => v);
+_initializer_bb032skolbo = _result_00uno7eq3p.initialize || (v => v);
 
 Object.defineProperty(C.prototype, "p", {
-  get: _result_ia6i6sc9u6.get || _descriptor_qdev7g1gmn8.get,
-  set: _result_ia6i6sc9u6.set || _descriptor_qdev7g1gmn8.set
+  get: _result_00uno7eq3p.get || _descriptor_ag84adus77.get,
+  set: _result_00uno7eq3p.set || _descriptor_ag84adus77.set
 });
 
 const c = new C();
