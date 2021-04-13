@@ -672,62 +672,70 @@ function accessorGenerator ({className, initializeName, propertyName, decoratorN
           'type' : 'VariableDeclarator',
           'id'   : {'type' : 'Identifier', 'name' : resultName},
           'init' : {
-            'type'      : 'CallExpression',
-            'callee'    : decoratorName,
-            'arguments' : [
-              {
-                'type'       : 'ObjectExpression',
-                'properties' : [
-                  {
-                    'type'  : 'Property',
-                    'key'   : {'type' : 'Identifier', 'name' : 'get'},
-                    'value' : {
-                      'type'     : 'MemberExpression',
-                      'object'   : {'type' : 'Identifier', 'name' : descriptorName},
-                      'property' : {'type' : 'Identifier', 'name' : 'get'}
+            "type"     : "LogicalExpression",
+            "left"     : {
+              'type'      : 'CallExpression',
+              'callee'    : decoratorName,
+              'arguments' : [
+                {
+                  'type'       : 'ObjectExpression',
+                  'properties' : [
+                    {
+                      'type'  : 'Property',
+                      'key'   : {'type' : 'Identifier', 'name' : 'get'},
+                      'value' : {
+                        'type'     : 'MemberExpression',
+                        'object'   : {'type' : 'Identifier', 'name' : descriptorName},
+                        'property' : {'type' : 'Identifier', 'name' : 'get'}
+                      }
+                    },
+                    {
+                      'type'  : 'Property',
+                      'key'   : {'type' : 'Identifier', 'name' : 'set'},
+                      'value' : {
+                        'type'     : 'MemberExpression',
+                        'object'   : {'type' : 'Identifier', 'name' : descriptorName},
+                        'property' : {'type' : 'Identifier', 'name' : 'set'}
+                      }
                     }
-                  },
-                  {
-                    'type'  : 'Property',
-                    'key'   : {'type' : 'Identifier', 'name' : 'set'},
-                    'value' : {
-                      'type'     : 'MemberExpression',
-                      'object'   : {'type' : 'Identifier', 'name' : descriptorName},
-                      'property' : {'type' : 'Identifier', 'name' : 'set'}
-                    }
-                  }
-                ]
-              },
-              {
-                'type'       : 'ObjectExpression',
-                'properties' : [
-                  {
-                    'type'  : 'Property',
-                    'key'   : {'type' : 'Identifier', 'name' : 'kind'},
-                    'value' : {'type' : 'Literal', 'value' : 'auto-accessor'}
-                  },
-                  {
-                    'type'  : 'Property',
-                    'key'   : {'type' : 'Identifier', 'name' : 'name'},
-                    'value' : {'type' : 'Literal', 'value' : propertyName}
-                  },
-                  {
-                    'type'  : 'Property',
-                    'key'   : {'type' : 'Identifier', 'name' : 'isStatic'},
-                    'value' : {'type' : 'Literal', 'value' : isStatic}
-                  },
-                  {
-                    'type'  : 'Property',
-                    'key'   : {'type' : 'Identifier', 'name' : 'isPrivate'},
-                    'value' : {'type' : 'Literal', 'value' : false}
-                  },
-                  defineMetadataGeneratorCall (
-                    isStatic ? className : `${ className }.prototype`,
-                    propertyName
-                  )
-                ]
-              }
-            ]
+                  ]
+                },
+                {
+                  'type'       : 'ObjectExpression',
+                  'properties' : [
+                    {
+                      'type'  : 'Property',
+                      'key'   : {'type' : 'Identifier', 'name' : 'kind'},
+                      'value' : {'type' : 'Literal', 'value' : 'auto-accessor'}
+                    },
+                    {
+                      'type'  : 'Property',
+                      'key'   : {'type' : 'Identifier', 'name' : 'name'},
+                      'value' : {'type' : 'Literal', 'value' : propertyName}
+                    },
+                    {
+                      'type'  : 'Property',
+                      'key'   : {'type' : 'Identifier', 'name' : 'isStatic'},
+                      'value' : {'type' : 'Literal', 'value' : isStatic}
+                    },
+                    {
+                      'type'  : 'Property',
+                      'key'   : {'type' : 'Identifier', 'name' : 'isPrivate'},
+                      'value' : {'type' : 'Literal', 'value' : false}
+                    },
+                    defineMetadataGeneratorCall (
+                      isStatic ? className : `${ className }.prototype`,
+                      propertyName
+                    )
+                  ]
+                }
+              ]
+            },
+            "operator" : "||",
+            "right"    : {
+              "type"       : "ObjectExpression",
+              "properties" : []
+            }
           }
         }
       ],
