@@ -92,9 +92,11 @@ function DecoratorParser (ParentParser) {
         } else if (this.value === 'accessor') {
           const branch = this._branch ();
           branch.next ();
-          if (branch.type.label === 'name' || branch.type.label === 'privateName') {
+          if (branch.type.label === 'name') {
             node.kind = 'auto-accessor';
             this.next ();
+          } else if (branch.type.label === 'privateName') {
+            throw new TypeError('Sorry, accessor is not supported with private members in this tool')
           }
         } else {
           node.kind = isInit ? 'init-' : '';
