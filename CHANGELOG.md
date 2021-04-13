@@ -1,5 +1,13 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.1.5 - 13/04/2021
+
+- Throw an error when an accessor is applied over a private field. This combination is not
+  supported by this tool.
+- Fixed an error with accessor decorator when it isn't return a value
+- Fixed an error with two or more decorators before `accessor` or `static` keyword: only the last
+  decorator was defined as `auto-accessor` or `isStatic`.
+
 ## version 0.1.4 - 12/02/2021
 
 - Fixed an error when a RegExp is included as parameter.
