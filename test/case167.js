@@ -5,6 +5,9 @@ function deco(value, context) {
     },
     set(v) {
       value.set.call(this, v / 3);
+    },
+    initialize(v) {
+      return v * 2;
     }
   }
 }
@@ -22,5 +25,6 @@ class C {
   }
 }
 
+console.assert(C.check === 40);
 C.check = 3;
 console.assert(C.check === 2);

@@ -80,7 +80,7 @@ function DecoratorParser (ParentParser) {
           branch.next ();
           if (branch.value === 'accessor') {
             branch.next ();
-            if (branch.type.label === 'name') {
+            if (branch.type.label === 'name' || branch.type.label === 'privateName') {
               node.kind = 'auto-accessor';
               this.next ();
               this.next ();

@@ -190,6 +190,7 @@ run ('case164');
 run ('case165');
 run ('case166');
 run ('case167');
+run ('case168');
 
 // Other examples
 run ('example01');

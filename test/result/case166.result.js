@@ -1,10 +1,10 @@
 class C {
-  static #_property_4h341v6jra8 = 10;
+  static #_property_lufvmn6vp = 10;
   static get #P() {
-    return this.#_property_4h341v6jra8;
+    return this.#_property_lufvmn6vp;
   }
   static set #P(v) {
-    this.#_property_4h341v6jra8 = v;
+    this.#_property_lufvmn6vp = v;
   }
   static get check() {
     return this.#P;

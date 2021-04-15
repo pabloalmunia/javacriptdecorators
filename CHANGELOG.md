@@ -1,5 +1,6 @@
 # JavascriptDecorators.org - CHANGELOG
 
+- Added support to `accessor` with private static field.
 - Added support to `accessor` with private member field.
 - Fixed a bug with `isStatic` as `undefined` instead of `false`.
 
