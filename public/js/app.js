@@ -230,18 +230,7 @@ if (paramSource) {
   editor.updateCode (decompressCode);
 } else {
   editor.updateCode (`/*
- * At this moment, the transpiler supports
- * - class decorator
- * - public method, getter/setter, and field decorators
- * - private method, getter/setter, and field decorator
- * - static method, getter/setter, and field decorator
- * - static private method, getter/setter, and field decorator.
- * - @init: decorators
- * - accessor keyword
- *
- * It's not supported yet:
- * - accessor keyword with private fields
- * - export clause
+ * Very simple example
  */
 
 function decorator(value, context) {

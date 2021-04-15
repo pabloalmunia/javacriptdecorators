@@ -24,7 +24,9 @@ The tools are entirely experimental and evolving. There is no guarantee of they 
   - [static field](#static-field)
   - [static field with accessor](#static-field-with-accessor)
   - [private field](#private-field)
+  - [private field with accessor](#private-field-with-accessor)
   - [static private field](#static-private-field)
+  - [static private field with accessor](#static-private-field-with-accessor)
 - [Functionality not supported yet](#functionality-not-supported-yet)
 
 
@@ -67,6 +69,7 @@ class MyClass {}
 #### metadata location
 
 `MyClass[Symbol.metadata].constructor`
+
 
 
 ## Method decorators
@@ -256,6 +259,7 @@ class MyClass {
 ##### metadata location
 
 `MyClass[Symbol.metadata]['#someMethod']`
+
 
 
 ## Getter and setter decorators
@@ -633,7 +637,9 @@ class MyClass {
 `MyClass[Symbol.metadata]['#someSetter']`
 
 
+
 ## Field decorators
+
 
 ### Public field
 
@@ -669,6 +675,7 @@ class MyClass {
 ##### metadata location
 
 `MyClass.prototype[Symbol.metadata].someField`
+
 
 
 ### Public field with accessor
@@ -714,6 +721,7 @@ class MyClass {
 
 `MyClass.prototype[Symbol.metadata].someField`
 
+
 ### Static field
 
 ```js
@@ -748,6 +756,7 @@ class MyClass {
 ##### metadata location
 
 `MyClass[Symbol.metadata].someField`
+
 
 
 ### Static field with accessor
@@ -794,7 +803,8 @@ class MyClass {
 `MyClass[Symbol.metadata].someField`
 
 
-### private field
+
+### Private field
 
 ```js
 class MyClass {
@@ -828,6 +838,58 @@ class MyClass {
 ##### metadata location
 
 `MyClass.prototype[Symbol.metadata]['#someField']`
+
+
+
+
+### Private field with accessor
+
+```js
+class MyClass {
+  @decorator 
+  accessor #someField = 10;
+}
+```
+
+##### decorator parameters
+
+- `value` is the accessor field itself (a getter and setter pair)
+
+- `context` is this object:
+
+```js
+{
+  kind: "auto-accesor",
+  name: "someField",
+  accessor: {
+    get() { /* ... */ },
+    set() { /* ... */ }
+  },
+  isStatic: false,
+  isPrivate: true,
+  defineMetadata(key, value) { /* ... */ },
+}
+```
+
+##### if decorator return value is:
+
+- `undefined`, nothing is replaced
+
+- an object with this structure:
+
+```js
+{
+  get() {},                      // replaces previous getter which was passed in the first parameter
+  set(value) {},                 // replaces previous setter which was passed in the first parameter
+  initialize(initialValue) {},   // initializes accessor initial value
+}
+```
+
+##### metadata location
+
+`MyClass.prototype[Symbol.metadata].someField`
+
+
 
 
 ### Static private field
@@ -870,9 +932,58 @@ class MyClass {
 `MyClass[Symbol.metadata]['#someField']`
 
 
+
+### Static private field with accessor
+
+```js
+class MyClass {
+  @decorator
+  static accessor #someField = 10;
+}
+```
+
+##### decorator parameters
+
+- `value` is the accessor field itself (a getter and setter pair)
+
+- `context` is this object:
+
+```js
+{
+  kind: "auto-accesor",
+  name: "someField",
+  access: {
+    get() { /* ... */ },
+    set(v) { /* ... */ }
+  },
+  isStatic: true,
+  isPrivate: true,
+  defineMetadata(key, value) { /* ... */ },
+}
+```
+
+##### if decorator return value is:
+
+- `undefined`, nothing is replaced
+
+- an object with this structure:
+
+```js
+{
+  get() {},                      // replaces previous getter which was passed in the first parameter
+  set(value) {},                 // replaces previous setter which was passed in the first parameter
+  initialize(initialValue) {},   // initializes accessor initial value
+}
+```
+
+##### metadata location
+
+`MyClass[Symbol.metadata].someField`
+
+
+
 ## Functionality not supported yet
 
-- Keyword `accessor` with private fields.
 - Export `export` or `export default`.
 - Anonymous class.
 
