@@ -1,5 +1,8 @@
 # JavascriptDecorators.org - CHANGELOG
 
+- Added support to `accessor` with private member field.
+- Fixed a bug with `isStatic` as `undefined` instead of `false`.
+
 ## version 0.1.5 - 13/04/2021
 
 - Throw an error when an accessor is applied over a private field. This combination is not

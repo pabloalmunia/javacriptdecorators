@@ -154,6 +154,8 @@ run ('case123');
 run ('case124');
 run ('case125');
 run ('case126');
+run ('case127');
+run ('case128');
 
 // Static Private Method
 run ('case131');
@@ -170,6 +172,7 @@ run ('case142');
 run ('case143');
 run ('case144');
 run ('case145');
+run ('case146');
 
 // Static Private Setter
 run ('case151');
@@ -177,6 +180,7 @@ run ('case152');
 run ('case153');
 run ('case154');
 run ('case155');
+run ('case156');
 
 // Static Private Field
 run ('case161');
@@ -184,6 +188,8 @@ run ('case162');
 run ('case163');
 run ('case164');
 run ('case165');
+run ('case166');
+run ('case167');
 
 // Other examples
 run ('example01');

@@ -25,11 +25,11 @@ function __DefineMetadata(base, name) {
   };
 }
 
-let _initializer_2v1t6ssilug;
-
 const _symbol_n25tjp2m08 = Symbol();
 
 const _symbol_2q0gkhsonqg = Symbol();
+
+let _initializer_2v1t6ssilug;
 
 class A {
   #p = _initializer_2v1t6ssilug.call(this, 2);

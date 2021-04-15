@@ -27,19 +27,19 @@ function __DefineMetadata(base, name) {
   };
 }
 
-let _initializer_kaagnamsel8;
-
 const _symbol_3vuhdnfi2qg = Symbol();
 
 const _symbol_7sc5cb6qf98 = Symbol();
 
-let _initializer_q8mahnn417g;
+let _initializer_kaagnamsel8;
 
-let _initializer_chp8ksl10ko;
+let _initializer_q8mahnn417g;
 
 const _symbol_q2qfeg0qr2o = Symbol();
 
 const _symbol_hmbd27gt3vo = Symbol();
+
+let _initializer_chp8ksl10ko;
 
 let _initializer_p3kp4ggrfe;
 

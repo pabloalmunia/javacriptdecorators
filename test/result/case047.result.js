@@ -49,7 +49,7 @@ const _result_ia6i6sc9u6 = deco({
 }, {
   kind: "auto-accessor",
   name: "p",
-  isStatic: undefined,
+  isStatic: false,
   isPrivate: false,
   defineMetadata: __DefineMetadata(C.prototype, "p")
 }) || {};

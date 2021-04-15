@@ -1,6 +1,6 @@
 class C {
-  accessor
-  static #P  = 10;
+  static accessor
+  #P  = 10;
   static get check() {
     return this.#P;
   }

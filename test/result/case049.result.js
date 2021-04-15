@@ -63,7 +63,7 @@ const _result_ji32kqme0rg = deco1({
 }, {
   kind: "auto-accessor",
   name: "p",
-  isStatic: undefined,
+  isStatic: false,
   isPrivate: false,
   defineMetadata: __DefineMetadata(C.prototype, "p")
 }) || {};
@@ -83,7 +83,7 @@ const _result_u28d4spqud8 = deco2({
 }, {
   kind: "auto-accessor",
   name: "p",
-  isStatic: undefined,
+  isStatic: false,
   isPrivate: false,
   defineMetadata: __DefineMetadata(C.prototype, "p")
 }) || {};

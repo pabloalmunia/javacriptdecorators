@@ -29,11 +29,11 @@ function __DefineMetadata(base, name) {
   };
 }
 
-let _initializer_85vtbs8k9o8;
-
 const _symbol_cia423fbrag = Symbol();
 
 const _symbol_rlguuf6024o = Symbol();
+
+let _initializer_85vtbs8k9o8;
 
 let _initializer_6kntakj38c;
 

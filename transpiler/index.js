@@ -136,15 +136,13 @@ function transform (ast) {
           initDecoratorsCreated++;
           if (!classInitializersCreated) {
             classInitializersCreated = true;
-            insertBefore (parent, klass, [{
-              'type'         : 'VariableDeclaration',
-              'declarations' : [{
-                'type' : 'VariableDeclarator',
-                'id'   : {'type' : 'Identifier', 'name' : classInitializersName},
-                'init' : {'type' : 'ArrayExpression', 'elements' : []}
-              }],
-              'kind'         : 'const'
-            }]);
+            insertBefore (parent, klass, [
+              variableDeclaration (
+                'const',
+                classInitializersName,
+                {'type' : 'ArrayExpression', 'elements' : []}
+              )
+            ]);
             insertBeforeNext (parent, nextElement, [{
               'type'       : 'ExpressionStatement',
               'expression' : {
@@ -189,7 +187,11 @@ function transform (ast) {
             const elementName        = o.key.id.name;
             const elementPrivateName = '#' + elementName;
             const beforeClass        = privateMemberBeforeGenerator (symbolName);
-            const afterClass         = privateMemberAfterGenerator (className, tempName, o.static);
+            const afterClass         = privateMemberAfterGenerator (
+              className,
+              tempName,
+              !!o.static
+            );
             let replaceElement;
             for (let decorator of (o.decorators || [])) {
               if (!replaceElement) {
@@ -197,7 +199,7 @@ function transform (ast) {
                   kind             : decorator.kind,
                   element          : o,
                   decoratorName    : decorator.expression,
-                  isStatic         : o.static,
+                  isStatic         : !!o.static,
                   initializersName : o.static ? staticInitializersName : memberInitializersName,
                   tempName,
                   symbolName,
@@ -211,7 +213,7 @@ function transform (ast) {
                   {
                     kind             : decorator.kind,
                     decoratorName    : decorator.expression,
-                    isStatic         : o.static,
+                    isStatic         : !!o.static,
                     initializersName : o.static ? staticInitializersName : memberInitializersName,
                     symbolName,
                     className,
@@ -333,122 +335,154 @@ function transform (ast) {
         },
         (o) => {
           // Accessor
+          const symbolGetName = '_symbol_' + unique ();
+          const symbolSetName = '_symbol_' + unique ();
+          const isStatic      = !!o.static;
+          const isPrivate     = o.key.type === 'PrivateName';
+          const propertyName  = o.key.name;
+          if (isPrivate && o.decorators?.length) {
+            insertBefore (
+              parent,
+              klass,
+              [
+                variableDeclaration ('const', symbolGetName, callExpression ('Symbol')),
+                variableDeclaration ('const', symbolSetName, callExpression ('Symbol'))
+              ]
+            );
+            insertAfter (
+              klass.body.body,
+              o,
+              accessorInitialization ({className, propertyName : o.key.name, symbolGetName, symbolSetName, isStatic : !!o.static})
+            );
+          }
           if (o.accessor) {
-            const propertyName = o.key.name;
-            const privateName  = '_property_' + unique ();
-            const isStatic     = o.static;
-            const isPrivate    = o.key.type === 'PrivateName';
+            const privateName = '_property_' + unique ();
             // Transform current field to private
-            o.key.type         = 'PrivateName';
-            o.key.name         = privateName;
-            o.key.id           = {type : 'Identifier', name : privateName};
-            o.accessor         = false;
+            o.key.type        = 'PrivateName';
+            o.key.name        = privateName;
+            o.key.id          = {type : 'Identifier', name : privateName};
+            o.accessor        = false;
+            // Create getter and setter methods
+            const methods     = addGetterAndSetter ({privateName, propertyName, isPrivate, isStatic});
+            if (isPrivate && o.decorators?.length) {
+              // Variables
+              const getName = '_getter_' + unique ();
+              const setName = '_setter_' + unique ();
+              insertBefore (parent, klass,
+                [
+                  variableDeclaration ('let', getName),
+                  variableDeclaration ('let', setName)
+                ]
+              );
+              // Transform getter and setter
+              methods[ 0 ].value.body.body[ 0 ].argument = callExpression (
+                getName + '.call',
+                [{'type' : 'ThisExpression'}]
+              );
+              methods[ 1 ].value.body.body[ 0 ]          = clone (methods[ 0 ].value.body.body[ 0 ]);
+              methods[ 1 ].value.body.body[ 0 ].argument = callExpression (
+                setName + '.call',
+                [{'type' : 'ThisExpression'}, identifier ('v')]
+              );
+              // Add static methods
+              methods.push (...staticMethodPrivateAccessor ({privateName, getName, setName}));
+              for (let n = (o.decorators || []).length; --n > -1;) {
+                const decorator       = o.decorators[ n ];
+                const initializerName = '_initializer_' + unique ();
+                insertBefore (parent, klass, [variableDeclaration ('let', initializerName)]);
+                insertAfter (parent, klass, accessorPrivateGenerator ({
+                  className,
+                  propertyName,
+                  initializerName,
+                  symbolGetName,
+                  symbolSetName,
+                  getName,
+                  setName,
+                  decoratorName  : decorator.expression,
+                  resultName     : '_result_' + unique (),
+                  isStatic       : !!o.static
+                }));
+                o.value = callExpression (
+                  initializerName + '.call',
+                  [{'type' : 'ThisExpression'}, o.value]
+                );
+                decoratorsCreated++;
+              }
+              insertAfter (parent, klass, removeStaticMethodPrivateAccessor ({getName, setName}));
+            } else {
+              for (let n = (o.decorators || []).length; --n > -1;) {
+                const decorator      = o.decorators[ n ];
+                const initializeName = '_initializer_' + unique ();
+                insertBefore (parent, klass, [variableDeclaration ('let', initializeName)]);
+                if (!o.static) {
+                  o.value = callExpression (
+                    initializeName + '.call',
+                    [{'type' : 'ThisExpression'}, o.value]
+                  );
+                }
+                insertAfter (
+                  parent,
+                  klass,
+                  accessorGenerator ({
+                    className, initializeName, propertyName, decoratorName : decorator.expression, isStatic : !!o.static
+                  })
+                );
+                decoratorsCreated++;
+              }
+            }
             // Add setter and getter
             insertAfter (
               klass.body.body,
               o,
-              addGetterAndSetter ({privateName, propertyName, isPrivate, isStatic})
+              methods
             );
-            for (let n = (o.decorators || []).length; --n > -1;) {
-              const decorator      = o.decorators[ n ];
-              const initializeName = '_initializer_' + unique ();
-              insertBefore (parent, klass, [{
-                'type'         : 'VariableDeclaration',
-                'declarations' : [
-                  {
-                    'type' : 'VariableDeclarator',
-                    'id'   : {'type' : 'Identifier', 'name' : initializeName}
-                  }
-                ],
-                'kind'         : 'let'
-              }]);
+            o.decorators = undefined;
+          } else {
+            for (let decorator of (o.decorators || [])) {
+              if (decorator.kind === 'init-field') {
+                throw new TypeError ('wrong decorator @init: with a field');
+              }
+              decoratorsCreated++;
+              const initializerName = '_initializer_' + unique ();
               if (!o.static) {
-                o.value = {
-                  'type'      : 'CallExpression',
-                  'callee'    : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : initializeName}, 'property' : {'type' : 'Identifier', 'name' : 'call'}},
-                  'arguments' : [{'type' : 'ThisExpression'}, o.value]
-                };
+                insertBefore (
+                  parent,
+                  klass,
+                  [variableDeclaration ('let', initializerName)]
+                );
               }
               insertAfter (
                 parent,
                 klass,
-                accessorGenerator ({className, initializeName, propertyName, decoratorName : decorator.expression, isStatic : o.static})
+                o.key.type === 'PrivateName' ?
+                  privateFieldGenerator ({
+                    kind          : decorator.kind,
+                    elementName   : o.key.name,
+                    decoratorName : decorator.expression,
+                    isStatic      : !!o.static,
+                    className,
+                    variableName  : initializerName,
+                    symbolGetName,
+                    symbolSetName
+                    
+                  }) :
+                  publicMemberGenerator ({
+                    kind          : decorator.kind,
+                    elementName   : o.key.name,
+                    decoratorName : decorator.expression,
+                    isStatic      : !!o.static,
+                    className,
+                    variableName  : initializerName
+                  })
               );
+              if (!o.static) {
+                o.value = callExpression (
+                  initializerName + '.call',
+                  [{'type' : 'ThisExpression'}, o.value]
+                );
+              }
               decoratorsCreated++;
             }
-            o.decorators = undefined;
-            return;
-          }
-          const symbolGetName = '_symbol_' + unique ();
-          const symbolSetName = '_symbol_' + unique ();
-          let isFirst         = true;
-          for (let decorator of (o.decorators || [])) {
-            if (decorator.kind === 'init-field') {
-              throw new TypeError ('wrong decorator @init: with a field');
-            }
-            decoratorsCreated++;
-            const initializerName = '_initializer_' + unique ();
-            const elementsBefore  = [];
-            if (!o.static) {
-              elementsBefore.push ({
-                'type'         : 'VariableDeclaration',
-                'declarations' : [
-                  {
-                    'type' : 'VariableDeclarator',
-                    'id'   : {'type' : 'Identifier', 'name' : initializerName}
-                  }
-                ],
-                'kind'         : 'let'
-              });
-            }
-            if (o.key.type === 'PrivateName' && isFirst) {
-              elementsBefore.push (...fieldPrivate ({symbolGetName, symbolSetName}));
-            }
-            insertBefore (
-              parent,
-              klass,
-              elementsBefore
-            );
-            insertAfter (
-              parent,
-              klass,
-              o.key.type === 'PrivateName' ?
-                privateFieldGenerator ({
-                  kind          : decorator.kind,
-                  elementName   : o.key.name,
-                  decoratorName : decorator.expression,
-                  isStatic      : !!o.static,
-                  className,
-                  variableName  : initializerName,
-                  symbolGetName,
-                  symbolSetName
-                  
-                }) :
-                publicMemberGenerator ({
-                  kind          : decorator.kind,
-                  elementName   : o.key.name,
-                  decoratorName : decorator.expression,
-                  isStatic      : o.static,
-                  className,
-                  variableName  : initializerName
-                })
-            );
-            if (!o.static) {
-              o.value = {
-                'type'      : 'CallExpression',
-                'callee'    : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : initializerName}, 'property' : {'type' : 'Identifier', 'name' : 'call'}},
-                'arguments' : [{'type' : 'ThisExpression'}, o.value]
-              };
-            }
-            if (o.key.type === 'PrivateName' && isFirst) {
-              isFirst = false;
-              insertAfter (
-                klass.body.body,
-                o,
-                accessorInitialization ({className, propertyName : o.key.name, symbolGetName, symbolSetName, isStatic : o.static})
-              );
-            }
-            decoratorsCreated++;
           }
           o.decorators = undefined;
         }
@@ -473,37 +507,146 @@ function transform (ast) {
   return source;
 }
 
-function fieldPrivate ({symbolGetName, symbolSetName}) {
+function variableDeclaration (kind, name, value) {
+  return {
+    'type'         : 'VariableDeclaration',
+    'declarations' : [
+      {
+        'type' : 'VariableDeclarator',
+        'id'   : {'type' : 'Identifier', 'name' : name},
+        'init' : value
+      }
+    ],
+    'kind'         : kind
+  };
+}
+
+function callExpression (name, arguments = []) {
+  return {'type' : 'CallExpression', 'callee' : identifier (name), 'arguments' : arguments};
+}
+
+function identifier (name) {
+  const dotPosition = name.indexOf ('.');
+  if (dotPosition === -1) {
+    return {'type' : 'Identifier', 'name' : name};
+  }
+  return {
+    'type'     : 'MemberExpression',
+    'object'   : {'type' : 'Identifier', 'name' : name.substring (0, dotPosition)},
+    'property' : identifier (name.substring (dotPosition + 1))
+  };
+}
+
+function staticMethodPrivateAccessor ({privateName, getName, setName}) {
+  return [{
+    'type'   : 'MethodDefinition',
+    'kind'   : 'method',
+    'static' : true,
+    'key'    : {'type' : 'Identifier', 'name' : getName},
+    'value'  : {
+      'type' : 'FunctionExpression',
+      'body' : {
+        'type' : 'BlockStatement',
+        'body' : [
+          {
+            'type'     : 'ReturnStatement',
+            'argument' : {
+              'type'     : 'MemberExpression',
+              'object'   : {'type' : 'ThisExpression'},
+              'property' : {'type' : 'PrivateName', 'name' : privateName, 'id' : {'type' : 'Identifier', 'name' : privateName}}
+            }
+          }
+        ]
+      }
+    }
+  },
+    {
+      'type'   : 'MethodDefinition',
+      'kind'   : 'method',
+      'static' : true,
+      'key'    : {'type' : 'Identifier', 'name' : setName},
+      'value'  : {
+        'type'   : 'FunctionExpression',
+        'params' : [{'type' : 'Identifier', 'name' : 'v'}],
+        'body'   : {
+          'type' : 'BlockStatement',
+          'body' : [
+            {
+              'type'       : 'ExpressionStatement',
+              'expression' : {
+                'type'     : 'AssignmentExpression',
+                'operator' : '=',
+                'left'     : {
+                  'type'     : 'MemberExpression',
+                  'object'   : {'type' : 'ThisExpression'},
+                  'property' : {'type' : 'PrivateName', 'name' : privateName, 'id' : {'type' : 'Identifier', 'name' : privateName}}
+                },
+                'right'    : {'type' : 'Identifier', 'name' : 'v'}
+              }
+            }
+          ]
+        }
+      }
+    }
+  ];
+}
+
+function removeStaticMethodPrivateAccessor ({getName, setName}) {
   return [
     {
-      'type'         : 'VariableDeclaration',
-      'declarations' : [
-        {
-          'type' : 'VariableDeclarator',
-          'id'   : {'type' : 'Identifier', 'name' : symbolGetName},
-          'init' : {
-            'type'      : 'CallExpression',
-            'callee'    : {'type' : 'Identifier', 'name' : 'Symbol'},
-            'arguments' : []
-          }
+      'type'       : 'ExpressionStatement',
+      'expression' : {
+        'type'     : 'AssignmentExpression',
+        'operator' : '=',
+        'left'     : {'type' : 'Identifier', 'name' : getName},
+        'right'    : {
+          'type'     : 'MemberExpression',
+          'object'   : {'type' : 'Identifier', 'name' : 'C'},
+          'property' : {'type' : 'Identifier', 'name' : getName}
         }
-      ],
-      'kind'         : 'const'
+      }
     },
     {
-      'type'         : 'VariableDeclaration',
-      'declarations' : [
-        {
-          'type' : 'VariableDeclarator',
-          'id'   : {'type' : 'Identifier', 'name' : symbolSetName},
-          'init' : {
-            'type'      : 'CallExpression',
-            'callee'    : {'type' : 'Identifier', 'name' : 'Symbol'},
-            'arguments' : []
-          }
+      'type'       : 'ExpressionStatement',
+      'expression' : {
+        'type'     : 'AssignmentExpression',
+        'operator' : '=',
+        'left'     : {
+          'type' : 'Identifier',
+          'name' : setName
+        },
+        'right'    : {
+          'type'     : 'MemberExpression',
+          'object'   : {'type' : 'Identifier', 'name' : 'C'},
+          'property' : {'type' : 'Identifier', 'name' : setName}
         }
-      ],
-      'kind'         : 'const'
+      }
+    },
+    {
+      'type'       : 'ExpressionStatement',
+      'expression' : {
+        'type'     : 'UnaryExpression',
+        'operator' : 'delete',
+        'prefix'   : true,
+        'argument' : {
+          'type'     : 'MemberExpression',
+          'object'   : {'type' : 'Identifier', 'name' : 'C'},
+          'property' : {'type' : 'Identifier', 'name' : getName}
+        }
+      }
+    },
+    {
+      'type'       : 'ExpressionStatement',
+      'expression' : {
+        'type'     : 'UnaryExpression',
+        'operator' : 'delete',
+        'prefix'   : true,
+        'argument' : {
+          'type'     : 'MemberExpression',
+          'object'   : {'type' : 'Identifier', 'name' : 'C'},
+          'property' : {'type' : 'Identifier', 'name' : setName}
+        }
+      }
     }
   ];
 }
@@ -630,6 +773,166 @@ function addGetterAndSetter ({propertyName, privateName, isPrivate, isStatic}) {
   ];
 }
 
+function accessorPrivateGenerator ({className, decoratorName, propertyName, initializerName : initializerName, symbolGetName, symbolSetName, getName, setName, resultName, isStatic}) {
+  return [
+    {
+      'type'         : 'VariableDeclaration',
+      'declarations' : [
+        {
+          'type' : 'VariableDeclarator',
+          'id'   : {'type' : 'Identifier', 'name' : resultName},
+          'init' : {
+            'type'     : 'LogicalExpression',
+            'left'     : {
+              'type'      : 'CallExpression',
+              'callee'    : decoratorName,
+              'arguments' : [
+                {
+                  'type'       : 'ObjectExpression',
+                  'properties' : [
+                    {
+                      'type'  : 'Property',
+                      'key'   : {'type' : 'Identifier', 'name' : 'get'},
+                      'value' : {'type' : 'Identifier', 'name' : getName}
+                    },
+                    {
+                      'type'  : 'Property',
+                      'key'   : {'type' : 'Identifier', 'name' : 'set'},
+                      'value' : {'type' : 'Identifier', 'name' : setName}
+                    }
+                  ]
+                },
+                {
+                  'type'       : 'ObjectExpression',
+                  'properties' : [
+                    {
+                      'type'  : 'Property',
+                      'key'   : {'type' : 'Identifier', 'name' : 'kind'},
+                      'value' : {'type' : 'Literal', 'value' : 'auto-accessor'}
+                    },
+                    {
+                      'type'  : 'Property',
+                      'key'   : {'type' : 'Identifier', 'name' : 'name'},
+                      'value' : {'type' : 'Literal', 'value' : '#' + propertyName}
+                    },
+                    {
+                      'type'  : 'Property',
+                      'key'   : {'type' : 'Identifier', 'name' : 'access'},
+                      'value' : {
+                        'type'       : 'ObjectExpression',
+                        'properties' : [
+                          {
+                            'type'  : 'Property',
+                            'key'   : {'type' : 'Identifier', 'name' : 'get'},
+                            'value' : {
+                              "type": "MemberExpression",
+                              "object": {
+                                "type": "MemberExpression",
+                                "object": {"type": "Identifier", "name": className},
+                                "property": {"type": "Identifier", "name": "prototype"}
+                              },
+                              "property": {"type": "Identifier", "name": symbolGetName},
+                              "computed": true
+                            }
+                          },
+                          {
+                            'type'  : 'Property',
+                            'key'   : {'type' : 'Identifier', 'name' : 'set'},
+                            'value' : {
+                              "type": "MemberExpression",
+                              "object": {
+                                "type": "MemberExpression",
+                                "object": {"type": "Identifier", "name": className},
+                                "property": {"type": "Identifier", "name": "prototype"}
+                              },
+                              "property": {"type": "Identifier", "name": symbolSetName},
+                              "computed": true
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      'type'  : 'Property',
+                      'key'   : {'type' : 'Identifier', 'name' : 'isStatic'},
+                      'value' : {'type' : 'Literal', 'value' : isStatic}
+                    },
+                    {
+                      'type'  : 'Property',
+                      'key'   : {'type' : 'Identifier', 'name' : 'isPrivate'},
+                      'value' : {'type' : 'Literal', 'value' : true}
+                    },
+                    {
+                      'type'  : 'Property',
+                      'key'   : {'type' : 'Identifier', 'name' : 'defineMetadata'},
+                      'value' : callExpression (
+                        '__DefineMetadata',
+                        [
+                          identifier (className + '.prototype'),
+                          {'type' : 'Literal', 'value' : '#p'}
+                        ]
+                      )
+                    }
+                  ]
+                }
+              ]
+            },
+            'operator' : '||',
+            'right'    : {'type' : 'ObjectExpression', 'properties' : []}
+          }
+        }
+      ],
+      'kind'         : 'const'
+    },
+    {
+      'type'       : 'ExpressionStatement',
+      'expression' : {
+        'type'     : 'AssignmentExpression',
+        'operator' : '=',
+        'left'     : {'type'  : 'Identifier', 'name'  : initializerName},
+        'right'    : {
+          'type'     : 'LogicalExpression',
+          'left'     : identifier( resultName + '.initialize'),
+          'operator' : '||',
+          'right'    : {
+            'type'       : 'ArrowFunctionExpression',
+            'params'     : [{'type'  : 'Identifier', 'name'  : 'v'}],
+            'body'       : {'type'  : 'Identifier', 'name'  : 'v'}
+          }
+        }
+      }
+    },
+    {
+      'type'       : 'ExpressionStatement',
+      'expression' : {
+        'type'     : 'AssignmentExpression',
+        'operator' : '=',
+        'left'     : identifier(getName),
+        'right'    : {
+          'type'     : 'LogicalExpression',
+          'left'     : identifier(resultName + '.get'),
+          'operator' : '||',
+          'right'    : identifier(getName)
+        }
+      }
+    },
+    {
+      'type'       : 'ExpressionStatement',
+      'expression' : {
+        'type'     : 'AssignmentExpression',
+        'operator' : '=',
+        'left'     : identifier(setName),
+        'right'    : {
+          'type'     : 'LogicalExpression',
+          'left'     : identifier(resultName + '.set'),
+          'operator' : '||',
+          'right'    : identifier(setName)
+        }
+      }
+    }
+  ];
+}
+
 function accessorGenerator ({className, initializeName, propertyName, decoratorName, isStatic}) {
   const descriptorName = '_descriptor_' + unique ();
   const resultName     = '_result_' + unique ();
@@ -672,8 +975,8 @@ function accessorGenerator ({className, initializeName, propertyName, decoratorN
           'type' : 'VariableDeclarator',
           'id'   : {'type' : 'Identifier', 'name' : resultName},
           'init' : {
-            "type"     : "LogicalExpression",
-            "left"     : {
+            'type'     : 'LogicalExpression',
+            'left'     : {
               'type'      : 'CallExpression',
               'callee'    : decoratorName,
               'arguments' : [
@@ -731,10 +1034,10 @@ function accessorGenerator ({className, initializeName, propertyName, decoratorN
                 }
               ]
             },
-            "operator" : "||",
-            "right"    : {
-              "type"       : "ObjectExpression",
-              "properties" : []
+            'operator' : '||',
+            'right'    : {
+              'type'       : 'ObjectExpression',
+              'properties' : []
             }
           }
         }
