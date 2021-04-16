@@ -3,6 +3,7 @@
 
 ## TODO
 
+- [ ] Review the editor and mobile browsers
 - [ ] Resizeable panels
 - [ ] AST navigation
 - [ ] Sync AST navigation and code
@@ -10,8 +11,8 @@
 - [ ] Show the changelog from homepage
 - [ ] Complete automatic tests
 - [ ] Transpiler
-  - [ ] accessor with private fields
   - [ ] export
+- [ ] Make the transpiled code clearer
 
 
 ## In progress

@@ -1,6 +1,6 @@
 /**
  *
- * @before(fn)
+ * @before (fn)
  *
  * Execute the function passed as parameter before the method, getter, setter or accessor.
  * The function passed as parameter receives all parameter passed to the target function.

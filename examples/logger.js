@@ -2,18 +2,14 @@
  *
  * @logger
  *
+ * This decorator displays messages into the console before and after a method call.
  *
- * @param value
- * @param context
- * @returns {(function(...[*]) : *)|{}|{set : function(...[*]) : *, get : function(...[*]) : *}}
+ * kind: 'method', 'getter', 'setter', 'auto-accessor'
+ *
  */
 function logger (value, context) {
   const msgAfter = (result) => console.log (context.name, 'return this value:', result);
-  const msgBefore = (...args) => console.log (
-    context.name,
-    'is called with this parameters:',
-    args.join (',') || '[]'
-  );
+  const msgBefore = (...args) => console.log (context.name, 'is called with this parameters:', args.join (',') || '[]');
   return after (msgAfter) (before (msgBefore) (value, context), context);
 }
 

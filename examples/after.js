@@ -1,6 +1,6 @@
 /**
  *
- * @after(fn)
+ * @after (fn)
  *
  * Execute the function passed as parameter after the method, getter, setter or accessor call.
  * The function passed as parameter receives as parameter the previous function return.
