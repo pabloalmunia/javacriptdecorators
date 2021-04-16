@@ -1,5 +1,11 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.1.7 - 16/04/2021
+
+- Added resize to left-right panels.
+- Updated README
+- Added and updated examples.
+
 ## version 0.1.6 - 15/04/2021
 
 - Added support to `accessor` with private static field.
