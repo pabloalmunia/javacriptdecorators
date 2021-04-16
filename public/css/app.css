@@ -33,8 +33,9 @@
 }
 html,
 body {
-  height    : 100%;
-  font-size : 13px;
+  height      : 100%;
+  font-size   : 13px;
+  user-select : none;
 }
 body {
   font-family              : -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Helvetica, sans-serif;
@@ -139,15 +140,26 @@ input:disabled, input[disabled], textarea:disabled, textarea[disabled], select:d
   top      : 0;
   left     : 0;
   bottom   : 1px;
-  width    : 50%;
+  width    : calc(50% - 1px);
 }
 .section-right {
   position : absolute;
   top      : 0;
-  left     : 50%;
+  left     : calc(50% + 1px);
   bottom   : 1px;
-  width    : 50%;
   right    : 1px;
+}
+.resizer-ew {
+  position         : absolute;
+  top              : 0;
+  left             : calc(50% - 3px);
+  width            : 6px;
+  bottom           : 1px;
+  background-color : transparent;
+  cursor           : ew-resize;
+  text-align       : center;
+  padding-top      : 45vh;
+  line-height      : 12px;
 }
 .subheader {
   height : 2.5rem;
