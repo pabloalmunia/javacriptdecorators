@@ -4,7 +4,6 @@
 ## TODO
 
 - [ ] Review the editor and mobile browsers
-- [ ] Resizeable panels
 - [ ] AST navigation
 - [ ] Sync AST navigation and code
 - [ ] Show a help from homepage

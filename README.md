@@ -3,30 +3,31 @@
 
 The tools are entirely experimental and evolving. There is no guarantee of they follow the proposed standard correctly.
 
+## Table of Content
+
 - [Class decorators](#class-decorators)
+
 - [Method decorators](#method-decorators)
-  - [Public method](#public-method)
-  - [Static methods](#static-methods)
-  - [Private methods](#private-method)
-  - [Static private member method](#static-private-method)
+
+|          | public                            | private                                         |
+|:---------|:----------------------------------|:------------------------------------------------|
+| instance | [public method](#public-method)   | [private method](#private-method)               |
+| static   | [static methods](#static-methods) | [static private method](#static-private-method) |
+
 - [Getter and setter decorators](#getter-and-setter-decorators)
-  - [Public getter](#public-getter)
-  - [Public setter](#public-setter)
-  - [Static getter](#static-getter)
-  - [Static setter](#static-setter)
-  - [Private getter](#private-getter)
-  - [Private setter](#private-setter)
-  - [Static private getter](#static-private-getter)
-  - [Static private setter](#static-private-setter)
+
+|          | public                                                              | private                                                                                             |
+|:---------|:--------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------|
+| instance | [public getter](#public-getter)<br/>[public setter](#public-setter) | [private getter](#private-getter)<br/>[private setter](#private-setter)                             |
+| static   | [static getter](#static-getter)<br/>[static setter](#static-setter) | [static private getter](#static-private-getter)<br/>[static private setter](#static-private-setter) |
+
 - [Field decorators](#field-decorators)
-  - [public field](#public-field)
-  - [public field with accessor](#public-field-with-accessor)
-  - [static field](#static-field)
-  - [static field with accessor](#static-field-with-accessor)
-  - [private field](#private-field)
-  - [private field with accessor](#private-field-with-accessor)
-  - [static private field](#static-private-field)
-  - [static private field with accessor](#static-private-field-with-accessor)
+
+|          | public                                                                                      | private                                                                                                                     |
+|:---------|:--------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------|
+| instance | [public field](#public-field)<br/>[public field with accessor](#public-field-with-accessor) | [private field](#private-field)<br/>[private field with accessor](#private-field-with-accessor)                             |
+| static   | [static field](#static-field)<br/>[static field with accessor](#static-field-with-accessor) | [static private field](#static-private-field)<br/>[static private field with accessor](#static-private-field-with-accessor) |
+
 - [Functionality not supported yet](#functionality-not-supported-yet)
 
 
@@ -71,6 +72,7 @@ class MyClass {}
 `MyClass[Symbol.metadata].constructor`
 
 
+---
 
 ## Method decorators
 
@@ -261,6 +263,8 @@ class MyClass {
 `MyClass[Symbol.metadata]['#someMethod']`
 
 
+
+---
 
 ## Getter and setter decorators
 
@@ -637,9 +641,9 @@ class MyClass {
 `MyClass[Symbol.metadata]['#someSetter']`
 
 
+---
 
 ## Field decorators
-
 
 ### Public field
 
@@ -675,7 +679,6 @@ class MyClass {
 ##### metadata location
 
 `MyClass.prototype[Symbol.metadata].someField`
-
 
 
 ### Public field with accessor
@@ -758,7 +761,6 @@ class MyClass {
 `MyClass[Symbol.metadata].someField`
 
 
-
 ### Static field with accessor
 
 ```js
@@ -803,7 +805,6 @@ class MyClass {
 `MyClass[Symbol.metadata].someField`
 
 
-
 ### Private field
 
 ```js
@@ -838,8 +839,6 @@ class MyClass {
 ##### metadata location
 
 `MyClass.prototype[Symbol.metadata]['#someField']`
-
-
 
 
 ### Private field with accessor
@@ -890,8 +889,6 @@ class MyClass {
 `MyClass.prototype[Symbol.metadata].someField`
 
 
-
-
 ### Static private field
 
 ```js
@@ -930,7 +927,6 @@ class MyClass {
 ##### metadata location
 
 `MyClass[Symbol.metadata]['#someField']`
-
 
 
 ### Static private field with accessor
@@ -981,6 +977,9 @@ class MyClass {
 `MyClass[Symbol.metadata].someField`
 
 
+---
+
+---
 
 ## Functionality not supported yet
 
