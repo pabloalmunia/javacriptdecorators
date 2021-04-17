@@ -1,5 +1,7 @@
 # JavascriptDecorators.org - CHANGELOG
 
+- Made the transpiled code clearer.
+
 ## version 0.1.7 - 16/04/2021
 
 - Added resize to left-right panels.

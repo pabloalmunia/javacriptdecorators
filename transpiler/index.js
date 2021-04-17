@@ -1,17 +1,11 @@
 const recast           = require ('recast');
 const walker           = require ('../lib/walker.js');
 const clone            = require ('../lib/clone.js');
-const unique           = () => Math.random ().toString (32).substring (2);
-const insertAfter      = (arr, current, elements) => arr
-  .splice (arr.indexOf (current) + 1, 0, ...elements);
-const insertBefore     = (arr, current, elements) => arr
-  .splice (arr.indexOf (current), 0, ...elements);
-const insertBeforeNext = (arr, next, elements) => next !== null ?
-  arr.splice (arr.indexOf (next), 0, ...elements) :
-  arr.push (...elements);
-const replace          = (arr, current, elements) => arr
-  .splice (arr.indexOf (current), 1, ...elements);
-
+const unique           = () => Math.random ().toString (32).substring (7);
+const insertAfter      = (arr, current, elements) => arr.splice (arr.indexOf (current) + 1, 0, ...elements);
+const insertBefore     = (arr, current, elements) => arr.splice (arr.indexOf (current), 0, ...elements);
+const insertBeforeNext = (arr, next, elements) => next !== null ? arr.splice (arr.indexOf (next), 0, ...elements) : arr.push (...elements);
+const replace          = (arr, current, elements) => arr.splice (arr.indexOf (current), 1, ...elements);
 
 module.exports = (ast) =>
   prettySource (
@@ -19,7 +13,6 @@ module.exports = (ast) =>
       transform (ast),
       {tabWidth : 2, reuseWhitespace : false}
     ).code);
-
 
 function transform (ast) {
   const source              = clone (ast);
@@ -43,11 +36,11 @@ function transform (ast) {
       const i                       = parent.indexOf (klass);
       preClassLocation              = preClassLocation || i;
       let nextElement               = parent[ i + 1 ] || null;
-      const classInitializersName   = '_class_initializers_' + unique ();
+      const classInitializersName   = `_${ className }_class_initializers_${ unique () }`;
       let classInitializersCreated  = false;
-      const memberInitializersName  = '_member_initializers_' + unique ();
+      const memberInitializersName  = `_${ className }_member_initializers_${ unique () }`;
       let memberInitializersCreated = false;
-      const staticInitializersName  = '_static_initializers_' + unique ();
+      const staticInitializersName  = `_${ className }_static_initializers_${ unique () }`;
       let staticInitializersCreated = false;
       
       //---------------------------------
@@ -73,9 +66,9 @@ function transform (ast) {
                 className        : className,
                 elementName      : o.key.name,
                 decoratorName    : decorator.expression,
-                variableName     : (decorator.kind === 'getter' || decorator.kind === 'setter' ?
-                  '_descriptor_' :
-                  '_initializer_') + unique (),
+                variableName     : `_${ className }_${ o.key.name }_${ (decorator.kind === 'getter' || decorator.kind === 'setter' ?
+                  'descriptor' :
+                  'initializer') }_${ unique () }`,
                 initializersName : staticInitializersName,
                 isStatic         : true
               })
@@ -182,10 +175,10 @@ function transform (ast) {
             //--------
             // Private
             //--------
-            const symbolName         = '_symbol_' + unique ();
-            const tempName           = '_temp_' + unique ();
             const elementName        = o.key.id.name;
             const elementPrivateName = '#' + elementName;
+            const symbolName         = `_${ className }_${ elementName }_symbol_${ unique () }`;
+            const tempName           = `_${ className }_${ elementName }_temp_${ unique () }`;
             const beforeClass        = privateMemberBeforeGenerator (symbolName);
             const afterClass         = privateMemberAfterGenerator (
               className,
@@ -242,7 +235,7 @@ function transform (ast) {
                   className        : className,
                   elementName      : o.key.name,
                   decoratorName    : decorator.expression,
-                  variableName     : '_descriptor_' + unique (),
+                  variableName     : `_${ className }_${ o.key.name }_descriptor_${ unique () }`,
                   initializersName : memberInitializersName,
                   isStatic         : false
                 })
@@ -333,11 +326,11 @@ function transform (ast) {
           return o.type === 'ClassProperty' && (o.decorators?.length || o.accessor);
         },
         (o) => {
-          const symbolGetName = '_symbol_' + unique ();
-          const symbolSetName = '_symbol_' + unique ();
+          const propertyName  = o.key.name;
+          const symbolGetName = `_${ className }_${ propertyName }_get_symbol_${ unique () }`;
+          const symbolSetName = `_${ className }_${ propertyName }_set_symbol_${ unique () }`;
           const isStatic      = !!o.static;
           const isPrivate     = o.key.type === 'PrivateName';
-          const propertyName  = o.key.name;
           if (isPrivate && o.decorators?.length) {
             insertBefore (
               parent,
@@ -355,7 +348,7 @@ function transform (ast) {
           }
           // Accessor
           if (o.accessor) {
-            const privateName = '_property_' + unique ();
+            const privateName = `_${ o.key.name }_private_property_${ unique () }`;
             // Transform current field to private
             o.key.type        = 'PrivateName';
             o.key.name        = privateName;
@@ -365,9 +358,9 @@ function transform (ast) {
             const methods     = addGetterAndSetter ({privateName, propertyName, isPrivate, isStatic});
             if (isPrivate && o.decorators?.length) {
               // Variables
-              const getName               = '_getter_' + unique ();
-              const setName               = '_setter_' + unique ();
-              const globalInitializerName = '_initializer_' + unique ();
+              const getName               = `_${ className }_${ propertyName }_getter_${ unique () }`;
+              const setName               = `_${ className }_${ propertyName }_setter_${ unique () }`;
+              const globalInitializerName = `_${ className }_${ propertyName }_initializer_${ unique () }`;
               insertBefore (parent, klass,
                 [
                   variableDeclaration ('let', getName),
@@ -388,7 +381,7 @@ function transform (ast) {
               methods.push (...staticMethodPrivateAccessor ({privateName, getName, setName}));
               for (let n = (o.decorators || []).length; --n > -1;) {
                 const decorator       = o.decorators[ n ];
-                const initializerName = '_initializer_' + unique ();
+                const initializerName = `_${ className }_${ propertyName }_initializer_${ unique () }`;
                 if (!isStatic) {
                   insertBefore (parent, klass, [variableDeclaration ('let', initializerName)]);
                 }
@@ -403,7 +396,7 @@ function transform (ast) {
                   setName,
                   isStatic,
                   decoratorName : decorator.expression,
-                  resultName    : '_result_' + unique ()
+                  resultName    : `_${ className }_${ propertyName }_result_${ unique () }`
                 }));
                 if (!isStatic) {
                   o.value = callExpression (
@@ -425,7 +418,7 @@ function transform (ast) {
             } else {
               for (let n = (o.decorators || []).length; --n > -1;) {
                 const decorator      = o.decorators[ n ];
-                const initializeName = '_initializer_' + unique ();
+                const initializeName = `_${ className }_${ propertyName }_initializer_${ unique () }`;
                 insertBefore (parent, klass, [variableDeclaration ('let', initializeName)]);
                 if (!o.static) {
                   o.value = callExpression (
@@ -456,7 +449,7 @@ function transform (ast) {
                 throw new TypeError ('wrong decorator @init: with a field');
               }
               decoratorsCreated++;
-              const initializerName = '_initializer_' + unique ();
+              const initializerName = `_${ className }_${ propertyName }_initializer_${ unique () }`;
               if (!o.static) {
                 insertBefore (
                   parent,
@@ -998,8 +991,8 @@ function accessorPrivateGenerator ({className, decoratorName, propertyName, init
 }
 
 function accessorGenerator ({className, initializeName, propertyName, decoratorName, isStatic}) {
-  const descriptorName = '_descriptor_' + unique ();
-  const resultName     = '_result_' + unique ();
+  const descriptorName = `_${ className }_${ propertyName }_descriptor_${ unique () }`;
+  const resultName     = `_${ className }_${ propertyName }_result_${ unique () }`;
   return [
     {
       'type'         : 'VariableDeclaration',

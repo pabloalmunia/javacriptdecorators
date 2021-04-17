@@ -11,13 +11,14 @@
 - [ ] Complete automatic tests
 - [ ] Transpiler
   - [ ] export
-- [ ] Make the transpiled code clearer
 
 
 ## In progress
 
 - [ ] Examples
-
+- [ ] 
 
 ## Done
+
+- [X] Make the transpiled code clearer
 
