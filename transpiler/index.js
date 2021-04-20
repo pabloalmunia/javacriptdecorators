@@ -2,10 +2,24 @@ const recast           = require ('recast');
 const walker           = require ('../lib/walker.js');
 const clone            = require ('../lib/clone.js');
 const unique           = () => Math.random ().toString (32).substring (7);
-const insertAfter      = (arr, current, elements) => arr.splice (arr.indexOf (current) + 1, 0, ...elements);
-const insertBefore     = (arr, current, elements) => arr.splice (arr.indexOf (current), 0, ...elements);
-const insertBeforeNext = (arr, next, elements) => next !== null ? arr.splice (arr.indexOf (next), 0, ...elements) : arr.push (...elements);
-const replace          = (arr, current, elements) => arr.splice (arr.indexOf (current), 1, ...elements);
+const insertAfter      = (arr, current, elements) => arr.splice (
+  arr.indexOf (current) + 1,
+  0,
+  ...elements
+);
+const insertBefore     = (arr, current, elements) => arr.splice (
+  arr.indexOf (current),
+  0,
+  ...elements
+);
+const insertBeforeNext = (arr, next, elements) => next !== null ?
+  arr.splice (arr.indexOf (next), 0, ...elements) :
+  arr.push (...elements);
+const replace          = (arr, current, elements) => arr.splice (
+  arr.indexOf (current),
+  1,
+  ...elements
+);
 
 module.exports = (ast) =>
   prettySource (
@@ -70,7 +84,8 @@ function transform (ast) {
                   'descriptor' :
                   'initializer') }_${ unique () }`,
                 initializersName : staticInitializersName,
-                isStatic         : true
+                isStatic         : true,
+                isSymbol         : o.computed
               })
             );
             decoratorsCreated++;
@@ -237,7 +252,8 @@ function transform (ast) {
                   decoratorName    : decorator.expression,
                   variableName     : `_${ className }_${ o.key.name }_descriptor_${ unique () }`,
                   initializersName : memberInitializersName,
-                  isStatic         : false
+                  isStatic         : false,
+                  isSymbol         : o.computed
                 })
               );
               decoratorsCreated++;
@@ -348,14 +364,16 @@ function transform (ast) {
           }
           // Accessor
           if (o.accessor) {
+            const isSymbol    = o.computed;
             const privateName = `_${ o.key.name }_private_property_${ unique () }`;
             // Transform current field to private
             o.key.type        = 'PrivateName';
             o.key.name        = privateName;
             o.key.id          = {type : 'Identifier', name : privateName};
             o.accessor        = false;
+            o.computed        = false;
             // Create getter and setter methods
-            const methods     = addGetterAndSetter ({privateName, propertyName, isPrivate, isStatic});
+            const methods     = addGetterAndSetter ({privateName, propertyName, isPrivate, isStatic, isSymbol});
             if (isPrivate && o.decorators?.length) {
               // Variables
               const getName               = `_${ className }_${ propertyName }_getter_${ unique () }`;
@@ -430,7 +448,7 @@ function transform (ast) {
                   parent,
                   klass,
                   accessorGenerator ({
-                    className, initializeName, propertyName, decoratorName : decorator.expression, isStatic : !!o.static
+                    className, initializeName, propertyName, decoratorName : decorator.expression, isStatic : !!o.static, isSymbol : o.computed, isSymbol
                   })
                 );
                 decoratorsCreated++;
@@ -478,7 +496,8 @@ function transform (ast) {
                     decoratorName : decorator.expression,
                     isStatic      : !!o.static,
                     className,
-                    variableName  : initializerName
+                    variableName  : initializerName,
+                    isSymbol      : o.computed
                   })
               );
               if (!o.static) {
@@ -747,16 +766,17 @@ function accessorInitialization ({className, propertyName, symbolGetName, symbol
   ];
 }
 
-function addGetterAndSetter ({propertyName, privateName, isPrivate, isStatic}) {
+function addGetterAndSetter ({propertyName, privateName, isPrivate, isStatic, isSymbol}) {
   return [
     {
-      'type'   : 'MethodDefinition',
-      'kind'   : 'get',
-      'static' : isStatic,
-      'key'    : isPrivate ?
+      'type'     : 'MethodDefinition',
+      'kind'     : 'get',
+      'static'   : isStatic,
+      'key'      : isPrivate ?
         {'type' : 'PrivateName', 'name' : propertyName, 'id' : {'type' : 'Identifier', 'name' : propertyName}} :
         {'type' : 'Identifier', 'name' : propertyName},
-      'value'  : {
+      'computed' : isSymbol,
+      'value'    : {
         'type'   : 'FunctionExpression',
         'params' : [],
         'body'   : {
@@ -775,13 +795,14 @@ function addGetterAndSetter ({propertyName, privateName, isPrivate, isStatic}) {
       }
     },
     {
-      'type'   : 'MethodDefinition',
-      'kind'   : 'set',
-      'static' : isStatic,
-      'key'    : isPrivate ?
+      'type'     : 'MethodDefinition',
+      'kind'     : 'set',
+      'static'   : isStatic,
+      'key'      : isPrivate ?
         {'type' : 'PrivateName', 'name' : propertyName, 'id' : {'type' : 'Identifier', 'name' : propertyName}} :
         {'type' : 'Identifier', 'name' : propertyName},
-      'value'  : {
+      'computed' : isSymbol,
+      'value'    : {
         'type'   : 'FunctionExpression',
         'params' : [{'type' : 'Identifier', 'name' : 'v'}],
         'body'   : {
@@ -990,7 +1011,7 @@ function accessorPrivateGenerator ({className, decoratorName, propertyName, init
   ];
 }
 
-function accessorGenerator ({className, initializeName, propertyName, decoratorName, isStatic}) {
+function accessorGenerator ({className, initializeName, propertyName, decoratorName, isStatic, isSymbol}) {
   const descriptorName = `_${ className }_${ propertyName }_descriptor_${ unique () }`;
   const resultName     = `_${ className }_${ propertyName }_result_${ unique () }`;
   return [
@@ -1015,10 +1036,9 @@ function accessorGenerator ({className, initializeName, propertyName, decoratorN
                   'object'   : {'type' : 'Identifier', 'name' : className},
                   'property' : {'type' : 'Identifier', 'name' : 'prototype'}
                 },
-              {
-                'type'  : 'Literal',
-                'value' : propertyName
-              }
+              isSymbol ?
+                {'type' : 'Identifier', 'name' : propertyName} :
+                {'type' : 'Literal', 'value' : propertyName}
             ]
           }
         }
@@ -1085,7 +1105,8 @@ function accessorGenerator ({className, initializeName, propertyName, decoratorN
                     },
                     defineMetadataGeneratorCall (
                       isStatic ? className : `${ className }.prototype`,
-                      propertyName
+                      propertyName,
+                      isSymbol
                     )
                   ]
                 }
@@ -1142,7 +1163,9 @@ function accessorGenerator ({className, initializeName, propertyName, decoratorN
               'object'   : {'type' : 'Identifier', 'name' : className},
               'property' : {'type' : 'Identifier', 'name' : 'prototype'}
             },
-          {'type' : 'Literal', 'value' : propertyName},
+          isSymbol ?
+            {'type' : 'Identifier', 'name' : propertyName} :
+            {'type' : 'Literal', 'value' : propertyName},
           {
             'type'       : 'ObjectExpression',
             'properties' : [
@@ -1217,7 +1240,7 @@ function accessorGenerator ({className, initializeName, propertyName, decoratorN
   ];
 }
 
-function publicMemberGenerator ({kind, className, elementName, decoratorName, variableName, initializersName, isStatic}) {
+function publicMemberGenerator ({kind, className, elementName, decoratorName, variableName, initializersName, isStatic, isSymbol}) {
   const isInit        = kind.substring (0, 5) === 'init-';
   const decoratorCall = {
     'type'      : 'CallExpression',
@@ -1243,7 +1266,8 @@ function publicMemberGenerator ({kind, className, elementName, decoratorName, va
               (isStatic) ?
                 {'type' : 'Identifier', 'name' : className} :
                 {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : className}, 'property' : {'type' : 'Identifier', 'name' : 'prototype'}},
-            'property' : {'type' : 'Identifier', 'name' : elementName}
+            'property' : {'type' : 'Identifier', 'name' : elementName},
+            'computed' : isSymbol
           },
       {
         'type'       : 'ObjectExpression',
@@ -1256,7 +1280,9 @@ function publicMemberGenerator ({kind, className, elementName, decoratorName, va
           {
             'type'  : 'Property',
             'key'   : {'type' : 'Identifier', 'name' : 'name'},
-            'value' : {'type' : 'Literal', 'value' : elementName}
+            'value' : isSymbol ?
+              {'type' : 'Identifier', 'name' : elementName} :
+              {'type' : 'Literal', 'value' : elementName}
           },
           {
             'type'  : 'Property',
@@ -1270,7 +1296,8 @@ function publicMemberGenerator ({kind, className, elementName, decoratorName, va
           },
           defineMetadataGeneratorCall (
             isStatic ? className : `${ className }.prototype`,
-            elementName
+            elementName,
+            isSymbol
           )
         ]
       }
@@ -1298,7 +1325,8 @@ function publicMemberGenerator ({kind, className, elementName, decoratorName, va
           (isStatic) ?
             {'type' : 'Identifier', 'name' : className} :
             {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : className}, 'property' : {'type' : 'Identifier', 'name' : 'prototype'}},
-        'property' : {'type' : 'Identifier', 'name' : elementName}
+        'property' : {'type' : 'Identifier', 'name' : elementName},
+        'computed' : isSymbol
       };
   return [
     (kind === 'setter' || kind === 'getter' || kind === 'init-setter' || kind === 'init-getter') && {
@@ -1309,12 +1337,18 @@ function publicMemberGenerator ({kind, className, elementName, decoratorName, va
           'id'   : {'type' : 'Identifier', 'name' : variableName},
           'init' : {
             'type'      : 'CallExpression',
-            'callee'    : {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : 'Object'}, 'property' : {'type' : 'Identifier', 'name' : 'getOwnPropertyDescriptor'}},
+            'callee'    : {
+              'type'     : 'MemberExpression',
+              'object'   : {'type' : 'Identifier', 'name' : 'Object'},
+              'property' : {'type' : 'Identifier', 'name' : 'getOwnPropertyDescriptor'}
+            },
             'arguments' : [
               (isStatic) ?
                 {'type' : 'Identifier', 'name' : className} :
                 {'type' : 'MemberExpression', 'object' : {'type' : 'Identifier', 'name' : className}, 'property' : {'type' : 'Identifier', 'name' : 'prototype'}},
-              {'type' : 'Literal', 'value' : elementName}
+              isSymbol ?
+                {'type' : 'Identifier', 'name' : elementName} :
+                {'type' : 'Literal', 'value' : elementName}
             ]
           }
         }
@@ -1354,7 +1388,8 @@ function publicMemberGenerator ({kind, className, elementName, decoratorName, va
                 'property' : {
                   'type' : 'Identifier',
                   'name' : elementName
-                }
+                },
+                computed   : isSymbol
               },
         'operator' : '=',
         'right'    : isInit ?
@@ -1392,7 +1427,9 @@ function publicMemberGenerator ({kind, className, elementName, decoratorName, va
                 'object'   : {'type' : 'Identifier', 'name' : className},
                 'property' : {'type' : 'Identifier', 'name' : 'prototype'}
               },
-            {'type' : 'Literal', 'value' : elementName},
+            isSymbol ?
+              {'type' : 'Identifier', 'name' : elementName} :
+              {'type' : 'Literal', 'value' : elementName},
             {'type' : 'Identifier', 'name' : variableName}
           ]
         }
@@ -1406,7 +1443,8 @@ function publicMemberGenerator ({kind, className, elementName, decoratorName, va
             'left'     : {
               'type'     : 'MemberExpression',
               'object'   : {'type' : 'Identifier', 'name' : className},
-              'property' : {'type' : 'Identifier', 'name' : elementName}
+              'property' : {'type' : 'Identifier', 'name' : elementName},
+              'computed' : isSymbol
             },
             'right'    : {
               'type'      : 'CallExpression',
@@ -1416,7 +1454,8 @@ function publicMemberGenerator ({kind, className, elementName, decoratorName, va
                 {
                   'type'     : 'MemberExpression',
                   'object'   : {'type' : 'Identifier', 'name' : className},
-                  'property' : {'type' : 'Identifier', 'name' : elementName}
+                  'property' : {'type' : 'Identifier', 'name' : elementName},
+                  'computed' : isSymbol
                 }
               ]
             }
@@ -2084,7 +2123,7 @@ function classGenerator (className, decoratorName) {
   }];
 }
 
-function defineMetadataGeneratorCall (storage, metaKey) {
+function defineMetadataGeneratorCall (storage, metaKey, isSymbol) {
   return {
     'type'  : 'Property',
     'key'   : {
@@ -2102,10 +2141,15 @@ function defineMetadataGeneratorCall (storage, metaKey) {
           'type' : 'Identifier',
           'name' : storage
         },
-        {
-          'type'  : 'Literal',
-          'value' : metaKey
-        }
+        isSymbol ?
+          {
+            'type' : 'Identifier',
+            'name' : metaKey
+          } :
+          {
+            'type'  : 'Literal',
+            'value' : metaKey
+          }
       ],
       'optional'  : false
     }

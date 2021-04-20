@@ -74,30 +74,45 @@ function DecoratorParser (ParentParser) {
         const isInit = this.type === this.decoratorInitIdentifierToken;
         const node   = this.startNode ();
         this.next ();
-        node.expression = this.parseMaybeAssign ();
+        // ToDo: this call broken the process with symbols as @deco [symbol]() {}
+        // node.expression = this.parseMaybeAssign ();
+        const branch = this._branch ();
+        try {
+          node.expression = branch.parseMaybeAssign ();
+          if (node.expression?.callee?.computed) {
+            node.expression = node.expression.callee.object;
+            this.pos        = node.expression.end;
+            this.next ();
+          } else if (node.expression?.left?.computed) {
+            node.expression = node.expression.left.object;
+            this.pos        = node.expression.end;
+            this.next ();
+          } else {
+            node.expression = this.parseMaybeAssign ();
+          }
+        } catch (err) {
+          if (err.message.includes("Unexpected character '@\'")) {
+            node.expression = this.parseMaybeAssign ();
+          } else {
+            throw err;
+          }
+        }
         if (this.value === 'static') {
-          const branch = this._branch ();
           branch.next ();
           if (branch.value === 'accessor') {
             branch.next ();
-            if (branch.type.label === 'name' || branch.type.label === 'privateName') {
-              node.kind = 'auto-accessor';
-              this.next ();
-              this.next ();
-              node.static = true;
-            }
+            node.kind = 'auto-accessor';
+            this.next ();
+            this.next ();
+            node.static = true;
           } else {
             node.kind = isInit ? 'init-' : '';
           }
         } else if (this.value === 'accessor') {
           const branch = this._branch ();
           branch.next ();
-          if (branch.type.label === 'name' || branch.type.label === 'privateName') {
-            node.kind = 'auto-accessor';
-            this.next ();
-          // } else if (branch.type.label === 'privateName') {
-          //   throw new TypeError('Sorry, accessor is not supported with private members in this tool')
-          }
+          node.kind = 'auto-accessor';
+          this.next ();
         } else {
           node.kind = isInit ? 'init-' : '';
         }
@@ -106,9 +121,9 @@ function DecoratorParser (ParentParser) {
     }
     
     assignDecorators (decorators, fn, noIn, refDestructuringErrors) {
-      const node      = fn.call (this, noIn, refDestructuringErrors);
-      if (decorators.find(x => x.kind === 'auto-accessor')) {
-        node.accessor = true
+      const node = fn.call (this, noIn, refDestructuringErrors);
+      if (decorators.find (x => x.kind === 'auto-accessor')) {
+        node.accessor = true;
       }
       node.decorators = decorators.map (d => {
         d.kind +=

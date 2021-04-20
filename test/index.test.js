@@ -192,5 +192,19 @@ run ('case166');
 run ('case167');
 run ('case168');
 
+// Symbols
+run ('case170');
+run ('case171');
+run ('case172');
+run ('case173');
+run ('case174');
+run ('case175');
+run ('case176');
+run ('case177');
+run ('case178');
+run ('case179');
+run ('case180');
+run ('case181');
+
 // Other examples
 run ('example01');
