@@ -9,10 +9,10 @@ The tools are entirely experimental and evolving. There is no guarantee of they 
 
 - [Method decorators](#method-decorators)
 
-|          | public                            | private                                         |
-|:---------|:----------------------------------|:------------------------------------------------|
-| instance | [public method](#public-method)   | [private method](#private-method)               |
-| static   | [static methods](#static-methods) | [static private method](#static-private-method) |
+|          | public                          | private                                         |
+|:---------|:--------------------------------|:------------------------------------------------|
+| instance | [public method](#public-method) | [private method](#private-method)               |
+| static   | [static method](#static-method) | [static private method](#static-private-method) |
 
 - [Getter and setter decorators](#getter-and-setter-decorators)
 
@@ -42,7 +42,7 @@ class MyClass {}
 
 - `value` is the class itself
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -52,7 +52,7 @@ class MyClass {}
 }
 ```
 
-#### if decorator return value is:
+#### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -89,7 +89,7 @@ class MyClass {
 
 - `value` is the method itself
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -101,7 +101,7 @@ class MyClass {
 }
 ```
 
-#### if decorator return value is:
+#### values returned by the decorator
 
 
 - `undefined`, nothing is replaced
@@ -122,7 +122,7 @@ class MyClass {
 `MyClass.prototype[Symbol.metadata].someMethod`
 
 
-### Static methods
+### Static method
 
 ```js
 class MyClass {
@@ -135,7 +135,7 @@ class MyClass {
 
 - `value` is the method itself
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -147,7 +147,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -162,7 +162,7 @@ class MyClass {
 }
 ```
 
-##### metada location
+##### metadata location
 
 `MyClass[Symbol.metadata].someMethod`
 
@@ -180,7 +180,7 @@ class MyClass {
 
 - `value` is the method itself
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -195,7 +195,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -228,7 +228,7 @@ class MyClass {
 
 - `value` is the method itself
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -243,7 +243,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -281,7 +281,7 @@ class MyClass {
 
 - `value` is the getter itself
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -293,7 +293,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -326,7 +326,7 @@ class MyClass {
 
 - `value` is the setter itself
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -338,7 +338,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -371,7 +371,7 @@ class MyClass {
 
 - `value` is the getter itself
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -383,7 +383,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -416,7 +416,7 @@ class MyClass {
 
 - `value` is the setter itself
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -428,7 +428,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -461,7 +461,7 @@ class MyClass {
 
 - `value` is the getter itself
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -476,7 +476,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -509,7 +509,7 @@ class MyClass {
 
 - `value` is the setter itself
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -524,7 +524,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -557,7 +557,7 @@ class MyClass {
 
 - `value` is the getter itself
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -572,7 +572,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -606,7 +606,7 @@ class MyClass {
 
 - `value` is the setter itself
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -621,7 +621,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -670,7 +670,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -694,7 +694,7 @@ class MyClass {
 
 - `value` is the accessor field itself (a getter and setter pair)
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -706,7 +706,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -738,7 +738,7 @@ class MyClass {
 
 - `value` is the field itself
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -750,7 +750,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -774,7 +774,7 @@ class MyClass {
 
 - `value` is the accessor field itself (a getter and setter pair)
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -786,7 +786,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -818,7 +818,7 @@ class MyClass {
 
 - `value` is the field itself
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -830,7 +830,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -854,7 +854,7 @@ class MyClass {
 
 - `value` is the accessor field itself (a getter and setter pair)
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -870,7 +870,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -902,7 +902,7 @@ class MyClass {
 
 - `value` is the field itself
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -918,7 +918,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
@@ -942,7 +942,7 @@ class MyClass {
 
 - `value` is the accessor field itself (a getter and setter pair)
 
-- `context` is this object:
+- `context` is an object with this content:
 
 ```js
 {
@@ -958,7 +958,7 @@ class MyClass {
 }
 ```
 
-##### if decorator return value is:
+##### values returned by the decorator
 
 - `undefined`, nothing is replaced
 
