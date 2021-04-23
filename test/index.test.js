@@ -16,9 +16,11 @@ const runTranspile = Run (
   (ast) => transpile (JSON.parse (ast))
 );
 
-function run (test) {
-  runParse (test);
-  runTranspile (test);
+function run (testFile) {
+  test(testFile, () => {
+    runParse (testFile);
+    runTranspile (testFile);
+  })
 }
 
 // Without decorators

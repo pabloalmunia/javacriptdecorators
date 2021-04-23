@@ -30,7 +30,7 @@ module.exports = (label, getTest, getResult, transform, stringify, parse) => {
       `../${ getResult (test) }`,
       stringify ? stringify (source) : source
     );
-    console.log (label, `created ${ getResult (test) }`);
+    // console.log (label, `created ${ getResult (test) }`);
   }
   
   function writeError (test, source) {
@@ -38,7 +38,8 @@ module.exports = (label, getTest, getResult, transform, stringify, parse) => {
       `../${ getResult (test) }${ EXT_ERROR }`,
       stringify ? stringify (source) : source
     );
-    console.log (label, `ERROR, created ${ getResult (test) }${ EXT_ERROR }`);
+    // console.log (label, `ERROR, created ${ getResult (test) }${ EXT_ERROR }`);
+    throw new Error(`${label} - ERROR, created ${ getResult (test) }${ EXT_ERROR }`)
   }
   
   function delError (test) {
@@ -50,7 +51,7 @@ module.exports = (label, getTest, getResult, transform, stringify, parse) => {
   }
   
   return function run (test) {
-    console.log ('test', label, test);
+    // console.log ('test', label, test);
     delError (test);
     const originSource = readTest (test);
     const origin       = transform (originSource);
