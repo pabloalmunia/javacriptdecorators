@@ -401,13 +401,14 @@
                 "type": "Decorator",
                 "start": 266,
                 "end": 281,
+                "init": true,
                 "expression": {
                   "type": "Identifier",
                   "start": 272,
                   "end": 281,
                   "name": "decorator"
                 },
-                "kind": "init-getter"
+                "kind": "getter"
               }
             ]
           },

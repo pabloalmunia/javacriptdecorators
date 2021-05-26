@@ -1,0 +1,113 @@
+function addProperty(key, value) {
+  return (klass, context) => {
+    if (context.kind === "init-method" || context.kind === "init-getter" || context.kind === "init-setter") {
+      return {
+        initialize() {
+          this[key] = value;
+        }
+      };
+    }
+  };
+}
+
+if (!Symbol.metadata) {
+  Symbol.metadata = Symbol();
+}
+
+function __DefineMetadata(base, name) {
+  return function(key, value) {
+    if (!base[Symbol.metadata]) {
+      base[Symbol.metadata] = Object.create(null);
+    }
+    if (!base[Symbol.metadata][name]) {
+      base[Symbol.metadata][name] = {};
+    }
+    const db = base[Symbol.metadata][name];
+    if (key in db) {
+      if (!Array.isArray(db[key])) {
+        return db[key] = [db[key], value];
+      }
+      return db[key].push(value);
+    }
+    return db[key] = value;
+  };
+}
+
+class C {
+  constructor() {
+    this.z = 100;
+  }
+  get p() {}
+}
+
+const _C_p_descriptor_5vi1go = Object.getOwnPropertyDescriptor(C.prototype, "p");
+
+_C_p_descriptor_5vi1go.get = addProperty("a", 1)(_C_p_descriptor_5vi1go.get, {
+  kind: "getter",
+  name: "p",
+  isStatic: false,
+  isPrivate: false,
+  defineMetadata: __DefineMetadata(C.prototype, "p")
+}) ?? _C_p_descriptor_5vi1go.get;
+
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_5vi1go);
+
+const _C_p_descriptor_5csqi = Object.getOwnPropertyDescriptor(C.prototype, "p");
+
+_C_p_descriptor_5csqi.get = addProperty("b", 2)(_C_p_descriptor_5csqi.get, {
+  kind: "getter",
+  name: "p",
+  isStatic: false,
+  isPrivate: false,
+  defineMetadata: __DefineMetadata(C.prototype, "p")
+}) ?? _C_p_descriptor_5csqi.get;
+
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_5csqi);
+
+class D extends C {
+  get p() {}
+}
+
+const _D_p_descriptor_u6rru8 = Object.getOwnPropertyDescriptor(D.prototype, "p");
+
+_D_p_descriptor_u6rru8.get = addProperty("c", 3)(_D_p_descriptor_u6rru8.get, {
+  kind: "getter",
+  name: "p",
+  isStatic: false,
+  isPrivate: false,
+  defineMetadata: __DefineMetadata(D.prototype, "p")
+}) ?? _D_p_descriptor_u6rru8.get;
+
+Object.defineProperty(D.prototype, "p", _D_p_descriptor_u6rru8);
+
+const _D_p_descriptor_gt0k78 = Object.getOwnPropertyDescriptor(D.prototype, "p");
+
+_D_p_descriptor_gt0k78.get = addProperty("d", 4)(_D_p_descriptor_gt0k78.get, {
+  kind: "getter",
+  name: "p",
+  isStatic: false,
+  isPrivate: false,
+  defineMetadata: __DefineMetadata(D.prototype, "p")
+}) ?? _D_p_descriptor_gt0k78.get;
+
+Object.defineProperty(D.prototype, "p", _D_p_descriptor_gt0k78);
+
+const c = new C();
+
+console.assert(c.a === 1);
+
+console.assert(c.b === 2);
+
+console.assert(c.c === undefined);
+
+console.assert(c.d === undefined);
+
+const d = new D();
+
+console.assert(d.a === 1);
+
+console.assert(d.b === 2);
+
+console.assert(d.c === 3);
+
+console.assert(d.d === 4);

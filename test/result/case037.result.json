@@ -487,13 +487,14 @@
                 "type": "Decorator",
                 "start": 298,
                 "end": 313,
+                "init": true,
                 "expression": {
                   "type": "Identifier",
                   "start": 304,
                   "end": 313,
                   "name": "decorator"
                 },
-                "kind": "init-setter"
+                "kind": "setter"
               }
             ]
           }

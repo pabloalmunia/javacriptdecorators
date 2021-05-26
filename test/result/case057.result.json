@@ -457,13 +457,14 @@
                 "type": "Decorator",
                 "start": 359,
                 "end": 374,
+                "init": true,
                 "expression": {
                   "type": "Identifier",
                   "start": 365,
                   "end": 374,
                   "name": "decorator"
                 },
-                "kind": "init-method"
+                "kind": "method"
               }
             ]
           }
@@ -474,13 +475,14 @@
           "type": "Decorator",
           "start": 329,
           "end": 344,
+          "init": true,
           "expression": {
             "type": "Identifier",
             "start": 335,
             "end": 344,
             "name": "decorator"
           },
-          "kind": "init-class"
+          "kind": "class"
         }
       ]
     },

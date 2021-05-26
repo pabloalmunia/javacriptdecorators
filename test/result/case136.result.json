@@ -318,25 +318,27 @@
                 "type": "Decorator",
                 "start": 223,
                 "end": 238,
+                "init": true,
                 "expression": {
                   "type": "Identifier",
                   "start": 229,
                   "end": 238,
                   "name": "decorator"
                 },
-                "kind": "init-method"
+                "kind": "method"
               },
               {
                 "type": "Decorator",
                 "start": 242,
                 "end": 257,
+                "init": true,
                 "expression": {
                   "type": "Identifier",
                   "start": 248,
                   "end": 257,
                   "name": "decorator"
                 },
-                "kind": "init-method"
+                "kind": "method"
               }
             ]
           }

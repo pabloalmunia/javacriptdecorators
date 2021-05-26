@@ -264,25 +264,27 @@
                 "type": "Decorator",
                 "start": 194,
                 "end": 209,
+                "init": true,
                 "expression": {
                   "type": "Identifier",
                   "start": 200,
                   "end": 209,
                   "name": "decorator"
                 },
-                "kind": "init-method"
+                "kind": "method"
               },
               {
                 "type": "Decorator",
                 "start": 213,
                 "end": 228,
+                "init": true,
                 "expression": {
                   "type": "Identifier",
                   "start": 219,
                   "end": 228,
                   "name": "decorator"
                 },
-                "kind": "init-method"
+                "kind": "method"
               }
             ]
           }

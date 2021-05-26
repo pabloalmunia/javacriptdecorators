@@ -31,32 +31,17 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
-
 const _class_initializers_ia8koshaj0g = [];
 
 class C {}
 
-C = __applyDecorator(decorator(C, {
+C = decorator(C, {
   kind: "init-class",
   name: "C",
+  addInitializer: (initializer) => _class_initializers_ia8koshaj0g.push(initializer),
   defineMetadata: __DefineMetadata(C, "constructor")
-}), C, _class_initializers_ia8koshaj0g);
+}) ?? C;
 
-_class_initializers_ia8koshaj0g.forEach(initialize => initialize.call(C, C));
+_class_initializers_ia8koshaj0g.forEach(initializer => initializer.call(C, C));
 
 console.assert(C.test === 10);

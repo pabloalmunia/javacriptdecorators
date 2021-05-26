@@ -1,0 +1,66 @@
+function decorator(value, context) {
+  console.log("value", value);
+  console.log("context", context);
+  return {
+    initialize() {
+      this.test = this.test ? this.test * 2 : 10;
+    }
+  };
+}
+
+if (!Symbol.metadata) {
+  Symbol.metadata = Symbol();
+}
+
+function __DefineMetadata(base, name) {
+  return function(key, value) {
+    if (!base[Symbol.metadata]) {
+      base[Symbol.metadata] = Object.create(null);
+    }
+    if (!base[Symbol.metadata][name]) {
+      base[Symbol.metadata][name] = {};
+    }
+    const db = base[Symbol.metadata][name];
+    if (key in db) {
+      if (!Array.isArray(db[key])) {
+        return db[key] = [db[key], value];
+      }
+      return db[key].push(value);
+    }
+    return db[key] = value;
+  };
+}
+
+const _C_m_symbol_mnkjvo = Symbol();
+
+class C {
+  static _C_m_temp_bg1qvo() {}
+  static [_C_m_symbol_mnkjvo] = decorator(C._C_m_temp_bg1qvo, {
+    kind: "method",
+    name: "#m",
+    isStatic: true,
+    isPrivate: true,
+    access: {
+      get: C[_C_m_symbol_mnkjvo]
+    },
+    defineMetadata: __DefineMetadata(C, "#m")
+  }) ?? C._C_m_temp_bg1qvo;
+  static [_C_m_symbol_mnkjvo] = decorator(C[_C_m_symbol_mnkjvo], {
+    kind: "method",
+    name: "#m",
+    isStatic: true,
+    isPrivate: true,
+    access: {
+      get: C[_C_m_symbol_mnkjvo]
+    },
+    defineMetadata: __DefineMetadata(C, "#m")
+  }) ?? C[_C_m_symbol_mnkjvo];
+  static #m = C[_C_m_symbol_mnkjvo];
+  static [_C_m_symbol_mnkjvo]() {
+    return this.#m;
+  }
+}
+
+delete C._C_m_temp_bg1qvo;
+
+console.assert(C.test === 20);

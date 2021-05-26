@@ -463,13 +463,14 @@
           "type": "Decorator",
           "start": 438,
           "end": 450,
+          "init": true,
           "expression": {
             "type": "Identifier",
             "start": 444,
             "end": 450,
             "name": "logged"
           },
-          "kind": "init-class"
+          "kind": "class"
         }
       ]
     },

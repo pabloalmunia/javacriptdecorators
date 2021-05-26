@@ -258,13 +258,14 @@
                 "type": "Decorator",
                 "start": 194,
                 "end": 209,
+                "init": true,
                 "expression": {
                   "type": "Identifier",
                   "start": 200,
                   "end": 209,
                   "name": "decorator"
                 },
-                "kind": "init-getter"
+                "kind": "getter"
               }
             ]
           }

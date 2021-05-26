@@ -1,0 +1,125 @@
+function addProperty(key, value) {
+  return (klass, context) => {
+    if (context.kind === "init-method" || context.kind === "init-getter" || context.kind === "init-setter") {
+      return {
+        initialize() {
+          this[key] = value;
+        }
+      };
+    }
+  };
+}
+
+if (!Symbol.metadata) {
+  Symbol.metadata = Symbol();
+}
+
+function __DefineMetadata(base, name) {
+  return function(key, value) {
+    if (!base[Symbol.metadata]) {
+      base[Symbol.metadata] = Object.create(null);
+    }
+    if (!base[Symbol.metadata][name]) {
+      base[Symbol.metadata][name] = {};
+    }
+    const db = base[Symbol.metadata][name];
+    if (key in db) {
+      if (!Array.isArray(db[key])) {
+        return db[key] = [db[key], value];
+      }
+      return db[key].push(value);
+    }
+    return db[key] = value;
+  };
+}
+
+const _C_p_symbol_9k57h = Symbol();
+
+class C {
+  constructor() {
+    this.z = 100;
+  }
+  _C_p_temp_ll4ug(v) {}
+  static [_C_p_symbol_9k57h] = addProperty("a", 1)(C.prototype._C_p_temp_ll4ug, {
+    kind: "setter",
+    name: "#p",
+    isStatic: false,
+    isPrivate: true,
+    access: {
+      get: C.prototype[_C_p_symbol_9k57h]
+    },
+    defineMetadata: __DefineMetadata(C.prototype, "#p")
+  }) ?? C.prototype._C_p_temp_ll4ug;
+  static [_C_p_symbol_9k57h] = addProperty("b", 2)(C[_C_p_symbol_9k57h], {
+    kind: "setter",
+    name: "#p",
+    isStatic: false,
+    isPrivate: true,
+    access: {
+      get: C.prototype[_C_p_symbol_9k57h]
+    },
+    defineMetadata: __DefineMetadata(C.prototype, "#p")
+  }) ?? C[_C_p_symbol_9k57h];
+  set #p(v) {
+    return C[_C_p_symbol_9k57h].bind(this)(v);
+  }
+  [_C_p_symbol_9k57h]() {
+    return C[_C_p_symbol_9k57h].bind(this);
+  }
+}
+
+delete C.prototype._C_p_temp_ll4ug;
+
+const _D_p_symbol_42vc4o = Symbol();
+
+class D extends C {
+  _D_p_temp_g5uhfg(v) {}
+  static [_D_p_symbol_42vc4o] = addProperty("c", 3)(D.prototype._D_p_temp_g5uhfg, {
+    kind: "setter",
+    name: "#p",
+    isStatic: false,
+    isPrivate: true,
+    access: {
+      get: D.prototype[_D_p_symbol_42vc4o]
+    },
+    defineMetadata: __DefineMetadata(D.prototype, "#p")
+  }) ?? D.prototype._D_p_temp_g5uhfg;
+  static [_D_p_symbol_42vc4o] = addProperty("d", 4)(D[_D_p_symbol_42vc4o], {
+    kind: "setter",
+    name: "#p",
+    isStatic: false,
+    isPrivate: true,
+    access: {
+      get: D.prototype[_D_p_symbol_42vc4o]
+    },
+    defineMetadata: __DefineMetadata(D.prototype, "#p")
+  }) ?? D[_D_p_symbol_42vc4o];
+  set #p(v) {
+    return D[_D_p_symbol_42vc4o].bind(this)(v);
+  }
+  [_D_p_symbol_42vc4o]() {
+    return D[_D_p_symbol_42vc4o].bind(this);
+  }
+}
+
+delete D.prototype._D_p_temp_g5uhfg;
+
+const c = new C();
+
+console.assert(c.a === 1);
+
+console.assert(c.b === 2);
+
+console.assert(c.c === undefined);
+
+console.assert(c.d === undefined);
+
+const d = new D();
+
+console.assert(d.a === 1);
+
+console.assert(d.b === 2);
+
+console.assert(d.c === 3);
+
+console.assert(d.d === 4);

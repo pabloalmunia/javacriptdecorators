@@ -926,13 +926,14 @@
                 "type": "Decorator",
                 "start": 727,
                 "end": 742,
+                "init": true,
                 "expression": {
                   "type": "Identifier",
                   "start": 733,
                   "end": 742,
                   "name": "decorator"
                 },
-                "kind": "init-setter"
+                "kind": "setter"
               }
             ]
           },

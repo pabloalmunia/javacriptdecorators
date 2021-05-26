@@ -578,13 +578,14 @@
                 "type": "Decorator",
                 "start": 446,
                 "end": 461,
+                "init": true,
                 "expression": {
                   "type": "Identifier",
                   "start": 452,
                   "end": 461,
                   "name": "decorator"
                 },
-                "kind": "init-method"
+                "kind": "method"
               }
             ]
           }

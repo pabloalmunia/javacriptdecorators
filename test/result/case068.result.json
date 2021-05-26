@@ -390,6 +390,7 @@
                 "type": "Decorator",
                 "start": 343,
                 "end": 368,
+                "init": true,
                 "expression": {
                   "type": "CallExpression",
                   "start": 349,
@@ -418,12 +419,13 @@
                   ],
                   "optional": false
                 },
-                "kind": "init-getter"
+                "kind": "getter"
               },
               {
                 "type": "Decorator",
                 "start": 372,
                 "end": 397,
+                "init": true,
                 "expression": {
                   "type": "CallExpression",
                   "start": 378,
@@ -452,7 +454,7 @@
                   ],
                   "optional": false
                 },
-                "kind": "init-getter"
+                "kind": "getter"
               }
             ]
           }
@@ -514,6 +516,7 @@
                 "type": "Decorator",
                 "start": 448,
                 "end": 473,
+                "init": true,
                 "expression": {
                   "type": "CallExpression",
                   "start": 454,
@@ -542,12 +545,13 @@
                   ],
                   "optional": false
                 },
-                "kind": "init-getter"
+                "kind": "getter"
               },
               {
                 "type": "Decorator",
                 "start": 477,
                 "end": 502,
+                "init": true,
                 "expression": {
                   "type": "CallExpression",
                   "start": 483,
@@ -576,7 +580,7 @@
                   ],
                   "optional": false
                 },
-                "kind": "init-getter"
+                "kind": "getter"
               }
             ]
           }

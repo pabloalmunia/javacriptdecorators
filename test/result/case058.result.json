@@ -314,6 +314,7 @@
                 "type": "Decorator",
                 "start": 274,
                 "end": 299,
+                "init": true,
                 "expression": {
                   "type": "CallExpression",
                   "start": 280,
@@ -342,12 +343,13 @@
                   ],
                   "optional": false
                 },
-                "kind": "init-method"
+                "kind": "method"
               },
               {
                 "type": "Decorator",
                 "start": 303,
                 "end": 328,
+                "init": true,
                 "expression": {
                   "type": "CallExpression",
                   "start": 309,
@@ -376,7 +378,7 @@
                   ],
                   "optional": false
                 },
-                "kind": "init-method"
+                "kind": "method"
               }
             ]
           }

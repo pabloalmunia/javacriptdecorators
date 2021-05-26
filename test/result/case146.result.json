@@ -804,13 +804,14 @@
                 "type": "Decorator",
                 "start": 651,
                 "end": 666,
+                "init": true,
                 "expression": {
                   "type": "Identifier",
                   "start": 657,
                   "end": 666,
                   "name": "decorator"
                 },
-                "kind": "init-getter"
+                "kind": "getter"
               }
             ]
           },
