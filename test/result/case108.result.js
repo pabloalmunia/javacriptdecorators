@@ -1,11 +1,9 @@
 function addProperty(key, value) {
   return (klass, context) => {
-    if (context.kind === "init-method" || context.kind === "init-getter" || context.kind === "init-setter") {
-      return {
-        initialize() {
-          this[key] = value;
-        }
-      };
+    if ((context.kind === "method" || context.kind === "getter" || context.kind === "setter") && context.addInitializer) {
+      context.addInitializer(function() {
+        this[key] = value;
+      });
     }
   };
 }
@@ -33,101 +31,89 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
+const _C_member_initializers_se9a3 = [];
 
-const _member_initializers_jd19l9pfoqo = [];
-
-const _symbol_3mm1qdgn4ag = Symbol();
+const _C_p_symbol_je8qao = Symbol();
 
 class C {
   constructor() {
     this.z = 100;
-    _member_initializers_jd19l9pfoqo.forEach(initialize => initialize.call(this));
+    _C_member_initializers_se9a3.forEach(initialize => initialize.call(this));
   }
-  _temp_lqcvmnd1cuo() {}
-  static [_symbol_3mm1qdgn4ag] = __applyDecorator(addProperty("a", 1)(C.prototype._temp_lqcvmnd1cuo, {
-    kind: "init-getter",
+  _C_p_temp_nrdl9g() {}
+  static [_C_p_symbol_je8qao] = addProperty("a", 1)(C.prototype._C_p_temp_nrdl9g, {
+    kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_symbol_3mm1qdgn4ag]
+      get: C.prototype[_C_p_symbol_je8qao]
     },
-    defineMetadata: __DefineMetadata(C.prototype, "#p")
-  }), C.prototype._temp_lqcvmnd1cuo, _member_initializers_jd19l9pfoqo);
-  static [_symbol_3mm1qdgn4ag] = __applyDecorator(addProperty("b", 2)(C.prototype.undefined, {
-    kind: "init-getter",
+    defineMetadata: __DefineMetadata(C.prototype, "#p"),
+    addInitializer: initializer => _C_member_initializers_se9a3.push(initializer)
+  }) ?? C.prototype._C_p_temp_nrdl9g;
+  static [_C_p_symbol_je8qao] = addProperty("b", 2)(C[_C_p_symbol_je8qao], {
+    kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_symbol_3mm1qdgn4ag]
+      get: C.prototype[_C_p_symbol_je8qao]
     },
-    defineMetadata: __DefineMetadata(C.prototype, "#p")
-  }), C[_symbol_3mm1qdgn4ag], _member_initializers_jd19l9pfoqo);
+    defineMetadata: __DefineMetadata(C.prototype, "#p"),
+    addInitializer: initializer => _C_member_initializers_se9a3.push(initializer)
+  }) ?? C[_C_p_symbol_je8qao];
   get #p() {
-    return C[_symbol_3mm1qdgn4ag].bind(this)();
+    return C[_C_p_symbol_je8qao].bind(this)();
   }
-  [_symbol_3mm1qdgn4ag]() {
-    return C[_symbol_3mm1qdgn4ag].bind(this);
+  [_C_p_symbol_je8qao]() {
+    return C[_C_p_symbol_je8qao].bind(this);
   }
 }
 
-delete C.prototype._temp_lqcvmnd1cuo;
+delete C.prototype._C_p_temp_nrdl9g;
 
-const _member_initializers_nudk5m02tlo = [];
+const _D_member_initializers_r6p7og = [];
 
-const _symbol_cme92t00tc8 = Symbol();
+const _D_p_symbol_0q36ho = Symbol();
 
 class D extends C {
   constructor() {
     super();
-    _member_initializers_nudk5m02tlo.forEach(initialize => initialize.call(this));
+    _D_member_initializers_r6p7og.forEach(initialize => initialize.call(this));
   }
-  _temp_5ug2ol3mtg() {}
-  static [_symbol_cme92t00tc8] = __applyDecorator(addProperty("c", 3)(D.prototype._temp_5ug2ol3mtg, {
-    kind: "init-getter",
+  _D_p_temp_fkd2t8() {}
+  static [_D_p_symbol_0q36ho] = addProperty("c", 3)(D.prototype._D_p_temp_fkd2t8, {
+    kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: D.prototype[_symbol_cme92t00tc8]
+      get: D.prototype[_D_p_symbol_0q36ho]
     },
-    defineMetadata: __DefineMetadata(D.prototype, "#p")
-  }), D.prototype._temp_5ug2ol3mtg, _member_initializers_nudk5m02tlo);
-  static [_symbol_cme92t00tc8] = __applyDecorator(addProperty("d", 4)(D.prototype.undefined, {
-    kind: "init-getter",
+    defineMetadata: __DefineMetadata(D.prototype, "#p"),
+    addInitializer: initializer => _D_member_initializers_r6p7og.push(initializer)
+  }) ?? D.prototype._D_p_temp_fkd2t8;
+  static [_D_p_symbol_0q36ho] = addProperty("d", 4)(D[_D_p_symbol_0q36ho], {
+    kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: D.prototype[_symbol_cme92t00tc8]
+      get: D.prototype[_D_p_symbol_0q36ho]
     },
-    defineMetadata: __DefineMetadata(D.prototype, "#p")
-  }), D[_symbol_cme92t00tc8], _member_initializers_nudk5m02tlo);
+    defineMetadata: __DefineMetadata(D.prototype, "#p"),
+    addInitializer: initializer => _D_member_initializers_r6p7og.push(initializer)
+  }) ?? D[_D_p_symbol_0q36ho];
   get #p() {
-    return D[_symbol_cme92t00tc8].bind(this)();
+    return D[_D_p_symbol_0q36ho].bind(this)();
   }
-  [_symbol_cme92t00tc8]() {
-    return D[_symbol_cme92t00tc8].bind(this);
+  [_D_p_symbol_0q36ho]() {
+    return D[_D_p_symbol_0q36ho].bind(this);
   }
 }
 
-delete D.prototype._temp_5ug2ol3mtg;
+delete D.prototype._D_p_temp_fkd2t8;
 
 const c = new C();
 

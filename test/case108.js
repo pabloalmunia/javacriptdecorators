@@ -1,14 +1,13 @@
 function addProperty(key, value) {
   return (klass, context) => {
-    if (context.kind === 'init-method' ||  context.kind === 'init-getter' || context.kind === 'init-setter') {
-      return {
-        initialize() {
-          this[key] = value;
-        }
-      }
+    if ((context.kind === 'method' ||  context.kind === 'getter' || context.kind === 'setter') && context.addInitializer) {
+      context.addInitializer(function () {
+        this[key] = value;
+      });
     }
   }
 }
+
 
 class C {
   constructor() {

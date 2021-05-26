@@ -1,6 +1,6 @@
 function addProperty(key, value) {
   return (klass, context) => {
-    if (context.kind === 'method' && context.addInitializer {
+    if (context.kind === 'method' && context.addInitializer) {
       context.addInitializer(function () {
         this[key] = value;
       });

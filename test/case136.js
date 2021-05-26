@@ -1,7 +1,7 @@
 function decorator (value, context) {
   console.log("value", value);
   console.log("context", context);
-  context.addInitialize(function () {
+  context.addInitializer(function () {
     this.test = 10;
   });
 }
@@ -14,4 +14,4 @@ class C {
   static #m() {}
 }
 
-console.assert(C.test === 20);
+console.assert(C.test === 10);

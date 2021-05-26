@@ -1,16 +1,15 @@
 function decorator(value, context) {
-  if ((context.kind === "method" || context.kind === "getter" || context.kind === "setter" || context.kind === "init-method" || context.kind === "init-getter" || context.kind === "init-setter") && context.isStatic) {
-    return {
-      set(...args) {
-        console.log(`starting ${context.name} with arguments ${args.join(", ")}`);
-        const ret = value(...args);
-        console.log(`ending ${context.name}`);
-        return ret;
-      },
-      initialize(v) {
-        console.log("initialize class");
-        this.test = 10;
-      }
+  if ((context.kind === "method" || context.kind === "getter" || context.kind === "setter") && context.isStatic && context.addInitializer) {
+    context.addInitializer(function() {
+      this.test = 10;
+    });
+    return function(...args) {
+      console.log(
+        `starting ${context.kind} ${context.name} ${context.kind !== "getter" ? `with arguments ${args.join(", ")}` : ""}`
+      );
+      const ret = value(args[0] * 2);
+      console.log(`ending ${context.name}`);
+      return ret * 2;
     };
   }
 }
@@ -38,49 +37,53 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
+const _C_static_initializers_73b1oo = [];
 
-const _static_initializers_ij3gkrte5v = [];
+const _C_P_symbol_firn7g = Symbol();
 
-const _symbol_euf2692qo08 = Symbol();
+const _C_P_symbol_0vclbg = Symbol();
 
 class C {
   static #other = 0;
-  static get #P() {
+  static _C_P_temp_sm66u8() {
     return C.#other;
   }
-  static _temp_1k6tbn5939(v) {
-    return C.#other = v;
-  }
-  static [_symbol_euf2692qo08] = __applyDecorator(decorator(C._temp_1k6tbn5939, {
-    kind: "init-setter",
+  static [_C_P_symbol_firn7g] = decorator(C._C_P_temp_sm66u8, {
+    kind: "getter",
     name: "#P",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_symbol_euf2692qo08]
+      get: C[_C_P_symbol_firn7g]
     },
-    defineMetadata: __DefineMetadata(C, "#P")
-  }), C._temp_1k6tbn5939, _static_initializers_ij3gkrte5v);
-  static set #P(v) {
-    return C[_symbol_euf2692qo08].bind(this)(v);
+    defineMetadata: __DefineMetadata(C, "#P"),
+    addInitializer: initializer => _C_static_initializers_73b1oo.push(initializer)
+  }) ?? C._C_P_temp_sm66u8;
+  static get #P() {
+    return C[_C_P_symbol_firn7g].bind(this)();
   }
-  static [_symbol_euf2692qo08]() {
-    return C[_symbol_euf2692qo08].bind(this);
+  static [_C_P_symbol_firn7g]() {
+    return C[_C_P_symbol_firn7g].bind(this);
+  }
+  static _C_P_temp_i2hang(v) {
+    return C.#other = v;
+  }
+  static [_C_P_symbol_0vclbg] = decorator(C._C_P_temp_i2hang, {
+    kind: "setter",
+    name: "#P",
+    isStatic: true,
+    isPrivate: true,
+    access: {
+      get: C[_C_P_symbol_0vclbg]
+    },
+    defineMetadata: __DefineMetadata(C, "#P"),
+    addInitializer: initializer => _C_static_initializers_73b1oo.push(initializer)
+  }) ?? C._C_P_temp_i2hang;
+  static set #P(v) {
+    return C[_C_P_symbol_0vclbg].bind(this)(v);
+  }
+  static [_C_P_symbol_0vclbg]() {
+    return C[_C_P_symbol_0vclbg].bind(this);
   }
   static get check() {
     return C.#P;
@@ -90,14 +93,16 @@ class C {
   }
 }
 
-delete C._temp_1k6tbn5939;
+delete C._C_P_temp_i2hang;
 
-_static_initializers_ij3gkrte5v.forEach(initialize => initialize.call(C, C));
+delete C._C_P_temp_sm66u8;
+
+_C_static_initializers_73b1oo.forEach(initialize => initialize.call(C, C));
 
 console.assert(C.check === 0);
 
 C.check = 20;
 
-console.assert(C.check === 20);
+console.assert(C.check === 80);
 
 console.assert(C.test === 10);

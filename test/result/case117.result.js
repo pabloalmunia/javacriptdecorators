@@ -1,14 +1,12 @@
 function decorator(value, context) {
-  console.log("value", value);
-  console.log("context", context);
-  return {
-    set(v) {
-      value.call(this, v * 2);
-    },
-    initialize() {
+  if (context.kind === "setter") {
+    context.addInitializer(function() {
       this.test = 10;
-    }
-  };
+    });
+    return function(v) {
+      return value.call(this, v * 2);
+    };
+  }
 }
 
 if (!Symbol.metadata) {
@@ -34,52 +32,37 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
+const _C_member_initializers_a9bu48 = [];
 
-const _member_initializers_b8nkc4mg038 = [];
-
-const _symbol_o0cdu4ganho = Symbol();
+const _C_p_symbol_cl526o = Symbol();
 
 class C {
   constructor() {
-    _member_initializers_b8nkc4mg038.forEach(initialize => initialize.call(this));
+    _C_member_initializers_a9bu48.forEach(initialize => initialize.call(this));
   }
   #other = 10;
   get #p() {
     return this.#other;
   }
-  _temp_a3j9i1spj(v) {
+  _C_p_temp_d6hcn(v) {
     this.#other = v;
   }
-  static [_symbol_o0cdu4ganho] = __applyDecorator(decorator(C.prototype._temp_a3j9i1spj, {
-    kind: "init-setter",
+  static [_C_p_symbol_cl526o] = decorator(C.prototype._C_p_temp_d6hcn, {
+    kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_symbol_o0cdu4ganho]
+      get: C.prototype[_C_p_symbol_cl526o]
     },
-    defineMetadata: __DefineMetadata(C.prototype, "#p")
-  }), C.prototype._temp_a3j9i1spj, _member_initializers_b8nkc4mg038);
+    defineMetadata: __DefineMetadata(C.prototype, "#p"),
+    addInitializer: initializer => _C_member_initializers_a9bu48.push(initializer)
+  }) ?? C.prototype._C_p_temp_d6hcn;
   set #p(v) {
-    return C[_symbol_o0cdu4ganho].bind(this)(v);
+    return C[_C_p_symbol_cl526o].bind(this)(v);
   }
-  [_symbol_o0cdu4ganho]() {
-    return C[_symbol_o0cdu4ganho].bind(this);
+  [_C_p_symbol_cl526o]() {
+    return C[_C_p_symbol_cl526o].bind(this);
   }
   set check(v) {
     this.#p = v;
@@ -89,7 +72,7 @@ class C {
   }
 }
 
-delete C.prototype._temp_a3j9i1spj;
+delete C.prototype._C_p_temp_d6hcn;
 
 console.assert(new C().test === 10);
 

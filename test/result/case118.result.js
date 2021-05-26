@@ -1,11 +1,9 @@
 function addProperty(key, value) {
   return (klass, context) => {
-    if (context.kind === "init-method" || context.kind === "init-getter" || context.kind === "init-setter") {
-      return {
-        initialize() {
-          this[key] = value;
-        }
-      };
+    if ((context.kind === "method" || context.kind === "getter" || context.kind === "setter") && context.addInitializer) {
+      context.addInitializer(function() {
+        this[key] = value;
+      });
     }
   };
 }
@@ -33,101 +31,89 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
+const _C_member_initializers_69hmug = [];
 
-const _member_initializers_v6gf7anckjo = [];
-
-const _symbol_i6p39b292og = Symbol();
+const _C_p_symbol_gvu4rg = Symbol();
 
 class C {
   constructor() {
     this.z = 100;
-    _member_initializers_v6gf7anckjo.forEach(initialize => initialize.call(this));
+    _C_member_initializers_69hmug.forEach(initialize => initialize.call(this));
   }
-  _temp_ts6p908jm0o(v) {}
-  static [_symbol_i6p39b292og] = __applyDecorator(addProperty("a", 1)(C.prototype._temp_ts6p908jm0o, {
-    kind: "init-setter",
+  _C_p_temp_hqj9cg(v) {}
+  static [_C_p_symbol_gvu4rg] = addProperty("a", 1)(C.prototype._C_p_temp_hqj9cg, {
+    kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_symbol_i6p39b292og]
+      get: C.prototype[_C_p_symbol_gvu4rg]
     },
-    defineMetadata: __DefineMetadata(C.prototype, "#p")
-  }), C.prototype._temp_ts6p908jm0o, _member_initializers_v6gf7anckjo);
-  static [_symbol_i6p39b292og] = __applyDecorator(addProperty("b", 2)(C.prototype.undefined, {
-    kind: "init-setter",
+    defineMetadata: __DefineMetadata(C.prototype, "#p"),
+    addInitializer: initializer => _C_member_initializers_69hmug.push(initializer)
+  }) ?? C.prototype._C_p_temp_hqj9cg;
+  static [_C_p_symbol_gvu4rg] = addProperty("b", 2)(C[_C_p_symbol_gvu4rg], {
+    kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_symbol_i6p39b292og]
+      get: C.prototype[_C_p_symbol_gvu4rg]
     },
-    defineMetadata: __DefineMetadata(C.prototype, "#p")
-  }), C[_symbol_i6p39b292og], _member_initializers_v6gf7anckjo);
+    defineMetadata: __DefineMetadata(C.prototype, "#p"),
+    addInitializer: initializer => _C_member_initializers_69hmug.push(initializer)
+  }) ?? C[_C_p_symbol_gvu4rg];
   set #p(v) {
-    return C[_symbol_i6p39b292og].bind(this)(v);
+    return C[_C_p_symbol_gvu4rg].bind(this)(v);
   }
-  [_symbol_i6p39b292og]() {
-    return C[_symbol_i6p39b292og].bind(this);
+  [_C_p_symbol_gvu4rg]() {
+    return C[_C_p_symbol_gvu4rg].bind(this);
   }
 }
 
-delete C.prototype._temp_ts6p908jm0o;
+delete C.prototype._C_p_temp_hqj9cg;
 
-const _member_initializers_otte3718ngg = [];
+const _D_member_initializers_7qqtj8 = [];
 
-const _symbol_vo680a12u08 = Symbol();
+const _D_p_symbol_mbk62 = Symbol();
 
 class D extends C {
   constructor() {
     super();
-    _member_initializers_otte3718ngg.forEach(initialize => initialize.call(this));
+    _D_member_initializers_7qqtj8.forEach(initialize => initialize.call(this));
   }
-  _temp_se12goejbbo(v) {}
-  static [_symbol_vo680a12u08] = __applyDecorator(addProperty("c", 3)(D.prototype._temp_se12goejbbo, {
-    kind: "init-setter",
+  _D_p_temp_d3khs8(v) {}
+  static [_D_p_symbol_mbk62] = addProperty("c", 3)(D.prototype._D_p_temp_d3khs8, {
+    kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: D.prototype[_symbol_vo680a12u08]
+      get: D.prototype[_D_p_symbol_mbk62]
     },
-    defineMetadata: __DefineMetadata(D.prototype, "#p")
-  }), D.prototype._temp_se12goejbbo, _member_initializers_otte3718ngg);
-  static [_symbol_vo680a12u08] = __applyDecorator(addProperty("d", 4)(D.prototype.undefined, {
-    kind: "init-setter",
+    defineMetadata: __DefineMetadata(D.prototype, "#p"),
+    addInitializer: initializer => _D_member_initializers_7qqtj8.push(initializer)
+  }) ?? D.prototype._D_p_temp_d3khs8;
+  static [_D_p_symbol_mbk62] = addProperty("d", 4)(D[_D_p_symbol_mbk62], {
+    kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: D.prototype[_symbol_vo680a12u08]
+      get: D.prototype[_D_p_symbol_mbk62]
     },
-    defineMetadata: __DefineMetadata(D.prototype, "#p")
-  }), D[_symbol_vo680a12u08], _member_initializers_otte3718ngg);
+    defineMetadata: __DefineMetadata(D.prototype, "#p"),
+    addInitializer: initializer => _D_member_initializers_7qqtj8.push(initializer)
+  }) ?? D[_D_p_symbol_mbk62];
   set #p(v) {
-    return D[_symbol_vo680a12u08].bind(this)(v);
+    return D[_D_p_symbol_mbk62].bind(this)(v);
   }
-  [_symbol_vo680a12u08]() {
-    return D[_symbol_vo680a12u08].bind(this);
+  [_D_p_symbol_mbk62]() {
+    return D[_D_p_symbol_mbk62].bind(this);
   }
 }
 
-delete D.prototype._temp_se12goejbbo;
+delete D.prototype._D_p_temp_d3khs8;
 
 const c = new C();
 

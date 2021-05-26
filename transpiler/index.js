@@ -1426,7 +1426,62 @@ function privateMemberBeforeGenerator (symbolName) {
   }];
 }
 
-function privateCallDecorator ({kind, className, decoratorName, symbolName, tempName, elementPrivateName, isStatic, isFirst}) {
+function privateCallDecorator ({init, kind, className, decoratorName, symbolName, tempName, elementPrivateName, initializersName, isStatic, isFirst}) {
+  const decoratorParameter = [
+    {
+      'type'  : 'Property',
+      'key'   : I ('kind'),
+      'value' : L (kind)
+    },
+    {
+      'type'  : 'Property',
+      'key'   : I ('name'),
+      'value' : L (elementPrivateName)
+    },
+    {
+      'type'  : 'Property',
+      'key'   : I ('isStatic'),
+      'value' : L (isStatic)
+    },
+    {
+      'type'  : 'Property',
+      'key'   : I ('isPrivate'),
+      'value' : L (true)
+    },
+    {
+      'type'  : 'Property',
+      'key'   : I ('access'),
+      'value' : {
+        'type'       : 'ObjectExpression',
+        'properties' : [
+          {
+            'type'  : 'Property',
+            'key'   : I ('get'),
+            'value' : {
+              'type'     : 'MemberExpression',
+              'object'   :
+                (isStatic) ?
+                  I (className) :
+                  {
+                    'type'     : 'MemberExpression',
+                    'object'   : I (className),
+                    'property' : I ('prototype')
+                  },
+              'property' : I (symbolName),
+              'computed' : true
+            }
+          }
+        ]
+      }
+    },
+    defineMetadataGeneratorCall (
+      className + (isStatic ? '' : '.prototype'),
+      elementPrivateName
+    )
+  ];
+  if (init) {
+    decoratorParameter.push(addInitializer(initializersName));
+  }
   return callExpression (
     decoratorName,
     [
@@ -1435,58 +1490,7 @@ function privateCallDecorator ({kind, className, decoratorName, symbolName, temp
         I (className + '.' + symbolName, true),
       {
         'type'       : 'ObjectExpression',
-        'properties' : [
-          {
-            'type'  : 'Property',
-            'key'   : I ('kind'),
-            'value' : L (kind)
-          },
-          {
-            'type'  : 'Property',
-            'key'   : I ('name'),
-            'value' : L (elementPrivateName)
-          },
-          {
-            'type'  : 'Property',
-            'key'   : I ('isStatic'),
-            'value' : L (isStatic)
-          },
-          {
-            'type'  : 'Property',
-            'key'   : I ('isPrivate'),
-            'value' : L (true)
-          },
-          {
-            'type'  : 'Property',
-            'key'   : I ('access'),
-            'value' : {
-              'type'       : 'ObjectExpression',
-              'properties' : [
-                {
-                  'type'  : 'Property',
-                  'key'   : I ('get'),
-                  'value' : {
-                    'type'     : 'MemberExpression',
-                    'object'   :
-                      (isStatic) ?
-                        I (className) :
-                        {
-                          'type'     : 'MemberExpression',
-                          'object'   : I (className),
-                          'property' : I ('prototype')
-                        },
-                    'property' : I (symbolName),
-                    'computed' : true
-                  }
-                }
-              ]
-            }
-          },
-          defineMetadataGeneratorCall (
-            className + (isStatic ? '' : '.prototype'),
-            elementPrivateName
-          )
-        ]
+        'properties' : decoratorParameter
       }
     ]
   );
@@ -1506,21 +1510,12 @@ function privateFirstMemberGenerator ({init, kind, className, element, elementNa
       'static'   : true,
       'computed' : true,
       'key'      : I (symbolName),
-      'value'    : init ?
-        callExpression (
-          '__applyDecorator',
-          [
-            privateCallDecorator ({kind, className, element, elementName, elementPrivateName, decoratorName, tempName, symbolName, isStatic, isFirst : true}),
-            (isStatic ? className : className + '.prototype') + '.' + tempName,
-            initializersName
-          ]
-        ) :
-        {
-          'type'     : 'LogicalExpression',
-          'left'     : privateCallDecorator ({kind, className, element, elementName, elementPrivateName, decoratorName, tempName, symbolName, isStatic, isFirst : true}),
-          'operator' : '??',
-          'right'    : I ((isStatic ? className : className + '.prototype') + '.' + tempName)
-        }
+      'value'    : {
+        'type'     : 'LogicalExpression',
+        'left'     : privateCallDecorator ({init, kind, className, element, elementName, elementPrivateName, decoratorName, tempName, initializersName, symbolName, isStatic, isFirst : true}),
+        'operator' : '??',
+        'right'    : I ((isStatic ? className : className + '.prototype') + '.' + tempName)
+      }
     },
     (kind === 'getter' || kind === 'setter') ?
       {
@@ -1640,21 +1635,12 @@ function privateNextMemberGenerator (descriptor, {init, kind, className, element
       'static'   : true,
       'computed' : true,
       'key'      : I (symbolName),
-      'value'    : init ?
-        callExpression (
-          '__applyDecorator',
-          [
-            privateCallDecorator ({kind, className, elementPrivateName, decoratorName, symbolName, isStatic, isFirst : true}),
-            I (className + '.' + symbolName, true),
-            initializersName
-          ]
-        ) :
-        {
-          'type'     : 'LogicalExpression',
-          'left'     : privateCallDecorator ({kind, className, elementPrivateName, decoratorName, isStatic, symbolName}),
-          'operator' : '??',
-          'right'    : I (className + '.' + symbolName, true)
-        }
+      'value'    : {
+        'type'     : 'LogicalExpression',
+        'left'     : privateCallDecorator ({init, kind, className, elementPrivateName, decoratorName, initializersName, isStatic, symbolName}),
+        'operator' : '??',
+        'right'    : I (className + '.' + symbolName, true)
+      }
     }
   );
 }

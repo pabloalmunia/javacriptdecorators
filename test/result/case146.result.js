@@ -1,15 +1,13 @@
 function decorator(value, context) {
-  if ((context.kind === "method" || context.kind === "getter" || context.kind === "setter" || context.kind === "init-method" || context.kind === "init-getter" || context.kind === "init-setter") && context.isStatic) {
-    return {
-      get(...args) {
-        console.log(`starting ${context.name} with arguments ${args.join(", ")}`);
-        const ret = value(...args);
-        console.log(`ending ${context.name}`);
-        return ret;
-      },
-      initialize(v) {
-        console.log("initialize class");
-      }
+  if ((context.kind === "method" || context.kind === "getter" || context.kind === "setter") && context.isStatic && context.addInitializer) {
+    context.addInitializer(function() {
+      this.test = 10;
+    });
+    return function(...args) {
+      console.log(`starting ${context.name} with arguments ${args.join(", ")}`);
+      const ret = value(...args);
+      console.log(`ending ${context.name}`);
+      return ret * 2;
     };
   }
 }
@@ -37,56 +35,41 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
+const _C_static_initializers_su33vg = [];
 
-const _static_initializers_li9e74ufph8 = [];
-
-const _symbol_94tqrvabne8 = Symbol();
+const _C_P_symbol_la8suo = Symbol();
 
 class C {
-  static #other = 0;
-  static _temp_iorthpptp28() {
+  static #other = 2;
+  static _C_P_temp_ig9ifo() {
     return C.#other;
   }
-  static [_symbol_94tqrvabne8] = __applyDecorator(decorator(C._temp_iorthpptp28, {
-    kind: "init-getter",
+  static [_C_P_symbol_la8suo] = decorator(C._C_P_temp_ig9ifo, {
+    kind: "getter",
     name: "#P",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_symbol_94tqrvabne8]
+      get: C[_C_P_symbol_la8suo]
     },
-    defineMetadata: __DefineMetadata(C, "#P")
-  }), C._temp_iorthpptp28, _static_initializers_li9e74ufph8);
+    defineMetadata: __DefineMetadata(C, "#P"),
+    addInitializer: initializer => _C_static_initializers_su33vg.push(initializer)
+  }) ?? C._C_P_temp_ig9ifo;
   static get #P() {
-    return C[_symbol_94tqrvabne8].bind(this)();
+    return C[_C_P_symbol_la8suo].bind(this)();
   }
-  static [_symbol_94tqrvabne8]() {
-    return C[_symbol_94tqrvabne8].bind(this);
+  static [_C_P_symbol_la8suo]() {
+    return C[_C_P_symbol_la8suo].bind(this);
   }
   static check() {
     return C.#P;
   }
 }
 
-delete C._temp_iorthpptp28;
+delete C._C_P_temp_ig9ifo;
 
-_static_initializers_li9e74ufph8.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_su33vg.forEach(initialize => initialize.call(C, C));
 
-console.assert(C.check() === 0);
+console.assert(C.check() === 4);
 
 console.assert(C.test === 10);

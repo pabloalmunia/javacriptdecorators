@@ -1,11 +1,9 @@
 function decorator(value, context) {
   console.log("value", value);
   console.log("context", context);
-  return {
-    initialize() {
-      this.test = 10;
-    }
-  };
+  context.addInitializer(function() {
+    this.test = 10;
+  });
 }
 
 if (!Symbol.metadata) {
@@ -31,49 +29,34 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
+const _C_member_initializers_0kdd3 = [];
 
-const _member_initializers_6gpdfp1jrr = [];
-
-const _symbol_c2rshd8t3pg = Symbol();
+const _C_p_symbol_o8c4ng = Symbol();
 
 class C {
   constructor() {
-    _member_initializers_6gpdfp1jrr.forEach(initialize => initialize.call(this));
+    _C_member_initializers_0kdd3.forEach(initialize => initialize.call(this));
   }
-  _temp_oj8del6p9eo(v) {}
-  static [_symbol_c2rshd8t3pg] = __applyDecorator(decorator(C.prototype._temp_oj8del6p9eo, {
-    kind: "init-setter",
+  _C_p_temp_lnf4p8(v) {}
+  static [_C_p_symbol_o8c4ng] = decorator(C.prototype._C_p_temp_lnf4p8, {
+    kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_symbol_c2rshd8t3pg]
+      get: C.prototype[_C_p_symbol_o8c4ng]
     },
-    defineMetadata: __DefineMetadata(C.prototype, "#p")
-  }), C.prototype._temp_oj8del6p9eo, _member_initializers_6gpdfp1jrr);
+    defineMetadata: __DefineMetadata(C.prototype, "#p"),
+    addInitializer: initializer => _C_member_initializers_0kdd3.push(initializer)
+  }) ?? C.prototype._C_p_temp_lnf4p8;
   set #p(v) {
-    return C[_symbol_c2rshd8t3pg].bind(this)(v);
+    return C[_C_p_symbol_o8c4ng].bind(this)(v);
   }
-  [_symbol_c2rshd8t3pg]() {
-    return C[_symbol_c2rshd8t3pg].bind(this);
+  [_C_p_symbol_o8c4ng]() {
+    return C[_C_p_symbol_o8c4ng].bind(this);
   }
 }
 
-delete C.prototype._temp_oj8del6p9eo;
+delete C.prototype._C_p_temp_lnf4p8;
 
 console.assert(new C().test === 10);
