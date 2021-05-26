@@ -1,10 +1,10 @@
 function decorator (value, context) {
   if (context.kind === 'method') {
-    return function (...args) {
-      console.log (`starting ${ context.name } with arguments ${ args.join (', ') }`);
-      const ret = value.call (this, ...args);
-      console.log (`ending ${ context.name }`);
-      return ret;
+    context.addInitializer(function() {
+      this.test = 20;
+    });
+    return function (v) {
+      return value.call(this, v * 2)
     };
   }
 }
@@ -12,9 +12,10 @@ function decorator (value, context) {
 @init:decorator
 class C {
   @init:decorator
-  static M () {
-    return true;
+  static M (n) {
+    return n * 2;
   }
 }
 
-console.assert(C.M ());
+console.assert(C.test === 20);
+console.assert(C.M (2) === 8);

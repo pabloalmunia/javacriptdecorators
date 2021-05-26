@@ -1,13 +1,11 @@
 function decorator(value, context) {
   console.log("value", value);
   console.log("context", context);
-  return {
-    set(v) {
-      value.call(this, v * 2);
-    },
-    initialize() {
-      this.test = 10;
-    }
+  context.addInitializer(function() {
+    this.test = 10;
+  });
+  return function(v) {
+    value.call(this, v * 2);
   };
 }
 
@@ -34,23 +32,7 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
-
-const _static_initializers_iq84at7kcjg = [];
+const _C_static_initializers_afto2g = [];
 
 class C {
   static #p = 10;
@@ -62,19 +44,20 @@ class C {
   }
 }
 
-const _initializer_6pqm64vqfb = Object.getOwnPropertyDescriptor(C, "p");
+const _C_p_descriptor_ibfc88 = Object.getOwnPropertyDescriptor(C, "p");
 
-_initializer_6pqm64vqfb.set = __applyDecorator(decorator(_initializer_6pqm64vqfb.set, {
-  kind: "init-setter",
+_C_p_descriptor_ibfc88.set = decorator(_C_p_descriptor_ibfc88.set, {
+  kind: "setter",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C, "p")
-}), _initializer_6pqm64vqfb.set, _static_initializers_iq84at7kcjg);
+  defineMetadata: __DefineMetadata(C, "p"),
+  addInitializer: initializer => _C_static_initializers_afto2g.push(initializer)
+}) ?? _C_p_descriptor_ibfc88.set;
 
-Object.defineProperty(C, "p", _initializer_6pqm64vqfb);
+Object.defineProperty(C, "p", _C_p_descriptor_ibfc88);
 
-_static_initializers_iq84at7kcjg.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_afto2g.forEach(initializer => initializer.call(C, C));
 
 console.assert(C.test === 10);
 

@@ -1,13 +1,11 @@
 function decorator(value, context) {
   console.log("value", value);
   console.log("context", context);
-  return {
-    get() {
-      return value.call(this) * 2;
-    },
-    initialize() {
-      this.test = 10;
-    }
+  context.addInitializer(function() {
+    this.test = 10;
+  });
+  return function() {
+    return value.call(this) * 2;
   };
 }
 
@@ -34,23 +32,7 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
-
-const _static_initializers_7dnnh93hadg = [];
+const _C_static_initializers_0ti5eo = [];
 
 class C {
   static #p = 10;
@@ -59,19 +41,20 @@ class C {
   }
 }
 
-const _initializer_eedc6kqc3mo = Object.getOwnPropertyDescriptor(C, "p");
+const _C_p_descriptor_e4sts8 = Object.getOwnPropertyDescriptor(C, "p");
 
-_initializer_eedc6kqc3mo.get = __applyDecorator(decorator(_initializer_eedc6kqc3mo.get, {
-  kind: "init-getter",
+_C_p_descriptor_e4sts8.get = decorator(_C_p_descriptor_e4sts8.get, {
+  kind: "getter",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C, "p")
-}), _initializer_eedc6kqc3mo.get, _static_initializers_7dnnh93hadg);
+  defineMetadata: __DefineMetadata(C, "p"),
+  addInitializer: initializer => _C_static_initializers_0ti5eo.push(initializer)
+}) ?? _C_p_descriptor_e4sts8.get;
 
-Object.defineProperty(C, "p", _initializer_eedc6kqc3mo);
+Object.defineProperty(C, "p", _C_p_descriptor_e4sts8);
 
-_static_initializers_7dnnh93hadg.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_0ti5eo.forEach(initializer => initializer.call(C, C));
 
 console.assert(C.test === 10);
 
