@@ -1,11 +1,9 @@
 function addProperty(key, value) {
   return (klass, context) => {
-    if (context.kind === "init-method" || context.kind === "init-getter" || context.kind === "init-setter") {
-      return {
-        initialize() {
-          this[key] = value;
-        }
-      };
+    if ((context.kind === "method" || context.kind === "getter" || context.kind === "setter") && context.addInitializer) {
+      context.addInitializer(function() {
+        this[key] = value;
+      });
     }
   };
 }
@@ -33,89 +31,77 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
-
-const _member_initializers_uibt8vafm6g = [];
+const _C_member_initializers_001b68 = [];
 
 class C {
   constructor() {
     this.z = 100;
-    _member_initializers_uibt8vafm6g.forEach(initialize => initialize.call(this));
+    _C_member_initializers_001b68.forEach(initialize => initialize.call(this));
   }
   get p() {}
 }
 
-const _descriptor_80eclc9cph8 = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_2rq5o = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_80eclc9cph8.get = __applyDecorator(addProperty("a", 1)(_descriptor_80eclc9cph8.get, {
-  kind: "init-getter",
+_C_p_descriptor_2rq5o.get = addProperty("a", 1)(_C_p_descriptor_2rq5o.get, {
+  kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p")
-}), _descriptor_80eclc9cph8.get, _member_initializers_uibt8vafm6g);
+  defineMetadata: __DefineMetadata(C.prototype, "p"),
+  addInitializer: initializer => _C_member_initializers_001b68.push(initializer)
+}) ?? _C_p_descriptor_2rq5o.get;
 
-Object.defineProperty(C.prototype, "p", _descriptor_80eclc9cph8);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_2rq5o);
 
-const _descriptor_ba32fm1qbv8 = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_k783k = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_ba32fm1qbv8.get = __applyDecorator(addProperty("b", 2)(_descriptor_ba32fm1qbv8.get, {
-  kind: "init-getter",
+_C_p_descriptor_k783k.get = addProperty("b", 2)(_C_p_descriptor_k783k.get, {
+  kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p")
-}), _descriptor_ba32fm1qbv8.get, _member_initializers_uibt8vafm6g);
+  defineMetadata: __DefineMetadata(C.prototype, "p"),
+  addInitializer: initializer => _C_member_initializers_001b68.push(initializer)
+}) ?? _C_p_descriptor_k783k.get;
 
-Object.defineProperty(C.prototype, "p", _descriptor_ba32fm1qbv8);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_k783k);
 
-const _member_initializers_olpkpo1taoo = [];
+const _D_member_initializers_sepk2 = [];
 
 class D extends C {
   constructor() {
     super();
-    _member_initializers_olpkpo1taoo.forEach(initialize => initialize.call(this));
+    _D_member_initializers_sepk2.forEach(initialize => initialize.call(this));
   }
   get p() {}
 }
 
-const _descriptor_a3vetvjvcg8 = Object.getOwnPropertyDescriptor(D.prototype, "p");
+const _D_p_descriptor_b0vk9 = Object.getOwnPropertyDescriptor(D.prototype, "p");
 
-_descriptor_a3vetvjvcg8.get = __applyDecorator(addProperty("c", 3)(_descriptor_a3vetvjvcg8.get, {
-  kind: "init-getter",
+_D_p_descriptor_b0vk9.get = addProperty("c", 3)(_D_p_descriptor_b0vk9.get, {
+  kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(D.prototype, "p")
-}), _descriptor_a3vetvjvcg8.get, _member_initializers_olpkpo1taoo);
+  defineMetadata: __DefineMetadata(D.prototype, "p"),
+  addInitializer: initializer => _D_member_initializers_sepk2.push(initializer)
+}) ?? _D_p_descriptor_b0vk9.get;
 
-Object.defineProperty(D.prototype, "p", _descriptor_a3vetvjvcg8);
+Object.defineProperty(D.prototype, "p", _D_p_descriptor_b0vk9);
 
-const _descriptor_h26o7lb4dn = Object.getOwnPropertyDescriptor(D.prototype, "p");
+const _D_p_descriptor_bgbago = Object.getOwnPropertyDescriptor(D.prototype, "p");
 
-_descriptor_h26o7lb4dn.get = __applyDecorator(addProperty("d", 4)(_descriptor_h26o7lb4dn.get, {
-  kind: "init-getter",
+_D_p_descriptor_bgbago.get = addProperty("d", 4)(_D_p_descriptor_bgbago.get, {
+  kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(D.prototype, "p")
-}), _descriptor_h26o7lb4dn.get, _member_initializers_olpkpo1taoo);
+  defineMetadata: __DefineMetadata(D.prototype, "p"),
+  addInitializer: initializer => _D_member_initializers_sepk2.push(initializer)
+}) ?? _D_p_descriptor_bgbago.get;
 
-Object.defineProperty(D.prototype, "p", _descriptor_h26o7lb4dn);
+Object.defineProperty(D.prototype, "p", _D_p_descriptor_bgbago);
 
 const c = new C();
 

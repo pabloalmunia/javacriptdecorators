@@ -1,13 +1,11 @@
 function decorator(value, context) {
   console.log("value", value);
   console.log("context", context);
-  return {
-    set(v) {
-      value.call(this, v * 2);
-    },
-    initialize() {
-      this.test = 10;
-    }
+  context.addInitializer(function() {
+    this.test = 10;
+  });
+  return function(v) {
+    value.call(this, v * 2);
   };
 }
 
@@ -34,27 +32,11 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
-
-const _member_initializers_526okii3vug = [];
+const _C_member_initializers_pgnbeo = [];
 
 class C {
   constructor() {
-    _member_initializers_526okii3vug.forEach(initialize => initialize.call(this));
+    _C_member_initializers_pgnbeo.forEach(initialize => initialize.call(this));
   }
   #p = 10;
   get p() {
@@ -65,17 +47,18 @@ class C {
   }
 }
 
-const _descriptor_5pd0v8fffdo = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_iqge0o = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_5pd0v8fffdo.set = __applyDecorator(decorator(_descriptor_5pd0v8fffdo.set, {
-  kind: "init-setter",
+_C_p_descriptor_iqge0o.set = decorator(_C_p_descriptor_iqge0o.set, {
+  kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p")
-}), _descriptor_5pd0v8fffdo.set, _member_initializers_526okii3vug);
+  defineMetadata: __DefineMetadata(C.prototype, "p"),
+  addInitializer: initializer => _C_member_initializers_pgnbeo.push(initializer)
+}) ?? _C_p_descriptor_iqge0o.set;
 
-Object.defineProperty(C.prototype, "p", _descriptor_5pd0v8fffdo);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_iqge0o);
 
 console.assert(new C().test === 10);
 

@@ -1,11 +1,9 @@
 function decorator(value, context) {
   console.log("value", value);
   console.log("context", context);
-  return {
-    initialize() {
-      this.test = 10;
-    }
-  };
+  context.addInitializer(function() {
+    this.test = 10;
+  });
 }
 
 if (!Symbol.metadata) {
@@ -31,41 +29,26 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
-
-const _member_initializers_c0dvdf7a2k = [];
+const _C_member_initializers_nluveo = [];
 
 class C {
   constructor() {
-    _member_initializers_c0dvdf7a2k.forEach(initialize => initialize.call(this));
+    _C_member_initializers_nluveo.forEach(initialize => initialize.call(this));
   }
   get p() {}
 }
 
-const _descriptor_cu37rnkmt8o = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_beqo8o = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_cu37rnkmt8o.get = __applyDecorator(decorator(_descriptor_cu37rnkmt8o.get, {
-  kind: "init-getter",
+_C_p_descriptor_beqo8o.get = decorator(_C_p_descriptor_beqo8o.get, {
+  kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p")
-}), _descriptor_cu37rnkmt8o.get, _member_initializers_c0dvdf7a2k);
+  defineMetadata: __DefineMetadata(C.prototype, "p"),
+  addInitializer: initializer => _C_member_initializers_nluveo.push(initializer)
+}) ?? _C_p_descriptor_beqo8o.get;
 
-Object.defineProperty(C.prototype, "p", _descriptor_cu37rnkmt8o);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_beqo8o);
 
 console.assert(new C().test === 10);
