@@ -1,22 +1,21 @@
-function decorator(value, context) {
-  if (context.kind === "init-method") {
-    return {
-      method (...args) {
-        console.log(`starting ${context.name} with arguments ${args.join(", ")}`);
-        const ret = value.call(this, ...args);
-        console.log(`ending ${context.name}`);
-        return ret;
-      },
-      initialize() {
-        console.log(`initializing ${context.name}`);
-      }
+function decorator (value, context) {
+  if (context.kind === 'method' && context.addInitializer) {
+    context.addInitializer (function () {
+      console.log (`initializing ${ context.name }`);
+    });
+    return function (...args) {
+      console.log (`starting ${ context.name } with arguments ${ args.join (', ') }`);
+      const ret = value.call (this, ...args);
+      console.log (`ending ${ context.name }`);
+      return ret;
     };
   }
 }
 
 class C {
   @init:decorator
-  m() {}
+  m () {
+  }
 }
 
-new C().m();
+new C ().m ();

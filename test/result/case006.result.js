@@ -1,11 +1,9 @@
 function decorator(value, context) {
   console.log("value", value);
   console.log("context", context);
-  return {
-    initialize() {
+  context.addInitializer(function() {
       this.test = 10;
-    }
-  };
+  });
 }
 
 if (!Symbol.metadata) {
@@ -31,32 +29,17 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
-
 const _class_initializers_ia8koshaj0g = [];
 
 class C {}
 
-C = __applyDecorator(decorator(C, {
-  kind: "init-class",
+C = decorator(C, {
+  kind: "class",
   name: "C",
-  defineMetadata: __DefineMetadata(C, "constructor")
-}), C, _class_initializers_ia8koshaj0g);
+  defineMetadata: __DefineMetadata(C, "constructor"),
+  addInitializer: initializer => _class_initializers_ia8koshaj0g.push(initializer)
+}) ?? C;
 
-_class_initializers_ia8koshaj0g.forEach(initialize => initialize.call(C, C));
+_class_initializers_ia8koshaj0g.forEach(initializer => initializer.call(C, C));
 
 console.assert(C.test === 10);

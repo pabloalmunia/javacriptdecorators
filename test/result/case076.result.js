@@ -1,11 +1,9 @@
 function decorator(value, context) {
   console.log("value", value);
   console.log("context", context);
-  return {
-    initialize() {
-      this.test = 10;
-    }
-  };
+  context.addInitializer(function() {
+    this.test = 10;
+  });
 }
 
 if (!Symbol.metadata) {
@@ -31,40 +29,25 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
-
-const _static_initializers_puutijig87g = [];
+const _C_static_initializers_9duho = [];
 
 class C {
   static set p(v) {}
 }
 
-const _initializer_t84qcgp1mk = Object.getOwnPropertyDescriptor(C, "p");
+const _C_p_descriptor_hi0hq = Object.getOwnPropertyDescriptor(C, "p");
 
-_initializer_t84qcgp1mk.set = __applyDecorator(decorator(_initializer_t84qcgp1mk.set, {
-  kind: "init-setter",
+_C_p_descriptor_hi0hq.set = decorator(_C_p_descriptor_hi0hq.set, {
+  kind: "setter",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C, "p")
-}), _initializer_t84qcgp1mk.set, _static_initializers_puutijig87g);
+  defineMetadata: __DefineMetadata(C, "p"),
+  addInitializer: initializer => _C_static_initializers_9duho.push(initializer)
+}) ?? _C_p_descriptor_hi0hq.set;
 
-Object.defineProperty(C, "p", _initializer_t84qcgp1mk);
+Object.defineProperty(C, "p", _C_p_descriptor_hi0hq);
 
-_static_initializers_puutijig87g.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_9duho.forEach(initializer => initializer.call(C, C));
 
 console.assert(C.test === 10);

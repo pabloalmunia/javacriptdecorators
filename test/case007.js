@@ -1,17 +1,16 @@
-function logged (value, {kind, name}) {
-  if (kind === 'init-class') {
-    return {
-      definition : class extends value {
-        constructor (...args) {
-          super ();
-          console.log (`constructing an instance of ${ name } with arguments ${ args.join (', ') }`);
-        }
-      },
-      
-      initialize () {
+function logged (value, {kind, name, addInitializer}) {
+  if (kind === 'class') {
+    if (addInitializer) {
+      addInitializer (function () {
         console.log (`finished defining ${ this.name }`);
+      });
+    }
+    return class extends value {
+      constructor (...args) {
+        super ();
+        console.log (`constructing an instance of ${ name } with arguments ${ args.join (', ') }`);
       }
-    };
+    }
   }
   
   // ...

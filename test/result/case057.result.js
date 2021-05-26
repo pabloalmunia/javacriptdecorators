@@ -1,10 +1,10 @@
 function decorator(value, context) {
   if (context.kind === "method") {
-    return function(...args) {
-      console.log(`starting ${context.name} with arguments ${args.join(", ")}`);
-      const ret = value.call(this, ...args);
-      console.log(`ending ${context.name}`);
-      return ret;
+    context.addInitializer(function() {
+      this.test = 20;
+    });
+    return function(v) {
+      return value.call(this, v * 2);
     };
   }
 }
@@ -32,48 +32,36 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
+const _C_static_initializers_ghsf5o = [];
 
-const _static_initializers_lgjge96u89g = [];
-
-const _class_initializers_33ajhf5632g = [];
+const _C_class_initializers_9d3msg = [];
 
 class C {
-  static M() {
-    return true;
+  static M(n) {
+    return n * 2;
   }
 }
 
-C = __applyDecorator(decorator(C, {
-  kind: "init-class",
+C = decorator(C, {
+  kind: "class",
   name: "C",
-  defineMetadata: __DefineMetadata(C, "constructor")
-}), C, _class_initializers_33ajhf5632g);
+  defineMetadata: __DefineMetadata(C, "constructor"),
+  addInitializer: initializer => _C_class_initializers_9d3msg.push(initializer)
+}) ?? C;
 
-C.M = __applyDecorator(decorator(C.M, {
-  kind: "init-method",
+C.M = decorator(C.M, {
+  kind: "method",
   name: "M",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C, "M")
-}), C.M, _static_initializers_lgjge96u89g);
+  defineMetadata: __DefineMetadata(C, "M"),
+  addInitializer: initializer => _C_static_initializers_ghsf5o.push(initializer)
+}) ?? C.M;
 
-_static_initializers_lgjge96u89g.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_ghsf5o.forEach(initializer => initializer.call(C, C));
 
-_class_initializers_33ajhf5632g.forEach(initialize => initialize.call(C, C));
+_C_class_initializers_9d3msg.forEach(initializer => initializer.call(C, C));
 
-console.assert(C.M());
+console.assert(C.test === 20);
+
+console.assert(C.M(2) === 8);

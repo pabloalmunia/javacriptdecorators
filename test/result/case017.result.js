@@ -1,15 +1,13 @@
 function decorator(value, context) {
-  if (context.kind === "init-method") {
-    return {
-      method(...args) {
-        console.log(`starting ${context.name} with arguments ${args.join(", ")}`);
-        const ret = value.call(this, ...args);
-        console.log(`ending ${context.name}`);
-        return ret;
-      },
-      initialize() {
-        console.log(`initializing ${context.name}`);
-      }
+  if (context.kind === "method" && context.addInitializer) {
+    context.addInitializer(function() {
+      console.log(`initializing ${context.name}`);
+    });
+    return function(...args) {
+      console.log(`starting ${context.name} with arguments ${args.join(", ")}`);
+      const ret = value.call(this, ...args);
+      console.log(`ending ${context.name}`);
+      return ret;
     };
   }
 }
@@ -37,37 +35,22 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
-
-const _member_initializers_mc0d6ocvgf8 = [];
+const _C_member_initializers_r5ra7g = [];
 
 class C {
   constructor() {
-    _member_initializers_mc0d6ocvgf8.forEach(initialize => initialize.call(this));
+    _C_member_initializers_r5ra7g.forEach(initialize => initialize.call(this));
   }
   m() {}
 }
 
-C.prototype.m = __applyDecorator(decorator(C.prototype.m, {
-  kind: "init-method",
+C.prototype.m = decorator(C.prototype.m, {
+  kind: "method",
   name: "m",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "m")
-}), C.prototype.m, _member_initializers_mc0d6ocvgf8);
+  defineMetadata: __DefineMetadata(C.prototype, "m"),
+  addInitializer: initializer => _C_member_initializers_r5ra7g.push(initializer)
+}) ?? C.prototype.m;
 
 new C().m();

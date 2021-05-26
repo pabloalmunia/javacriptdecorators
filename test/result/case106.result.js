@@ -1,11 +1,9 @@
 function decorator(value, context) {
   console.log("value", value);
   console.log("context", context);
-  return {
-    initialize() {
-      this.test = 10;
-    }
-  };
+  context.addInitializer(function() {
+    this.test = 10;
+  });
 }
 
 if (!Symbol.metadata) {
@@ -31,49 +29,34 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
+const _C_member_initializers_4tl42g = [];
 
-const _member_initializers_shmulmuikjg = [];
-
-const _symbol_21om8laneq8 = Symbol();
+const _C_p_symbol_lqspi8 = Symbol();
 
 class C {
   constructor() {
-    _member_initializers_shmulmuikjg.forEach(initialize => initialize.call(this));
+    _C_member_initializers_4tl42g.forEach(initialize => initialize.call(this));
   }
-  _temp_gv21p4g4dpo() {}
-  static [_symbol_21om8laneq8] = __applyDecorator(decorator(C.prototype._temp_gv21p4g4dpo, {
-    kind: "init-getter",
+  _C_p_temp_orkei() {}
+  static [_C_p_symbol_lqspi8] = decorator(C.prototype._C_p_temp_orkei, {
+    kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_symbol_21om8laneq8]
+      get: C.prototype[_C_p_symbol_lqspi8]
     },
-    defineMetadata: __DefineMetadata(C.prototype, "#p")
-  }), C.prototype._temp_gv21p4g4dpo, _member_initializers_shmulmuikjg);
+    defineMetadata: __DefineMetadata(C.prototype, "#p"),
+    addInitializer: initializer => _C_member_initializers_4tl42g.push(initializer)
+  }) ?? C.prototype._C_p_temp_orkei;
   get #p() {
-    return C[_symbol_21om8laneq8].bind(this)();
+    return C[_C_p_symbol_lqspi8].bind(this)();
   }
-  [_symbol_21om8laneq8]() {
-    return C[_symbol_21om8laneq8].bind(this);
+  [_C_p_symbol_lqspi8]() {
+    return C[_C_p_symbol_lqspi8].bind(this);
   }
 }
 
-delete C.prototype._temp_gv21p4g4dpo;
+delete C.prototype._C_p_temp_orkei;
 
 console.assert(new C().test === 10);

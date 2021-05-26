@@ -1,24 +1,21 @@
 function decorator (value, context) {
   if (
-    (context.kind === 'method' || context.kind === 'getter' || context.kind === 'setter' ||
-      context.kind === 'init-method' || context.kind === 'init-getter' || context.kind === 'init-setter') &&
-    context.isStatic) {
-    return {
-      get (...args) {
-        console.log (`starting ${ context.name } with arguments ${ args.join (', ') }`);
-        const ret = value (...args);
-        console.log (`ending ${ context.name }`);
-        return ret;
-      },
-      initialize (v) {
-        console.log('initialize class')
-      }
+    (context.kind === 'method' || context.kind === 'getter' || context.kind === 'setter') &&
+    context.isStatic && context.addInitializer) {
+    context.addInitializer(function () {
+      this.test = 10;
+    });
+    return function (...args) {
+      console.log (`starting ${ context.name } with arguments ${ args.join (', ') }`);
+      const ret = value (...args);
+      console.log (`ending ${ context.name }`);
+      return ret * 2;
     };
   }
 }
 
 class C {
-  static #other = 0;
+  static #other = 2;
 
   @init:decorator
   static get #P () {
@@ -30,5 +27,5 @@ class C {
   }
 }
 
-console.assert (C.check () === 0);
+console.assert (C.check () === 4);
 console.assert (C.test === 10);

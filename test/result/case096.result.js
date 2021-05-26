@@ -1,11 +1,9 @@
 function decorator(value, context) {
   console.log("value", value);
   console.log("context", context);
-  return {
-    initialize() {
-      this.test = 10;
-    }
-  };
+  context.addInitializer(function() {
+    this.test = 10;
+  });
 }
 
 if (!Symbol.metadata) {
@@ -31,57 +29,43 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
+const _C_member_initializers_q412sg = [];
 
-const _member_initializers_7cmujon6kuo = [];
-
-const _symbol_t7vcd9aafto = Symbol();
+const _C_m_symbol_q5o6bo = Symbol();
 
 class C {
   constructor() {
-    _member_initializers_7cmujon6kuo.forEach(initialize => initialize.call(this));
+    _C_member_initializers_q412sg.forEach(initialize => initialize.call(this));
   }
-  _temp_4et315353to() {}
-  static [_symbol_t7vcd9aafto] = __applyDecorator(decorator(C.prototype._temp_4et315353to, {
-    kind: "init-method",
+  _C_m_temp_6hguk8() {}
+  static [_C_m_symbol_q5o6bo] = decorator(C.prototype._C_m_temp_6hguk8, {
+    kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_symbol_t7vcd9aafto]
+      get: C.prototype[_C_m_symbol_q5o6bo]
     },
-    defineMetadata: __DefineMetadata(C.prototype, "#m")
-  }), C.prototype._temp_4et315353to, _member_initializers_7cmujon6kuo);
-  static [_symbol_t7vcd9aafto] = __applyDecorator(decorator(C.prototype.undefined, {
-    kind: "init-method",
+    defineMetadata: __DefineMetadata(C.prototype, "#m"),
+    addInitializer: initializer => _C_member_initializers_q412sg.push(initializer)
+  }) ?? C.prototype._C_m_temp_6hguk8;
+  static [_C_m_symbol_q5o6bo] = decorator(C[_C_m_symbol_q5o6bo], {
+    kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_symbol_t7vcd9aafto]
+      get: C.prototype[_C_m_symbol_q5o6bo]
     },
-    defineMetadata: __DefineMetadata(C.prototype, "#m")
-  }), C[_symbol_t7vcd9aafto], _member_initializers_7cmujon6kuo);
-  #m = C[_symbol_t7vcd9aafto];
-  [_symbol_t7vcd9aafto]() {
+    defineMetadata: __DefineMetadata(C.prototype, "#m"),
+    addInitializer: initializer => _C_member_initializers_q412sg.push(initializer)
+  }) ?? C[_C_m_symbol_q5o6bo];
+  #m = C[_C_m_symbol_q5o6bo];
+  [_C_m_symbol_q5o6bo]() {
     return this.#m;
   }
 }
 
-delete C.prototype._temp_4et315353to;
+delete C.prototype._C_m_temp_6hguk8;
 
 console.assert(new C().test === 10);

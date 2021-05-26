@@ -1,13 +1,11 @@
 function addProperty(key, value) {
   return (klass, context) => {
-    if (context.kind === 'init-class') {
-      return {
-        initialize() {
+    if (context.kind === 'class' && context.addInitializer) {
+      context.addInitializer(function () {
           this.prototype[key] = value;
-        }
+        });
       }
     }
-  }
 }
 
 @init:addProperty('a', 1)

@@ -128,6 +128,8 @@ run ('case093');
 run ('case094');
 run ('case095');
 run ('case096');
+run ('case097');
+run ('case098');
 
 // Private Getter
 run ('case101');
@@ -138,7 +140,7 @@ run ('case105');
 run ('case106');
 run ('case107');
 run ('case108');
-//
+
 // Private Setter
 run ('case111');
 run ('case112');
@@ -149,7 +151,7 @@ run ('case116');
 run ('case117');
 run ('case118');
 
-// Private Setter
+// Private Field
 run ('case121');
 run ('case122');
 run ('case123');

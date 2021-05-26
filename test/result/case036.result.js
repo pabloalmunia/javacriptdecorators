@@ -1,11 +1,9 @@
 function decorator(value, context) {
   console.log("value", value);
   console.log("context", context);
-  return {
-    initialize() {
-      this.test = 10;
-    }
-  };
+  context.addInitializer(function() {
+    this.test = 10;
+  });
 }
 
 if (!Symbol.metadata) {
@@ -31,41 +29,26 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
-
-const _member_initializers_398evndglk = [];
+const _C_member_initializers_t586eo = [];
 
 class C {
   constructor() {
-    _member_initializers_398evndglk.forEach(initialize => initialize.call(this));
+    _C_member_initializers_t586eo.forEach(initialize => initialize.call(this));
   }
   set p(v) {}
 }
 
-const _descriptor_debge52pvkg = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_clckvg = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_debge52pvkg.set = __applyDecorator(decorator(_descriptor_debge52pvkg.set, {
-  kind: "init-setter",
+_C_p_descriptor_clckvg.set = decorator(_C_p_descriptor_clckvg.set, {
+  kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p")
-}), _descriptor_debge52pvkg.set, _member_initializers_398evndglk);
+  defineMetadata: __DefineMetadata(C.prototype, "p"),
+  addInitializer: initializer => _C_member_initializers_t586eo.push(initializer)
+}) ?? _C_p_descriptor_clckvg.set;
 
-Object.defineProperty(C.prototype, "p", _descriptor_debge52pvkg);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_clckvg);
 
 console.assert(new C().test === 10);

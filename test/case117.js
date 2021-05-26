@@ -1,16 +1,13 @@
 function decorator (value, context) {
-  console.log("value", value);
-  console.log("context", context);
-  return {
-    set(v) {
-      value.call(this, v * 2)
-    },
-    initialize() {
+  if (context.kind === 'setter') {
+    context.addInitializer(function () {
       this.test = 10;
-    }
+    });
+    return function (v) {
+      return value.call (this, v * 2);
+    };
   }
 }
-
 
 class C {
   #other = 10;

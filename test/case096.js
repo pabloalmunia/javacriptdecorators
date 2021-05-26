@@ -1,11 +1,9 @@
 function decorator (value, context) {
   console.log("value", value);
   console.log("context", context);
-  return {
-    initialize() {
-      this.test = 10;
-    }
-  }
+  context.addInitializer(function () {
+    this.test = 10;
+  });
 }
 
 

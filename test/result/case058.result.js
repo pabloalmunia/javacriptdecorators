@@ -1,11 +1,9 @@
 function addProperty(key, value) {
   return (klass, context) => {
-    if (context.kind === "init-method") {
-      return {
-        initialize() {
-          this[key] = value;
-        }
-      };
+    if (context.kind === "method" && context.addInitializer) {
+      context.addInitializer(function() {
+        this[key] = value;
+      });
     }
   };
 }
@@ -33,23 +31,7 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
-
-const _static_initializers_gvt29fn099o = [];
+const _C_static_initializers_m14mf8 = [];
 
 class C {
   constructor() {
@@ -58,47 +40,51 @@ class C {
   static m() {}
 }
 
-C.m = __applyDecorator(addProperty("b", 2)(C.m, {
-  kind: "init-method",
+C.m = addProperty("b", 2)(C.m, {
+  kind: "method",
   name: "m",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C, "m")
-}), C.m, _static_initializers_gvt29fn099o);
+  defineMetadata: __DefineMetadata(C, "m"),
+  addInitializer: initializer => _C_static_initializers_m14mf8.push(initializer)
+}) ?? C.m;
 
-C.m = __applyDecorator(addProperty("a", 1)(C.m, {
-  kind: "init-method",
+C.m = addProperty("a", 1)(C.m, {
+  kind: "method",
   name: "m",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C, "m")
-}), C.m, _static_initializers_gvt29fn099o);
+  defineMetadata: __DefineMetadata(C, "m"),
+  addInitializer: initializer => _C_static_initializers_m14mf8.push(initializer)
+}) ?? C.m;
 
-_static_initializers_gvt29fn099o.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_m14mf8.forEach(initializer => initializer.call(C, C));
 
-const _static_initializers_csq133hm5f8 = [];
+const _D_static_initializers_no439 = [];
 
 class D extends C {
   static m() {}
 }
 
-D.m = __applyDecorator(addProperty("d", 4)(D.m, {
-  kind: "init-method",
+D.m = addProperty("d", 4)(D.m, {
+  kind: "method",
   name: "m",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(D, "m")
-}), D.m, _static_initializers_csq133hm5f8);
+  defineMetadata: __DefineMetadata(D, "m"),
+  addInitializer: initializer => _D_static_initializers_no439.push(initializer)
+}) ?? D.m;
 
-D.m = __applyDecorator(addProperty("c", 3)(D.m, {
-  kind: "init-method",
+D.m = addProperty("c", 3)(D.m, {
+  kind: "method",
   name: "m",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(D, "m")
-}), D.m, _static_initializers_csq133hm5f8);
+  defineMetadata: __DefineMetadata(D, "m"),
+  addInitializer: initializer => _D_static_initializers_no439.push(initializer)
+}) ?? D.m;
 
-_static_initializers_csq133hm5f8.forEach(initialize => initialize.call(D, D));
+_D_static_initializers_no439.forEach(initializer => initializer.call(D, D));
 
 console.assert(C.a === 1);
 

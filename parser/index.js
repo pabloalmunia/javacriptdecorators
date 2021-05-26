@@ -71,8 +71,11 @@ function DecoratorParser (ParentParser) {
     
     parseDecorators (decorators) {
       while (this.type === this.decoratorIdentifierToken || this.type === this.decoratorInitIdentifierToken) {
-        const isInit = this.type === this.decoratorInitIdentifierToken;
+        // const isInit = this.type === this.decoratorInitIdentifierToken;
         const node   = this.startNode ();
+        if (this.type === this.decoratorInitIdentifierToken) {
+          node.init = true;
+        }
         this.next ();
         // ToDo: this call broken the process with symbols as @deco [symbol]() {}
         // node.expression = this.parseMaybeAssign ();
@@ -105,17 +108,19 @@ function DecoratorParser (ParentParser) {
             this.next ();
             this.next ();
             node.static = true;
-          } else {
-            node.kind = isInit ? 'init-' : '';
           }
+          // else {
+          //   node.kind = isInit ? 'init-' : '';
+          // }
         } else if (this.value === 'accessor') {
           const branch = this._branch ();
           branch.next ();
           node.kind = 'auto-accessor';
           this.next ();
-        } else {
-          node.kind = isInit ? 'init-' : '';
         }
+        // else {
+        //   node.kind = isInit ? 'init-' : '';
+        // }
         decorators.push (this.finishNode (node, 'Decorator'));
       }
     }
@@ -126,8 +131,8 @@ function DecoratorParser (ParentParser) {
         node.accessor = true;
       }
       node.decorators = decorators.map (d => {
-        d.kind +=
-          d.kind === 'auto-accessor' ? '' :
+        d.kind =
+          d.kind === 'auto-accessor' ? 'auto-accessor' :
             node.accessor ? 'auto-accessor' :
               node.type === 'FieldDefinition' ? 'field' :
                 node.type === 'ClassDeclaration' ? 'class' :
