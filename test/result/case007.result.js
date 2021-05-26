@@ -2,19 +2,20 @@ function logged(
   value,
   {
     kind,
-    name
+    name,
+    addInitializer
   }
 ) {
-  if (kind === "init-class") {
-    return {
-      definition: class extends value {
-        constructor(...args) {
-          super();
-          console.log(`constructing an instance of ${name} with arguments ${args.join(", ")}`);
-        }
-      },
-      initialize() {
+  if (kind === "class") {
+    if (addInitializer) {
+      addInitializer(function() {
         console.log(`finished defining ${this.name}`);
+      });
+    }
+    return class extends value {
+      constructor(...args) {
+        super();
+        console.log(`constructing an instance of ${name} with arguments ${args.join(", ")}`);
       }
     };
   }
@@ -43,32 +44,17 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
-
-const _class_initializers_42f91u84p4o = [];
+const _C_class_initializers_actg1g = [];
 
 class C {}
 
-C = __applyDecorator(logged(C, {
-  kind: "init-class",
+C = logged(C, {
+  kind: "class",
   name: "C",
-  defineMetadata: __DefineMetadata(C, "constructor")
-}), C, _class_initializers_42f91u84p4o);
+  defineMetadata: __DefineMetadata(C, "constructor"),
+  addInitializer: initializer => _C_class_initializers_actg1g.push(initializer)
+}) ?? C;
 
-_class_initializers_42f91u84p4o.forEach(initialize => initialize.call(C, C));
+_C_class_initializers_actg1g.forEach(initializer => initializer.call(C, C));
 
 new C(1);

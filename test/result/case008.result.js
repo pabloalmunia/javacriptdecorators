@@ -1,11 +1,9 @@
 function addProperty(key, value) {
   return (klass, context) => {
-    if (context.kind === "init-class") {
-      return {
-        initialize() {
-          this.prototype[key] = value;
-        }
-      };
+    if (context.kind === "class" && context.addInitializer) {
+      context.addInitializer(function() {
+        this.prototype[key] = value;
+      });
     }
   };
 }
@@ -33,57 +31,45 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
-
-const _class_initializers_tifk1tbr7kg = [];
+const _C_class_initializers_gou67g = [];
 
 class C {}
 
-C = __applyDecorator(addProperty("b", 2)(C, {
-  kind: "init-class",
+C = addProperty("b", 2)(C, {
+  kind: "class",
   name: "C",
-  defineMetadata: __DefineMetadata(C, "constructor")
-}), C, _class_initializers_tifk1tbr7kg);
+  defineMetadata: __DefineMetadata(C, "constructor"),
+  addInitializer: initializer => _C_class_initializers_gou67g.push(initializer)
+}) ?? C;
 
-C = __applyDecorator(addProperty("a", 1)(C, {
-  kind: "init-class",
+C = addProperty("a", 1)(C, {
+  kind: "class",
   name: "C",
-  defineMetadata: __DefineMetadata(C, "constructor")
-}), C, _class_initializers_tifk1tbr7kg);
+  defineMetadata: __DefineMetadata(C, "constructor"),
+  addInitializer: initializer => _C_class_initializers_gou67g.push(initializer)
+}) ?? C;
 
-_class_initializers_tifk1tbr7kg.forEach(initialize => initialize.call(C, C));
+_C_class_initializers_gou67g.forEach(initializer => initializer.call(C, C));
 
-const _class_initializers_0hepr5qfp28 = [];
+const _D_class_initializers_kk05s = [];
 
 class D extends C {}
 
-D = __applyDecorator(addProperty("d", 4)(D, {
-  kind: "init-class",
+D = addProperty("d", 4)(D, {
+  kind: "class",
   name: "D",
-  defineMetadata: __DefineMetadata(D, "constructor")
-}), D, _class_initializers_0hepr5qfp28);
+  defineMetadata: __DefineMetadata(D, "constructor"),
+  addInitializer: initializer => _D_class_initializers_kk05s.push(initializer)
+}) ?? D;
 
-D = __applyDecorator(addProperty("c", 3)(D, {
-  kind: "init-class",
+D = addProperty("c", 3)(D, {
+  kind: "class",
   name: "D",
-  defineMetadata: __DefineMetadata(D, "constructor")
-}), D, _class_initializers_0hepr5qfp28);
+  defineMetadata: __DefineMetadata(D, "constructor"),
+  addInitializer: initializer => _D_class_initializers_kk05s.push(initializer)
+}) ?? D;
 
-_class_initializers_0hepr5qfp28.forEach(initialize => initialize.call(D, D));
+_D_class_initializers_kk05s.forEach(initializer => initializer.call(D, D));
 
 const c = new C();
 

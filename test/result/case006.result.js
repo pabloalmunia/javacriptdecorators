@@ -1,11 +1,9 @@
 function decorator(value, context) {
   console.log("value", value);
   console.log("context", context);
-  return {
-    initialize() {
+  context.addInitializer(function() {
       this.test = 10;
-    }
-  };
+  });
 }
 
 if (!Symbol.metadata) {
@@ -36,10 +34,10 @@ const _class_initializers_ia8koshaj0g = [];
 class C {}
 
 C = decorator(C, {
-  kind: "init-class",
+  kind: "class",
   name: "C",
-  addInitializer: (initializer) => _class_initializers_ia8koshaj0g.push(initializer),
-  defineMetadata: __DefineMetadata(C, "constructor")
+  defineMetadata: __DefineMetadata(C, "constructor"),
+  addInitializer: initializer => _class_initializers_ia8koshaj0g.push(initializer)
 }) ?? C;
 
 _class_initializers_ia8koshaj0g.forEach(initializer => initializer.call(C, C));
