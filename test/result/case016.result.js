@@ -1,11 +1,9 @@
 function decorator(value, context) {
   console.log("value", value);
   console.log("context", context);
-  return {
-    initialize() {
-      this.test = 10;
-    }
-  };
+  context.addInitialize(function () {
+    this.test = 10;
+  });
 }
 
 if (!Symbol.metadata) {
@@ -31,22 +29,6 @@ function __DefineMetadata(base, name) {
   };
 }
 
-function __applyDecorator(result, origin, collection) {
-  if (typeof result === "undefined") {
-    return origin;
-  }
-  if (typeof result === "function") {
-    return result;
-  }
-  if (typeof result === "object") {
-    if (typeof result.initialize === "function") {
-      collection.push(result.initialize);
-    }
-    return result.method || result.get || result.set || result.definition || origin;
-  }
-  throw new TypeError("invalid decorator return");
-}
-
 const _member_initializers_8d9hr81voq = [];
 
 class C {
@@ -56,12 +38,13 @@ class C {
   m() {}
 }
 
-C.prototype.m = __applyDecorator(decorator(C.prototype.m, {
-  kind: "init-method",
+C.prototype.m = decorator(C.prototype.m, {
+  kind: "method",
   name: "m",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "m")
-}), C.prototype.m, _member_initializers_8d9hr81voq);
+  defineMetadata: __DefineMetadata(C.prototype, "m"),
+  addInitializer: (initializer) => _member_initializers_8d9hr81voq.push(initializer)
+}) ?? C.prototype.m;
 
 console.assert(new C().test === 10);

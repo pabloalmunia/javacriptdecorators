@@ -37,16 +37,16 @@ run ('case006');
 run ('case007');
 run ('case008');
 
-// // Method
-// run ('case011');
-// run ('case012');
-// run ('case013');
-// run ('case014');
-// run ('case015');
-// run ('case016');
-// run ('case017');
-// run ('case018');
-//
+// Method
+run ('case011');
+run ('case012');
+run ('case013');
+run ('case014');
+run ('case015');
+run ('case016');
+run ('case017');
+run ('case018');
+
 // // Getter
 // run ('case021');
 // run ('case022');

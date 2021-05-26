@@ -4,10 +4,24 @@ const recast           = require ('recast');
 const walker           = require ('../lib/walker.js');
 const clone            = require ('../lib/clone.js');
 const unique           = () => Math.random ().toString (32).substring (7);
-const insertAfter      = (arr, current, elements) => arr.splice (arr.indexOf (current) + 1, 0, ...elements);
-const insertBefore     = (arr, current, elements) => arr.splice (arr.indexOf (current), 0, ...elements);
-const insertBeforeNext = (arr, next, elements) => next !== null ? arr.splice (arr.indexOf (next), 0, ...elements) : arr.push (...elements);
-const replace          = (arr, current, elements) => arr.splice (arr.indexOf (current), 1, ...elements);
+const insertAfter      = (arr, current, elements) => arr.splice (
+  arr.indexOf (current) + 1,
+  0,
+  ...elements
+);
+const insertBefore     = (arr, current, elements) => arr.splice (
+  arr.indexOf (current),
+  0,
+  ...elements
+);
+const insertBeforeNext = (arr, next, elements) => next !== null ?
+  arr.splice (arr.indexOf (next), 0, ...elements) :
+  arr.push (...elements);
+const replace          = (arr, current, elements) => arr.splice (
+  arr.indexOf (current),
+  1,
+  ...elements
+);
 
 module.exports = (ast) =>
   prettySource (
@@ -102,14 +116,14 @@ function transform (ast) {
                 }]);
                 insertBeforeNext (parent, nextElement, [{
                   'type'       : 'ExpressionStatement',
-                  'expression' : callExpression(staticInitializersName + '.forEach', [
-                      {
-                        'type'       : 'ArrowFunctionExpression',
-                        'expression' : true,
-                        'params'     : [I ('initializer')],
-                        'body'       : callExpression('initializer.call', [className, className])
-                      }
-                    ])
+                  'expression' : callExpression (staticInitializersName + '.forEach', [
+                    {
+                      'type'       : 'ArrowFunctionExpression',
+                      'expression' : true,
+                      'params'     : [I ('initializer')],
+                      'body'       : callExpression ('initializer.call', [className, className])
+                    }
+                  ])
                 }]);
               }
             }
@@ -125,7 +139,11 @@ function transform (ast) {
         insertAfter (
           parent,
           klass,
-            classGenerator (klass.id.name, decorator.expression, decorator.init ? classInitializersName : undefined )
+          classGenerator (
+            klass.id.name,
+            decorator.expression,
+            decorator.init ? classInitializersName : undefined
+          )
         );
         decoratorsCreated++;
         if (decorator.init) {
@@ -141,15 +159,17 @@ function transform (ast) {
             ]);
             insertBeforeNext (parent, nextElement, [{
               'type'       : 'ExpressionStatement',
-              'expression' : callExpression( classInitializersName + '.forEach',
+              'expression' : callExpression (
+                classInitializersName + '.forEach',
                 [
                   {
                     'type'       : 'ArrowFunctionExpression',
                     'expression' : true,
                     'params'     : [I ('initializer')],
-                    'body'       : callExpression('initializer.call', [className, className])
+                    'body'       : callExpression ('initializer.call', [className, className])
                   }
-                ])
+                ]
+              )
             }]);
           }
         }
@@ -229,6 +249,7 @@ function transform (ast) {
                 parent,
                 klass,
                 publicMemberGenerator ({
+                  init             : decorator.init,
                   kind             : decorator.kind,
                   className        : className,
                   elementName      : o.key.name,
@@ -262,27 +283,34 @@ function transform (ast) {
                 if (o.static) {
                   insertBeforeNext (parent, nextElement, [{
                     'type'       : 'ExpressionStatement',
-                    'expression' : callExpression(staticInitializersName + '.forEach',
+                    'expression' : callExpression (
+                      staticInitializersName + '.forEach',
                       [
                         {
                           'type'       : 'ArrowFunctionExpression',
                           'expression' : true,
                           'params'     : [I ('initialize')],
-                          'body'       : callExpression('initialize.call', [className, className])
+                          'body'       : callExpression ('initialize.call', [className, className])
                         }
-                      ])
+                      ]
+                    )
                   }]);
                 } else {
                   addIntoConstructor (klass, [{
                     'type'       : 'ExpressionStatement',
-                    'expression' : callExpression(memberInitializersName + '.forEach',
+                    'expression' : callExpression (
+                      memberInitializersName + '.forEach',
                       [
                         {
                           'type'   : 'ArrowFunctionExpression',
                           'params' : [I ('initialize')],
-                          'body'   : callExpression('initialize.call', [{'type' : 'ThisExpression'}])
+                          'body'   : callExpression (
+                            'initialize.call',
+                            [{'type' : 'ThisExpression'}]
+                          )
                         }
-                      ])
+                      ]
+                    )
                   }]);
                 }
               }
@@ -806,7 +834,8 @@ function accessorPrivateGenerator ({className, decoratorName, propertyName, init
           'id'   : I (resultName),
           'init' : {
             'type'     : 'LogicalExpression',
-            'left'     : callExpression (decoratorName,
+            'left'     : callExpression (
+              decoratorName,
               [
                 {
                   'type'       : 'ObjectExpression',
@@ -979,7 +1008,8 @@ function accessorGenerator ({className, initializeName, propertyName, decoratorN
         {
           'type' : 'VariableDeclarator',
           'id'   : I (descriptorName),
-          'init' : callExpression('Object.getOwnPropertyDescriptor',
+          'init' : callExpression (
+            'Object.getOwnPropertyDescriptor',
             [
               isStatic ? className : className + '.prototype',
               isSymbol ?
@@ -999,7 +1029,7 @@ function accessorGenerator ({className, initializeName, propertyName, decoratorN
           'id'   : I (resultName),
           'init' : {
             'type'     : 'LogicalExpression',
-            'left'     : callExpression( decoratorName, [
+            'left'     : callExpression (decoratorName, [
                 {
                   'type'       : 'ObjectExpression',
                   'properties' : [
@@ -1079,7 +1109,8 @@ function accessorGenerator ({className, initializeName, propertyName, decoratorN
     },
     {
       'type'       : 'ExpressionStatement',
-      'expression' : callExpression('Object.defineProperty',
+      'expression' : callExpression (
+        'Object.defineProperty',
         [
           (isStatic) ?
             I (className) :
@@ -1121,7 +1152,8 @@ function accessorGenerator ({className, initializeName, propertyName, decoratorN
           'type'     : 'AssignmentExpression',
           'operator' : '=',
           'left'     : I (className + '.' + propertyName),
-          'right'    : callExpression(initializeName,
+          'right'    : callExpression (
+            initializeName,
             [
               I (className + '.' + propertyName)
             ]
@@ -1134,7 +1166,8 @@ function accessorGenerator ({className, initializeName, propertyName, decoratorN
 
 function publicMemberGenerator ({init, kind, className, elementName, decoratorName, variableName, initializersName, isStatic, isSymbol}) {
   const isInit        = init;
-  const decoratorCall = callExpression(decoratorName,
+  const decoratorCall = callExpression (
+    decoratorName,
     [
       (kind === 'setter' || kind === 'getter') ?
         I (variableName + (kind === 'setter' ? '.set' : '.get')) :
@@ -1175,7 +1208,10 @@ function publicMemberGenerator ({init, kind, className, elementName, decoratorNa
       }
     ]
   );
-  const defaultValue  = (kind === 'setter' || kind === 'getter') ?
+  if (init) {
+    decoratorCall.arguments[1].properties.push(addInitializer (initializersName))
+  }
+  const defaultValue = (kind === 'setter' || kind === 'getter') ?
     I (variableName + (kind === 'setter' ? '.set' : '.get')) :
     (kind === 'field') ?
       {
@@ -1191,7 +1227,8 @@ function publicMemberGenerator ({init, kind, className, elementName, decoratorNa
         {
           'type' : 'VariableDeclarator',
           'id'   : I (variableName),
-          'init' : callExpression('Object.getOwnPropertyDescriptor',
+          'init' : callExpression (
+            'Object.getOwnPropertyDescriptor',
             [
               (isStatic) ? className : className + '.prototype',
               isSymbol ?
@@ -1214,13 +1251,7 @@ function publicMemberGenerator ({init, kind, className, elementName, decoratorNa
               I ((isStatic ? 'const ' : '') + variableName) :
               I ((isStatic ? className : className + '.prototype') + '.' + elementName, isSymbol),
         'operator' : '=',
-        'right'    : isInit ?
-          callExpression('__applyDecorator',
-            [
-              decoratorCall,
-              defaultValue,
-              initializersName]
-          ) :
+        'right'    :
           {
             'type'     : 'LogicalExpression',
             'left'     : decoratorCall,
@@ -1232,7 +1263,8 @@ function publicMemberGenerator ({init, kind, className, elementName, decoratorNa
     (kind === 'setter' || kind === 'getter') ?
       {
         'type'       : 'ExpressionStatement',
-        'expression' : callExpression('Object.defineProperty',
+        'expression' : callExpression (
+          'Object.defineProperty',
           [
             (isStatic) ? className : className + '.prototype',
             isSymbol ?
@@ -1249,7 +1281,8 @@ function publicMemberGenerator ({init, kind, className, elementName, decoratorNa
             'type'     : 'AssignmentExpression',
             'operator' : '=',
             'left'     : I (className + '.' + elementName, isSymbol),
-            'right'    : callExpression(variableName + '.call',
+            'right'    : callExpression (
+              variableName + '.call',
               [
                 className,
                 I (className + '.' + elementName, isSymbol)
@@ -1272,7 +1305,8 @@ function privateFieldGenerator ({kind, className, elementName, decoratorName, va
         'operator' : '=',
         'right'    : {
           'type'     : 'LogicalExpression',
-          'left'     : callExpression( decoratorName,
+          'left'     : callExpression (
+            decoratorName,
             [
               'undefined',
               {
@@ -1359,12 +1393,13 @@ function privateFieldGenerator ({kind, className, elementName, decoratorName, va
     },
     isStatic ? {
         'type'       : 'ExpressionStatement',
-        'expression' : callExpression(
+        'expression' : callExpression (
           I (className + '.' + symbolSetName, true),
           [
-            callExpression( variableName,
+            callExpression (
+              variableName,
               [
-                callExpression(
+                callExpression (
                   I (className + '.' + symbolGetName, true),
                   []
                 )
@@ -1392,7 +1427,8 @@ function privateMemberBeforeGenerator (symbolName) {
 }
 
 function privateCallDecorator ({kind, className, decoratorName, symbolName, tempName, elementPrivateName, isStatic, isFirst}) {
-  return callExpression( decoratorName,
+  return callExpression (
+    decoratorName,
     [
       (isFirst) ?
         I ((isStatic ? className : className + '.prototype') + '.' + tempName) :
@@ -1471,8 +1507,9 @@ function privateFirstMemberGenerator ({init, kind, className, element, elementNa
       'computed' : true,
       'key'      : I (symbolName),
       'value'    : init ?
-        callExpression('__applyDecorator',
-        [
+        callExpression (
+          '__applyDecorator',
+          [
             privateCallDecorator ({kind, className, element, elementName, elementPrivateName, decoratorName, tempName, symbolName, isStatic, isFirst : true}),
             (isStatic ? className : className + '.prototype') + '.' + tempName,
             initializersName
@@ -1507,8 +1544,9 @@ function privateFirstMemberGenerator ({init, kind, className, element, elementNa
             'body' : [
               {
                 'type'     : 'ReturnStatement',
-                'argument' : callExpression(
-                  callExpression({
+                'argument' : callExpression (
+                  callExpression (
+                    {
                       'type'     : 'MemberExpression',
                       'object'   : {
                         'type'     : 'MemberExpression',
@@ -1556,7 +1594,8 @@ function privateFirstMemberGenerator ({init, kind, className, element, elementNa
             (kind === 'getter' || kind === 'setter') ?
               {
                 'type'     : 'ReturnStatement',
-                'argument' : callExpression({
+                'argument' : callExpression (
+                  {
                     'type'     : 'MemberExpression',
                     'object'   : {
                       'type'     : 'MemberExpression',
@@ -1602,7 +1641,8 @@ function privateNextMemberGenerator (descriptor, {init, kind, className, element
       'computed' : true,
       'key'      : I (symbolName),
       'value'    : init ?
-        callExpression('__applyDecorator',
+        callExpression (
+          '__applyDecorator',
           [
             privateCallDecorator ({kind, className, elementPrivateName, decoratorName, symbolName, isStatic, isFirst : true}),
             I (className + '.' + symbolName, true),
@@ -1633,72 +1673,72 @@ function privateMemberAfterGenerator (className, tempName, isStatic) {
   ];
 }
 
-function classInitGenerator (className, decoratorName, collection) {
-  return [
-    {
-      'type'       : 'ExpressionStatement',
-      'expression' : {
-        'type'     : 'AssignmentExpression',
-        'operator' : '=',
-        'left'     : I (className),
-        'right'    : callExpression('__applyDecorator',
-          [
-            callExpression(decoratorName,
-              [
-                className,
-                {
-                  'type'       : 'ObjectExpression',
-                  'properties' : [
-                    {
-                      'type'  : 'Property',
-                      'key'   : I ('kind'),
-                      'value' : L ('class')
-                    },
-                    {
-                      'type'  : 'Property',
-                      'key'   : I ('name'),
-                      'value' : L (className)
-                    },
-                    {
-                      'type'  : 'Property',
-                      'key'   : I ('addInitializer'),
-                      "value": {
-                        "type": "ArrowFunctionExpression",
-                        "expression": true,
-                        "params": I( "initializer"),
-                        "body": {
-                          "type": "CallExpression",
-                          "callee": {
-                            "type": "MemberExpression",
-                            "object": I(collection),
-                            "property":I( "push" )
-                          },
-                          "arguments": [I( "initializer")]
-                        }
-                      },
-                    },
-                    {
-                      'type'  : 'Property',
-                      'key'   : I ('defineMetadata'),
-                      'value' : callExpression('__DefineMetadata',
-                        [
-                          className,
-                          L ('constructor')
-                        ]
-                      )
-                    }
-                  ]
-                }
-              ]
-            ),
-            className,
-            collection
-          ]
-        )
-      }
-    }
-  ];
-}
+// function classInitGenerator (className, decoratorName, collection) {
+//   return [
+//     {
+//       'type'       : 'ExpressionStatement',
+//       'expression' : {
+//         'type'     : 'AssignmentExpression',
+//         'operator' : '=',
+//         'left'     : I (className),
+//         'right'    : callExpression('__applyDecorator',
+//           [
+//             callExpression(decoratorName,
+//               [
+//                 className,
+//                 {
+//                   'type'       : 'ObjectExpression',
+//                   'properties' : [
+//                     {
+//                       'type'  : 'Property',
+//                       'key'   : I ('kind'),
+//                       'value' : L ('class')
+//                     },
+//                     {
+//                       'type'  : 'Property',
+//                       'key'   : I ('name'),
+//                       'value' : L (className)
+//                     },
+//                     {
+//                       'type'  : 'Property',
+//                       'key'   : I ('addInitializer'),
+//                       "value": {
+//                         "type": "ArrowFunctionExpression",
+//                         "expression": true,
+//                         "params": I( "initializer"),
+//                         "body": {
+//                           "type": "CallExpression",
+//                           "callee": {
+//                             "type": "MemberExpression",
+//                             "object": I(collection),
+//                             "property":I( "push" )
+//                           },
+//                           "arguments": [I( "initializer")]
+//                         }
+//                       },
+//                     },
+//                     {
+//                       'type'  : 'Property',
+//                       'key'   : I ('defineMetadata'),
+//                       'value' : callExpression('__DefineMetadata',
+//                         [
+//                           className,
+//                           L ('constructor')
+//                         ]
+//                       )
+//                     }
+//                   ]
+//                 }
+//               ]
+//             ),
+//             className,
+//             collection
+//           ]
+//         )
+//       }
+//     }
+//   ];
+// }
 
 function classGenerator (className, decoratorName, initCollection) {
   const decoratorParameter = {
@@ -1716,28 +1756,9 @@ function classGenerator (className, decoratorName, initCollection) {
       },
       defineMetadataGeneratorCall (className, 'constructor')
     ]
-  }
+  };
   if (initCollection) {
-    decoratorParameter.properties.push({
-        'type'  : 'Property',
-        'key'   : I ('addInitializer'),
-        "value" :  {
-          "type"       : "ArrowFunctionExpression",
-          "expression" : true,
-          "params": [
-            I( "initializer" )
-          ],
-          "body"       : {
-            "type"      : "CallExpression",
-            "callee"    : {
-              "type"     : "MemberExpression",
-              "object"   : I (initCollection),
-              "property" : I ("push")
-            },
-            "arguments" : [I ("initializer")]
-          }
-        }
-      });
+    decoratorParameter.properties.push (addInitializer (initCollection));
   }
   
   return [{
@@ -1748,11 +1769,13 @@ function classGenerator (className, decoratorName, initCollection) {
       'left'     : I (className),
       'right'    : {
         'type'     : 'LogicalExpression',
-        'left'     : callExpression(decoratorName,
+        'left'     : callExpression (
+          decoratorName,
           [
             className,
             decoratorParameter
-          ]),
+          ]
+        ),
         'operator' : '??',
         'right'    : I (className)
       }
@@ -1802,6 +1825,29 @@ function __DefineMetadata(base, name) {
   
 }
 
+function addInitializer (initCollection) {
+  return {
+    'type'  : 'Property',
+    'key'   : I ('addInitializer'),
+    'value' : {
+      'type'       : 'ArrowFunctionExpression',
+      'expression' : true,
+      'params'     : [
+        I ('initializer')
+      ],
+      'body'       : {
+        'type'      : 'CallExpression',
+        'callee'    : {
+          'type'     : 'MemberExpression',
+          'object'   : I (initCollection),
+          'property' : I ('push')
+        },
+        'arguments' : [I ('initializer')]
+      }
+    }
+  };
+}
+
 // function applyDecoratorGenerator () {
 //   return byCode (`
 // function __applyDecorator(result, origin, collection) {
@@ -1845,7 +1891,7 @@ function addIntoConstructor (klass, elements) {
           'body' : [
             (klass.superClass) ? {
                 'type'       : 'ExpressionStatement',
-                'expression' : callExpression({'type' : 'Super'},  [])
+                'expression' : callExpression ({'type' : 'Super'}, [])
               } :
               undefined,
             ...elements
