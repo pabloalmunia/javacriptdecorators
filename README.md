@@ -581,11 +581,6 @@ class MyClass {
   static set #someSetter(value) {}
 }
 ```
-#### if the decorator is called with `@init:`
-
-The `context` object includes the `addInitializer()` method that receives as a parameter a function
-that will be executed when the class has been constructed. This function will receive as `this` the
-class.
 
 ##### decorator parameters
 
@@ -606,6 +601,12 @@ class.
   addInitializer(initalizer) { /* ... */ }
 }
 ```
+
+#### if the decorator is called with `@init:`
+
+The `context` object includes the `addInitializer()` method that receives as a parameter a function
+that will be executed when the class has been constructed. This function will receive as `this` the
+class.
 
 ##### values returned by the decorator
 
@@ -644,9 +645,16 @@ class MyClass {
   name: "someField",
   isStatic: false,
   isPrivate: false,
-  defineMetadata(key, value) { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
+  addInitializer(initalizer) { /* ... */ }
 }
 ```
+
+#### if the decorator is called with `@init:`
+
+The `context` object includes the `addInitializer()` method that receives as a parameter a function
+that will be executed when the class is instantiated. This function will receive as `this` the new
+object.
 
 ##### values returned by the decorator
 
@@ -680,9 +688,16 @@ class MyClass {
   name: "someField",
   isStatic: false,
   isPrivate: false,
-  defineMetadata(key, value) { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
+  addInitializer(initalizer) { /* ... */ }
 }
 ```
+
+#### if the decorator is called with `@init:`
+
+The `context` object includes the `addInitializer()` method that receives as a parameter a function
+that will be executed when the class is instantiated. This function will receive as `this` the new
+object.
 
 ##### values returned by the decorator
 
@@ -724,9 +739,16 @@ class MyClass {
   name: "someField",
   isStatic: true,
   isPrivate: false,
-  defineMetadata(key, value) { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
+  addInitializer(initalizer) { /* ... */ }
 }
 ```
+
+#### if the decorator is called with `@init:`
+
+The `context` object includes the `addInitializer()` method that receives as a parameter a function
+that will be executed when the class has been constructed. This function will receive as `this` the
+class.
 
 ##### values returned by the decorator
 
@@ -760,9 +782,16 @@ class MyClass {
   name: "someField",
   isStatic: true,
   isPrivate: false,
-  defineMetadata(key, value) { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
+  addInitializer(initalizer) { /* ... */ }
 }
 ```
+
+#### if the decorator is called with `@init:`
+
+The `context` object includes the `addInitializer()` method that receives as a parameter a function
+that will be executed when the class has been constructed. This function will receive as `this` the
+class.
 
 ##### values returned by the decorator
 
@@ -804,9 +833,16 @@ class MyClass {
   name: "#someField",
   isStatic: true,
   isPrivate: false,
-  defineMetadata(key, value) { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
+  addInitializer(initalizer) { /* ... */ }
 }
 ```
+
+#### if the decorator is called with `@init:`
+
+The `context` object includes the `addInitializer()` method that receives as a parameter a function
+that will be executed when the class is instantiated. This function will receive as `this` the new
+object.
 
 ##### values returned by the decorator
 
@@ -844,9 +880,16 @@ class MyClass {
   },
   isStatic: false,
   isPrivate: true,
-  defineMetadata(key, value) { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
+  addInitializer(initalizer) { /* ... */ }
 }
 ```
+
+#### if the decorator is called with `@init:`
+
+The `context` object includes the `addInitializer()` method that receives as a parameter a function
+that will be executed when the class is instantiated. This function will receive as `this` the new
+object.
 
 ##### values returned by the decorator
 
@@ -892,9 +935,16 @@ class MyClass {
   },
   isStatic: true,
   isPrivate: true,
-  defineMetadata(key, value) { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
+  addInitializer(initalizer) { /* ... */ }
 }
 ```
+
+#### if the decorator is called with `@init:`
+
+The `context` object includes the `addInitializer()` method that receives as a parameter a function
+that will be executed when the class has been constructed. This function will receive as `this` the
+class.
 
 ##### values returned by the decorator
 
@@ -932,9 +982,17 @@ class MyClass {
   },
   isStatic: true,
   isPrivate: true,
-  defineMetadata(key, value) { /* ... */ }
+  defineMetadata(key, value) { /* ... */ },
+  addInitializer(initalizer) { /* ... */ }
 }
 ```
+
+#### if the decorator is called with `@init:`
+
+The `context` object includes the `addInitializer()` method that receives as a parameter a function
+that will be executed when the class has been constructed. This function will receive as `this` the
+class.
+
 
 ##### values returned by the decorator
 
