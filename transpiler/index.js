@@ -95,7 +95,7 @@ function transform (ast) {
                 variableName     : `_${ className }_${ o.key.name }_${ (decorator.kind === 'getter' || decorator.kind === 'setter' ?
                   'descriptor' :
                   'initializer') }_${ unique () }`,
-                initializersName : staticInitializersName,
+                initCollection   : staticInitializersName,
                 isStatic         : true,
                 isSymbol         : o.computed
               })
@@ -255,7 +255,7 @@ function transform (ast) {
                   elementName      : o.key.name,
                   decoratorName    : decorator.expression,
                   variableName     : `_${ className }_${ o.key.name }_descriptor_${ unique () }`,
-                  initializersName : memberInitializersName,
+                  initCollection   : memberInitializersName,
                   isStatic         : false,
                   isSymbol         : o.computed
                 })
@@ -340,6 +340,8 @@ function transform (ast) {
                   insertBefore (parent, klass, [variableDeclaration ('let', initializerName)]);
                 }
                 insertAfter (parent, klass, accessorPrivateGenerator ({
+                  init           : decorator.init,
+                  initCollection : o.static ? staticInitializersName : memberInitializersName,
                   className,
                   propertyName,
                   initializerName,
@@ -349,8 +351,8 @@ function transform (ast) {
                   getName,
                   setName,
                   isStatic,
-                  decoratorName : decorator.expression,
-                  resultName    : `_${ className }_${ propertyName }_result_${ unique () }`
+                  decoratorName  : decorator.expression,
+                  resultName     : `_${ className }_${ propertyName }_result_${ unique () }`
                 }));
                 if (!isStatic) {
                   o.value = callExpression (
@@ -388,7 +390,7 @@ function transform (ast) {
                     init           : decorator.init,
                     decoratorName  : decorator.expression,
                     isStatic       : !!o.static,
-                    initCollection : memberInitializersName,
+                    initCollection : o.static ? staticInitializersName : memberInitializersName,
                     className,
                     initializeName,
                     propertyName,
@@ -425,6 +427,8 @@ function transform (ast) {
                 klass,
                 o.key.type === 'PrivateName' ?
                   privateFieldGenerator ({
+                    init          : decorator.init,
+                    initCollection : o.static ? staticInitializersName : memberInitializersName,
                     kind          : decorator.kind,
                     elementName   : o.key.name,
                     decoratorName : decorator.expression,
@@ -437,7 +441,7 @@ function transform (ast) {
                   }) :
                   publicMemberGenerator ({
                     init             : decorator.init,
-                    initializersName : memberInitializersName,
+                    initCollection : memberInitializersName,
                     kind             : decorator.kind,
                     elementName      : o.key.name,
                     decoratorName    : decorator.expression,
@@ -833,7 +837,72 @@ function addGetterAndSetter ({propertyName, privateName, isPrivate, isStatic, is
   ];
 }
 
-function accessorPrivateGenerator ({className, decoratorName, propertyName, initializerName, globalInitializerName, symbolGetName, symbolSetName, getName, setName, resultName, isStatic}) {
+function accessorPrivateGenerator ({init, className, decoratorName, propertyName, initializerName, globalInitializerName, symbolGetName, symbolSetName, getName, setName, resultName, initCollection, isStatic}) {
+  const decoratorParameter = [
+    {
+      'type'  : 'Property',
+      'key'   : I ('kind'),
+      'value' : L ('auto-accessor')
+    },
+    {
+      'type'  : 'Property',
+      'key'   : I ('name'),
+      'value' : L ('#' + propertyName)
+    },
+    {
+      'type'  : 'Property',
+      'key'   : I ('access'),
+      'value' : {
+        'type'       : 'ObjectExpression',
+        'properties' : [
+          {
+            'type'  : 'Property',
+            'key'   : I ('get'),
+            'value' : {
+              'type'     : 'MemberExpression',
+              'object'   : I (isStatic ? className : className + '.prototype'),
+              'property' : I (symbolGetName),
+              'computed' : true
+            }
+          },
+          {
+            'type'  : 'Property',
+            'key'   : I ('set'),
+            'value' : {
+              'type'     : 'MemberExpression',
+              'object'   : I (isStatic ? className : className + '.prototype'),
+              'property' : I (symbolSetName),
+              'computed' : true
+            }
+          }
+        ]
+      }
+    },
+    {
+      'type'  : 'Property',
+      'key'   : I ('isStatic'),
+      'value' : L (isStatic)
+    },
+    {
+      'type'  : 'Property',
+      'key'   : I ('isPrivate'),
+      'value' : L (true)
+    },
+    {
+      'type'  : 'Property',
+      'key'   : I ('defineMetadata'),
+      'value' : callExpression (
+        '__DefineMetadata',
+        [
+          I (isStatic ? className : className + '.prototype'),
+          L ('#' + propertyName)
+        ]
+      )
+    }
+  ];
+  if (init) {
+    decoratorParameter.push (addInitializer (initCollection));
+  }
   return [
     {
       'type'         : 'VariableDeclaration',
@@ -863,68 +932,7 @@ function accessorPrivateGenerator ({className, decoratorName, propertyName, init
                 },
                 {
                   'type'       : 'ObjectExpression',
-                  'properties' : [
-                    {
-                      'type'  : 'Property',
-                      'key'   : I ('kind'),
-                      'value' : L ('auto-accessor')
-                    },
-                    {
-                      'type'  : 'Property',
-                      'key'   : I ('name'),
-                      'value' : L ('#' + propertyName)
-                    },
-                    {
-                      'type'  : 'Property',
-                      'key'   : I ('access'),
-                      'value' : {
-                        'type'       : 'ObjectExpression',
-                        'properties' : [
-                          {
-                            'type'  : 'Property',
-                            'key'   : I ('get'),
-                            'value' : {
-                              'type'     : 'MemberExpression',
-                              'object'   : I (isStatic ? className : className + '.prototype'),
-                              'property' : I (symbolGetName),
-                              'computed' : true
-                            }
-                          },
-                          {
-                            'type'  : 'Property',
-                            'key'   : I ('set'),
-                            'value' : {
-                              'type'     : 'MemberExpression',
-                              'object'   : I (isStatic ? className : className + '.prototype'),
-                              'property' : I (symbolSetName),
-                              'computed' : true
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      'type'  : 'Property',
-                      'key'   : I ('isStatic'),
-                      'value' : L (isStatic)
-                    },
-                    {
-                      'type'  : 'Property',
-                      'key'   : I ('isPrivate'),
-                      'value' : L (true)
-                    },
-                    {
-                      'type'  : 'Property',
-                      'key'   : I ('defineMetadata'),
-                      'value' : callExpression (
-                        '__DefineMetadata',
-                        [
-                          I (isStatic ? className : className + '.prototype'),
-                          L ('#' + propertyName)
-                        ]
-                      )
-                    }
-                  ]
+                  'properties' : decoratorParameter
                 }
               ]
             ),
@@ -1177,7 +1185,7 @@ function accessorGenerator ({init, className, initializeName, propertyName, deco
   ];
 }
 
-function publicMemberGenerator ({init, kind, className, elementName, decoratorName, variableName, initializersName, isStatic, isSymbol}) {
+function publicMemberGenerator ({init, kind, className, elementName, decoratorName, variableName, initCollection, isStatic, isSymbol}) {
   const isInit        = init;
   const decoratorCall = callExpression (
     decoratorName,
@@ -1222,7 +1230,7 @@ function publicMemberGenerator ({init, kind, className, elementName, decoratorNa
     ]
   );
   if (init) {
-    decoratorCall.arguments[ 1 ].properties.push (addInitializer (initializersName));
+    decoratorCall.arguments[ 1 ].properties.push (addInitializer (initCollection));
   }
   const defaultValue = (kind === 'setter' || kind === 'getter') ?
     I (variableName + (kind === 'setter' ? '.set' : '.get')) :
@@ -1307,7 +1315,77 @@ function publicMemberGenerator ({init, kind, className, elementName, decoratorNa
   ];
 }
 
-function privateFieldGenerator ({kind, className, elementName, decoratorName, variableName, symbolGetName, symbolSetName, isStatic}) {
+function privateFieldGenerator ({init, kind, className, elementName, decoratorName, variableName, symbolGetName, symbolSetName, initCollection, isStatic}) {
+  const decoratorParameter = [
+    {
+      'type'  : 'Property',
+      'key'   : I ('kind'),
+      'value' : L (kind)
+    },
+    {
+      'type'  : 'Property',
+      'key'   : I ('name'),
+      'value' : L ('#' + elementName)
+    },
+    {
+      'type'  : 'Property',
+      'key'   : I ('access'),
+      'value' : {
+        'type'       : 'ObjectExpression',
+        'properties' : [
+          {
+            'type'  : 'Property',
+            'key'   : I ('get'),
+            'value' : {
+              'type'     : 'MemberExpression',
+              'object'   : (isStatic) ?
+                I (className) :
+                {
+                  'type'     : 'MemberExpression',
+                  'object'   : I (className),
+                  'property' : I ('prototype')
+                },
+              'property' : I (symbolGetName),
+              'computed' : true
+            }
+          },
+          {
+            'type'  : 'Property',
+            'key'   : I ('set'),
+            'value' : {
+              'type'     : 'MemberExpression',
+              'object'   : (isStatic) ?
+                I (className) :
+                {
+                  'type'     : 'MemberExpression',
+                  'object'   : I (className),
+                  'property' : I ('prototype')
+                },
+              'property' : I (symbolSetName),
+              'computed' : true
+            }
+          }
+        ]
+      }
+    },
+    {
+      'type'  : 'Property',
+      'key'   : I ('isStatic'),
+      'value' : L (isStatic)
+    },
+    {
+      'type'  : 'Property',
+      'key'   : I ('isPrivate'),
+      'value' : L (true)
+    },
+    defineMetadataGeneratorCall (
+      className + (isStatic ? '' : '.prototype'),
+      '#' + elementName
+    )
+  ];
+  if (init) {
+    decoratorParameter.push(addInitializer(initCollection));
+  }
   return [
     {
       'type'       : 'ExpressionStatement',
@@ -1324,73 +1402,7 @@ function privateFieldGenerator ({kind, className, elementName, decoratorName, va
               'undefined',
               {
                 'type'       : 'ObjectExpression',
-                'properties' : [
-                  {
-                    'type'  : 'Property',
-                    'key'   : I ('kind'),
-                    'value' : L (kind)
-                  },
-                  {
-                    'type'  : 'Property',
-                    'key'   : I ('name'),
-                    'value' : L ('#' + elementName)
-                  },
-                  {
-                    'type'  : 'Property',
-                    'key'   : I ('access'),
-                    'value' : {
-                      'type'       : 'ObjectExpression',
-                      'properties' : [
-                        {
-                          'type'  : 'Property',
-                          'key'   : I ('get'),
-                          'value' : {
-                            'type'     : 'MemberExpression',
-                            'object'   : (isStatic) ?
-                              I (className) :
-                              {
-                                'type'     : 'MemberExpression',
-                                'object'   : I (className),
-                                'property' : I ('prototype')
-                              },
-                            'property' : I (symbolGetName),
-                            'computed' : true
-                          }
-                        },
-                        {
-                          'type'  : 'Property',
-                          'key'   : I ('set'),
-                          'value' : {
-                            'type'     : 'MemberExpression',
-                            'object'   : (isStatic) ?
-                              I (className) :
-                              {
-                                'type'     : 'MemberExpression',
-                                'object'   : I (className),
-                                'property' : I ('prototype')
-                              },
-                            'property' : I (symbolSetName),
-                            'computed' : true
-                          }
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    'type'  : 'Property',
-                    'key'   : I ('isStatic'),
-                    'value' : L (isStatic)
-                  },
-                  {
-                    'type'  : 'Property',
-                    'key'   : I ('isPrivate'),
-                    'value' : L (true)
-                  },
-                  defineMetadataGeneratorCall (
-                    className + (isStatic ? '' : '.prototype'),
-                    '#' + elementName
-                  )
-                ]
+                'properties' : decoratorParameter
               }
             ]
           ),

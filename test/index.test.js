@@ -122,6 +122,8 @@ run ('case085');
 run ('case086');
 run ('case087');
 run ('case088');
+run ('case089');
+run ('case089b');
 
 // Private Method
 run ('case091');
@@ -162,6 +164,7 @@ run ('case125');
 run ('case126');
 run ('case127');
 run ('case128');
+run ('case129');
 
 // Static Private Method
 run ('case131');
@@ -197,6 +200,8 @@ run ('case165');
 run ('case166');
 run ('case167');
 run ('case168');
+run ('case169');
+run ('case169b');
 
 // Symbols
 run ('case170');
