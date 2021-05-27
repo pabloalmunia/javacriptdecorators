@@ -1,5 +1,15 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.1.10 - 2021/05/28
+
+- Include support to @init: with field decorators
+
+## version 0.1.9 - 2021/05/27
+
+- Included support to addInitializer()
+- Improved transpiled process.
+- Added Jest as testing engine.
+
 ## version 0.1.8 - 2021/04/20
 
 - Included support to Symbol as member name.
