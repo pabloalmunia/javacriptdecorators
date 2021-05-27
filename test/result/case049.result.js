@@ -1,21 +1,12 @@
-function deco1(value, context) {
-  if (context.kind === "auto-accessor") {
-    return {
-      set(v) {
-        value.set.call(this, v * 2);
-      }
-    };
-  }
-}
-
-function deco2(value, context) {
-  if (context.kind === "auto-accessor") {
-    return {
-      set(v) {
-        value.set.call(this, v * 3);
-      }
-    };
-  }
+function decorator(value, context) {
+  console.log("value", value);
+  console.log("context", context);
+  context.addInitializer(function() {
+    this.test = 10;
+  });
+  return function(v) {
+    return v * 2;
+  };
 }
 
 if (!Symbol.metadata) {
@@ -41,62 +32,28 @@ function __DefineMetadata(base, name) {
   };
 }
 
-let _initializer_0to4nj6hv0o;
+let _C_p_initializer_vabll;
 
-let _initializer_io6ouke1hm8;
+const _C_member_initializers_mljh4o = [];
 
 class C {
-  #_property_j5kg649p0ho = _initializer_io6ouke1hm8.call(this, _initializer_0to4nj6hv0o.call(this, ));
-  get p() {
-    return this.#_property_j5kg649p0ho;
+  constructor() {
+    _C_member_initializers_mljh4o.forEach(initialize => initialize.call(this));
   }
-  set p(v) {
-    this.#_property_j5kg649p0ho = v;
-  }
+  p = _C_p_initializer_vabll.call(this, 10);
 }
 
-const _descriptor_7vmf5cn377o = Object.getOwnPropertyDescriptor(C.prototype, "p");
-
-const _result_ji32kqme0rg = deco1({
-  get: _descriptor_7vmf5cn377o.get,
-  set: _descriptor_7vmf5cn377o.set
-}, {
-  kind: "auto-accessor",
+_C_p_initializer_vabll = decorator(undefined, {
+  kind: "field",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p")
-}) || {};
-
-_initializer_io6ouke1hm8 = _result_ji32kqme0rg.initialize || (v => v);
-
-Object.defineProperty(C.prototype, "p", {
-  get: _result_ji32kqme0rg.get || _descriptor_7vmf5cn377o.get,
-  set: _result_ji32kqme0rg.set || _descriptor_7vmf5cn377o.set
-});
-
-const _descriptor_ppuo98690rg = Object.getOwnPropertyDescriptor(C.prototype, "p");
-
-const _result_u28d4spqud8 = deco2({
-  get: _descriptor_ppuo98690rg.get,
-  set: _descriptor_ppuo98690rg.set
-}, {
-  kind: "auto-accessor",
-  name: "p",
-  isStatic: false,
-  isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p")
-}) || {};
-
-_initializer_0to4nj6hv0o = _result_u28d4spqud8.initialize || (v => v);
-
-Object.defineProperty(C.prototype, "p", {
-  get: _result_u28d4spqud8.get || _descriptor_ppuo98690rg.get,
-  set: _result_u28d4spqud8.set || _descriptor_ppuo98690rg.set
-});
+  defineMetadata: __DefineMetadata(C.prototype, "p"),
+  addInitializer: initializer => _C_member_initializers_mljh4o.push(initializer)
+}) ?? (v => v);
 
 const c = new C();
 
-c.p = 10;
+console.assert(c.test === 10);
 
-console.log(c.p);
+console.assert(c.p === 20);

@@ -233,8 +233,8 @@ function transform (ast) {
                 );
                 
               }
+              initDecorator (o, decorator);
               decoratorsCreated++;
-              initDecorator (decorator);
             }
             insertBefore (parent, klass, beforeClass);
             replace (klass.body.body, o, replaceElement);
@@ -260,62 +260,12 @@ function transform (ast) {
                   isSymbol         : o.computed
                 })
               );
+              initDecorator (o, decorator);
               decoratorsCreated++;
-              initDecorator (decorator);
             }
           }
           o.decorators = undefined;
           
-          function initDecorator (decorator) {
-            if (decorator.init) {
-              initDecoratorsCreated++;
-              if (!memberInitializersCreated) {
-                memberInitializersCreated = true;
-                insertBefore (parent, klass, [{
-                  'type'         : 'VariableDeclaration',
-                  'declarations' : [{
-                    'type' : 'VariableDeclarator',
-                    'id'   : I (o.static ? staticInitializersName : memberInitializersName),
-                    'init' : {'type' : 'ArrayExpression', 'elements' : []}
-                  }],
-                  'kind'         : 'const'
-                }]);
-                if (o.static) {
-                  insertBeforeNext (parent, nextElement, [{
-                    'type'       : 'ExpressionStatement',
-                    'expression' : callExpression (
-                      staticInitializersName + '.forEach',
-                      [
-                        {
-                          'type'       : 'ArrowFunctionExpression',
-                          'expression' : true,
-                          'params'     : [I ('initialize')],
-                          'body'       : callExpression ('initialize.call', [className, className])
-                        }
-                      ]
-                    )
-                  }]);
-                } else {
-                  addIntoConstructor (klass, [{
-                    'type'       : 'ExpressionStatement',
-                    'expression' : callExpression (
-                      memberInitializersName + '.forEach',
-                      [
-                        {
-                          'type'   : 'ArrowFunctionExpression',
-                          'params' : [I ('initialize')],
-                          'body'   : callExpression (
-                            'initialize.call',
-                            [{'type' : 'ThisExpression'}]
-                          )
-                        }
-                      ]
-                    )
-                  }]);
-                }
-              }
-            }
-          }
         }
       );
       
@@ -408,6 +358,7 @@ function transform (ast) {
                     [{'type' : 'ThisExpression'}, o.value]
                   );
                 }
+                initDecorator (o, decorator);
                 decoratorsCreated++;
               }
               insertAfter (parent, klass, removeStaticMethodPrivateAccessor ({getName, setName}));
@@ -434,9 +385,17 @@ function transform (ast) {
                   parent,
                   klass,
                   accessorGenerator ({
-                    className, initializeName, propertyName, decoratorName : decorator.expression, isStatic : !!o.static, isSymbol : o.computed, isSymbol
+                    init           : decorator.init,
+                    decoratorName  : decorator.expression,
+                    isStatic       : !!o.static,
+                    initCollection : memberInitializersName,
+                    className,
+                    initializeName,
+                    propertyName,
+                    isSymbol
                   })
                 );
+                initDecorator (o, decorator);
                 decoratorsCreated++;
               }
             }
@@ -449,10 +408,10 @@ function transform (ast) {
             o.decorators = undefined;
           } else {
             for (let decorator of (o.decorators || [])) {
-              if (decorator.init && decorator.kind === 'field') {
-                throw new TypeError ('wrong decorator @init: with a field');
-              }
-              decoratorsCreated++;
+              // if (decorator.init && decorator.kind === 'field') {
+              //   throw new TypeError ('wrong decorator @init: with a field');
+              // }
+              // decoratorsCreated++;
               const initializerName = `_${ className }_${ propertyName }_initializer_${ unique () }`;
               if (!o.static) {
                 insertBefore (
@@ -477,13 +436,15 @@ function transform (ast) {
                     
                   }) :
                   publicMemberGenerator ({
-                    kind          : decorator.kind,
-                    elementName   : o.key.name,
-                    decoratorName : decorator.expression,
-                    isStatic      : !!o.static,
+                    init             : decorator.init,
+                    initializersName : memberInitializersName,
+                    kind             : decorator.kind,
+                    elementName      : o.key.name,
+                    decoratorName    : decorator.expression,
+                    isStatic         : !!o.static,
                     className,
-                    variableName  : initializerName,
-                    isSymbol      : o.computed
+                    variableName     : initializerName,
+                    isSymbol         : o.computed
                   })
               );
               if (!o.static) {
@@ -492,6 +453,7 @@ function transform (ast) {
                   [{'type' : 'ThisExpression'}, o.value]
                 );
               }
+              initDecorator (o, decorator);
               decoratorsCreated++;
             }
           }
@@ -507,10 +469,57 @@ function transform (ast) {
         preClassLocation += 2;
         defineMetadataCreated = true;
       }
-      // if (initDecoratorsCreated && !applyDecoratorCreated) {
-      //   parent.splice (preClassLocation++, 0, applyDecoratorGenerator ());
-      //   applyDecoratorCreated = true;
-      // }
+      
+      function initDecorator (member, decorator) {
+        if (decorator.init) {
+          initDecoratorsCreated++;
+          if (!memberInitializersCreated) {
+            memberInitializersCreated = true;
+            insertBefore (parent, klass, [{
+              'type'         : 'VariableDeclaration',
+              'declarations' : [{
+                'type' : 'VariableDeclarator',
+                'id'   : I (member.static ? staticInitializersName : memberInitializersName),
+                'init' : {'type' : 'ArrayExpression', 'elements' : []}
+              }],
+              'kind'         : 'const'
+            }]);
+            if (member.static) {
+              insertBeforeNext (parent, nextElement, [{
+                'type'       : 'ExpressionStatement',
+                'expression' : callExpression (
+                  staticInitializersName + '.forEach',
+                  [
+                    {
+                      'type'       : 'ArrowFunctionExpression',
+                      'expression' : true,
+                      'params'     : [I ('initialize')],
+                      'body'       : callExpression ('initialize.call', [className, className])
+                    }
+                  ]
+                )
+              }]);
+            } else {
+              addIntoConstructor (klass, [{
+                'type'       : 'ExpressionStatement',
+                'expression' : callExpression (
+                  memberInitializersName + '.forEach',
+                  [
+                    {
+                      'type'   : 'ArrowFunctionExpression',
+                      'params' : [I ('initialize')],
+                      'body'   : callExpression (
+                        'initialize.call',
+                        [{'type' : 'ThisExpression'}]
+                      )
+                    }
+                  ]
+                )
+              }]);
+            }
+          }
+        }
+      }
       
     }
   );
@@ -998,9 +1007,39 @@ function accessorPrivateGenerator ({className, decoratorName, propertyName, init
   ];
 }
 
-function accessorGenerator ({className, initializeName, propertyName, decoratorName, isStatic, isSymbol}) {
-  const descriptorName = `_${ className }_${ propertyName }_descriptor_${ unique () }`;
-  const resultName     = `_${ className }_${ propertyName }_result_${ unique () }`;
+function accessorGenerator ({init, className, initializeName, propertyName, decoratorName, initCollection, isStatic, isSymbol}) {
+  const descriptorName     = `_${ className }_${ propertyName }_descriptor_${ unique () }`;
+  const resultName         = `_${ className }_${ propertyName }_result_${ unique () }`;
+  const decoratorParameter = [
+    {
+      'type'  : 'Property',
+      'key'   : I ('kind'),
+      'value' : L ('auto-accessor')
+    },
+    {
+      'type'  : 'Property',
+      'key'   : I ('name'),
+      'value' : L (propertyName)
+    },
+    {
+      'type'  : 'Property',
+      'key'   : I ('isStatic'),
+      'value' : L (isStatic)
+    },
+    {
+      'type'  : 'Property',
+      'key'   : I ('isPrivate'),
+      'value' : L (false)
+    },
+    defineMetadataGeneratorCall (
+      isStatic ? className : `${ className }.prototype`,
+      propertyName,
+      isSymbol
+    )
+  ];
+  if (init) {
+    decoratorParameter.push (addInitializer (initCollection));
+  }
   return [
     {
       'type'         : 'VariableDeclaration',
@@ -1047,33 +1086,7 @@ function accessorGenerator ({className, initializeName, propertyName, decoratorN
                 },
                 {
                   'type'       : 'ObjectExpression',
-                  'properties' : [
-                    {
-                      'type'  : 'Property',
-                      'key'   : I ('kind'),
-                      'value' : L ('auto-accessor')
-                    },
-                    {
-                      'type'  : 'Property',
-                      'key'   : I ('name'),
-                      'value' : L (propertyName)
-                    },
-                    {
-                      'type'  : 'Property',
-                      'key'   : I ('isStatic'),
-                      'value' : L (isStatic)
-                    },
-                    {
-                      'type'  : 'Property',
-                      'key'   : I ('isPrivate'),
-                      'value' : L (false)
-                    },
-                    defineMetadataGeneratorCall (
-                      isStatic ? className : `${ className }.prototype`,
-                      propertyName,
-                      isSymbol
-                    )
-                  ]
+                  'properties' : decoratorParameter
                 }
               ]
             ),
@@ -1209,7 +1222,7 @@ function publicMemberGenerator ({init, kind, className, elementName, decoratorNa
     ]
   );
   if (init) {
-    decoratorCall.arguments[1].properties.push(addInitializer (initializersName))
+    decoratorCall.arguments[ 1 ].properties.push (addInitializer (initializersName));
   }
   const defaultValue = (kind === 'setter' || kind === 'getter') ?
     I (variableName + (kind === 'setter' ? '.set' : '.get')) :
@@ -1480,7 +1493,7 @@ function privateCallDecorator ({init, kind, className, decoratorName, symbolName
     )
   ];
   if (init) {
-    decoratorParameter.push(addInitializer(initializersName));
+    decoratorParameter.push (addInitializer (initializersName));
   }
   return callExpression (
     decoratorName,

@@ -4,14 +4,16 @@ function decorator (value, context) {
   context.addInitializer(function() {
     this.test = 10;
   });
-  return function (v) {
-    return v * 2;
+  return {
+    initialize (v) {
+      return v * 2;
+    }
   }
 }
 
 
 class C {
-  @init:decorator
+  @init:decorator accessor
   p = 10;
 }
 

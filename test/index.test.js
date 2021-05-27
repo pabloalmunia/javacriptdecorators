@@ -78,7 +78,9 @@ run ('case047b');
 run ('case047');
 run ('case047b');
 run ('case048');
+run ('case048b');
 run ('case049');
+run ('case049b');
 
 // Static method
 run ('case051');
