@@ -1,17 +1,20 @@
-function meta(key, value) {
-  return function decorator1 (_, context) {
-    context.defineMetadata (key, value);
+const META = Symbol()
+function meta(value) {
+  return function (element, context) {
+    const n = context.getMetadata(META) || 0;
+    context.setMetadata (META, n + value);
   }
 }
 
 class C {
-  @meta('a', 1)
-  @meta('b', 2)
+  @meta(1)
+  @meta(2)
   p  = 10;
 
-  @meta('c', 3)
-  @meta('d', 3)
+  @meta(3)
+  @meta(3)
   f = 20;
 }
 
-console.log (C.prototype[ Symbol.metadata ]);
+console.assert (C.prototype[ Symbol.metadata ][META].public.p === 3);
+console.assert (C.prototype[ Symbol.metadata ][META].public.f === 6);

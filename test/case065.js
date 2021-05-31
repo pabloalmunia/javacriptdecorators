@@ -1,18 +1,18 @@
-function meta(key, value) {
-  return function decorator1 (element, context) {
-    context.defineMetadata (key, value);
+const META = Symbol()
+function meta(value) {
+  return function (element, context) {
+    const n = context.getMetadata(META) || 0;
+    context.setMetadata (META, n + value);
   }
 }
 
 
 class C {
-  @meta('a', 1)
-  @meta('b', 2)
-  get p () {
+  @meta(1)
+  @meta(2)
+  static get P () {
     return 'a';
   }
 }
 
-const a = new C ();
-console.assert (a.p === 'a');
-console.log (C.prototype[ Symbol.metadata ]);
+console.assert(C[Symbol.metadata][META].public.P === 3);

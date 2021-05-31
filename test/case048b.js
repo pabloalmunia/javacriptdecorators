@@ -27,4 +27,4 @@ class C {
 
 const c = new C ();
 c.p     = 10;
-console.log (c.p);
+console.assert (c.p === 60);

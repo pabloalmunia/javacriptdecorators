@@ -1,32 +1,63 @@
+const ONE = Symbol();
+
+const TWO = Symbol();
+
 function decorator1(value, context) {
-  context.defineMetadata("one", 1);
+  context.setMetadata(ONE, 1);
 }
 
 function decorator2(value, context) {
-  context.defineMetadata("one", 1);
-  context.defineMetadata("two", 2);
+  context.setMetadata(TWO, 2);
 }
 
 if (!Symbol.metadata) {
-  Symbol.metadata = Symbol();
+  Symbol.metadata = Symbol("Symbol.metadata");
 }
 
-function __DefineMetadata(base, name) {
-  return function(key, value) {
-    if (!base[Symbol.metadata]) {
-      base[Symbol.metadata] = Object.create(null);
-    }
-    if (!base[Symbol.metadata][name]) {
-      base[Symbol.metadata][name] = {};
-    }
-    const db = base[Symbol.metadata][name];
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
+const __metadataPrivate = new WeakMap();
+
+function __PrepareMetadata(base, kind, property) {
+  function createObjectWithPrototype(obj, key) {
+    if (!Object.hasOwnProperty.call(obj, key)) {
+      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
+        if (Object.hasOwnProperty.call(proto, key)) {
+          return obj[key] = Object.create(proto[key]);
+        }
       }
-      return db[key].push(value);
+      obj[key] = Object.create(null);
     }
-    return db[key] = value;
+  }
+  return {
+    getMetadata(key) {
+      if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
+        return kind === "public" ? base[Symbol.metadata][key].public[property] : base[Symbol.metadata][key][kind];
+      }
+    },
+    setMetadata(key, value) {
+      if (typeof key !== "symbol") {
+        throw new TypeError("the key must be a Symbol");
+      }
+      createObjectWithPrototype(base, Symbol.metadata);
+      createObjectWithPrototype(base[Symbol.metadata], key);
+      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
+        Object.defineProperty(base[Symbol.metadata][key], "private", {
+          get() {
+            return (__metadataPrivate.get(base[Symbol.metadata][key]) || []).concat(Object.getPrototypeOf(base[Symbol.metadata][key])?.private || []);
+          }
+        });
+      }
+      if (kind === "public") {
+        base[Symbol.metadata][key].public[property] = value;
+      } else if (kind === "private") {
+        if (!__metadataPrivate.has(base[Symbol.metadata][key])) {
+          __metadataPrivate.set(base[Symbol.metadata][key], []);
+        }
+        __metadataPrivate.get(base[Symbol.metadata][key]).push(value);
+      } else if (kind === "constructor") {
+        base[Symbol.metadata][key].constructor = value;
+      }
+    }
   };
 }
 
@@ -36,32 +67,34 @@ class C {
   }
 }
 
-const _descriptor_spb9eh7lofo = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_t1kuu = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_spb9eh7lofo.get = decorator1(_descriptor_spb9eh7lofo.get, {
+_C_p_descriptor_t1kuu.get = decorator1(_C_p_descriptor_t1kuu.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p")
-}) ?? _descriptor_spb9eh7lofo.get;
+  ...__PrepareMetadata(C.prototype, "public", "p")
+}) ?? _C_p_descriptor_t1kuu.get;
 
-Object.defineProperty(C.prototype, "p", _descriptor_spb9eh7lofo);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_t1kuu);
 
-const _descriptor_fv5rmtnheh = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_dmosho = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_fv5rmtnheh.get = decorator2(_descriptor_fv5rmtnheh.get, {
+_C_p_descriptor_dmosho.get = decorator2(_C_p_descriptor_dmosho.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p")
-}) ?? _descriptor_fv5rmtnheh.get;
+  ...__PrepareMetadata(C.prototype, "public", "p")
+}) ?? _C_p_descriptor_dmosho.get;
 
-Object.defineProperty(C.prototype, "p", _descriptor_fv5rmtnheh);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_dmosho);
 
 const a = new C();
 
 console.assert(a.p === "a");
 
-console.log(C.prototype[Symbol.metadata]);
+console.assert(C.prototype[Symbol.metadata][ONE].public.p === 1);
+
+console.assert(C.prototype[Symbol.metadata][TWO].public.p === 2);

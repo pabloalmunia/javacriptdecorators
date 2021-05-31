@@ -1,29 +1,60 @@
-function meta(key, value) {
-  return function decorator1(element, context) {
-    context.defineMetadata(key, value);
+const META = Symbol();
+
+function meta(value) {
+  return function(element, context) {
+    const n = context.getMetadata(META) || 0;
+    context.setMetadata(META, n + value);
   };
 }
 
 if (!Symbol.metadata) {
-  Symbol.metadata = Symbol();
+  Symbol.metadata = Symbol("Symbol.metadata");
 }
 
-function __DefineMetadata(base, name) {
-  return function(key, value) {
-    if (!base[Symbol.metadata]) {
-      base[Symbol.metadata] = Object.create(null);
-    }
-    if (!base[Symbol.metadata][name]) {
-      base[Symbol.metadata][name] = {};
-    }
-    const db = base[Symbol.metadata][name];
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
+const __metadataPrivate = new WeakMap();
+
+function __PrepareMetadata(base, kind, property) {
+  function createObjectWithPrototype(obj, key) {
+    if (!Object.hasOwnProperty.call(obj, key)) {
+      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
+        if (Object.hasOwnProperty.call(proto, key)) {
+          return obj[key] = Object.create(proto[key]);
+        }
       }
-      return db[key].push(value);
+      obj[key] = Object.create(null);
     }
-    return db[key] = value;
+  }
+  return {
+    getMetadata(key) {
+      if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
+        return kind === "public" ? base[Symbol.metadata][key].public[property] : base[Symbol.metadata][key][kind];
+      }
+    },
+    setMetadata(key, value) {
+      if (typeof key !== "symbol") {
+        throw new TypeError("the key must be a Symbol");
+      }
+      createObjectWithPrototype(base, Symbol.metadata);
+      createObjectWithPrototype(base[Symbol.metadata], key);
+      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
+        Object.defineProperty(base[Symbol.metadata][key], "private", {
+          get() {
+            return (__metadataPrivate.get(base[Symbol.metadata][key]) || []).concat(Object.getPrototypeOf(base[Symbol.metadata][key])?.private || []);
+          }
+        });
+      }
+      if (kind === "public") {
+        base[Symbol.metadata][key].public[property] = value;
+      } else if (kind === "private") {
+        if (!__metadataPrivate.has(base[Symbol.metadata][key])) {
+          __metadataPrivate.set(base[Symbol.metadata][key], []);
+        }
+        __metadataPrivate.get(base[Symbol.metadata][key]).push(value);
+      } else if (kind === "constructor") {
+        base[Symbol.metadata][key].constructor = value;
+      }
+    }
   };
 }
 
@@ -32,52 +63,52 @@ class C {
   get p() {}
 }
 
-const _descriptor_aiv5dg8uhro = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_d79ec8 = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_aiv5dg8uhro.get = meta("c", 3)(_descriptor_aiv5dg8uhro.get, {
+_C_p_descriptor_d79ec8.get = meta(3)(_C_p_descriptor_d79ec8.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p")
-}) ?? _descriptor_aiv5dg8uhro.get;
+  ...__PrepareMetadata(C.prototype, "public", "p")
+}) ?? _C_p_descriptor_d79ec8.get;
 
-Object.defineProperty(C.prototype, "p", _descriptor_aiv5dg8uhro);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_d79ec8);
 
-const _descriptor_4rbcovgc30o = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_dc4l1 = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_4rbcovgc30o.get = meta("d", 3)(_descriptor_4rbcovgc30o.get, {
+_C_p_descriptor_dc4l1.get = meta(4)(_C_p_descriptor_dc4l1.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p")
-}) ?? _descriptor_4rbcovgc30o.get;
+  ...__PrepareMetadata(C.prototype, "public", "p")
+}) ?? _C_p_descriptor_dc4l1.get;
 
-Object.defineProperty(C.prototype, "p", _descriptor_4rbcovgc30o);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_dc4l1);
 
-const _descriptor_2bjsfkigfdg = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_lfj35o = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_2bjsfkigfdg.set = meta("a", 1)(_descriptor_2bjsfkigfdg.set, {
+_C_p_descriptor_lfj35o.set = meta(1)(_C_p_descriptor_lfj35o.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p")
-}) ?? _descriptor_2bjsfkigfdg.set;
+  ...__PrepareMetadata(C.prototype, "public", "p")
+}) ?? _C_p_descriptor_lfj35o.set;
 
-Object.defineProperty(C.prototype, "p", _descriptor_2bjsfkigfdg);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_lfj35o);
 
-const _descriptor_1crgmm57k6o = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_k2l2po = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_descriptor_1crgmm57k6o.set = meta("b", 2)(_descriptor_1crgmm57k6o.set, {
+_C_p_descriptor_k2l2po.set = meta(2)(_C_p_descriptor_k2l2po.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p")
-}) ?? _descriptor_1crgmm57k6o.set;
+  ...__PrepareMetadata(C.prototype, "public", "p")
+}) ?? _C_p_descriptor_k2l2po.set;
 
-Object.defineProperty(C.prototype, "p", _descriptor_1crgmm57k6o);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_k2l2po);
 
-console.log(C.prototype[Symbol.metadata]);
+console.assert(C.prototype[Symbol.metadata][META].public.p === 10);

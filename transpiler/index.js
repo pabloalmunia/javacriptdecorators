@@ -87,17 +87,17 @@ function transform (ast) {
               parent,
               klass,
               publicMemberGenerator ({
-                init             : decorator.init,
-                kind             : decorator.kind,
-                className        : className,
-                elementName      : o.key.name,
-                decoratorName    : decorator.expression,
-                variableName     : `_${ className }_${ o.key.name }_${ (decorator.kind === 'getter' || decorator.kind === 'setter' ?
+                init           : decorator.init,
+                kind           : decorator.kind,
+                className      : className,
+                elementName    : o.key.name,
+                decoratorName  : decorator.expression,
+                variableName   : `_${ className }_${ o.key.name }_${ (decorator.kind === 'getter' || decorator.kind === 'setter' ?
                   'descriptor' :
                   'initializer') }_${ unique () }`,
-                initCollection   : staticInitializersName,
-                isStatic         : true,
-                isSymbol         : o.computed
+                initCollection : staticInitializersName,
+                isStatic       : true,
+                isSymbol       : o.computed
               })
             );
             decoratorsCreated++;
@@ -249,15 +249,15 @@ function transform (ast) {
                 parent,
                 klass,
                 publicMemberGenerator ({
-                  init             : decorator.init,
-                  kind             : decorator.kind,
-                  className        : className,
-                  elementName      : o.key.name,
-                  decoratorName    : decorator.expression,
-                  variableName     : `_${ className }_${ o.key.name }_descriptor_${ unique () }`,
-                  initCollection   : memberInitializersName,
-                  isStatic         : false,
-                  isSymbol         : o.computed
+                  init           : decorator.init,
+                  kind           : decorator.kind,
+                  className      : className,
+                  elementName    : o.key.name,
+                  decoratorName  : decorator.expression,
+                  variableName   : `_${ className }_${ o.key.name }_descriptor_${ unique () }`,
+                  initCollection : memberInitializersName,
+                  isStatic       : false,
+                  isSymbol       : o.computed
                 })
               );
               initDecorator (o, decorator);
@@ -427,28 +427,28 @@ function transform (ast) {
                 klass,
                 o.key.type === 'PrivateName' ?
                   privateFieldGenerator ({
-                    init          : decorator.init,
+                    init           : decorator.init,
                     initCollection : o.static ? staticInitializersName : memberInitializersName,
-                    kind          : decorator.kind,
-                    elementName   : o.key.name,
-                    decoratorName : decorator.expression,
-                    isStatic      : !!o.static,
+                    kind           : decorator.kind,
+                    elementName    : o.key.name,
+                    decoratorName  : decorator.expression,
+                    isStatic       : !!o.static,
                     className,
-                    variableName  : initializerName,
+                    variableName   : initializerName,
                     symbolGetName,
                     symbolSetName
                     
                   }) :
                   publicMemberGenerator ({
-                    init             : decorator.init,
+                    init           : decorator.init,
                     initCollection : memberInitializersName,
-                    kind             : decorator.kind,
-                    elementName      : o.key.name,
-                    decoratorName    : decorator.expression,
-                    isStatic         : !!o.static,
+                    kind           : decorator.kind,
+                    elementName    : o.key.name,
+                    decoratorName  : decorator.expression,
+                    isStatic       : !!o.static,
                     className,
-                    variableName     : initializerName,
-                    isSymbol         : o.computed
+                    variableName   : initializerName,
+                    isSymbol       : o.computed
                   })
               );
               if (!o.static) {
@@ -469,7 +469,7 @@ function transform (ast) {
       // Global helpers
       //-------------------------------
       if (decoratorsCreated && !defineMetadataCreated) {
-        parent.splice (preClassLocation, 0, ...defineMetadataGenerator ());
+        parent.splice (preClassLocation, 0, ...metadataHelpers ());
         preClassLocation += 2;
         defineMetadataCreated = true;
       }
@@ -888,17 +888,10 @@ function accessorPrivateGenerator ({init, className, decoratorName, propertyName
       'key'   : I ('isPrivate'),
       'value' : L (true)
     },
-    {
-      'type'  : 'Property',
-      'key'   : I ('defineMetadata'),
-      'value' : callExpression (
-        '__DefineMetadata',
-        [
-          I (isStatic ? className : className + '.prototype'),
-          L ('#' + propertyName)
-        ]
-      )
-    }
+    ContextMetadata (
+      isStatic ? className : className + '.prototype',
+      'private'
+    )
   ];
   if (init) {
     decoratorParameter.push (addInitializer (initCollection));
@@ -1039,8 +1032,9 @@ function accessorGenerator ({init, className, initializeName, propertyName, deco
       'key'   : I ('isPrivate'),
       'value' : L (false)
     },
-    defineMetadataGeneratorCall (
+    ContextMetadata (
       isStatic ? className : `${ className }.prototype`,
+      'public',
       propertyName,
       isSymbol
     )
@@ -1220,8 +1214,9 @@ function publicMemberGenerator ({init, kind, className, elementName, decoratorNa
             'key'   : I ('isPrivate'),
             'value' : L (false)
           },
-          defineMetadataGeneratorCall (
+          ContextMetadata (
             isStatic ? className : `${ className }.prototype`,
+            'public',
             elementName,
             isSymbol
           )
@@ -1378,13 +1373,13 @@ function privateFieldGenerator ({init, kind, className, elementName, decoratorNa
       'key'   : I ('isPrivate'),
       'value' : L (true)
     },
-    defineMetadataGeneratorCall (
+    ContextMetadata (
       className + (isStatic ? '' : '.prototype'),
-      '#' + elementName
+      'private'
     )
   ];
   if (init) {
-    decoratorParameter.push(addInitializer(initCollection));
+    decoratorParameter.push (addInitializer (initCollection));
   }
   return [
     {
@@ -1499,9 +1494,9 @@ function privateCallDecorator ({init, kind, className, decoratorName, symbolName
         ]
       }
     },
-    defineMetadataGeneratorCall (
+    ContextMetadata (
       className + (isStatic ? '' : '.prototype'),
-      elementPrivateName
+      'private'
     )
   ];
   if (init) {
@@ -1765,7 +1760,7 @@ function classGenerator (className, decoratorName, initCollection) {
         'key'   : I ('name'),
         'value' : L (className)
       },
-      defineMetadataGeneratorCall (className, 'constructor')
+      ContextMetadata (className, 'constructor')
     ]
   };
   if (initCollection) {
@@ -1794,47 +1789,138 @@ function classGenerator (className, decoratorName, initCollection) {
   }];
 }
 
-function defineMetadataGeneratorCall (storage, metaKey, isSymbol) {
+// function defineMetadataGeneratorCall (storage, metaKey, isSymbol) {
+//   return {
+//     'type'  : 'Property',
+//     'key'   : I ('defineMetadata'),
+//     'value' : callExpression (
+//       '__DefineMetadata',
+//       [
+//         storage,
+//         isSymbol ? I (metaKey) : L (metaKey)
+//       ]
+//     )
+//   };
+// }
+
+function ContextMetadata (storage, kind, metaKey, isSymbol) {
   return {
-    'type'  : 'Property',
-    'key'   : I ('defineMetadata'),
-    'value' : callExpression (
-      '__DefineMetadata',
+    'type'     : 'SpreadElement',
+    'argument' : callExpression (
+      '__PrepareMetadata',
       [
-        storage,
+        I (storage),
+        L (kind),
         isSymbol ? I (metaKey) : L (metaKey)
       ]
     )
   };
+  // return [{
+  //   'type'  : 'Property',
+  //   'key'   : I ('getMetadata'),
+  //   'value' : callExpression (
+  //     '__GetMetadata',
+  //     [
+  //       storage,
+  //       isSymbol ? I (metaKey) : L (metaKey)
+  //     ]
+  //   )
+  // }, {
+  //   'type'  : 'Property',
+  //   'key'   : I ('setMetadata'),
+  //   'value' : callExpression (
+  //     '__SetMetadata',
+  //     [
+  //       storage,
+  //       isSymbol ? I (metaKey) : L (metaKey)
+  //     ]
+  //   )
+  // }];
 }
 
-function defineMetadataGenerator () {
-  
+function metadataHelpers () {
   return byCode (`
 if (!Symbol.metadata) {
-  Symbol.metadata = Symbol();
+  Symbol.metadata = Symbol("Symbol.metadata");
 }
 
-function __DefineMetadata(base, name) {
-  return function(key, value) {
-    if (!base[Symbol.metadata]) {
-      base[Symbol.metadata] = Object.create(null);
-    }
-    if (!base[Symbol.metadata][name]) {
-      base[Symbol.metadata][name] = {};
-    }
-    const db = base[Symbol.metadata][name];
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
+const __metadataPrivate = new WeakMap();
+
+function __PrepareMetadata(base, kind, property) {
+  function createObjectWithPrototype(obj, key) {
+    if (!Object.hasOwnProperty.call(obj, key)) {
+      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
+        if (Object.hasOwnProperty.call(proto, key)) {
+          return obj[key] = Object.create(proto[key]);
+        }
       }
-      return db[key].push(value);
+      obj[key] = Object.create(null);
     }
-    return db[key] = value;
+  }
+  return {
+    getMetadata(key) {
+      if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
+        return kind === "public" ? base[Symbol.metadata][key].public[property] : base[Symbol.metadata][key][kind];
+      }
+    },
+    setMetadata(key, value) {
+      if (typeof key !== "symbol") {
+        throw new TypeError("the key must be a Symbol");
+      }
+      createObjectWithPrototype(base, Symbol.metadata);
+      createObjectWithPrototype(base[Symbol.metadata], key);
+      createObjectWithPrototype(base[Symbol.metadata][key], 'public');
+      if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], 'private')) {
+        Object.defineProperty(base[Symbol.metadata][key], "private", {
+          get() {
+            return (__metadataPrivate.get(base[Symbol.metadata][key]) || [])
+              .concat(Object.getPrototypeOf(base[Symbol.metadata][key])?.private || []);
+          }
+        });
+      }
+      if (kind === "public") {
+        base[Symbol.metadata][key].public[property] = value;
+      } else if (kind === "private") {
+        if (!__metadataPrivate.has(base[Symbol.metadata][key])) {
+          __metadataPrivate.set(base[Symbol.metadata][key], []);
+        }
+        __metadataPrivate.get(base[Symbol.metadata][key]).push(value);
+      } else if (kind === "constructor") {
+        base[Symbol.metadata][key].constructor = value;
+      }
+    }
   };
-}`);
-  
 }
+  `);
+}
+
+// function defineMetadataGenerator () {
+//
+//   return byCode (`
+// if (!Symbol.metadata) {
+//   Symbol.metadata = Symbol();
+// }
+//
+// function __DefineMetadata(base, name) {
+//   return function(key, value) {
+//     if (!base[Symbol.metadata]) {
+//       base[Symbol.metadata] = Object.create(null);
+//     }
+//     if (!base[Symbol.metadata][name]) {
+//       base[Symbol.metadata][name] = {};
+//     }
+//     const db = base[Symbol.metadata][name];
+//     if (key in db) {
+//       if (!Array.isArray(db[key])) {
+//         return db[key] = [db[key], value];
+//       }
+//       return db[key].push(value);
+//     }
+//     return db[key] = value;
+//   };
+// }`);
+//
+// }
 
 function addInitializer (initCollection) {
   return {

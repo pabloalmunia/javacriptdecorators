@@ -1,54 +1,98 @@
-if (!Symbol.metadata) {
-  Symbol.metadata = Symbol();
+function decorator1(value, context) {
+  if (context.kind === "getter") {
+    return function() {
+      return value.call(this) * 2;
+    };
+  }
 }
 
-function __DefineMetadata(base, name) {
-  return function(key, value) {
-    if (!base[Symbol.metadata]) {
-      base[Symbol.metadata] = Object.create(null);
-    }
-    if (!base[Symbol.metadata][name]) {
-      base[Symbol.metadata][name] = {};
-    }
-    const db = base[Symbol.metadata][name];
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
+function decorator2(value, context) {
+  if (context.kind === "getter") {
+    return function() {
+      return value.call(this) * 3;
+    };
+  }
+}
+
+if (!Symbol.metadata) {
+  Symbol.metadata = Symbol("Symbol.metadata");
+}
+
+const __metadataPrivate = new WeakMap();
+
+function __PrepareMetadata(base, kind, property) {
+  function createObjectWithPrototype(obj, key) {
+    if (!Object.hasOwnProperty.call(obj, key)) {
+      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
+        if (Object.hasOwnProperty.call(proto, key)) {
+          return obj[key] = Object.create(proto[key]);
+        }
       }
-      return db[key].push(value);
+      obj[key] = Object.create(null);
     }
-    return db[key] = value;
+  }
+  return {
+    getMetadata(key) {
+      if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
+        return kind === "public" ? base[Symbol.metadata][key].public[property] : base[Symbol.metadata][key][kind];
+      }
+    },
+    setMetadata(key, value) {
+      if (typeof key !== "symbol") {
+        throw new TypeError("the key must be a Symbol");
+      }
+      createObjectWithPrototype(base, Symbol.metadata);
+      createObjectWithPrototype(base[Symbol.metadata], key);
+      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
+        Object.defineProperty(base[Symbol.metadata][key], "private", {
+          get() {
+            return (__metadataPrivate.get(base[Symbol.metadata][key]) || []).concat(Object.getPrototypeOf(base[Symbol.metadata][key])?.private || []);
+          }
+        });
+      }
+      if (kind === "public") {
+        base[Symbol.metadata][key].public[property] = value;
+      } else if (kind === "private") {
+        if (!__metadataPrivate.has(base[Symbol.metadata][key])) {
+          __metadataPrivate.set(base[Symbol.metadata][key], []);
+        }
+        __metadataPrivate.get(base[Symbol.metadata][key]).push(value);
+      } else if (kind === "constructor") {
+        base[Symbol.metadata][key].constructor = value;
+      }
+    }
   };
 }
 
 class C {
   static get P() {
-    return "a";
+    return 2;
   }
 }
 
-const _descriptor_90qbp7ieej8 = Object.getOwnPropertyDescriptor(C, "P");
+const _C_P_descriptor_5mevs = Object.getOwnPropertyDescriptor(C, "P");
 
-_descriptor_90qbp7ieej8.get = decorator2(_descriptor_90qbp7ieej8.get, {
+_C_P_descriptor_5mevs.get = decorator2(_C_P_descriptor_5mevs.get, {
   kind: "getter",
   name: "P",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C, "P")
-}) ?? _descriptor_90qbp7ieej8.get;
+  ...__PrepareMetadata(C, "public", "P")
+}) ?? _C_P_descriptor_5mevs.get;
 
-Object.defineProperty(C, "P", _descriptor_90qbp7ieej8);
+Object.defineProperty(C, "P", _C_P_descriptor_5mevs);
 
-const _descriptor_u4qpdsqpgt8 = Object.getOwnPropertyDescriptor(C, "P");
+const _C_P_descriptor_2seu5o = Object.getOwnPropertyDescriptor(C, "P");
 
-_descriptor_u4qpdsqpgt8.get = decorator1(_descriptor_u4qpdsqpgt8.get, {
+_C_P_descriptor_2seu5o.get = decorator1(_C_P_descriptor_2seu5o.get, {
   kind: "getter",
   name: "P",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C, "P")
-}) ?? _descriptor_u4qpdsqpgt8.get;
+  ...__PrepareMetadata(C, "public", "P")
+}) ?? _C_P_descriptor_2seu5o.get;
 
-Object.defineProperty(C, "P", _descriptor_u4qpdsqpgt8);
+Object.defineProperty(C, "P", _C_P_descriptor_2seu5o);
 
-console.assert(C.p === "a");
+console.assert(C.P === 12);

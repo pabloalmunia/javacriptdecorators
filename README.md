@@ -48,7 +48,8 @@ class MyClass {}
 {
   kind: "class",
   name: "MyClass",
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -68,7 +69,7 @@ class.
 
 #### metadata location
 
-`MyClass[Symbol.metadata].constructor`
+`MyClass[Symbol.metadata][key].constructor`
 
 
 ---
@@ -96,7 +97,8 @@ class MyClass {
   name: "someMethod",
   isStatic: false,
   isPrivate: false,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -117,7 +119,7 @@ object.
 
 #### metadata location
 
-`MyClass.prototype[Symbol.metadata].someMethod`
+`MyClass.prototype[Symbol.metadata][key].public.someMethod`
 
 
 ### Static method
@@ -141,7 +143,8 @@ class MyClass {
   name: "someMethod",
   isStatic: true,
   isPrivate: false,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -160,7 +163,7 @@ class.
 
 ##### metadata location
 
-`MyClass[Symbol.metadata].someMethod`
+`MyClass[Symbol.metadata][key].public.someMethod`
 
 
 ### Private method
@@ -187,7 +190,8 @@ class MyClass {
   },
   isStatic: false,
   isPrivate: true,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -207,7 +211,7 @@ object.
 
 ##### metadata location
 
-`MyClass.prototype[Symbol.metadata]['#someMethod']`
+`MyClass.prototype[Symbol.metadata][key].private` array.
 
 
 ### Static private method
@@ -234,7 +238,8 @@ class MyClass {
   },
   isStatic: true,
   isPrivate: true,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -253,7 +258,7 @@ class.
 
 ##### metadata location
 
-`MyClass[Symbol.metadata]['#someMethod']`
+`MyClass[Symbol.metadata][key].private` array.
 
 
 
@@ -282,7 +287,8 @@ class MyClass {
   name: "someGetter",
   isStatic: false,
   isPrivate: false,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -300,7 +306,7 @@ object.
 
 ##### metadata location
 
-`MyClass.prototype[Symbol.metadata].someGetter`
+`MyClass.prototype[Symbol.metadata][key].public.someGetter`
 
 
 ### Public setter
@@ -324,7 +330,8 @@ class MyClass {
   name: "someSetter",
   isStatic: false,
   isPrivate: false,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -342,7 +349,7 @@ object.
 
 ##### metadata location
 
-`MyClass.prototype[Symbol.metadata].someSetter`
+`MyClass.prototype[Symbol.metadata][key].public.someSetter`
 
 
 ### Static getter
@@ -366,7 +373,8 @@ class MyClass {
   name: "someGetter",
   isStatic: true,
   isPrivate: false,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -385,7 +393,7 @@ class.
 
 ##### metadata location
 
-`MyClass[Symbol.metadata].someGetter`
+`MyClass[Symbol.metadata][key].public.someGetter`
 
 
 ### Static setter
@@ -409,7 +417,8 @@ class MyClass {
   name: "someSetter",
   isStatic: true,
   isPrivate: false,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -428,7 +437,7 @@ class.
 
 ##### metadata location
 
-`MyClass[Symbol.metadata].someSetter`
+`MyClass[Symbol.metadata][key].public.someSetter`
 
 
 ### Private getter
@@ -455,7 +464,8 @@ class MyClass {
   },
   isStatic: false,
   isPrivate: true,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -475,7 +485,7 @@ object.
 
 ##### metadata location
 
-`MyClass.prototype[Symbol.metadata]['#someGetter']`
+`MyClass.prototype[Symbol.metadata][key].private` array.
 
 
 ### Private setter
@@ -502,7 +512,8 @@ class MyClass {
   },
   isStatic: false,
   isPrivate: true,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -522,7 +533,7 @@ object.
 
 ##### metadata location
 
-`MyClass.prototype[Symbol.metadata]['#someSetter']`
+`MyClass.prototype[Symbol.metadata][key].private` array.
 
 
 ### Static private getter
@@ -549,7 +560,8 @@ class MyClass {
   },
   isStatic: true,
   isPrivate: true,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -570,7 +582,7 @@ class.
 
 ##### metadata location
 
-`MyClass[Symbol.metadata]['#someGetter']`
+`MyClass[Symbol.metadata][key].private` array.
 
 
 ### Static private setter
@@ -597,7 +609,8 @@ class MyClass {
   },
   isStatic: true,
   isPrivate: true,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -617,7 +630,7 @@ class.
 
 ##### metadata location
 
-`MyClass[Symbol.metadata]['#someSetter']`
+`MyClass[Symbol.metadata][key].private` array.
 
 
 ---
@@ -645,7 +658,8 @@ class MyClass {
   name: "someField",
   isStatic: false,
   isPrivate: false,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -664,7 +678,7 @@ object.
 
 ##### metadata location
 
-`MyClass.prototype[Symbol.metadata].someField`
+`MyClass.prototype[Symbol.metadata][key].public.someField`
 
 
 ### Public field with accessor
@@ -688,7 +702,8 @@ class MyClass {
   name: "someField",
   isStatic: false,
   isPrivate: false,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -715,7 +730,7 @@ object.
 
 ##### metadata location
 
-`MyClass.prototype[Symbol.metadata].someField`
+`MyClass.prototype[Symbol.metadata][key].public.someField`
 
 
 ### Static field
@@ -739,7 +754,8 @@ class MyClass {
   name: "someField",
   isStatic: true,
   isPrivate: false,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -758,7 +774,7 @@ class.
 
 ##### metadata location
 
-`MyClass[Symbol.metadata].someField`
+`MyClass[Symbol.metadata][key].public.someField`
 
 
 ### Static field with accessor
@@ -782,7 +798,8 @@ class MyClass {
   name: "someField",
   isStatic: true,
   isPrivate: false,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -809,7 +826,7 @@ class.
 
 ##### metadata location
 
-`MyClass[Symbol.metadata].someField`
+`MyClass[Symbol.metadata][key].public.someField`
 
 
 ### Private field
@@ -833,7 +850,8 @@ class MyClass {
   name: "#someField",
   isStatic: true,
   isPrivate: false,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -852,7 +870,7 @@ object.
 
 ##### metadata location
 
-`MyClass.prototype[Symbol.metadata]['#someField']`
+`MyClass.prototype[Symbol.metadata][key].private` array.
 
 
 ### Private field with accessor
@@ -880,7 +898,8 @@ class MyClass {
   },
   isStatic: false,
   isPrivate: true,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -907,7 +926,7 @@ object.
 
 ##### metadata location
 
-`MyClass.prototype[Symbol.metadata].someField`
+`MyClass.prototype[Symbol.metadata][key].public.someField`
 
 
 ### Static private field
@@ -935,7 +954,8 @@ class MyClass {
   },
   isStatic: true,
   isPrivate: true,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -954,7 +974,7 @@ class.
 
 ##### metadata location
 
-`MyClass[Symbol.metadata]['#someField']`
+`MyClass[Symbol.metadata][key].private` array.
 
 
 ### Static private field with accessor
@@ -982,7 +1002,8 @@ class MyClass {
   },
   isStatic: true,
   isPrivate: true,
-  defineMetadata(key, value) { /* ... */ },
+  getMetadata(key ) { /* ... */ },
+  setMetadata(key, value) { /* ... */ },
   addInitializer(initalizer) { /* ... */ }
 }
 ```
@@ -1010,7 +1031,7 @@ class.
 
 ##### metadata location
 
-`MyClass[Symbol.metadata].someField`
+`MyClass[Symbol.metadata][key].public.someField`
 
 
 ---

@@ -7,4 +7,4 @@ class C {
 }
 const c = new C();
 
-console.log(c.p);
+console.assert(c.p === 20);

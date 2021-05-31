@@ -1,10 +1,10 @@
 class C {
-  #_property_r7e06jrbgv = 10;
+  #_p_private_property_p8hoko = 10;
   get p() {
-    return this.#_property_r7e06jrbgv;
+    return this.#_p_private_property_p8hoko;
   }
   set p(v) {
-    this.#_property_r7e06jrbgv = v;
+    this.#_p_private_property_p8hoko = v;
   }
 }
 

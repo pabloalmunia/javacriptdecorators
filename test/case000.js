@@ -1,4 +1,6 @@
 // Class
+class A {}
+
 class C extends A {
  
   // Constructor

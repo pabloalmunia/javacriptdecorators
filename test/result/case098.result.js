@@ -9,107 +9,135 @@ function addProperty(key, value) {
 }
 
 if (!Symbol.metadata) {
-  Symbol.metadata = Symbol();
+  Symbol.metadata = Symbol("Symbol.metadata");
 }
 
-function __DefineMetadata(base, name) {
-  return function(key, value) {
-    if (!base[Symbol.metadata]) {
-      base[Symbol.metadata] = Object.create(null);
-    }
-    if (!base[Symbol.metadata][name]) {
-      base[Symbol.metadata][name] = {};
-    }
-    const db = base[Symbol.metadata][name];
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
+const __metadataPrivate = new WeakMap();
+
+function __PrepareMetadata(base, kind, property) {
+  function createObjectWithPrototype(obj, key) {
+    if (!Object.hasOwnProperty.call(obj, key)) {
+      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
+        if (Object.hasOwnProperty.call(proto, key)) {
+          return obj[key] = Object.create(proto[key]);
+        }
       }
-      return db[key].push(value);
+      obj[key] = Object.create(null);
     }
-    return db[key] = value;
+  }
+  return {
+    getMetadata(key) {
+      if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
+        return kind === "public" ? base[Symbol.metadata][key].public[property] : base[Symbol.metadata][key][kind];
+      }
+    },
+    setMetadata(key, value) {
+      if (typeof key !== "symbol") {
+        throw new TypeError("the key must be a Symbol");
+      }
+      createObjectWithPrototype(base, Symbol.metadata);
+      createObjectWithPrototype(base[Symbol.metadata], key);
+      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
+        Object.defineProperty(base[Symbol.metadata][key], "private", {
+          get() {
+            return (__metadataPrivate.get(base[Symbol.metadata][key]) || []).concat(Object.getPrototypeOf(base[Symbol.metadata][key])?.private || []);
+          }
+        });
+      }
+      if (kind === "public") {
+        base[Symbol.metadata][key].public[property] = value;
+      } else if (kind === "private") {
+        if (!__metadataPrivate.has(base[Symbol.metadata][key])) {
+          __metadataPrivate.set(base[Symbol.metadata][key], []);
+        }
+        __metadataPrivate.get(base[Symbol.metadata][key]).push(value);
+      } else if (kind === "constructor") {
+        base[Symbol.metadata][key].constructor = value;
+      }
+    }
   };
 }
 
-const _C_member_initializers_9ds2rg = [];
+const _C_member_initializers_chal6 = [];
 
-const _C_m_symbol_ppqseo = Symbol();
+const _C_m_symbol_r101ug = Symbol();
 
 class C {
   constructor() {
     this.z = 100;
-    _C_member_initializers_9ds2rg.forEach(initialize => initialize.call(this));
+    _C_member_initializers_chal6.forEach(initialize => initialize.call(this));
   }
-  _C_m_temp_qd35jo() {}
-  static [_C_m_symbol_ppqseo] = addProperty("a", 1)(C.prototype._C_m_temp_qd35jo, {
+  _C_m_temp_8158eg() {}
+  static [_C_m_symbol_r101ug] = addProperty("a", 1)(C.prototype._C_m_temp_8158eg, {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_m_symbol_ppqseo]
+      get: C.prototype[_C_m_symbol_r101ug]
     },
-    defineMetadata: __DefineMetadata(C.prototype, "#m"),
-    addInitializer: initializer => _C_member_initializers_9ds2rg.push(initializer)
-  }) ?? C.prototype._C_m_temp_qd35jo;
-  static [_C_m_symbol_ppqseo] = addProperty("b", 2)(C[_C_m_symbol_ppqseo], {
+    ...__PrepareMetadata(C.prototype, "private", undefined),
+    addInitializer: initializer => _C_member_initializers_chal6.push(initializer)
+  }) ?? C.prototype._C_m_temp_8158eg;
+  static [_C_m_symbol_r101ug] = addProperty("b", 2)(C[_C_m_symbol_r101ug], {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_m_symbol_ppqseo]
+      get: C.prototype[_C_m_symbol_r101ug]
     },
-    defineMetadata: __DefineMetadata(C.prototype, "#m"),
-    addInitializer: initializer => _C_member_initializers_9ds2rg.push(initializer)
-  }) ?? C[_C_m_symbol_ppqseo];
-  #m = C[_C_m_symbol_ppqseo];
-  [_C_m_symbol_ppqseo]() {
+    ...__PrepareMetadata(C.prototype, "private", undefined),
+    addInitializer: initializer => _C_member_initializers_chal6.push(initializer)
+  }) ?? C[_C_m_symbol_r101ug];
+  #m = C[_C_m_symbol_r101ug];
+  [_C_m_symbol_r101ug]() {
     return this.#m;
   }
 }
 
-delete C.prototype._C_m_temp_qd35jo;
+delete C.prototype._C_m_temp_8158eg;
 
-const _D_member_initializers_r5s1fg = [];
+const _D_member_initializers_su0ooo = [];
 
-const _D_m_symbol_4caeg8 = Symbol();
+const _D_m_symbol_2uh7c = Symbol();
 
 class D extends C {
   constructor() {
     super();
-    _D_member_initializers_r5s1fg.forEach(initialize => initialize.call(this));
+    _D_member_initializers_su0ooo.forEach(initialize => initialize.call(this));
   }
-  _D_m_temp_l1o5k() {}
-  static [_D_m_symbol_4caeg8] = addProperty("c", 3)(D.prototype._D_m_temp_l1o5k, {
+  _D_m_temp_gvot4o() {}
+  static [_D_m_symbol_2uh7c] = addProperty("c", 3)(D.prototype._D_m_temp_gvot4o, {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: D.prototype[_D_m_symbol_4caeg8]
+      get: D.prototype[_D_m_symbol_2uh7c]
     },
-    defineMetadata: __DefineMetadata(D.prototype, "#m"),
-    addInitializer: initializer => _D_member_initializers_r5s1fg.push(initializer)
-  }) ?? D.prototype._D_m_temp_l1o5k;
-  static [_D_m_symbol_4caeg8] = addProperty("d", 4)(D[_D_m_symbol_4caeg8], {
+    ...__PrepareMetadata(D.prototype, "private", undefined),
+    addInitializer: initializer => _D_member_initializers_su0ooo.push(initializer)
+  }) ?? D.prototype._D_m_temp_gvot4o;
+  static [_D_m_symbol_2uh7c] = addProperty("d", 4)(D[_D_m_symbol_2uh7c], {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: D.prototype[_D_m_symbol_4caeg8]
+      get: D.prototype[_D_m_symbol_2uh7c]
     },
-    defineMetadata: __DefineMetadata(D.prototype, "#m"),
-    addInitializer: initializer => _D_member_initializers_r5s1fg.push(initializer)
-  }) ?? D[_D_m_symbol_4caeg8];
-  #m = D[_D_m_symbol_4caeg8];
-  [_D_m_symbol_4caeg8]() {
+    ...__PrepareMetadata(D.prototype, "private", undefined),
+    addInitializer: initializer => _D_member_initializers_su0ooo.push(initializer)
+  }) ?? D[_D_m_symbol_2uh7c];
+  #m = D[_D_m_symbol_2uh7c];
+  [_D_m_symbol_2uh7c]() {
     return this.#m;
   }
 }
 
-delete D.prototype._D_m_temp_l1o5k;
+delete D.prototype._D_m_temp_gvot4o;
 
 const c = new C();
 

@@ -9,99 +9,127 @@ function addProperty(key, value) {
 }
 
 if (!Symbol.metadata) {
-  Symbol.metadata = Symbol();
+  Symbol.metadata = Symbol("Symbol.metadata");
 }
 
-function __DefineMetadata(base, name) {
-  return function(key, value) {
-    if (!base[Symbol.metadata]) {
-      base[Symbol.metadata] = Object.create(null);
-    }
-    if (!base[Symbol.metadata][name]) {
-      base[Symbol.metadata][name] = {};
-    }
-    const db = base[Symbol.metadata][name];
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
+const __metadataPrivate = new WeakMap();
+
+function __PrepareMetadata(base, kind, property) {
+  function createObjectWithPrototype(obj, key) {
+    if (!Object.hasOwnProperty.call(obj, key)) {
+      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
+        if (Object.hasOwnProperty.call(proto, key)) {
+          return obj[key] = Object.create(proto[key]);
+        }
       }
-      return db[key].push(value);
+      obj[key] = Object.create(null);
     }
-    return db[key] = value;
+  }
+  return {
+    getMetadata(key) {
+      if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
+        return kind === "public" ? base[Symbol.metadata][key].public[property] : base[Symbol.metadata][key][kind];
+      }
+    },
+    setMetadata(key, value) {
+      if (typeof key !== "symbol") {
+        throw new TypeError("the key must be a Symbol");
+      }
+      createObjectWithPrototype(base, Symbol.metadata);
+      createObjectWithPrototype(base[Symbol.metadata], key);
+      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
+        Object.defineProperty(base[Symbol.metadata][key], "private", {
+          get() {
+            return (__metadataPrivate.get(base[Symbol.metadata][key]) || []).concat(Object.getPrototypeOf(base[Symbol.metadata][key])?.private || []);
+          }
+        });
+      }
+      if (kind === "public") {
+        base[Symbol.metadata][key].public[property] = value;
+      } else if (kind === "private") {
+        if (!__metadataPrivate.has(base[Symbol.metadata][key])) {
+          __metadataPrivate.set(base[Symbol.metadata][key], []);
+        }
+        __metadataPrivate.get(base[Symbol.metadata][key]).push(value);
+      } else if (kind === "constructor") {
+        base[Symbol.metadata][key].constructor = value;
+      }
+    }
   };
 }
 
-const _C_member_initializers_dkomr8 = [];
+const _C_member_initializers_cpkgi = [];
 
 class C {
   constructor() {
     this.z = 100;
-    _C_member_initializers_dkomr8.forEach(initialize => initialize.call(this));
+    _C_member_initializers_cpkgi.forEach(initialize => initialize.call(this));
   }
   set p(v) {}
 }
 
-const _C_p_descriptor_8kut2g = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_28phu8 = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_C_p_descriptor_8kut2g.set = addProperty("a", 1)(_C_p_descriptor_8kut2g.set, {
+_C_p_descriptor_28phu8.set = addProperty("a", 1)(_C_p_descriptor_28phu8.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p"),
-  addInitializer: initializer => _C_member_initializers_dkomr8.push(initializer)
-}) ?? _C_p_descriptor_8kut2g.set;
+  ...__PrepareMetadata(C.prototype, "public", "p"),
+  addInitializer: initializer => _C_member_initializers_cpkgi.push(initializer)
+}) ?? _C_p_descriptor_28phu8.set;
 
-Object.defineProperty(C.prototype, "p", _C_p_descriptor_8kut2g);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_28phu8);
 
-const _C_p_descriptor_c8kl6 = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_dp37qo = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_C_p_descriptor_c8kl6.set = addProperty("b", 2)(_C_p_descriptor_c8kl6.set, {
+_C_p_descriptor_dp37qo.set = addProperty("b", 2)(_C_p_descriptor_dp37qo.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p"),
-  addInitializer: initializer => _C_member_initializers_dkomr8.push(initializer)
-}) ?? _C_p_descriptor_c8kl6.set;
+  ...__PrepareMetadata(C.prototype, "public", "p"),
+  addInitializer: initializer => _C_member_initializers_cpkgi.push(initializer)
+}) ?? _C_p_descriptor_dp37qo.set;
 
-Object.defineProperty(C.prototype, "p", _C_p_descriptor_c8kl6);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_dp37qo);
 
-const _D_member_initializers_3b3up = [];
+const _D_member_initializers_o21hag = [];
 
 class D extends C {
   constructor() {
     super();
-    _D_member_initializers_3b3up.forEach(initialize => initialize.call(this));
+    _D_member_initializers_o21hag.forEach(initialize => initialize.call(this));
   }
   set p(v) {}
 }
 
-const _D_p_descriptor_jutaoo = Object.getOwnPropertyDescriptor(D.prototype, "p");
+const _D_p_descriptor_643ido = Object.getOwnPropertyDescriptor(D.prototype, "p");
 
-_D_p_descriptor_jutaoo.set = addProperty("c", 3)(_D_p_descriptor_jutaoo.set, {
+_D_p_descriptor_643ido.set = addProperty("c", 3)(_D_p_descriptor_643ido.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(D.prototype, "p"),
-  addInitializer: initializer => _D_member_initializers_3b3up.push(initializer)
-}) ?? _D_p_descriptor_jutaoo.set;
+  ...__PrepareMetadata(D.prototype, "public", "p"),
+  addInitializer: initializer => _D_member_initializers_o21hag.push(initializer)
+}) ?? _D_p_descriptor_643ido.set;
 
-Object.defineProperty(D.prototype, "p", _D_p_descriptor_jutaoo);
+Object.defineProperty(D.prototype, "p", _D_p_descriptor_643ido);
 
-const _D_p_descriptor_bjk4sg = Object.getOwnPropertyDescriptor(D.prototype, "p");
+const _D_p_descriptor_qerm4 = Object.getOwnPropertyDescriptor(D.prototype, "p");
 
-_D_p_descriptor_bjk4sg.set = addProperty("d", 4)(_D_p_descriptor_bjk4sg.set, {
+_D_p_descriptor_qerm4.set = addProperty("d", 4)(_D_p_descriptor_qerm4.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(D.prototype, "p"),
-  addInitializer: initializer => _D_member_initializers_3b3up.push(initializer)
-}) ?? _D_p_descriptor_bjk4sg.set;
+  ...__PrepareMetadata(D.prototype, "public", "p"),
+  addInitializer: initializer => _D_member_initializers_o21hag.push(initializer)
+}) ?? _D_p_descriptor_qerm4.set;
 
-Object.defineProperty(D.prototype, "p", _D_p_descriptor_bjk4sg);
+Object.defineProperty(D.prototype, "p", _D_p_descriptor_qerm4);
 
 const c = new C();
 
