@@ -1,56 +1,80 @@
 function decorator(value, context) {
-  if (context.kind === "method") {
-    return function(...args) {
-      console.log(`starting ${context.name} with arguments ${args.join(", ")}`);
-      const ret = value.call(this, ...args);
-      console.log(`ending ${context.name}`);
-      return ret;
-    };
-  }
+  console.assert(context.kind === "method");
+  console.assert(context.name === "#m");
+  console.assert(typeof context.setMetadata === "function");
+  console.assert(typeof context.getMetadata === "function");
+  console.assert(context.isPrivate);
 }
 
 if (!Symbol.metadata) {
-  Symbol.metadata = Symbol();
+  Symbol.metadata = Symbol("Symbol.metadata");
 }
 
-function __DefineMetadata(base, name) {
-  return function(key, value) {
-    if (!base[Symbol.metadata]) {
-      base[Symbol.metadata] = Object.create(null);
-    }
-    if (!base[Symbol.metadata][name]) {
-      base[Symbol.metadata][name] = {};
-    }
-    const db = base[Symbol.metadata][name];
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
+const __metadataPrivate = new WeakMap();
+
+function __PrepareMetadata(base, kind, property) {
+  function createObjectWithPrototype(obj, key) {
+    if (!Object.hasOwnProperty.call(obj, key)) {
+      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
+        if (Object.hasOwnProperty.call(proto, key)) {
+          return obj[key] = Object.create(proto[key]);
+        }
       }
-      return db[key].push(value);
+      obj[key] = Object.create(null);
     }
-    return db[key] = value;
+  }
+  return {
+    getMetadata(key) {
+      if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
+        return kind === "public" ? base[Symbol.metadata][key].public[property] : base[Symbol.metadata][key][kind];
+      }
+    },
+    setMetadata(key, value) {
+      if (typeof key !== "symbol") {
+        throw new TypeError("the key must be a Symbol");
+      }
+      createObjectWithPrototype(base, Symbol.metadata);
+      createObjectWithPrototype(base[Symbol.metadata], key);
+      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
+        Object.defineProperty(base[Symbol.metadata][key], "private", {
+          get() {
+            return (__metadataPrivate.get(base[Symbol.metadata][key]) || []).concat(Object.getPrototypeOf(base[Symbol.metadata][key])?.private || []);
+          }
+        });
+      }
+      if (kind === "public") {
+        base[Symbol.metadata][key].public[property] = value;
+      } else if (kind === "private") {
+        if (!__metadataPrivate.has(base[Symbol.metadata][key])) {
+          __metadataPrivate.set(base[Symbol.metadata][key], []);
+        }
+        __metadataPrivate.get(base[Symbol.metadata][key]).push(value);
+      } else if (kind === "constructor") {
+        base[Symbol.metadata][key].constructor = value;
+      }
+    }
   };
 }
 
-const _symbol_44p0ddko0ng = Symbol();
+const _C_m_symbol_vesvo = Symbol();
 
 class C {
-  #multi = 2;
-  _temp_osaul1epv08(v) {
-    return v * this.#multi;
+  _C_m_temp_mn581o(v) {
+    return v * 2;
   }
-  static [_symbol_44p0ddko0ng] = decorator(C.prototype._temp_osaul1epv08, {
+  static [_C_m_symbol_vesvo] = decorator(C.prototype._C_m_temp_mn581o, {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_symbol_44p0ddko0ng]
+      get: C.prototype[_C_m_symbol_vesvo]
     },
-    defineMetadata: __DefineMetadata(C.prototype, "#m")
-  }) ?? C.prototype._temp_osaul1epv08;
-  #m = C[_symbol_44p0ddko0ng];
-  [_symbol_44p0ddko0ng]() {
+    ...__PrepareMetadata(C.prototype, "private", undefined)
+  }) ?? C.prototype._C_m_temp_mn581o;
+  #m = C[_C_m_symbol_vesvo];
+  [_C_m_symbol_vesvo]() {
     return this.#m;
   }
   check(v) {
@@ -58,6 +82,6 @@ class C {
   }
 }
 
-delete C.prototype._temp_osaul1epv08;
+delete C.prototype._C_m_temp_mn581o;
 
 console.assert(new C().check(100) === 200);

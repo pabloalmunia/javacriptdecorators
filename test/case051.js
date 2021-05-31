@@ -1,15 +1,12 @@
 function decorator(value, context) {
-  if (context.kind === "method") {
-    return function (...args) {
-      console.log(`starting ${context.name} with arguments ${args.join(", ")}`);
-      const ret = value.call(this, ...args);
-      console.log(`ending ${context.name}`);
-      return ret;
-    };
-  }
+  console.assert(context.kind === 'method');
+  console.assert(context.name === 'M');
+  console.assert(typeof context.setMetadata === 'function');
+  console.assert(typeof context.getMetadata === 'function');
+  console.assert(context.isStatic);
 }
 
-@class_decorator
+
 class C {
   @decorator
   static M() {}

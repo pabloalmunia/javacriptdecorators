@@ -15,5 +15,5 @@ class C {
   m() {}
 }
 
-console.log(new C().m.one);
-console.log(new C().m.two);
+console.assert(new C().m.one === 1);
+console.assert(new C().m.two === 2);

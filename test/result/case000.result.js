@@ -1,3 +1,5 @@
+class A {}
+
 class C extends A {
   constructor() {
     super();

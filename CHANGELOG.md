@@ -1,10 +1,18 @@
 # JavascriptDecorators.org - CHANGELOG
 
-## version 0.1.10 - 2021/05/28
+## version 0.3.0 - 2021/05/31
+
+- removed defineMetadata
+- added addMetadata
+- added setMetadata
+- improved tests
+- renamed version 0.1.9 to 0.2.0 and 1.1.10 to 0.2.1
+
+## version 0.2.1 - 2021/05/28
 
 - Include support to @init: with field decorators
 
-## version 0.1.9 - 2021/05/27
+## version 0.2.0 - 2021/05/27
 
 - Included support to addInitializer()
 - Improved transpiled process.

@@ -1,48 +1,94 @@
-if (!Symbol.metadata) {
-  Symbol.metadata = Symbol();
+function decorator1(value, context) {
+  if (context.kind === "field") {
+    return function(v) {
+      return v * 2;
+    };
+  }
 }
 
-function __DefineMetadata(base, name) {
-  return function(key, value) {
-    if (!base[Symbol.metadata]) {
-      base[Symbol.metadata] = Object.create(null);
-    }
-    if (!base[Symbol.metadata][name]) {
-      base[Symbol.metadata][name] = {};
-    }
-    const db = base[Symbol.metadata][name];
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
+function decorator2(value, context) {
+  if (context.kind === "field") {
+    return function(v) {
+      return v * 3;
+    };
+  }
+}
+
+if (!Symbol.metadata) {
+  Symbol.metadata = Symbol("Symbol.metadata");
+}
+
+const __metadataPrivate = new WeakMap();
+
+function __PrepareMetadata(base, kind, property) {
+  function createObjectWithPrototype(obj, key) {
+    if (!Object.hasOwnProperty.call(obj, key)) {
+      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
+        if (Object.hasOwnProperty.call(proto, key)) {
+          return obj[key] = Object.create(proto[key]);
+        }
       }
-      return db[key].push(value);
+      obj[key] = Object.create(null);
     }
-    return db[key] = value;
+  }
+  return {
+    getMetadata(key) {
+      if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
+        return kind === "public" ? base[Symbol.metadata][key].public[property] : base[Symbol.metadata][key][kind];
+      }
+    },
+    setMetadata(key, value) {
+      if (typeof key !== "symbol") {
+        throw new TypeError("the key must be a Symbol");
+      }
+      createObjectWithPrototype(base, Symbol.metadata);
+      createObjectWithPrototype(base[Symbol.metadata], key);
+      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
+        Object.defineProperty(base[Symbol.metadata][key], "private", {
+          get() {
+            return (__metadataPrivate.get(base[Symbol.metadata][key]) || []).concat(Object.getPrototypeOf(base[Symbol.metadata][key])?.private || []);
+          }
+        });
+      }
+      if (kind === "public") {
+        base[Symbol.metadata][key].public[property] = value;
+      } else if (kind === "private") {
+        if (!__metadataPrivate.has(base[Symbol.metadata][key])) {
+          __metadataPrivate.set(base[Symbol.metadata][key], []);
+        }
+        __metadataPrivate.get(base[Symbol.metadata][key]).push(value);
+      } else if (kind === "constructor") {
+        base[Symbol.metadata][key].constructor = value;
+      }
+    }
   };
 }
 
-let _initializer_4b3lor2r5lo;
+let _C_p_initializer_p34ob8;
 
-let _initializer_hcoe0a24ga;
+let _C_p_initializer_gm3e;
 
 class C {
-  p = _initializer_hcoe0a24ga.call(this, _initializer_4b3lor2r5lo.call(this, ));
+  p = _C_p_initializer_gm3e.call(this, _C_p_initializer_p34ob8.call(this, 1));
 }
 
-_initializer_hcoe0a24ga = decorator2(undefined, {
+_C_p_initializer_gm3e = decorator2(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p")
+  ...__PrepareMetadata(C.prototype, "public", "p")
 }) ?? (v => v);
 
-_initializer_4b3lor2r5lo = decorator1(undefined, {
+_C_p_initializer_p34ob8 = decorator1(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p")
+  ...__PrepareMetadata(C.prototype, "public", "p")
 }) ?? (v => v);
 
-const a = new C();
+const c = new C();
+
+console.assert(c.p === 6);

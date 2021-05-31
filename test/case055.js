@@ -1,13 +1,15 @@
-function decorator(value) {
-  return function (methodº, context) {
-    context.defineMetadata('one', value);
+const META = Symbol()
+function meta(value) {
+  return function (element, context) {
+    const n = context.getMetadata(META) || 0;
+    context.setMetadata (META, n + value);
   }
 }
 
 class C {
-  @decorator('test1')
-  @decorator('test2')
+  @meta(1)
+  @meta(2)
   static M() {}
 }
 
-console.log(C[Symbol.metadata]);
+console.assert(C[Symbol.metadata][META].public.M === 3);

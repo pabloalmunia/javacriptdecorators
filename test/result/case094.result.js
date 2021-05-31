@@ -1,65 +1,98 @@
+const ONE = Symbol();
+
+const TWO = Symbol();
+
 function decorator1(value, context) {
-  context.defineMetadata("one", 1);
+  context.setMetadata(ONE, 1);
 }
 
 function decorator2(value, context) {
-  context.defineMetadata("one", 1);
-  context.defineMetadata("two", 2);
+  context.setMetadata(TWO, 2);
 }
 
 if (!Symbol.metadata) {
-  Symbol.metadata = Symbol();
+  Symbol.metadata = Symbol("Symbol.metadata");
 }
 
-function __DefineMetadata(base, name) {
-  return function(key, value) {
-    if (!base[Symbol.metadata]) {
-      base[Symbol.metadata] = Object.create(null);
-    }
-    if (!base[Symbol.metadata][name]) {
-      base[Symbol.metadata][name] = {};
-    }
-    const db = base[Symbol.metadata][name];
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
+const __metadataPrivate = new WeakMap();
+
+function __PrepareMetadata(base, kind, property) {
+  function createObjectWithPrototype(obj, key) {
+    if (!Object.hasOwnProperty.call(obj, key)) {
+      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
+        if (Object.hasOwnProperty.call(proto, key)) {
+          return obj[key] = Object.create(proto[key]);
+        }
       }
-      return db[key].push(value);
+      obj[key] = Object.create(null);
     }
-    return db[key] = value;
+  }
+  return {
+    getMetadata(key) {
+      if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
+        return kind === "public" ? base[Symbol.metadata][key].public[property] : base[Symbol.metadata][key][kind];
+      }
+    },
+    setMetadata(key, value) {
+      if (typeof key !== "symbol") {
+        throw new TypeError("the key must be a Symbol");
+      }
+      createObjectWithPrototype(base, Symbol.metadata);
+      createObjectWithPrototype(base[Symbol.metadata], key);
+      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
+        Object.defineProperty(base[Symbol.metadata][key], "private", {
+          get() {
+            return (__metadataPrivate.get(base[Symbol.metadata][key]) || []).concat(Object.getPrototypeOf(base[Symbol.metadata][key])?.private || []);
+          }
+        });
+      }
+      if (kind === "public") {
+        base[Symbol.metadata][key].public[property] = value;
+      } else if (kind === "private") {
+        if (!__metadataPrivate.has(base[Symbol.metadata][key])) {
+          __metadataPrivate.set(base[Symbol.metadata][key], []);
+        }
+        __metadataPrivate.get(base[Symbol.metadata][key]).push(value);
+      } else if (kind === "constructor") {
+        base[Symbol.metadata][key].constructor = value;
+      }
+    }
   };
 }
 
-const _symbol_kdbs0sbtln8 = Symbol();
+const _C_m_symbol_ipv8ko = Symbol();
 
 class C {
-  _temp_3122idu1vl8() {}
-  static [_symbol_kdbs0sbtln8] = decorator1(C.prototype._temp_3122idu1vl8, {
+  _C_m_temp_k8av8g() {}
+  static [_C_m_symbol_ipv8ko] = decorator1(C.prototype._C_m_temp_k8av8g, {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_symbol_kdbs0sbtln8]
+      get: C.prototype[_C_m_symbol_ipv8ko]
     },
-    defineMetadata: __DefineMetadata(C.prototype, "#m")
-  }) ?? C.prototype._temp_3122idu1vl8;
-  static [_symbol_kdbs0sbtln8] = decorator2(C[_symbol_kdbs0sbtln8], {
+    ...__PrepareMetadata(C.prototype, "private", undefined)
+  }) ?? C.prototype._C_m_temp_k8av8g;
+  static [_C_m_symbol_ipv8ko] = decorator2(C[_C_m_symbol_ipv8ko], {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_symbol_kdbs0sbtln8]
+      get: C.prototype[_C_m_symbol_ipv8ko]
     },
-    defineMetadata: __DefineMetadata(C.prototype, "#m")
-  }) ?? C[_symbol_kdbs0sbtln8];
-  #m = C[_symbol_kdbs0sbtln8];
-  [_symbol_kdbs0sbtln8]() {
+    ...__PrepareMetadata(C.prototype, "private", undefined)
+  }) ?? C[_C_m_symbol_ipv8ko];
+  #m = C[_C_m_symbol_ipv8ko];
+  [_C_m_symbol_ipv8ko]() {
     return this.#m;
   }
 }
 
-delete C.prototype._temp_3122idu1vl8;
+delete C.prototype._C_m_temp_k8av8g;
 
-console.log(C.prototype[Symbol.metadata]);
+console.assert(C.prototype[Symbol.metadata][ONE].private[0] === 1);
+
+console.assert(C.prototype[Symbol.metadata][TWO].private[0] === 2);

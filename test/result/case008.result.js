@@ -9,67 +9,95 @@ function addProperty(key, value) {
 }
 
 if (!Symbol.metadata) {
-  Symbol.metadata = Symbol();
+  Symbol.metadata = Symbol("Symbol.metadata");
 }
 
-function __DefineMetadata(base, name) {
-  return function(key, value) {
-    if (!base[Symbol.metadata]) {
-      base[Symbol.metadata] = Object.create(null);
-    }
-    if (!base[Symbol.metadata][name]) {
-      base[Symbol.metadata][name] = {};
-    }
-    const db = base[Symbol.metadata][name];
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
+const __metadataPrivate = new WeakMap();
+
+function __PrepareMetadata(base, kind, property) {
+  function createObjectWithPrototype(obj, key) {
+    if (!Object.hasOwnProperty.call(obj, key)) {
+      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
+        if (Object.hasOwnProperty.call(proto, key)) {
+          return obj[key] = Object.create(proto[key]);
+        }
       }
-      return db[key].push(value);
+      obj[key] = Object.create(null);
     }
-    return db[key] = value;
+  }
+  return {
+    getMetadata(key) {
+      if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
+        return kind === "public" ? base[Symbol.metadata][key].public[property] : base[Symbol.metadata][key][kind];
+      }
+    },
+    setMetadata(key, value) {
+      if (typeof key !== "symbol") {
+        throw new TypeError("the key must be a Symbol");
+      }
+      createObjectWithPrototype(base, Symbol.metadata);
+      createObjectWithPrototype(base[Symbol.metadata], key);
+      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
+        Object.defineProperty(base[Symbol.metadata][key], "private", {
+          get() {
+            return (__metadataPrivate.get(base[Symbol.metadata][key]) || []).concat(Object.getPrototypeOf(base[Symbol.metadata][key])?.private || []);
+          }
+        });
+      }
+      if (kind === "public") {
+        base[Symbol.metadata][key].public[property] = value;
+      } else if (kind === "private") {
+        if (!__metadataPrivate.has(base[Symbol.metadata][key])) {
+          __metadataPrivate.set(base[Symbol.metadata][key], []);
+        }
+        __metadataPrivate.get(base[Symbol.metadata][key]).push(value);
+      } else if (kind === "constructor") {
+        base[Symbol.metadata][key].constructor = value;
+      }
+    }
   };
 }
 
-const _C_class_initializers_gou67g = [];
+const _C_class_initializers_bh82p = [];
 
 class C {}
 
 C = addProperty("b", 2)(C, {
   kind: "class",
   name: "C",
-  defineMetadata: __DefineMetadata(C, "constructor"),
-  addInitializer: initializer => _C_class_initializers_gou67g.push(initializer)
+  ...__PrepareMetadata(C, "constructor", undefined),
+  addInitializer: initializer => _C_class_initializers_bh82p.push(initializer)
 }) ?? C;
 
 C = addProperty("a", 1)(C, {
   kind: "class",
   name: "C",
-  defineMetadata: __DefineMetadata(C, "constructor"),
-  addInitializer: initializer => _C_class_initializers_gou67g.push(initializer)
+  ...__PrepareMetadata(C, "constructor", undefined),
+  addInitializer: initializer => _C_class_initializers_bh82p.push(initializer)
 }) ?? C;
 
-_C_class_initializers_gou67g.forEach(initializer => initializer.call(C, C));
+_C_class_initializers_bh82p.forEach(initializer => initializer.call(C, C));
 
-const _D_class_initializers_kk05s = [];
+const _D_class_initializers_2qs9o8 = [];
 
 class D extends C {}
 
 D = addProperty("d", 4)(D, {
   kind: "class",
   name: "D",
-  defineMetadata: __DefineMetadata(D, "constructor"),
-  addInitializer: initializer => _D_class_initializers_kk05s.push(initializer)
+  ...__PrepareMetadata(D, "constructor", undefined),
+  addInitializer: initializer => _D_class_initializers_2qs9o8.push(initializer)
 }) ?? D;
 
 D = addProperty("c", 3)(D, {
   kind: "class",
   name: "D",
-  defineMetadata: __DefineMetadata(D, "constructor"),
-  addInitializer: initializer => _D_class_initializers_kk05s.push(initializer)
+  ...__PrepareMetadata(D, "constructor", undefined),
+  addInitializer: initializer => _D_class_initializers_2qs9o8.push(initializer)
 }) ?? D;
 
-_D_class_initializers_kk05s.forEach(initializer => initializer.call(D, D));
+_D_class_initializers_2qs9o8.forEach(initializer => initializer.call(D, D));
 
 const c = new C();
 

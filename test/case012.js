@@ -9,4 +9,4 @@ class C {
   m() {}
 }
 
-console.log(new C().m.extra);
+console.assert(new C().m.extra);

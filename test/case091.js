@@ -1,19 +1,15 @@
 function decorator(value, context) {
-  if (context.kind === "method") {
-    return function (...args) {
-      console.log(`starting ${context.name} with arguments ${args.join(", ")}`);
-      const ret = value.call(this, ...args);
-      console.log(`ending ${context.name}`);
-      return ret;
-    };
-  }
+  console.assert(context.kind === 'method');
+  console.assert(context.name === '#m');
+  console.assert(typeof context.setMetadata === 'function');
+  console.assert(typeof context.getMetadata === 'function');
+  console.assert(context.isPrivate);
 }
 
 class C {
-  #multi = 2;
   @decorator
   #m(v) {
-    return v * this.#multi;
+    return v * 2;
   }
   check(v) {
     return this.#m(v);

@@ -5,25 +5,53 @@ function decorator(value, context) {
 }
 
 if (!Symbol.metadata) {
-  Symbol.metadata = Symbol();
+  Symbol.metadata = Symbol("Symbol.metadata");
 }
 
-function __DefineMetadata(base, name) {
-  return function(key, value) {
-    if (!base[Symbol.metadata]) {
-      base[Symbol.metadata] = Object.create(null);
-    }
-    if (!base[Symbol.metadata][name]) {
-      base[Symbol.metadata][name] = {};
-    }
-    const db = base[Symbol.metadata][name];
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
+const __metadataPrivate = new WeakMap();
+
+function __PrepareMetadata(base, kind, property) {
+  function createObjectWithPrototype(obj, key) {
+    if (!Object.hasOwnProperty.call(obj, key)) {
+      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
+        if (Object.hasOwnProperty.call(proto, key)) {
+          return obj[key] = Object.create(proto[key]);
+        }
       }
-      return db[key].push(value);
+      obj[key] = Object.create(null);
     }
-    return db[key] = value;
+  }
+  return {
+    getMetadata(key) {
+      if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
+        return kind === "public" ? base[Symbol.metadata][key].public[property] : base[Symbol.metadata][key][kind];
+      }
+    },
+    setMetadata(key, value) {
+      if (typeof key !== "symbol") {
+        throw new TypeError("the key must be a Symbol");
+      }
+      createObjectWithPrototype(base, Symbol.metadata);
+      createObjectWithPrototype(base[Symbol.metadata], key);
+      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
+        Object.defineProperty(base[Symbol.metadata][key], "private", {
+          get() {
+            return (__metadataPrivate.get(base[Symbol.metadata][key]) || []).concat(Object.getPrototypeOf(base[Symbol.metadata][key])?.private || []);
+          }
+        });
+      }
+      if (kind === "public") {
+        base[Symbol.metadata][key].public[property] = value;
+      } else if (kind === "private") {
+        if (!__metadataPrivate.has(base[Symbol.metadata][key])) {
+          __metadataPrivate.set(base[Symbol.metadata][key], []);
+        }
+        __metadataPrivate.get(base[Symbol.metadata][key]).push(value);
+      } else if (kind === "constructor") {
+        base[Symbol.metadata][key].constructor = value;
+      }
+    }
   };
 }
 
@@ -33,16 +61,16 @@ class C {
   }
 }
 
-const _descriptor_uoj17cirtho = Object.getOwnPropertyDescriptor(C, "P");
+const _C_P_descriptor_jnd3n8 = Object.getOwnPropertyDescriptor(C, "P");
 
-_descriptor_uoj17cirtho.get = decorator(_descriptor_uoj17cirtho.get, {
+_C_P_descriptor_jnd3n8.get = decorator(_C_P_descriptor_jnd3n8.get, {
   kind: "getter",
   name: "P",
   isStatic: true,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C, "P")
-}) ?? _descriptor_uoj17cirtho.get;
+  ...__PrepareMetadata(C, "public", "P")
+}) ?? _C_P_descriptor_jnd3n8.get;
 
-Object.defineProperty(C, "P", _descriptor_uoj17cirtho);
+Object.defineProperty(C, "P", _C_P_descriptor_jnd3n8);
 
 console.assert(C.P === "b");

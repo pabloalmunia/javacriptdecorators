@@ -15,5 +15,5 @@ class C {
   static M() {}
 }
 
-console.log(C.M.one);
-console.log(C.M.two);
+console.assert(C.M.one === 1);
+console.assert(C.M.two === 2);

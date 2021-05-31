@@ -1,75 +1,108 @@
-function meta(key, value) {
-  return function decorator1(_, context) {
-    context.defineMetadata(key, value);
+const META = Symbol();
+
+function meta(value) {
+  return function(element, context) {
+    const n = context.getMetadata(META) || 0;
+    context.setMetadata(META, n + value);
   };
 }
 
 if (!Symbol.metadata) {
-  Symbol.metadata = Symbol();
+  Symbol.metadata = Symbol("Symbol.metadata");
 }
 
-function __DefineMetadata(base, name) {
-  return function(key, value) {
-    if (!base[Symbol.metadata]) {
-      base[Symbol.metadata] = Object.create(null);
-    }
-    if (!base[Symbol.metadata][name]) {
-      base[Symbol.metadata][name] = {};
-    }
-    const db = base[Symbol.metadata][name];
-    if (key in db) {
-      if (!Array.isArray(db[key])) {
-        return db[key] = [db[key], value];
+const __metadataPrivate = new WeakMap();
+
+function __PrepareMetadata(base, kind, property) {
+  function createObjectWithPrototype(obj, key) {
+    if (!Object.hasOwnProperty.call(obj, key)) {
+      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
+        if (Object.hasOwnProperty.call(proto, key)) {
+          return obj[key] = Object.create(proto[key]);
+        }
       }
-      return db[key].push(value);
+      obj[key] = Object.create(null);
     }
-    return db[key] = value;
+  }
+  return {
+    getMetadata(key) {
+      if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
+        return kind === "public" ? base[Symbol.metadata][key].public[property] : base[Symbol.metadata][key][kind];
+      }
+    },
+    setMetadata(key, value) {
+      if (typeof key !== "symbol") {
+        throw new TypeError("the key must be a Symbol");
+      }
+      createObjectWithPrototype(base, Symbol.metadata);
+      createObjectWithPrototype(base[Symbol.metadata], key);
+      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
+        Object.defineProperty(base[Symbol.metadata][key], "private", {
+          get() {
+            return (__metadataPrivate.get(base[Symbol.metadata][key]) || []).concat(Object.getPrototypeOf(base[Symbol.metadata][key])?.private || []);
+          }
+        });
+      }
+      if (kind === "public") {
+        base[Symbol.metadata][key].public[property] = value;
+      } else if (kind === "private") {
+        if (!__metadataPrivate.has(base[Symbol.metadata][key])) {
+          __metadataPrivate.set(base[Symbol.metadata][key], []);
+        }
+        __metadataPrivate.get(base[Symbol.metadata][key]).push(value);
+      } else if (kind === "constructor") {
+        base[Symbol.metadata][key].constructor = value;
+      }
+    }
   };
 }
 
-let _initializer_1eqs1bsc69g;
+let _C_p_initializer_92m7j;
 
-let _initializer_nudtf3fhnb8;
+let _C_p_initializer_l4flmo;
 
-let _initializer_jgdhecf919;
+let _C_f_initializer_6vm9eg;
 
-let _initializer_6hcrqbnu7mo;
+let _C_f_initializer_bvs2jg;
 
 class C {
-  p = _initializer_nudtf3fhnb8.call(this, _initializer_1eqs1bsc69g.call(this, 10));
-  f = _initializer_6hcrqbnu7mo.call(this, _initializer_jgdhecf919.call(this, 20));
+  p = _C_p_initializer_l4flmo.call(this, _C_p_initializer_92m7j.call(this, 10));
+  f = _C_f_initializer_bvs2jg.call(this, _C_f_initializer_6vm9eg.call(this, 20));
 }
 
-_initializer_6hcrqbnu7mo = meta("d", 3)(undefined, {
+_C_f_initializer_bvs2jg = meta(3)(undefined, {
   kind: "field",
   name: "f",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "f")
+  ...__PrepareMetadata(C.prototype, "public", "f")
 }) ?? (v => v);
 
-_initializer_jgdhecf919 = meta("c", 3)(undefined, {
+_C_f_initializer_6vm9eg = meta(3)(undefined, {
   kind: "field",
   name: "f",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "f")
+  ...__PrepareMetadata(C.prototype, "public", "f")
 }) ?? (v => v);
 
-_initializer_nudtf3fhnb8 = meta("b", 2)(undefined, {
+_C_p_initializer_l4flmo = meta(2)(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p")
+  ...__PrepareMetadata(C.prototype, "public", "p")
 }) ?? (v => v);
 
-_initializer_1eqs1bsc69g = meta("a", 1)(undefined, {
+_C_p_initializer_92m7j = meta(1)(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  defineMetadata: __DefineMetadata(C.prototype, "p")
+  ...__PrepareMetadata(C.prototype, "public", "p")
 }) ?? (v => v);
 
-console.log(C.prototype[Symbol.metadata]);
+console.assert(C.prototype[Symbol.metadata][META].public.p === 3);
+
+console.assert(C.prototype[Symbol.metadata][META].public.f === 6);

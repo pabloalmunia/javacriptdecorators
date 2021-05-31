@@ -1,32 +1,27 @@
-function logger(value, context) {
+function decorator1(value, context) {
   if (context.kind === "method") {
-    return function (...args) {
-      console.log(`starting ${context.name} with arguments ${args.join(", ")}`);
-      const ret = value.call(this, ...args);
-      console.log(`ending ${context.name}`);
-      return ret;
-    };
+    value.one = 1;
   }
 }
-function duplicate(value, context) {
+function decorator2(value, context) {
   if (context.kind === "method") {
-    return function (v) {
-      return value.call(this, v * 2);
-    };
+    value.two = 2;
   }
 }
+
 
 class C {
   #multi = 2;
   
-  @logger
-  @duplicate
+  @decorator1
+  @decorator2
   #double(v) {
     return v * this.#multi;
   }
   checker(v) {
-    return this.#double(v);
+    return this.#double;
   }
 }
 
-console.assert(new C().checker(10) === 40)
+console.assert(new C().checker().one === 1)
+console.assert(new C().checker().two === 2)

@@ -3,7 +3,7 @@ function logged(value, { kind, name }) {
     return class extends value {
       constructor(...args) {
         super();
-        console.log(`constructing an instance of ${name} with arguments ${args.join(", ")}`);
+        this.x = args[0];
       }
     }
   }
@@ -14,4 +14,5 @@ function logged(value, { kind, name }) {
 class C {
 }
 
-new C(1);
+const c = new C(1);
+console.assert(c.x === 1);

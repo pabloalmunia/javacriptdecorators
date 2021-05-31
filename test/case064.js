@@ -1,10 +1,11 @@
+const ONE = Symbol();
+const TWO = Symbol();
 function decorator1 (value, context) {
-  context.defineMetadata ('one', 1);
+  context.setMetadata (ONE, 1);
 }
 
 function decorator2 (value, context) {
-  context.defineMetadata ('one', 1);
-  context.defineMetadata ('two', 2);
+  context.setMetadata (TWO, 2);
 }
 
 class C {
@@ -15,5 +16,5 @@ class C {
   }
 }
 
-console.assert (C.p === 'a');
-console.log (C[ Symbol.metadata ]);
+console.assert (C[ Symbol.metadata ][ONE].public.P === 1);
+console.assert (C[ Symbol.metadata ][TWO].public.P === 2);
