@@ -65,7 +65,7 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_c1r2po = [];
+const _C_static_initializers_bvjlco = [];
 
 class C {
   static m(v) {
@@ -79,10 +79,10 @@ C.m = decorator(C.m, {
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "m"),
-  addInitializer: initializer => _C_static_initializers_c1r2po.push(initializer)
+  addInitializer: initializer => _C_static_initializers_bvjlco.push(initializer)
 }) ?? C.m;
 
-_C_static_initializers_c1r2po.forEach(initializer => initializer.call(C, C));
+_C_static_initializers_bvjlco.forEach(initializer => initializer.call(C, C));
 
 console.assert(C.m(2) === 4);
 
