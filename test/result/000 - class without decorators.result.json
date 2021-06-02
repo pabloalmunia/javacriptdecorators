@@ -1,0 +1,592 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 673,
+  "body": [
+    {
+      "type": "ClassDeclaration",
+      "start": 10,
+      "end": 20,
+      "id": {
+        "type": "Identifier",
+        "start": 16,
+        "end": 17,
+        "name": "A"
+      },
+      "superClass": null,
+      "body": {
+        "type": "ClassBody",
+        "start": 18,
+        "end": 20,
+        "body": []
+      }
+    },
+    {
+      "type": "ClassDeclaration",
+      "start": 24,
+      "end": 673,
+      "id": {
+        "type": "Identifier",
+        "start": 30,
+        "end": 31,
+        "name": "C"
+      },
+      "superClass": {
+        "type": "Identifier",
+        "start": 40,
+        "end": 41,
+        "name": "A"
+      },
+      "body": {
+        "type": "ClassBody",
+        "start": 42,
+        "end": 673,
+        "body": [
+          {
+            "type": "MethodDefinition",
+            "start": 68,
+            "end": 102,
+            "kind": "constructor",
+            "static": false,
+            "computed": false,
+            "key": {
+              "type": "Identifier",
+              "start": 68,
+              "end": 79,
+              "name": "constructor"
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "start": 79,
+              "end": 102,
+              "id": null,
+              "expression": false,
+              "generator": false,
+              "async": false,
+              "params": [],
+              "body": {
+                "type": "BlockStatement",
+                "start": 82,
+                "end": 102,
+                "body": [
+                  {
+                    "type": "ExpressionStatement",
+                    "start": 89,
+                    "end": 97,
+                    "expression": {
+                      "type": "CallExpression",
+                      "start": 89,
+                      "end": 96,
+                      "callee": {
+                        "type": "Super",
+                        "start": 89,
+                        "end": 94
+                      },
+                      "arguments": [],
+                      "optional": false
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "MethodDefinition",
+            "start": 137,
+            "end": 150,
+            "kind": "method",
+            "static": true,
+            "computed": false,
+            "key": {
+              "type": "Identifier",
+              "start": 144,
+              "end": 145,
+              "name": "M"
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "start": 145,
+              "end": 150,
+              "id": null,
+              "expression": false,
+              "generator": false,
+              "async": false,
+              "params": [],
+              "body": {
+                "type": "BlockStatement",
+                "start": 148,
+                "end": 150,
+                "body": []
+              }
+            }
+          },
+          {
+            "type": "MethodDefinition",
+            "start": 202,
+            "end": 219,
+            "kind": "get",
+            "static": true,
+            "computed": false,
+            "key": {
+              "type": "Identifier",
+              "start": 213,
+              "end": 214,
+              "name": "Q"
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "start": 214,
+              "end": 219,
+              "id": null,
+              "expression": false,
+              "generator": false,
+              "async": false,
+              "params": [],
+              "body": {
+                "type": "BlockStatement",
+                "start": 217,
+                "end": 219,
+                "body": []
+              }
+            }
+          },
+          {
+            "type": "MethodDefinition",
+            "start": 236,
+            "end": 254,
+            "kind": "set",
+            "static": true,
+            "computed": false,
+            "key": {
+              "type": "Identifier",
+              "start": 247,
+              "end": 248,
+              "name": "Q"
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "start": 248,
+              "end": 254,
+              "id": null,
+              "expression": false,
+              "generator": false,
+              "async": false,
+              "params": [
+                {
+                  "type": "Identifier",
+                  "start": 249,
+                  "end": 250,
+                  "name": "v"
+                }
+              ],
+              "body": {
+                "type": "BlockStatement",
+                "start": 252,
+                "end": 254,
+                "body": []
+              }
+            }
+          },
+          {
+            "type": "MethodDefinition",
+            "start": 301,
+            "end": 315,
+            "kind": "method",
+            "static": true,
+            "computed": false,
+            "key": {
+              "type": "PrivateName",
+              "start": 308,
+              "end": 310,
+              "name": "M",
+              "id": {
+                "type": "Identifier",
+                "start": 309,
+                "end": 310,
+                "name": "M"
+              }
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "start": 310,
+              "end": 315,
+              "id": null,
+              "expression": false,
+              "generator": false,
+              "async": false,
+              "params": [],
+              "body": {
+                "type": "BlockStatement",
+                "start": 313,
+                "end": 315,
+                "body": []
+              }
+            }
+          },
+          {
+            "type": "ClassProperty",
+            "start": 331,
+            "end": 344,
+            "static": true,
+            "computed": false,
+            "key": {
+              "type": "PrivateName",
+              "start": 338,
+              "end": 340,
+              "name": "P",
+              "id": {
+                "type": "Identifier",
+                "start": 339,
+                "end": 340,
+                "name": "P"
+              }
+            },
+            "value": {
+              "type": "Literal",
+              "start": 343,
+              "end": 344,
+              "value": 1,
+              "raw": "1"
+            }
+          },
+          {
+            "type": "MethodDefinition",
+            "start": 362,
+            "end": 380,
+            "kind": "get",
+            "static": true,
+            "computed": false,
+            "key": {
+              "type": "PrivateName",
+              "start": 373,
+              "end": 375,
+              "name": "Q",
+              "id": {
+                "type": "Identifier",
+                "start": 374,
+                "end": 375,
+                "name": "Q"
+              }
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "start": 375,
+              "end": 380,
+              "id": null,
+              "expression": false,
+              "generator": false,
+              "async": false,
+              "params": [],
+              "body": {
+                "type": "BlockStatement",
+                "start": 378,
+                "end": 380,
+                "body": []
+              }
+            }
+          },
+          {
+            "type": "MethodDefinition",
+            "start": 397,
+            "end": 416,
+            "kind": "set",
+            "static": true,
+            "computed": false,
+            "key": {
+              "type": "PrivateName",
+              "start": 408,
+              "end": 410,
+              "name": "Q",
+              "id": {
+                "type": "Identifier",
+                "start": 409,
+                "end": 410,
+                "name": "Q"
+              }
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "start": 410,
+              "end": 416,
+              "id": null,
+              "expression": false,
+              "generator": false,
+              "async": false,
+              "params": [
+                {
+                  "type": "Identifier",
+                  "start": 411,
+                  "end": 412,
+                  "name": "v"
+                }
+              ],
+              "body": {
+                "type": "BlockStatement",
+                "start": 414,
+                "end": 416,
+                "body": []
+              }
+            }
+          },
+          {
+            "type": "MethodDefinition",
+            "start": 451,
+            "end": 457,
+            "kind": "method",
+            "static": false,
+            "computed": false,
+            "key": {
+              "type": "Identifier",
+              "start": 451,
+              "end": 452,
+              "name": "m"
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "start": 452,
+              "end": 457,
+              "id": null,
+              "expression": false,
+              "generator": false,
+              "async": false,
+              "params": [],
+              "body": {
+                "type": "BlockStatement",
+                "start": 455,
+                "end": 457,
+                "body": []
+              }
+            }
+          },
+          {
+            "type": "ClassProperty",
+            "start": 473,
+            "end": 478,
+            "computed": false,
+            "key": {
+              "type": "Identifier",
+              "start": 473,
+              "end": 474,
+              "name": "p"
+            },
+            "value": {
+              "type": "Literal",
+              "start": 477,
+              "end": 478,
+              "value": 1,
+              "raw": "1"
+            }
+          },
+          {
+            "type": "MethodDefinition",
+            "start": 496,
+            "end": 506,
+            "kind": "get",
+            "static": false,
+            "computed": false,
+            "key": {
+              "type": "Identifier",
+              "start": 500,
+              "end": 501,
+              "name": "q"
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "start": 501,
+              "end": 506,
+              "id": null,
+              "expression": false,
+              "generator": false,
+              "async": false,
+              "params": [],
+              "body": {
+                "type": "BlockStatement",
+                "start": 504,
+                "end": 506,
+                "body": []
+              }
+            }
+          },
+          {
+            "type": "MethodDefinition",
+            "start": 523,
+            "end": 534,
+            "kind": "set",
+            "static": false,
+            "computed": false,
+            "key": {
+              "type": "Identifier",
+              "start": 527,
+              "end": 528,
+              "name": "q"
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "start": 528,
+              "end": 534,
+              "id": null,
+              "expression": false,
+              "generator": false,
+              "async": false,
+              "params": [
+                {
+                  "type": "Identifier",
+                  "start": 529,
+                  "end": 530,
+                  "name": "v"
+                }
+              ],
+              "body": {
+                "type": "BlockStatement",
+                "start": 532,
+                "end": 534,
+                "body": []
+              }
+            }
+          },
+          {
+            "type": "MethodDefinition",
+            "start": 581,
+            "end": 588,
+            "kind": "method",
+            "static": false,
+            "computed": false,
+            "key": {
+              "type": "PrivateName",
+              "start": 581,
+              "end": 583,
+              "name": "m",
+              "id": {
+                "type": "Identifier",
+                "start": 582,
+                "end": 583,
+                "name": "m"
+              }
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "start": 583,
+              "end": 588,
+              "id": null,
+              "expression": false,
+              "generator": false,
+              "async": false,
+              "params": [],
+              "body": {
+                "type": "BlockStatement",
+                "start": 586,
+                "end": 588,
+                "body": []
+              }
+            }
+          },
+          {
+            "type": "ClassProperty",
+            "start": 604,
+            "end": 610,
+            "computed": false,
+            "key": {
+              "type": "PrivateName",
+              "start": 604,
+              "end": 606,
+              "name": "p",
+              "id": {
+                "type": "Identifier",
+                "start": 605,
+                "end": 606,
+                "name": "p"
+              }
+            },
+            "value": {
+              "type": "Literal",
+              "start": 609,
+              "end": 610,
+              "value": 1,
+              "raw": "1"
+            }
+          },
+          {
+            "type": "MethodDefinition",
+            "start": 628,
+            "end": 639,
+            "kind": "get",
+            "static": false,
+            "computed": false,
+            "key": {
+              "type": "PrivateName",
+              "start": 632,
+              "end": 634,
+              "name": "q",
+              "id": {
+                "type": "Identifier",
+                "start": 633,
+                "end": 634,
+                "name": "q"
+              }
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "start": 634,
+              "end": 639,
+              "id": null,
+              "expression": false,
+              "generator": false,
+              "async": false,
+              "params": [],
+              "body": {
+                "type": "BlockStatement",
+                "start": 637,
+                "end": 639,
+                "body": []
+              }
+            }
+          },
+          {
+            "type": "MethodDefinition",
+            "start": 656,
+            "end": 668,
+            "kind": "set",
+            "static": false,
+            "computed": false,
+            "key": {
+              "type": "PrivateName",
+              "start": 660,
+              "end": 662,
+              "name": "q",
+              "id": {
+                "type": "Identifier",
+                "start": 661,
+                "end": 662,
+                "name": "q"
+              }
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "start": 662,
+              "end": 668,
+              "id": null,
+              "expression": false,
+              "generator": false,
+              "async": false,
+              "params": [
+                {
+                  "type": "Identifier",
+                  "start": 663,
+                  "end": 664,
+                  "name": "v"
+                }
+              ],
+              "body": {
+                "type": "BlockStatement",
+                "start": 666,
+                "end": 668,
+                "body": []
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "sourceType": "script"
+}
