@@ -363,7 +363,7 @@ function transform (ast) {
                 initDecorator (o, decorator);
                 decoratorsCreated++;
               }
-              insertAfter (parent, klass, removeStaticMethodPrivateAccessor ({getName, setName}));
+              insertAfter (parent, klass, removeStaticMethodPrivateAccessor ({className, getName, setName}));
               if (isStatic) {
                 insertAfter (parent, klass, addInitializerPrivateStaticAccessor ({
                   className,
@@ -642,7 +642,7 @@ function staticMethodPrivateAccessor ({privateName, getName, setName}) {
   ];
 }
 
-function removeStaticMethodPrivateAccessor ({getName, setName}) {
+function removeStaticMethodPrivateAccessor ({className, getName, setName}) {
   return [
     {
       'type'       : 'ExpressionStatement',
@@ -650,7 +650,7 @@ function removeStaticMethodPrivateAccessor ({getName, setName}) {
         'type'     : 'AssignmentExpression',
         'operator' : '=',
         'left'     : I (getName),
-        'right'    : I ('C.' + getName)
+        'right'    : I (className + '.' + getName)
       }
     },
     {
@@ -659,7 +659,7 @@ function removeStaticMethodPrivateAccessor ({getName, setName}) {
         'type'     : 'AssignmentExpression',
         'operator' : '=',
         'left'     : I (setName),
-        'right'    : I ('C.' + setName)
+        'right'    : I (className + '.' + setName)
       }
     },
     {
@@ -668,7 +668,7 @@ function removeStaticMethodPrivateAccessor ({getName, setName}) {
         'type'     : 'UnaryExpression',
         'operator' : 'delete',
         'prefix'   : true,
-        'argument' : I ('C.' + getName)
+        'argument' : I (className + '.' + getName)
       }
     },
     {
@@ -677,7 +677,7 @@ function removeStaticMethodPrivateAccessor ({getName, setName}) {
         'type'     : 'UnaryExpression',
         'operator' : 'delete',
         'prefix'   : true,
-        'argument' : I ('C.' + setName)
+        'argument' : I (className + '.' + setName)
       }
     }
   ];
