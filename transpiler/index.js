@@ -1161,18 +1161,40 @@ function accessorGenerator ({init, className, initializeName, propertyName, deco
         ]
       )
     },
+    // (isStatic) ? {
+    //     'type'       : 'ExpressionStatement',
+    //     'expression' : {
+    //       'type'     : 'AssignmentExpression',
+    //       'operator' : '=',
+    //       'left'     : I (className + '.' + propertyName),
+    //       'right'    : callExpression (
+    //         initializeName,
+    //         [
+    //           I (className + '.' + propertyName)
+    //         ]
+    //       )
+    //     }
+    //   } :
+    //   undefined
     (isStatic) ? {
         'type'       : 'ExpressionStatement',
         'expression' : {
-          'type'     : 'AssignmentExpression',
-          'operator' : '=',
-          'left'     : I (className + '.' + propertyName),
-          'right'    : callExpression (
-            initializeName,
-            [
-              I (className + '.' + propertyName)
-            ]
-          )
+          'type'      : 'CallExpression',
+          'callee'    : I (descriptorName + '.set.call'),
+          'arguments' : [
+            I (className),
+            {
+              'type'      : 'CallExpression',
+              'callee'    : I (initializeName),
+              'arguments' : [
+                {
+                  'type'      : 'CallExpression',
+                  'callee'    : I (descriptorName + '.get.call'),
+                  'arguments' : [I (className)]
+                }
+              ]
+            }
+          ]
         }
       } :
       undefined
