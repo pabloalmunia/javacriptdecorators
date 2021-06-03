@@ -1,4 +1,4 @@
-const {runParse, runTranspiler, runTest} = require('./lib/run.js');
+const {runParse, runTranspiler, runTest} = require ('./lib/run.js');
 
 function run (testFile) {
   test (testFile, () => {
@@ -73,151 +73,151 @@ run ('057 - public field accessor - addInitializer & initial value');
 run ('058 - public field - multiple addInitializer');
 
 // Static method
-run( "061 - static method - context" );
-run( "062 - static method - replace" );
-run( "063 - static method - multiple" );
-run( "064 - static method - setMetadata" );
-run( "065 - static method - getMetadata" );
-run( "066 - static method - addInitializer" );
-run( "067 - static method - addInitializer & replace" );
-run( "068 - static method - multiple addInitializer" );
+run ('061 - static method - context');
+run ('062 - static method - replace');
+run ('063 - static method - multiple');
+run ('064 - static method - setMetadata');
+run ('065 - static method - getMetadata');
+run ('066 - static method - addInitializer');
+run ('067 - static method - addInitializer & replace');
+run ('068 - static method - multiple addInitializer');
 
 // Static getter
-run( "071 - static getter - context" );
-run( "072 - static getter - replace" );
-run( "073 - static getter - multiple" );
-run( "074 - static getter - setMetadata" );
-run( "075 - static getter - getMetadata" );
-run( "076 - static getter - addInitializer" );
-run( "077 - static getter - addInitializer & replace" );
-run( "078 - static getter - multiple addInitializer" );
+run ('071 - static getter - context');
+run ('072 - static getter - replace');
+run ('073 - static getter - multiple');
+run ('074 - static getter - setMetadata');
+run ('075 - static getter - getMetadata');
+run ('076 - static getter - addInitializer');
+run ('077 - static getter - addInitializer & replace');
+run ('078 - static getter - multiple addInitializer');
 
 // Static setter
-run( "081 - static setter - context" );
-run( "082 - static setter - replace" );
-run( "083 - static setter - multiple" );
-run( "084 - static setter - setMetadata" );
-run( "085 - static setter - getMetadata" );
-run( "086 - static setter - addInitializer" );
-run( "087 - static setter - addInitializer & replace" );
-run( "088 - static setter - multiple addInitializer" );
+run ('081 - static setter - context');
+run ('082 - static setter - replace');
+run ('083 - static setter - multiple');
+run ('084 - static setter - setMetadata');
+run ('085 - static setter - getMetadata');
+run ('086 - static setter - addInitializer');
+run ('087 - static setter - addInitializer & replace');
+run ('088 - static setter - multiple addInitializer');
 
 // Static field
-run( "091 - static field - context" );
-run( "092 - static field - initial value" );
-run( "093 - static field - multiple" );
-run( "094 - static field - setMetadata" );
-run( "095 - static field - getMetadata" );
-run( "096 - static field - addInitializer" );
-run( "097 - static field - addInitializer & initial value" );
-run( "098 - static field - multiple addInitializer" );
+run ('091 - static field - context');
+run ('092 - static field - initial value');
+run ('093 - static field - multiple');
+run ('094 - static field - setMetadata');
+run ('095 - static field - getMetadata');
+run ('096 - static field - addInitializer');
+run ('097 - static field - addInitializer & initial value');
+run ('098 - static field - multiple addInitializer');
 
 // Static field accessor
-run( "101 - static field accessor - context" );
-run( "102 - static field accessor - initial value" );
-run( "103 - static field accessor - multiple" );
-run( "104 - static field accessor - setMetadata" );
-run( "105 - static field accessor - getMetadata" );
-run( "106 - static field accessor - addInitializer" );
-run( "107 - static field accessor - addInitializer & replace" );
-run( "108 - static field - multiple addInitializer" );
+run ('101 - static field accessor - context');
+run ('102 - static field accessor - initial value');
+run ('103 - static field accessor - multiple');
+run ('104 - static field accessor - setMetadata');
+run ('105 - static field accessor - getMetadata');
+run ('106 - static field accessor - addInitializer');
+run ('107 - static field accessor - addInitializer & replace');
+run ('108 - static field - multiple addInitializer');
 
+// Private method
+run ('111 - private method - context');
+run ('112 - private method - replace');
+run ('113 - private method - multiple');
+run ('114 - private method - setMetadata');
+run ('115 - private method - getMetadata');
+run ('116 - private method - addInitializer');
+run ('117 - private method - addInitializer & replace');
+run ('118 - private method - multiple addInitializer');
 
-// // Private Method
-// run ('case091');
-// run ('case092');
-// run ('case093');
-// run ('case094');
-// run ('case095');
-// run ('case096');
-// run ('case097');
-// run ('case098');
+// Private getter
+run ('121 - private getter - context');
+run ('122 - private getter - replace');
+run ('123 - private getter - multiple');
+run ('124 - private getter - setMetadata');
+run ('125 - private getter - getMetadata');
+run ('126 - private getter - addInitializer');
+run ('127 - private getter - addInitializer & replace');
+run ('128 - private getter - multiple addInitializer');
 
-// // Private Getter
-// run ('case101');
-// run ('case102');
-// run ('case103');
-// run ('case104');
-// run ('case105');
-// run ('case106');
-// run ('case107');
-// run ('case108');
-//
-// // Private Setter
-// run ('case111');
-// run ('case112');
-// run ('case113');
-// run ('case114');
-// run ('case115');
-// run ('case116');
-// run ('case117');
-// run ('case118');
-//
-// // Private Field
-// run ('case121');
-// run ('case122');
-// run ('case123');
-// run ('case124');
-// run ('case125');
-// run ('case126');
-// run ('case127');
-// run ('case128');
-// run ('case129');
-//
-// // Static Private Method
-// run ('case131');
-// run ('case132');
-// run ('case133');
-// run ('case134');
-// run ('case135');
-// run ('case136');
-// run ('case137');
-//
-// // Static Private Getter
-// run ('case141');
-// run ('case142');
-// run ('case143');
-// run ('case144');
-// run ('case145');
-// run ('case146');
-//
-// // Static Private Setter
-// run ('case151');
-// run ('case152');
-// run ('case153');
-// run ('case154');
-// run ('case155');
-// run ('case156');
-//
-// // Static Private Field
-// run ('case161');
-// run ('case162');
-// run ('case163');
-// run ('case164');
-// run ('case165');
-// run ('case166');
-// run ('case167');
-// run ('case168');
-// run ('case169');
-// run ('case169b');
-//
-// // Symbols
-// run ('case170');
-// run ('case171');
-// run ('case172');
-// run ('case173');
-// run ('case174');
-// run ('case175');
-// run ('case176');
-// run ('case177');
-// run ('case178');
-// run ('case179');
-// run ('case180');
-// run ('case181');
-//
-// // Metadata and inheritance
-// run('case191');
-// run('case192');
+// Private setter
+run ('131 - private setter - context');
+run ('132 - private setter - replace');
+run ('133 - private setter - multiple');
+run ('134 - private setter - setMetadata');
+run ('135 - private setter - getMetadata');
+run ('136 - private setter - addInitializer');
+run ('137 - private setter - addInitializer & replace');
+run ('138 - private setter - multiple addInitializer');
 
-// // Other examples
-// run ('example01');
+// Private field
+run ('141 - private field - context');
+run ('142 - private field - initial value');
+run ('143 - private field - multiple');
+run ('144 - private field - setMetadata');
+run ('145 - private field - getMetadata');
+run ('146 - private field - addInitializer');
+run ('147 - private field - addInitializer & initial value');
+run ('148 - private field - multiple addInitializer');
+
+// Private field accessor
+run ('151 - private field accessor - context');
+run ('152 - private field accessor - initial value');
+run ('153 - private field accessor - multiple');
+run ('154 - private field accessor - setMetadata');
+run ('155 - private field accessor - getMetadata');
+run ('156 - private field accessor - addInitializer');
+run ('157 - private field accessor - addInitializer & initial value');
+run ('158 - private field - multiple addInitializer');
+
+// Static private method
+run ('161 - static private method - context');
+run ('162 - static private method - replace');
+run ('163 - static private method - multiple');
+run ('164 - static private method - setMetadata');
+run ('165 - static private method - getMetadata');
+run ('166 - static private method - addInitializer');
+run ('167 - static private method - addInitializer & replace');
+run ('168 - static private method - multiple addInitializer');
+
+// Static private getter
+run ('171 - static private getter - context');
+run ('172 - static private getter - replace');
+run ('173 - static private getter - multiple');
+run ('174 - static private getter - setMetadata');
+run ('175 - static private getter - getMetadata');
+run ('176 - static private getter - addInitializer');
+run ('177 - static private getter - addInitializer & replace');
+run ('178 - static private getter - multiple addInitializer');
+
+// Static private setter
+run ('181 - static private setter - context');
+run ('182 - static private setter - replace');
+run ('183 - static private setter - multiple');
+run ('184 - static private setter - setMetadata');
+run ('185 - static private setter - getMetadata');
+run ('186 - static private setter - addInitializer');
+run ('187 - static private setter - addInitializer & replace');
+run ('188 - static private setter - multiple addInitializer');
+
+// Static private field
+run ('191 - static private field - context');
+run ('192 - static private field - initial value');
+run ('193 - static private field - multiple');
+run ('194 - static private field - setMetadata');
+run ('195 - static private field - getMetadata');
+run ('196 - static private field - addInitializer');
+run ('197 - static private field - addInitializer & initial value');
+run ('198 - static private field - multiple addInitializer');
+
+// Static private field accessor
+run ('201 - static private field accessor - context');
+run ('202 - static private field accessor - initial value');
+run ('203 - static private field accessor - multiple');
+run ('204 - static private field accessor - setMetadata');
+run ('205 - static private field accessor - getMetadata');
+run ('206 - static private field accessor - addInitializer');
+run ('207 - static private field accessor - addInitializer & replace');
+run ('208 - static private field - multiple addInitializer');
