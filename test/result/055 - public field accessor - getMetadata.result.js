@@ -58,76 +58,36 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_40b5qg;
+let _C_f_initializer_nhug0g;
 
-let _C_p_initializer_ja5lu8;
+let _C_f_initializer_v3ji7o;
 
-let _C_f_initializer_eujmhg;
+let _C_p_initializer_ajfqe;
 
-let _C_f_initializer_k2c2ao;
+let _C_p_initializer_7jns;
 
 class C {
-  #_p_private_property_legkp8 = _C_p_initializer_ja5lu8.call(this, _C_p_initializer_40b5qg.call(this, 10));
+  #_p_private_property_o3nolg = _C_p_initializer_7jns.call(this, _C_p_initializer_ajfqe.call(this, 10));
   get p() {
-    return this.#_p_private_property_legkp8;
+    return this.#_p_private_property_o3nolg;
   }
   set p(v) {
-    this.#_p_private_property_legkp8 = v;
+    this.#_p_private_property_o3nolg = v;
   }
-  #_f_private_property_q90b3 = _C_f_initializer_k2c2ao.call(this, _C_f_initializer_eujmhg.call(this, 20));
+  #_f_private_property_sk2k5g = _C_f_initializer_v3ji7o.call(this, _C_f_initializer_nhug0g.call(this, 20));
   get f() {
-    return this.#_f_private_property_q90b3;
+    return this.#_f_private_property_sk2k5g;
   }
   set f(v) {
-    this.#_f_private_property_q90b3 = v;
+    this.#_f_private_property_sk2k5g = v;
   }
 }
 
-const _C_f_descriptor_r79bno = Object.getOwnPropertyDescriptor(C.prototype, "f");
+const _C_p_descriptor_u0mqsg = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-const _C_f_result_tppld = meta(3)({
-  get: _C_f_descriptor_r79bno.get,
-  set: _C_f_descriptor_r79bno.set
-}, {
-  kind: "auto-accessor",
-  name: "f",
-  isStatic: false,
-  isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "f")
-}) || {};
-
-_C_f_initializer_k2c2ao = _C_f_result_tppld.initialize || (v => v);
-
-Object.defineProperty(C.prototype, "f", {
-  get: _C_f_result_tppld.get || _C_f_descriptor_r79bno.get,
-  set: _C_f_result_tppld.set || _C_f_descriptor_r79bno.set
-});
-
-const _C_f_descriptor_4e4v08 = Object.getOwnPropertyDescriptor(C.prototype, "f");
-
-const _C_f_result_u44odg = meta(3)({
-  get: _C_f_descriptor_4e4v08.get,
-  set: _C_f_descriptor_4e4v08.set
-}, {
-  kind: "auto-accessor",
-  name: "f",
-  isStatic: false,
-  isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "f")
-}) || {};
-
-_C_f_initializer_eujmhg = _C_f_result_u44odg.initialize || (v => v);
-
-Object.defineProperty(C.prototype, "f", {
-  get: _C_f_result_u44odg.get || _C_f_descriptor_4e4v08.get,
-  set: _C_f_result_u44odg.set || _C_f_descriptor_4e4v08.set
-});
-
-const _C_p_descriptor_3tkt7o = Object.getOwnPropertyDescriptor(C.prototype, "p");
-
-const _C_p_result_12naoo = meta(1)({
-  get: _C_p_descriptor_3tkt7o.get,
-  set: _C_p_descriptor_3tkt7o.set
+const _C_p_result_9ncru8 = meta(1)({
+  get: _C_p_descriptor_u0mqsg.get,
+  set: _C_p_descriptor_u0mqsg.set
 }, {
   kind: "auto-accessor",
   name: "p",
@@ -136,18 +96,18 @@ const _C_p_result_12naoo = meta(1)({
   ...__PrepareMetadata(C.prototype, "public", "p")
 }) || {};
 
-_C_p_initializer_ja5lu8 = _C_p_result_12naoo.initialize || (v => v);
+_C_p_initializer_7jns = _C_p_result_9ncru8.initialize || (v => v);
 
 Object.defineProperty(C.prototype, "p", {
-  get: _C_p_result_12naoo.get || _C_p_descriptor_3tkt7o.get,
-  set: _C_p_result_12naoo.set || _C_p_descriptor_3tkt7o.set
+  get: _C_p_result_9ncru8.get || _C_p_descriptor_u0mqsg.get,
+  set: _C_p_result_9ncru8.set || _C_p_descriptor_u0mqsg.set
 });
 
-const _C_p_descriptor_uml02 = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_k5t47g = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-const _C_p_result_bpu88 = meta(2)({
-  get: _C_p_descriptor_uml02.get,
-  set: _C_p_descriptor_uml02.set
+const _C_p_result_20pdm = meta(2)({
+  get: _C_p_descriptor_k5t47g.get,
+  set: _C_p_descriptor_k5t47g.set
 }, {
   kind: "auto-accessor",
   name: "p",
@@ -156,11 +116,51 @@ const _C_p_result_bpu88 = meta(2)({
   ...__PrepareMetadata(C.prototype, "public", "p")
 }) || {};
 
-_C_p_initializer_40b5qg = _C_p_result_bpu88.initialize || (v => v);
+_C_p_initializer_ajfqe = _C_p_result_20pdm.initialize || (v => v);
 
 Object.defineProperty(C.prototype, "p", {
-  get: _C_p_result_bpu88.get || _C_p_descriptor_uml02.get,
-  set: _C_p_result_bpu88.set || _C_p_descriptor_uml02.set
+  get: _C_p_result_20pdm.get || _C_p_descriptor_k5t47g.get,
+  set: _C_p_result_20pdm.set || _C_p_descriptor_k5t47g.set
+});
+
+const _C_f_descriptor_10pclo = Object.getOwnPropertyDescriptor(C.prototype, "f");
+
+const _C_f_result_rrokao = meta(3)({
+  get: _C_f_descriptor_10pclo.get,
+  set: _C_f_descriptor_10pclo.set
+}, {
+  kind: "auto-accessor",
+  name: "f",
+  isStatic: false,
+  isPrivate: false,
+  ...__PrepareMetadata(C.prototype, "public", "f")
+}) || {};
+
+_C_f_initializer_v3ji7o = _C_f_result_rrokao.initialize || (v => v);
+
+Object.defineProperty(C.prototype, "f", {
+  get: _C_f_result_rrokao.get || _C_f_descriptor_10pclo.get,
+  set: _C_f_result_rrokao.set || _C_f_descriptor_10pclo.set
+});
+
+const _C_f_descriptor_5beb3o = Object.getOwnPropertyDescriptor(C.prototype, "f");
+
+const _C_f_result_h38bug = meta(3)({
+  get: _C_f_descriptor_5beb3o.get,
+  set: _C_f_descriptor_5beb3o.set
+}, {
+  kind: "auto-accessor",
+  name: "f",
+  isStatic: false,
+  isPrivate: false,
+  ...__PrepareMetadata(C.prototype, "public", "f")
+}) || {};
+
+_C_f_initializer_nhug0g = _C_f_result_h38bug.initialize || (v => v);
+
+Object.defineProperty(C.prototype, "f", {
+  get: _C_f_result_h38bug.get || _C_f_descriptor_5beb3o.get,
+  set: _C_f_result_h38bug.set || _C_f_descriptor_5beb3o.set
 });
 
 console.assert(C.prototype[Symbol.metadata][META].public.p === 3);

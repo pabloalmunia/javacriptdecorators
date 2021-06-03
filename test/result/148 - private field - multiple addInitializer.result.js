@@ -59,104 +59,104 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_5ob938 = Symbol();
+const _C_p_get_symbol_vcss88 = Symbol();
 
-const _C_p_set_symbol_od5tig = Symbol();
+const _C_p_set_symbol_jqrmb8 = Symbol();
 
-let _C_p_initializer_7813cg;
+let _C_p_initializer_ct5l3;
 
-const _C_member_initializers_djdr1g = [];
+const _C_member_initializers_h90fa = [];
 
-let _C_p_initializer_nc0o7g;
+let _C_p_initializer_dhestg;
 
 class C {
   constructor() {
     this.z = 100;
-    _C_member_initializers_djdr1g.forEach(initialize => initialize.call(this));
+    _C_member_initializers_h90fa.forEach(initialize => initialize.call(this));
   }
-  #p = _C_p_initializer_nc0o7g.call(this, _C_p_initializer_7813cg.call(this, 1));
-  [_C_p_get_symbol_5ob938]() {
+  #p = _C_p_initializer_dhestg.call(this, _C_p_initializer_ct5l3.call(this, 1));
+  [_C_p_get_symbol_vcss88]() {
     return this.#p;
   }
-  [_C_p_set_symbol_od5tig](v) {
+  [_C_p_set_symbol_jqrmb8](v) {
     this.#p = v;
   }
 }
 
-_C_p_initializer_nc0o7g = addProperty("b", 2)(undefined, {
+_C_p_initializer_dhestg = addProperty("a", 1)(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C.prototype[_C_p_get_symbol_5ob938],
-    set: C.prototype[_C_p_set_symbol_od5tig]
+    get: C.prototype[_C_p_get_symbol_vcss88],
+    set: C.prototype[_C_p_set_symbol_jqrmb8]
   },
   isStatic: false,
   isPrivate: true,
   ...__PrepareMetadata(C.prototype, "private", undefined),
-  addInitializer: initializer => _C_member_initializers_djdr1g.push(initializer)
+  addInitializer: initializer => _C_member_initializers_h90fa.push(initializer)
 }) ?? (v => v);
 
-_C_p_initializer_7813cg = addProperty("a", 1)(undefined, {
+_C_p_initializer_ct5l3 = addProperty("b", 2)(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C.prototype[_C_p_get_symbol_5ob938],
-    set: C.prototype[_C_p_set_symbol_od5tig]
+    get: C.prototype[_C_p_get_symbol_vcss88],
+    set: C.prototype[_C_p_set_symbol_jqrmb8]
   },
   isStatic: false,
   isPrivate: true,
   ...__PrepareMetadata(C.prototype, "private", undefined),
-  addInitializer: initializer => _C_member_initializers_djdr1g.push(initializer)
+  addInitializer: initializer => _C_member_initializers_h90fa.push(initializer)
 }) ?? (v => v);
 
-const _D_p_get_symbol_2fmt4o = Symbol();
+const _D_p_get_symbol_hmflmg = Symbol();
 
-const _D_p_set_symbol_u20c68 = Symbol();
+const _D_p_set_symbol_qqgc7 = Symbol();
 
-let _D_p_initializer_2nedgo;
+let _D_p_initializer_d6jbtg;
 
-const _D_member_initializers_a7camo = [];
+const _D_member_initializers_6julog = [];
 
-let _D_p_initializer_m42s4o;
+let _D_p_initializer_gr0na;
 
 class D extends C {
   constructor() {
     super();
-    _D_member_initializers_a7camo.forEach(initialize => initialize.call(this));
+    _D_member_initializers_6julog.forEach(initialize => initialize.call(this));
   }
-  #p = _D_p_initializer_m42s4o.call(this, _D_p_initializer_2nedgo.call(this, 2));
-  [_D_p_get_symbol_2fmt4o]() {
+  #p = _D_p_initializer_gr0na.call(this, _D_p_initializer_d6jbtg.call(this, 2));
+  [_D_p_get_symbol_hmflmg]() {
     return this.#p;
   }
-  [_D_p_set_symbol_u20c68](v) {
+  [_D_p_set_symbol_qqgc7](v) {
     this.#p = v;
   }
 }
 
-_D_p_initializer_m42s4o = addProperty("d", 4)(undefined, {
+_D_p_initializer_gr0na = addProperty("c", 3)(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: D.prototype[_D_p_get_symbol_2fmt4o],
-    set: D.prototype[_D_p_set_symbol_u20c68]
+    get: D.prototype[_D_p_get_symbol_hmflmg],
+    set: D.prototype[_D_p_set_symbol_qqgc7]
   },
   isStatic: false,
   isPrivate: true,
   ...__PrepareMetadata(D.prototype, "private", undefined),
-  addInitializer: initializer => _D_member_initializers_a7camo.push(initializer)
+  addInitializer: initializer => _D_member_initializers_6julog.push(initializer)
 }) ?? (v => v);
 
-_D_p_initializer_2nedgo = addProperty("c", 3)(undefined, {
+_D_p_initializer_d6jbtg = addProperty("d", 4)(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: D.prototype[_D_p_get_symbol_2fmt4o],
-    set: D.prototype[_D_p_set_symbol_u20c68]
+    get: D.prototype[_D_p_get_symbol_hmflmg],
+    set: D.prototype[_D_p_set_symbol_qqgc7]
   },
   isStatic: false,
   isPrivate: true,
   ...__PrepareMetadata(D.prototype, "private", undefined),
-  addInitializer: initializer => _D_member_initializers_a7camo.push(initializer)
+  addInitializer: initializer => _D_member_initializers_6julog.push(initializer)
 }) ?? (v => v);
 
 const c = new C();

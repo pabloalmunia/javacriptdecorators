@@ -409,11 +409,8 @@ function transform (ast) {
             );
             o.decorators = undefined;
           } else {
-            for (let decorator of (o.decorators || [])) {
-              // if (decorator.init && decorator.kind === 'field') {
-              //   throw new TypeError ('wrong decorator @init: with a field');
-              // }
-              // decoratorsCreated++;
+            for (let n = (o.decorators || []).length; --n > -1;) {
+              const decorator = o.decorators[n];
               const initializerName = `_${ className }_${ propertyName }_initializer_${ unique () }`;
               if (!o.static) {
                 insertBefore (
@@ -462,7 +459,9 @@ function transform (ast) {
             }
           }
           o.decorators = undefined;
-        }
+        },
+        undefined,
+        true
       );
       
       //-------------------------------

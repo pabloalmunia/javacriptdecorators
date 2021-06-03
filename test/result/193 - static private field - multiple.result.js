@@ -65,16 +65,16 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_vscov8 = Symbol();
+const _C_p_get_symbol_t58cmo = Symbol();
 
-const _C_p_set_symbol_k3scs8 = Symbol();
+const _C_p_set_symbol_ivh2to = Symbol();
 
 class C {
   static #p = 1;
-  static [_C_p_get_symbol_vscov8]() {
+  static [_C_p_get_symbol_t58cmo]() {
     return C.#p;
   }
-  static [_C_p_set_symbol_k3scs8](v) {
+  static [_C_p_set_symbol_ivh2to](v) {
     C.#p = v;
   }
   static get check() {
@@ -82,32 +82,32 @@ class C {
   }
 }
 
-const _C_p_initializer_p6vi4g = decorator2(undefined, {
+const _C_p_initializer_imgtr = decorator1(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_vscov8],
-    set: C[_C_p_set_symbol_k3scs8]
+    get: C[_C_p_get_symbol_t58cmo],
+    set: C[_C_p_set_symbol_ivh2to]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(C, "private", undefined)
 }) ?? (v => v);
 
-C[_C_p_set_symbol_k3scs8](_C_p_initializer_p6vi4g(C[_C_p_get_symbol_vscov8]()));
+C[_C_p_set_symbol_ivh2to](_C_p_initializer_imgtr(C[_C_p_get_symbol_t58cmo]()));
 
-const _C_p_initializer_m93tno = decorator1(undefined, {
+const _C_p_initializer_29rlog = decorator2(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_vscov8],
-    set: C[_C_p_set_symbol_k3scs8]
+    get: C[_C_p_get_symbol_t58cmo],
+    set: C[_C_p_set_symbol_ivh2to]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(C, "private", undefined)
 }) ?? (v => v);
 
-C[_C_p_set_symbol_k3scs8](_C_p_initializer_m93tno(C[_C_p_get_symbol_vscov8]()));
+C[_C_p_set_symbol_ivh2to](_C_p_initializer_29rlog(C[_C_p_get_symbol_t58cmo]()));
 
 console.assert(C.check === 6);

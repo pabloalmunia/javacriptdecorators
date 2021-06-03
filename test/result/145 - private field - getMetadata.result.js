@@ -1,10 +1,9 @@
-function addProperty(key, value) {
-  return (klass, context) => {
-    if (context.kind === "field" && context.addInitializer) {
-      context.addInitializer(function() {
-        this[key] = value;
-      });
-    }
+const META = Symbol();
+
+function meta(value) {
+  return function(element, context) {
+    const a = context.getMetadata(META) || [0];
+    context.setMetadata(META, a[a.length - 1] + value);
   };
 }
 
@@ -59,90 +58,91 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_l9mnio;
+const _C_f_get_symbol_hu6f4o = Symbol();
 
-const _C_member_initializers_m4e648 = [];
+const _C_f_set_symbol_3k728o = Symbol();
 
-let _C_p_initializer_alkdto;
+let _C_f_initializer_6a6c4o;
+
+let _C_f_initializer_6kemu;
+
+const _C_p_get_symbol_m40plo = Symbol();
+
+const _C_p_set_symbol_e4iqmo = Symbol();
+
+let _C_p_initializer_491cqg;
+
+let _C_p_initializer_5vqdg;
 
 class C {
-  constructor() {
-    this.z = 100;
-    _C_member_initializers_m4e648.forEach(initialize => initialize.call(this));
+  #p = _C_p_initializer_5vqdg.call(this, _C_p_initializer_491cqg.call(this, 10));
+  [_C_p_get_symbol_m40plo]() {
+    return this.#p;
   }
-  p = _C_p_initializer_alkdto.call(this, _C_p_initializer_l9mnio.call(this, 1));
+  [_C_p_set_symbol_e4iqmo](v) {
+    this.#p = v;
+  }
+  #f = _C_f_initializer_6kemu.call(this, _C_f_initializer_6a6c4o.call(this, 20));
+  [_C_f_get_symbol_hu6f4o]() {
+    return this.#f;
+  }
+  [_C_f_set_symbol_3k728o](v) {
+    this.#f = v;
+  }
 }
 
-_C_p_initializer_alkdto = addProperty("a", 1)(undefined, {
+_C_p_initializer_5vqdg = meta(1)(undefined, {
   kind: "field",
-  name: "p",
+  name: "#p",
+  access: {
+    get: C.prototype[_C_p_get_symbol_m40plo],
+    set: C.prototype[_C_p_set_symbol_e4iqmo]
+  },
   isStatic: false,
-  isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "p"),
-  addInitializer: initializer => _C_member_initializers_m4e648.push(initializer)
+  isPrivate: true,
+  ...__PrepareMetadata(C.prototype, "private", undefined)
 }) ?? (v => v);
 
-_C_p_initializer_l9mnio = addProperty("b", 2)(undefined, {
+_C_p_initializer_491cqg = meta(2)(undefined, {
   kind: "field",
-  name: "p",
+  name: "#p",
+  access: {
+    get: C.prototype[_C_p_get_symbol_m40plo],
+    set: C.prototype[_C_p_set_symbol_e4iqmo]
+  },
   isStatic: false,
-  isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "p"),
-  addInitializer: initializer => _C_member_initializers_m4e648.push(initializer)
+  isPrivate: true,
+  ...__PrepareMetadata(C.prototype, "private", undefined)
 }) ?? (v => v);
 
-let _D_p_initializer_agd46o;
-
-const _D_member_initializers_cm9418 = [];
-
-let _D_p_initializer_kjste8;
-
-class D extends C {
-  constructor() {
-    super();
-    _D_member_initializers_cm9418.forEach(initialize => initialize.call(this));
-  }
-  p = _D_p_initializer_kjste8.call(this, _D_p_initializer_agd46o.call(this, 2));
-}
-
-_D_p_initializer_kjste8 = addProperty("c", 3)(undefined, {
+_C_f_initializer_6kemu = meta(3)(undefined, {
   kind: "field",
-  name: "p",
+  name: "#f",
+  access: {
+    get: C.prototype[_C_f_get_symbol_hu6f4o],
+    set: C.prototype[_C_f_set_symbol_3k728o]
+  },
   isStatic: false,
-  isPrivate: false,
-  ...__PrepareMetadata(D.prototype, "public", "p"),
-  addInitializer: initializer => _D_member_initializers_cm9418.push(initializer)
+  isPrivate: true,
+  ...__PrepareMetadata(C.prototype, "private", undefined)
 }) ?? (v => v);
 
-_D_p_initializer_agd46o = addProperty("d", 4)(undefined, {
+_C_f_initializer_6a6c4o = meta(3)(undefined, {
   kind: "field",
-  name: "p",
+  name: "#f",
+  access: {
+    get: C.prototype[_C_f_get_symbol_hu6f4o],
+    set: C.prototype[_C_f_set_symbol_3k728o]
+  },
   isStatic: false,
-  isPrivate: false,
-  ...__PrepareMetadata(D.prototype, "public", "p"),
-  addInitializer: initializer => _D_member_initializers_cm9418.push(initializer)
+  isPrivate: true,
+  ...__PrepareMetadata(C.prototype, "private", undefined)
 }) ?? (v => v);
 
-const c = new C();
+console.assert(C.prototype[Symbol.metadata][META].private[0] === 1);
 
-console.assert(c.p === 1);
+console.assert(C.prototype[Symbol.metadata][META].private[1] === 3);
 
-console.assert(c.a === 1);
+console.assert(C.prototype[Symbol.metadata][META].private[2] === 6);
 
-console.assert(c.b === 2);
-
-console.assert(c.c === undefined);
-
-console.assert(c.d === undefined);
-
-const d = new D();
-
-console.assert(d.p === 2);
-
-console.assert(d.a === 1);
-
-console.assert(d.b === 2);
-
-console.assert(d.c === 3);
-
-console.assert(d.d === 4);
+console.assert(C.prototype[Symbol.metadata][META].private[3] === 9);

@@ -61,47 +61,47 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_gekdoo = Symbol();
+const _C_p_get_symbol_ii4am = Symbol();
 
-const _C_p_set_symbol_p9ctrg = Symbol();
+const _C_p_set_symbol_qel4sg = Symbol();
 
 class C {
   static #p = 10;
-  static [_C_p_get_symbol_gekdoo]() {
+  static [_C_p_get_symbol_ii4am]() {
     return C.#p;
   }
-  static [_C_p_set_symbol_p9ctrg](v) {
+  static [_C_p_set_symbol_qel4sg](v) {
     C.#p = v;
   }
 }
 
-const _C_p_initializer_934hgo = decorator2(undefined, {
+const _C_p_initializer_tklmk8 = decorator1(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_gekdoo],
-    set: C[_C_p_set_symbol_p9ctrg]
+    get: C[_C_p_get_symbol_ii4am],
+    set: C[_C_p_set_symbol_qel4sg]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(C, "private", undefined)
 }) ?? (v => v);
 
-C[_C_p_set_symbol_p9ctrg](_C_p_initializer_934hgo(C[_C_p_get_symbol_gekdoo]()));
+C[_C_p_set_symbol_qel4sg](_C_p_initializer_tklmk8(C[_C_p_get_symbol_ii4am]()));
 
-const _C_p_initializer_ggabvo = decorator1(undefined, {
+const _C_p_initializer_vpb248 = decorator2(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_gekdoo],
-    set: C[_C_p_set_symbol_p9ctrg]
+    get: C[_C_p_get_symbol_ii4am],
+    set: C[_C_p_set_symbol_qel4sg]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(C, "private", undefined)
 }) ?? (v => v);
 
-C[_C_p_set_symbol_p9ctrg](_C_p_initializer_ggabvo(C[_C_p_get_symbol_gekdoo]()));
+C[_C_p_set_symbol_qel4sg](_C_p_initializer_vpb248(C[_C_p_get_symbol_ii4am]()));
 
 console.assert(C[Symbol.metadata][ONE].private[0] === 1);
 

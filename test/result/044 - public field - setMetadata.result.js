@@ -61,15 +61,15 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_rmdr9;
+let _C_p_initializer_05asao;
 
-let _C_p_initializer_j5cuuo;
+let _C_p_initializer_21bfc8;
 
 class C {
-  p = _C_p_initializer_j5cuuo.call(this, _C_p_initializer_rmdr9.call(this, 10));
+  p = _C_p_initializer_21bfc8.call(this, _C_p_initializer_05asao.call(this, 10));
 }
 
-_C_p_initializer_j5cuuo = decorator2(undefined, {
+_C_p_initializer_21bfc8 = decorator1(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
@@ -77,7 +77,7 @@ _C_p_initializer_j5cuuo = decorator2(undefined, {
   ...__PrepareMetadata(C.prototype, "public", "p")
 }) ?? (v => v);
 
-_C_p_initializer_rmdr9 = decorator1(undefined, {
+_C_p_initializer_05asao = decorator2(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
