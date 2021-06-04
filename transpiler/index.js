@@ -554,8 +554,8 @@ function I (name, computed = false) {
   return {
     'type'     : 'MemberExpression',
     'object'   : {'type' : 'Identifier', 'name' : name.substring (0, dotPosition)},
-    'property' : I (name.substring (dotPosition + 1)),
-    computed
+    'property' : I (name.substring (dotPosition + 1), computed),
+    computed: computed && name.split('').reduce((n, c) => c === '.' ? n + 1 : n, 0) == 1 ? true  : undefined
   };
 }
 

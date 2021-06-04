@@ -2,6 +2,7 @@
 
 ## version 0.3.1
 
+- fixed a bug with methods name as Symbol.
 - fixed a bug with apply decorators order.
 - fixed a bug with private field accessor and delete temporal members.
 - fixed a bug with static field accessor and initialize function returned by the decorator.
