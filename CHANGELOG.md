@@ -1,5 +1,15 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.3.1
+
+- fixed a bug with methods name as Symbol.
+- fixed a bug with apply decorators order.
+- fixed a bug with private field accessor and delete temporal members.
+- fixed a bug with static field accessor and initialize function returned by the decorator.
+- it's identify an error when keyword `static` is in a separated line, it's an `acorn plug-in` error
+Note: we can try to update `acorn` and remove de acorn plugin, but the new version of `acorn` is
+not compatible with the current version of `recast`.
+
 ## version 0.3.0 - 2021/05/31
 
 - removed defineMetadata

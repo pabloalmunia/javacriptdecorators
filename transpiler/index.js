@@ -363,7 +363,7 @@ function transform (ast) {
                 initDecorator (o, decorator);
                 decoratorsCreated++;
               }
-              insertAfter (parent, klass, removeStaticMethodPrivateAccessor ({getName, setName}));
+              insertAfter (parent, klass, removeStaticMethodPrivateAccessor ({className, getName, setName}));
               if (isStatic) {
                 insertAfter (parent, klass, addInitializerPrivateStaticAccessor ({
                   className,
@@ -409,11 +409,8 @@ function transform (ast) {
             );
             o.decorators = undefined;
           } else {
-            for (let decorator of (o.decorators || [])) {
-              // if (decorator.init && decorator.kind === 'field') {
-              //   throw new TypeError ('wrong decorator @init: with a field');
-              // }
-              // decoratorsCreated++;
+            for (let n = (o.decorators || []).length; --n > -1;) {
+              const decorator = o.decorators[n];
               const initializerName = `_${ className }_${ propertyName }_initializer_${ unique () }`;
               if (!o.static) {
                 insertBefore (
@@ -462,7 +459,9 @@ function transform (ast) {
             }
           }
           o.decorators = undefined;
-        }
+        },
+        undefined,
+        true
       );
       
       //-------------------------------
@@ -555,8 +554,8 @@ function I (name, computed = false) {
   return {
     'type'     : 'MemberExpression',
     'object'   : {'type' : 'Identifier', 'name' : name.substring (0, dotPosition)},
-    'property' : I (name.substring (dotPosition + 1)),
-    computed
+    'property' : I (name.substring (dotPosition + 1), computed),
+    computed: computed && name.split('').reduce((n, c) => c === '.' ? n + 1 : n, 0) == 1 ? true  : undefined
   };
 }
 
@@ -642,7 +641,7 @@ function staticMethodPrivateAccessor ({privateName, getName, setName}) {
   ];
 }
 
-function removeStaticMethodPrivateAccessor ({getName, setName}) {
+function removeStaticMethodPrivateAccessor ({className, getName, setName}) {
   return [
     {
       'type'       : 'ExpressionStatement',
@@ -650,7 +649,7 @@ function removeStaticMethodPrivateAccessor ({getName, setName}) {
         'type'     : 'AssignmentExpression',
         'operator' : '=',
         'left'     : I (getName),
-        'right'    : I ('C.' + getName)
+        'right'    : I (className + '.' + getName)
       }
     },
     {
@@ -659,7 +658,7 @@ function removeStaticMethodPrivateAccessor ({getName, setName}) {
         'type'     : 'AssignmentExpression',
         'operator' : '=',
         'left'     : I (setName),
-        'right'    : I ('C.' + setName)
+        'right'    : I (className + '.' + setName)
       }
     },
     {
@@ -668,7 +667,7 @@ function removeStaticMethodPrivateAccessor ({getName, setName}) {
         'type'     : 'UnaryExpression',
         'operator' : 'delete',
         'prefix'   : true,
-        'argument' : I ('C.' + getName)
+        'argument' : I (className + '.' + getName)
       }
     },
     {
@@ -677,7 +676,7 @@ function removeStaticMethodPrivateAccessor ({getName, setName}) {
         'type'     : 'UnaryExpression',
         'operator' : 'delete',
         'prefix'   : true,
-        'argument' : I ('C.' + setName)
+        'argument' : I (className + '.' + setName)
       }
     }
   ];
@@ -1161,18 +1160,40 @@ function accessorGenerator ({init, className, initializeName, propertyName, deco
         ]
       )
     },
+    // (isStatic) ? {
+    //     'type'       : 'ExpressionStatement',
+    //     'expression' : {
+    //       'type'     : 'AssignmentExpression',
+    //       'operator' : '=',
+    //       'left'     : I (className + '.' + propertyName),
+    //       'right'    : callExpression (
+    //         initializeName,
+    //         [
+    //           I (className + '.' + propertyName)
+    //         ]
+    //       )
+    //     }
+    //   } :
+    //   undefined
     (isStatic) ? {
         'type'       : 'ExpressionStatement',
         'expression' : {
-          'type'     : 'AssignmentExpression',
-          'operator' : '=',
-          'left'     : I (className + '.' + propertyName),
-          'right'    : callExpression (
-            initializeName,
-            [
-              I (className + '.' + propertyName)
-            ]
-          )
+          'type'      : 'CallExpression',
+          'callee'    : I (descriptorName + '.set.call'),
+          'arguments' : [
+            I (className),
+            {
+              'type'      : 'CallExpression',
+              'callee'    : I (initializeName),
+              'arguments' : [
+                {
+                  'type'      : 'CallExpression',
+                  'callee'    : I (descriptorName + '.get.call'),
+                  'arguments' : [I (className)]
+                }
+              ]
+            }
+          ]
         }
       } :
       undefined
