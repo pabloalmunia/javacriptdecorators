@@ -221,3 +221,7 @@ run ('205 - static private field accessor - getMetadata');
 run ('206 - static private field accessor - addInitializer');
 run ('207 - static private field accessor - addInitializer & replace');
 run ('208 - static private field - multiple addInitializer');
+
+// Symbols
+run ('211 - public member decorator with symbols');
+run ('212 - static decorator with symbols');
