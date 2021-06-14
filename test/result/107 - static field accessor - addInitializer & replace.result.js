@@ -19,11 +19,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -34,9 +30,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -58,44 +54,44 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_ljleug;
+let _C_p_initializer_2mfqdg;
 
-const _C_static_initializers_ujvrpg = [];
+const _C_static_initializers_pkr3c8 = [];
 
 class C {
-  static #_p_private_property_npbago = 10;
+  static #_p_private_property_0llkm = 10;
   static get p() {
-    return this.#_p_private_property_npbago;
+    return this.#_p_private_property_0llkm;
   }
   static set p(v) {
-    this.#_p_private_property_npbago = v;
+    this.#_p_private_property_0llkm = v;
   }
 }
 
-const _C_p_descriptor_kiq14o = Object.getOwnPropertyDescriptor(C, "p");
+const _C_p_descriptor_26hbo8 = Object.getOwnPropertyDescriptor(C, "p");
 
-const _C_p_result_noicc = decorator({
-  get: _C_p_descriptor_kiq14o.get,
-  set: _C_p_descriptor_kiq14o.set
+const _C_p_result_pau4co = decorator({
+  get: _C_p_descriptor_26hbo8.get,
+  set: _C_p_descriptor_26hbo8.set
 }, {
   kind: "auto-accessor",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "p"),
-  addInitializer: initializer => _C_static_initializers_ujvrpg.push(initializer)
+  addInitializer: initializer => _C_static_initializers_pkr3c8.push(initializer)
 }) || {};
 
-_C_p_initializer_ljleug = _C_p_result_noicc.initialize || (v => v);
+_C_p_initializer_2mfqdg = _C_p_result_pau4co.initialize || (v => v);
 
 Object.defineProperty(C, "p", {
-  get: _C_p_result_noicc.get || _C_p_descriptor_kiq14o.get,
-  set: _C_p_result_noicc.set || _C_p_descriptor_kiq14o.set
+  get: _C_p_result_pau4co.get || _C_p_descriptor_26hbo8.get,
+  set: _C_p_result_pau4co.set || _C_p_descriptor_26hbo8.set
 });
 
-_C_p_descriptor_kiq14o.set.call(C, _C_p_initializer_ljleug(_C_p_descriptor_kiq14o.get.call(C)));
+_C_p_descriptor_26hbo8.set.call(C, _C_p_initializer_2mfqdg(_C_p_descriptor_26hbo8.get.call(C)));
 
-_C_static_initializers_ujvrpg.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_pkr3c8.forEach(initialize => initialize.call(C, C));
 
 console.assert(C.test === 10);
 

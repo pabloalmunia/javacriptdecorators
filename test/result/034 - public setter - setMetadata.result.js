@@ -17,11 +17,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -32,9 +28,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -60,29 +56,29 @@ class C {
   set p(v) {}
 }
 
-const _C_p_descriptor_3nj7a = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_6u8rfg = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_C_p_descriptor_3nj7a.set = decorator1(_C_p_descriptor_3nj7a.set, {
+_C_p_descriptor_6u8rfg.set = decorator1(_C_p_descriptor_6u8rfg.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(C.prototype, "public", "p")
-}) ?? _C_p_descriptor_3nj7a.set;
+}) ?? _C_p_descriptor_6u8rfg.set;
 
-Object.defineProperty(C.prototype, "p", _C_p_descriptor_3nj7a);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_6u8rfg);
 
-const _C_p_descriptor_sg43u = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_mh6edg = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_C_p_descriptor_sg43u.set = decorator2(_C_p_descriptor_sg43u.set, {
+_C_p_descriptor_mh6edg.set = decorator2(_C_p_descriptor_mh6edg.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(C.prototype, "public", "p")
-}) ?? _C_p_descriptor_sg43u.set;
+}) ?? _C_p_descriptor_mh6edg.set;
 
-Object.defineProperty(C.prototype, "p", _C_p_descriptor_sg43u);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_mh6edg);
 
 const a = new C();
 

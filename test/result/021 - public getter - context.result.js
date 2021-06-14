@@ -12,11 +12,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -27,9 +23,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -55,14 +51,14 @@ class A {
   get p() {}
 }
 
-const _A_p_descriptor_j32f58 = Object.getOwnPropertyDescriptor(A.prototype, "p");
+const _A_p_descriptor_684d3o = Object.getOwnPropertyDescriptor(A.prototype, "p");
 
-_A_p_descriptor_j32f58.get = decorator(_A_p_descriptor_j32f58.get, {
+_A_p_descriptor_684d3o.get = decorator(_A_p_descriptor_684d3o.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(A.prototype, "public", "p")
-}) ?? _A_p_descriptor_j32f58.get;
+}) ?? _A_p_descriptor_684d3o.get;
 
-Object.defineProperty(A.prototype, "p", _A_p_descriptor_j32f58);
+Object.defineProperty(A.prototype, "p", _A_p_descriptor_684d3o);

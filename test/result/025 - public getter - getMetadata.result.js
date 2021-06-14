@@ -14,11 +14,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -29,9 +25,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -59,29 +55,29 @@ class C {
   }
 }
 
-const _C_p_descriptor_9il42g = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_6un76o = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_C_p_descriptor_9il42g.get = meta(1)(_C_p_descriptor_9il42g.get, {
+_C_p_descriptor_6un76o.get = meta(1)(_C_p_descriptor_6un76o.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(C.prototype, "public", "p")
-}) ?? _C_p_descriptor_9il42g.get;
+}) ?? _C_p_descriptor_6un76o.get;
 
-Object.defineProperty(C.prototype, "p", _C_p_descriptor_9il42g);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_6un76o);
 
-const _C_p_descriptor_hr46og = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_6nsng8 = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_C_p_descriptor_hr46og.get = meta(2)(_C_p_descriptor_hr46og.get, {
+_C_p_descriptor_6nsng8.get = meta(2)(_C_p_descriptor_6nsng8.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(C.prototype, "public", "p")
-}) ?? _C_p_descriptor_hr46og.get;
+}) ?? _C_p_descriptor_6nsng8.get;
 
-Object.defineProperty(C.prototype, "p", _C_p_descriptor_hr46og);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_6nsng8);
 
 const a = new C();
 

@@ -14,11 +14,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -29,9 +25,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -53,69 +49,69 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _A_p_get_symbol_j00is8 = Symbol();
+const _A_p_get_symbol_66bu5g = Symbol();
 
-const _A_p_set_symbol_42r5d = Symbol();
+const _A_p_set_symbol_b9c0po = Symbol();
 
-let _A_p_getter_dfkulg;
+let _A_p_getter_15vhrg;
 
-let _A_p_setter_8uh7eg;
+let _A_p_setter_7vpio8;
 
 class A {
-  static #_p_private_property_7qca4o = 1;
+  static #_p_private_property_d0cbig = 1;
   static get #p() {
-    return _A_p_getter_dfkulg.call(this);
+    return _A_p_getter_15vhrg.call(this);
   }
   static set #p(v) {
-    return _A_p_setter_8uh7eg.call(this, v);
+    return _A_p_setter_7vpio8.call(this, v);
   }
-  static _A_p_getter_dfkulg() {
-    return this.#_p_private_property_7qca4o;
+  static _A_p_getter_15vhrg() {
+    return this.#_p_private_property_d0cbig;
   }
-  static _A_p_setter_8uh7eg(v) {
-    this.#_p_private_property_7qca4o = v;
+  static _A_p_setter_7vpio8(v) {
+    this.#_p_private_property_d0cbig = v;
   }
-  static [_A_p_get_symbol_j00is8]() {
+  static [_A_p_get_symbol_66bu5g]() {
     return A.#p;
   }
-  static [_A_p_set_symbol_42r5d](v) {
+  static [_A_p_set_symbol_b9c0po](v) {
     A.#p = v;
   }
 }
 
-const _A_p_initializer_kodfco = {
-  get: A._A_p_getter_dfkulg,
-  set: A._A_p_setter_8uh7eg
+const _A_p_initializer_h18img = {
+  get: A._A_p_getter_15vhrg,
+  set: A._A_p_setter_7vpio8
 };
 
-_A_p_getter_dfkulg = A._A_p_getter_dfkulg;
+_A_p_getter_15vhrg = A._A_p_getter_15vhrg;
 
-_A_p_setter_8uh7eg = A._A_p_setter_8uh7eg;
+_A_p_setter_7vpio8 = A._A_p_setter_7vpio8;
 
-delete A._A_p_getter_dfkulg;
+delete A._A_p_getter_15vhrg;
 
-delete A._A_p_setter_8uh7eg;
+delete A._A_p_setter_7vpio8;
 
-const _A_p_result_knokco = decorator({
-  get: _A_p_getter_dfkulg,
-  set: _A_p_setter_8uh7eg
+const _A_p_result_8itou8 = decorator({
+  get: _A_p_getter_15vhrg,
+  set: _A_p_setter_7vpio8
 }, {
   kind: "auto-accessor",
   name: "#p",
   access: {
-    get: A[_A_p_get_symbol_j00is8],
-    set: A[_A_p_set_symbol_42r5d]
+    get: A[_A_p_get_symbol_66bu5g],
+    set: A[_A_p_set_symbol_b9c0po]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(A, "private", undefined)
 }) || {};
 
-_A_p_initializer_kodfco.set.call(
+_A_p_initializer_h18img.set.call(
   A,
-  (_A_p_result_knokco.initialize || (v => v))(_A_p_initializer_kodfco.get.call(A))
+  (_A_p_result_8itou8.initialize || (v => v))(_A_p_initializer_h18img.get.call(A))
 );
 
-_A_p_getter_dfkulg = _A_p_result_knokco.get || _A_p_getter_dfkulg;
+_A_p_getter_15vhrg = _A_p_result_8itou8.get || _A_p_getter_15vhrg;
 
-_A_p_setter_8uh7eg = _A_p_result_knokco.set || _A_p_setter_8uh7eg;
+_A_p_setter_7vpio8 = _A_p_result_8itou8.set || _A_p_setter_7vpio8;

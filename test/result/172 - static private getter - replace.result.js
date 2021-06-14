@@ -11,11 +11,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -26,9 +22,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -50,33 +46,33 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_u2917g = Symbol();
+const _C_p_symbol_cpand8 = Symbol();
 
 class C {
-  static _C_p_temp_540at() {
+  static _C_p_temp_copdig() {
     return "a";
   }
-  static [_C_p_symbol_u2917g] = decorator(C._C_p_temp_540at, {
+  static [_C_p_symbol_cpand8] = decorator(C._C_p_temp_copdig, {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_u2917g]
+      get: C[_C_p_symbol_cpand8]
     },
     ...__PrepareMetadata(C, "private", undefined)
-  }) ?? C._C_p_temp_540at;
+  }) ?? C._C_p_temp_copdig;
   static get #p() {
-    return C[_C_p_symbol_u2917g].bind(this)();
+    return C[_C_p_symbol_cpand8].bind(this)();
   }
-  static [_C_p_symbol_u2917g]() {
-    return C[_C_p_symbol_u2917g].bind(this);
+  static [_C_p_symbol_cpand8]() {
+    return C[_C_p_symbol_cpand8].bind(this);
   }
   static get check() {
     return this.#p;
   }
 }
 
-delete C._C_p_temp_540at;
+delete C._C_p_temp_copdig;
 
 console.assert(C.check === "b");

@@ -13,11 +13,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -28,9 +24,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -52,23 +48,23 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_almdqo;
+let _C_p_initializer_6thioo;
 
 class C {
-  static #_p_private_property_bqs4ko = 10;
+  static #_p_private_property_2pikeo = 10;
   static get p() {
-    return this.#_p_private_property_bqs4ko;
+    return this.#_p_private_property_2pikeo;
   }
   static set p(v) {
-    this.#_p_private_property_bqs4ko = v;
+    this.#_p_private_property_2pikeo = v;
   }
 }
 
-const _C_p_descriptor_blldjo = Object.getOwnPropertyDescriptor(C, "p");
+const _C_p_descriptor_4j1tc = Object.getOwnPropertyDescriptor(C, "p");
 
-const _C_p_result_v1din8 = decorator({
-  get: _C_p_descriptor_blldjo.get,
-  set: _C_p_descriptor_blldjo.set
+const _C_p_result_dojpi = decorator({
+  get: _C_p_descriptor_4j1tc.get,
+  set: _C_p_descriptor_4j1tc.set
 }, {
   kind: "auto-accessor",
   name: "p",
@@ -77,13 +73,13 @@ const _C_p_result_v1din8 = decorator({
   ...__PrepareMetadata(C, "public", "p")
 }) || {};
 
-_C_p_initializer_almdqo = _C_p_result_v1din8.initialize || (v => v);
+_C_p_initializer_6thioo = _C_p_result_dojpi.initialize || (v => v);
 
 Object.defineProperty(C, "p", {
-  get: _C_p_result_v1din8.get || _C_p_descriptor_blldjo.get,
-  set: _C_p_result_v1din8.set || _C_p_descriptor_blldjo.set
+  get: _C_p_result_dojpi.get || _C_p_descriptor_4j1tc.get,
+  set: _C_p_result_dojpi.set || _C_p_descriptor_4j1tc.set
 });
 
-_C_p_descriptor_blldjo.set.call(C, _C_p_initializer_almdqo(_C_p_descriptor_blldjo.get.call(C)));
+_C_p_descriptor_4j1tc.set.call(C, _C_p_initializer_6thioo(_C_p_descriptor_4j1tc.get.call(C)));
 
 console.assert(C.p === 20);

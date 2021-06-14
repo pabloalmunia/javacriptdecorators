@@ -14,11 +14,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -29,9 +25,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -53,170 +49,170 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_f_get_symbol_sr00j8 = Symbol();
+const _C_f_get_symbol_ud7l78 = Symbol();
 
-const _C_f_set_symbol_hc7nfo = Symbol();
+const _C_f_set_symbol_uru6to = Symbol();
 
-let _C_f_getter_epqq78;
+let _C_f_getter_kevhco;
 
-let _C_f_setter_lnu5f8;
+let _C_f_setter_aalap;
 
-let _C_f_initializer_64ef3;
+let _C_f_initializer_kscv9;
 
-let _C_f_initializer_591bs8;
+let _C_f_initializer_9k8rb;
 
-const _C_p_get_symbol_i51dd = Symbol();
+const _C_p_get_symbol_4osao = Symbol();
 
-const _C_p_set_symbol_70k9t8 = Symbol();
+const _C_p_set_symbol_9buv1g = Symbol();
 
-let _C_p_getter_djn7rg;
+let _C_p_getter_1t5aeo;
 
-let _C_p_setter_pbnh18;
+let _C_p_setter_2asfbo;
 
-let _C_p_initializer_1qr7no;
+let _C_p_initializer_ar9mv8;
 
-let _C_p_initializer_hjnk9g;
+let _C_p_initializer_qji9hg;
 
 class C {
-  #_p_private_property_464eno = _C_p_initializer_hjnk9g.call(this, _C_p_initializer_1qr7no.call(this, 10));
+  #_p_private_property_4fv8g8 = _C_p_initializer_qji9hg.call(this, _C_p_initializer_ar9mv8.call(this, 10));
   get #p() {
-    return _C_p_getter_djn7rg.call(this);
+    return _C_p_getter_1t5aeo.call(this);
   }
   set #p(v) {
-    return _C_p_setter_pbnh18.call(this, v);
+    return _C_p_setter_2asfbo.call(this, v);
   }
-  static _C_p_getter_djn7rg() {
-    return this.#_p_private_property_464eno;
+  static _C_p_getter_1t5aeo() {
+    return this.#_p_private_property_4fv8g8;
   }
-  static _C_p_setter_pbnh18(v) {
-    this.#_p_private_property_464eno = v;
+  static _C_p_setter_2asfbo(v) {
+    this.#_p_private_property_4fv8g8 = v;
   }
-  [_C_p_get_symbol_i51dd]() {
+  [_C_p_get_symbol_4osao]() {
     return this.#p;
   }
-  [_C_p_set_symbol_70k9t8](v) {
+  [_C_p_set_symbol_9buv1g](v) {
     this.#p = v;
   }
-  #_f_private_property_jalij = _C_f_initializer_591bs8.call(this, _C_f_initializer_64ef3.call(this, 20));
+  #_f_private_property_75qd1g = _C_f_initializer_9k8rb.call(this, _C_f_initializer_kscv9.call(this, 20));
   get #f() {
-    return _C_f_getter_epqq78.call(this);
+    return _C_f_getter_kevhco.call(this);
   }
   set #f(v) {
-    return _C_f_setter_lnu5f8.call(this, v);
+    return _C_f_setter_aalap.call(this, v);
   }
-  static _C_f_getter_epqq78() {
-    return this.#_f_private_property_jalij;
+  static _C_f_getter_kevhco() {
+    return this.#_f_private_property_75qd1g;
   }
-  static _C_f_setter_lnu5f8(v) {
-    this.#_f_private_property_jalij = v;
+  static _C_f_setter_aalap(v) {
+    this.#_f_private_property_75qd1g = v;
   }
-  [_C_f_get_symbol_sr00j8]() {
+  [_C_f_get_symbol_ud7l78]() {
     return this.#f;
   }
-  [_C_f_set_symbol_hc7nfo](v) {
+  [_C_f_set_symbol_uru6to](v) {
     this.#f = v;
   }
 }
 
-_C_p_getter_djn7rg = C._C_p_getter_djn7rg;
+_C_p_getter_1t5aeo = C._C_p_getter_1t5aeo;
 
-_C_p_setter_pbnh18 = C._C_p_setter_pbnh18;
+_C_p_setter_2asfbo = C._C_p_setter_2asfbo;
 
-delete C._C_p_getter_djn7rg;
+delete C._C_p_getter_1t5aeo;
 
-delete C._C_p_setter_pbnh18;
+delete C._C_p_setter_2asfbo;
 
-const _C_p_result_00dndg = meta(1)({
-  get: _C_p_getter_djn7rg,
-  set: _C_p_setter_pbnh18
+const _C_p_result_0o5vo8 = meta(1)({
+  get: _C_p_getter_1t5aeo,
+  set: _C_p_setter_2asfbo
 }, {
   kind: "auto-accessor",
   name: "#p",
   access: {
-    get: C.prototype[_C_p_get_symbol_i51dd],
-    set: C.prototype[_C_p_set_symbol_70k9t8]
+    get: C.prototype[_C_p_get_symbol_4osao],
+    set: C.prototype[_C_p_set_symbol_9buv1g]
   },
   isStatic: false,
   isPrivate: true,
   ...__PrepareMetadata(C.prototype, "private", undefined)
 }) || {};
 
-_C_p_initializer_hjnk9g = _C_p_result_00dndg.initialize || (v => v);
+_C_p_initializer_qji9hg = _C_p_result_0o5vo8.initialize || (v => v);
 
-_C_p_getter_djn7rg = _C_p_result_00dndg.get || _C_p_getter_djn7rg;
+_C_p_getter_1t5aeo = _C_p_result_0o5vo8.get || _C_p_getter_1t5aeo;
 
-_C_p_setter_pbnh18 = _C_p_result_00dndg.set || _C_p_setter_pbnh18;
+_C_p_setter_2asfbo = _C_p_result_0o5vo8.set || _C_p_setter_2asfbo;
 
-const _C_p_result_9ahru8 = meta(2)({
-  get: _C_p_getter_djn7rg,
-  set: _C_p_setter_pbnh18
+const _C_p_result_kbb84o = meta(2)({
+  get: _C_p_getter_1t5aeo,
+  set: _C_p_setter_2asfbo
 }, {
   kind: "auto-accessor",
   name: "#p",
   access: {
-    get: C.prototype[_C_p_get_symbol_i51dd],
-    set: C.prototype[_C_p_set_symbol_70k9t8]
+    get: C.prototype[_C_p_get_symbol_4osao],
+    set: C.prototype[_C_p_set_symbol_9buv1g]
   },
   isStatic: false,
   isPrivate: true,
   ...__PrepareMetadata(C.prototype, "private", undefined)
 }) || {};
 
-_C_p_initializer_1qr7no = _C_p_result_9ahru8.initialize || (v => v);
+_C_p_initializer_ar9mv8 = _C_p_result_kbb84o.initialize || (v => v);
 
-_C_p_getter_djn7rg = _C_p_result_9ahru8.get || _C_p_getter_djn7rg;
+_C_p_getter_1t5aeo = _C_p_result_kbb84o.get || _C_p_getter_1t5aeo;
 
-_C_p_setter_pbnh18 = _C_p_result_9ahru8.set || _C_p_setter_pbnh18;
+_C_p_setter_2asfbo = _C_p_result_kbb84o.set || _C_p_setter_2asfbo;
 
-_C_f_getter_epqq78 = C._C_f_getter_epqq78;
+_C_f_getter_kevhco = C._C_f_getter_kevhco;
 
-_C_f_setter_lnu5f8 = C._C_f_setter_lnu5f8;
+_C_f_setter_aalap = C._C_f_setter_aalap;
 
-delete C._C_f_getter_epqq78;
+delete C._C_f_getter_kevhco;
 
-delete C._C_f_setter_lnu5f8;
+delete C._C_f_setter_aalap;
 
-const _C_f_result_7d4va8 = meta(3)({
-  get: _C_f_getter_epqq78,
-  set: _C_f_setter_lnu5f8
+const _C_f_result_k2nm8o = meta(3)({
+  get: _C_f_getter_kevhco,
+  set: _C_f_setter_aalap
 }, {
   kind: "auto-accessor",
   name: "#f",
   access: {
-    get: C.prototype[_C_f_get_symbol_sr00j8],
-    set: C.prototype[_C_f_set_symbol_hc7nfo]
+    get: C.prototype[_C_f_get_symbol_ud7l78],
+    set: C.prototype[_C_f_set_symbol_uru6to]
   },
   isStatic: false,
   isPrivate: true,
   ...__PrepareMetadata(C.prototype, "private", undefined)
 }) || {};
 
-_C_f_initializer_591bs8 = _C_f_result_7d4va8.initialize || (v => v);
+_C_f_initializer_9k8rb = _C_f_result_k2nm8o.initialize || (v => v);
 
-_C_f_getter_epqq78 = _C_f_result_7d4va8.get || _C_f_getter_epqq78;
+_C_f_getter_kevhco = _C_f_result_k2nm8o.get || _C_f_getter_kevhco;
 
-_C_f_setter_lnu5f8 = _C_f_result_7d4va8.set || _C_f_setter_lnu5f8;
+_C_f_setter_aalap = _C_f_result_k2nm8o.set || _C_f_setter_aalap;
 
-const _C_f_result_fp0268 = meta(3)({
-  get: _C_f_getter_epqq78,
-  set: _C_f_setter_lnu5f8
+const _C_f_result_ehu7u = meta(3)({
+  get: _C_f_getter_kevhco,
+  set: _C_f_setter_aalap
 }, {
   kind: "auto-accessor",
   name: "#f",
   access: {
-    get: C.prototype[_C_f_get_symbol_sr00j8],
-    set: C.prototype[_C_f_set_symbol_hc7nfo]
+    get: C.prototype[_C_f_get_symbol_ud7l78],
+    set: C.prototype[_C_f_set_symbol_uru6to]
   },
   isStatic: false,
   isPrivate: true,
   ...__PrepareMetadata(C.prototype, "private", undefined)
 }) || {};
 
-_C_f_initializer_64ef3 = _C_f_result_fp0268.initialize || (v => v);
+_C_f_initializer_kscv9 = _C_f_result_ehu7u.initialize || (v => v);
 
-_C_f_getter_epqq78 = _C_f_result_fp0268.get || _C_f_getter_epqq78;
+_C_f_getter_kevhco = _C_f_result_ehu7u.get || _C_f_getter_kevhco;
 
-_C_f_setter_lnu5f8 = _C_f_result_fp0268.set || _C_f_setter_lnu5f8;
+_C_f_setter_aalap = _C_f_result_ehu7u.set || _C_f_setter_aalap;
 
 console.assert(C.prototype[Symbol.metadata][META].private[0] === 1);
 

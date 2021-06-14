@@ -25,11 +25,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -40,9 +36,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -64,25 +60,25 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_74ob88;
+let _C_p_initializer_kcjirg;
 
-let _C_p_initializer_8rs6vg;
+let _C_p_initializer_bid3oo;
 
 class C {
-  static #_p_private_property_f2g7bo = 1;
+  static #_p_private_property_v4hnj8 = 1;
   static get p() {
-    return this.#_p_private_property_f2g7bo;
+    return this.#_p_private_property_v4hnj8;
   }
   static set p(v) {
-    this.#_p_private_property_f2g7bo = v;
+    this.#_p_private_property_v4hnj8 = v;
   }
 }
 
-const _C_p_descriptor_78fa38 = Object.getOwnPropertyDescriptor(C, "p");
+const _C_p_descriptor_i15dug = Object.getOwnPropertyDescriptor(C, "p");
 
-const _C_p_result_f8pmjg = decorator1({
-  get: _C_p_descriptor_78fa38.get,
-  set: _C_p_descriptor_78fa38.set
+const _C_p_result_0eqsm8 = decorator1({
+  get: _C_p_descriptor_i15dug.get,
+  set: _C_p_descriptor_i15dug.set
 }, {
   kind: "auto-accessor",
   name: "p",
@@ -91,20 +87,20 @@ const _C_p_result_f8pmjg = decorator1({
   ...__PrepareMetadata(C, "public", "p")
 }) || {};
 
-_C_p_initializer_8rs6vg = _C_p_result_f8pmjg.initialize || (v => v);
+_C_p_initializer_bid3oo = _C_p_result_0eqsm8.initialize || (v => v);
 
 Object.defineProperty(C, "p", {
-  get: _C_p_result_f8pmjg.get || _C_p_descriptor_78fa38.get,
-  set: _C_p_result_f8pmjg.set || _C_p_descriptor_78fa38.set
+  get: _C_p_result_0eqsm8.get || _C_p_descriptor_i15dug.get,
+  set: _C_p_result_0eqsm8.set || _C_p_descriptor_i15dug.set
 });
 
-_C_p_descriptor_78fa38.set.call(C, _C_p_initializer_8rs6vg(_C_p_descriptor_78fa38.get.call(C)));
+_C_p_descriptor_i15dug.set.call(C, _C_p_initializer_bid3oo(_C_p_descriptor_i15dug.get.call(C)));
 
-const _C_p_descriptor_uvq958 = Object.getOwnPropertyDescriptor(C, "p");
+const _C_p_descriptor_fvvn78 = Object.getOwnPropertyDescriptor(C, "p");
 
-const _C_p_result_51bm78 = decorator2({
-  get: _C_p_descriptor_uvq958.get,
-  set: _C_p_descriptor_uvq958.set
+const _C_p_result_8c1oc = decorator2({
+  get: _C_p_descriptor_fvvn78.get,
+  set: _C_p_descriptor_fvvn78.set
 }, {
   kind: "auto-accessor",
   name: "p",
@@ -113,13 +109,13 @@ const _C_p_result_51bm78 = decorator2({
   ...__PrepareMetadata(C, "public", "p")
 }) || {};
 
-_C_p_initializer_74ob88 = _C_p_result_51bm78.initialize || (v => v);
+_C_p_initializer_kcjirg = _C_p_result_8c1oc.initialize || (v => v);
 
 Object.defineProperty(C, "p", {
-  get: _C_p_result_51bm78.get || _C_p_descriptor_uvq958.get,
-  set: _C_p_result_51bm78.set || _C_p_descriptor_uvq958.set
+  get: _C_p_result_8c1oc.get || _C_p_descriptor_fvvn78.get,
+  set: _C_p_result_8c1oc.set || _C_p_descriptor_fvvn78.set
 });
 
-_C_p_descriptor_uvq958.set.call(C, _C_p_initializer_74ob88(_C_p_descriptor_uvq958.get.call(C)));
+_C_p_descriptor_fvvn78.set.call(C, _C_p_initializer_kcjirg(_C_p_descriptor_fvvn78.get.call(C)));
 
 console.assert(C.p === 6);

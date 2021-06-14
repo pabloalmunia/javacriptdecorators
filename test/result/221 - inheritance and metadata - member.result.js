@@ -1,8 +1,8 @@
-function decorator(context) {
-  return {
-    initialize(v) {
-      return v * 2;
-    }
+const KEY = Symbol();
+
+function metadata(data) {
+  return function(value, context) {
+    context.setMetadata(KEY, data);
   };
 }
 
@@ -48,70 +48,42 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_lqpeno = Symbol();
-
-const _C_p_set_symbol_oshpd8 = Symbol();
-
-let _C_p_getter_bmqst8;
-
-let _C_p_setter_d79co8;
-
-let _C_p_initializer_299b7o;
-
-class C {
-  #_p_private_property_21dke = _C_p_initializer_299b7o.call(this, 10);
-  get #p() {
-    return _C_p_getter_bmqst8.call(this);
-  }
-  set #p(v) {
-    return _C_p_setter_d79co8.call(this, v);
-  }
-  static _C_p_getter_bmqst8() {
-    return this.#_p_private_property_21dke;
-  }
-  static _C_p_setter_d79co8(v) {
-    this.#_p_private_property_21dke = v;
-  }
-  [_C_p_get_symbol_lqpeno]() {
-    return this.#p;
-  }
-  [_C_p_set_symbol_oshpd8](v) {
-    this.#p = v;
-  }
-  get check() {
-    return this.#p;
-  }
+class A {
+  a() {}
 }
 
-_C_p_getter_bmqst8 = C._C_p_getter_bmqst8;
-
-_C_p_setter_d79co8 = C._C_p_setter_d79co8;
-
-delete C._C_p_getter_bmqst8;
-
-delete C._C_p_setter_d79co8;
-
-const _C_p_result_87e2ug = decorator({
-  get: _C_p_getter_bmqst8,
-  set: _C_p_setter_d79co8
-}, {
-  kind: "auto-accessor",
-  name: "#p",
-  access: {
-    get: C.prototype[_C_p_get_symbol_lqpeno],
-    set: C.prototype[_C_p_set_symbol_oshpd8]
-  },
+A.prototype.a = metadata(10)(A.prototype.a, {
+  kind: "method",
+  name: "a",
   isStatic: false,
-  isPrivate: true,
-  ...__PrepareMetadata(C.prototype, "private", undefined)
-}) || {};
+  isPrivate: false,
+  ...__PrepareMetadata(A.prototype, "public", "a")
+}) ?? A.prototype.a;
 
-_C_p_initializer_299b7o = _C_p_result_87e2ug.initialize || (v => v);
+console.assert(A.prototype[Symbol.metadata][KEY].public.a === 10);
 
-_C_p_getter_bmqst8 = _C_p_result_87e2ug.get || _C_p_getter_bmqst8;
+class B extends A {
+  b() {}
+}
 
-_C_p_setter_d79co8 = _C_p_result_87e2ug.set || _C_p_setter_d79co8;
+console.assert(B.prototype[Symbol.metadata][KEY].public.a === 10);
 
-const c = new C();
+class C extends B {
+  c() {}
+}
 
-console.assert(c.check === 20);
+C.prototype.c = metadata(30)(C.prototype.c, {
+  kind: "method",
+  name: "c",
+  isStatic: false,
+  isPrivate: false,
+  ...__PrepareMetadata(C.prototype, "public", "c")
+}) ?? C.prototype.c;
+
+console.log(C.prototype[Symbol.metadata][KEY]);
+
+console.assert(C.prototype[Symbol.metadata][KEY].public.a === 10);
+
+console.assert(C.prototype[Symbol.metadata][KEY].public.c === 30);
+
+console.assert(A.prototype[Symbol.metadata][KEY].public.c !== 30);

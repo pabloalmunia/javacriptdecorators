@@ -11,11 +11,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -26,9 +22,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -50,25 +46,25 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_u4tmq8 = [];
+const _C_static_initializers_trr06 = [];
 
 class C {
   static get p() {}
 }
 
-const _C_p_descriptor_c05qug = Object.getOwnPropertyDescriptor(C, "p");
+const _C_p_descriptor_go3o6g = Object.getOwnPropertyDescriptor(C, "p");
 
-_C_p_descriptor_c05qug.get = decorator(_C_p_descriptor_c05qug.get, {
+_C_p_descriptor_go3o6g.get = decorator(_C_p_descriptor_go3o6g.get, {
   kind: "getter",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "p"),
-  addInitializer: initializer => _C_static_initializers_u4tmq8.push(initializer)
-}) ?? _C_p_descriptor_c05qug.get;
+  addInitializer: initializer => _C_static_initializers_trr06.push(initializer)
+}) ?? _C_p_descriptor_go3o6g.get;
 
-Object.defineProperty(C, "p", _C_p_descriptor_c05qug);
+Object.defineProperty(C, "p", _C_p_descriptor_go3o6g);
 
-_C_static_initializers_u4tmq8.forEach(initializer => initializer.call(C, C));
+_C_static_initializers_trr06.forEach(initializer => initializer.call(C, C));
 
 console.assert(C.test === 10);

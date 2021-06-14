@@ -11,11 +11,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -26,9 +22,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -50,28 +46,28 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_4m0u1 = Symbol();
+const _C_p_symbol_el9s6g = Symbol();
 
 class C {
   #q = 0;
-  _C_p_temp_vrhfvg(v) {
+  _C_p_temp_ibpmig(v) {
     this.#q = v;
   }
-  static [_C_p_symbol_4m0u1] = decorator(C.prototype._C_p_temp_vrhfvg, {
+  static [_C_p_symbol_el9s6g] = decorator(C.prototype._C_p_temp_ibpmig, {
     kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_4m0u1]
+      get: C.prototype[_C_p_symbol_el9s6g]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined)
-  }) ?? C.prototype._C_p_temp_vrhfvg;
+  }) ?? C.prototype._C_p_temp_ibpmig;
   set #p(v) {
-    return C[_C_p_symbol_4m0u1].bind(this)(v);
+    return C[_C_p_symbol_el9s6g].bind(this)(v);
   }
-  [_C_p_symbol_4m0u1]() {
-    return C[_C_p_symbol_4m0u1].bind(this);
+  [_C_p_symbol_el9s6g]() {
+    return C[_C_p_symbol_el9s6g].bind(this);
   }
   get #p() {
     return this.#q;
@@ -84,7 +80,7 @@ class C {
   }
 }
 
-delete C.prototype._C_p_temp_vrhfvg;
+delete C.prototype._C_p_temp_ibpmig;
 
 const c = new C();
 

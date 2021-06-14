@@ -21,11 +21,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -36,9 +32,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -60,30 +56,30 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_member_initializers_n68kjo = [];
+const _C_member_initializers_ejp1d8 = [];
 
-const _C_m_symbol_tf7rs = Symbol();
+const _C_m_symbol_6ktfa8 = Symbol();
 
 class C {
   constructor() {
-    _C_member_initializers_n68kjo.forEach(initialize => initialize.call(this));
+    _C_member_initializers_ejp1d8.forEach(initialize => initialize.call(this));
   }
-  _C_m_temp_80fqpg(v) {
+  _C_m_temp_croh5o(v) {
     return v * 2;
   }
-  static [_C_m_symbol_tf7rs] = decorator(C.prototype._C_m_temp_80fqpg, {
+  static [_C_m_symbol_6ktfa8] = decorator(C.prototype._C_m_temp_croh5o, {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_m_symbol_tf7rs]
+      get: C.prototype[_C_m_symbol_6ktfa8]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined),
-    addInitializer: initializer => _C_member_initializers_n68kjo.push(initializer)
-  }) ?? C.prototype._C_m_temp_80fqpg;
-  #m = C[_C_m_symbol_tf7rs];
-  [_C_m_symbol_tf7rs]() {
+    addInitializer: initializer => _C_member_initializers_ejp1d8.push(initializer)
+  }) ?? C.prototype._C_m_temp_croh5o;
+  #m = C[_C_m_symbol_6ktfa8];
+  [_C_m_symbol_6ktfa8]() {
     return this.#m;
   }
   check(v) {
@@ -91,7 +87,7 @@ class C {
   }
 }
 
-delete C.prototype._C_m_temp_80fqpg;
+delete C.prototype._C_m_temp_croh5o;
 
 console.assert(new C().check(2) === 4);
 

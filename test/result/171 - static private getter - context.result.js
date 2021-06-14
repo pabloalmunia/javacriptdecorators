@@ -14,11 +14,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -29,9 +25,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -53,26 +49,26 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _A_p_symbol_7vn508 = Symbol();
+const _A_p_symbol_1mes1 = Symbol();
 
 class A {
-  static _A_p_temp_tlf2no() {}
-  static [_A_p_symbol_7vn508] = decorator(A._A_p_temp_tlf2no, {
+  static _A_p_temp_9krra8() {}
+  static [_A_p_symbol_1mes1] = decorator(A._A_p_temp_9krra8, {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: A[_A_p_symbol_7vn508]
+      get: A[_A_p_symbol_1mes1]
     },
     ...__PrepareMetadata(A, "private", undefined)
-  }) ?? A._A_p_temp_tlf2no;
+  }) ?? A._A_p_temp_9krra8;
   static get #p() {
-    return A[_A_p_symbol_7vn508].bind(this)();
+    return A[_A_p_symbol_1mes1].bind(this)();
   }
-  static [_A_p_symbol_7vn508]() {
-    return A[_A_p_symbol_7vn508].bind(this);
+  static [_A_p_symbol_1mes1]() {
+    return A[_A_p_symbol_1mes1].bind(this);
   }
 }
 
-delete A._A_p_temp_tlf2no;
+delete A._A_p_temp_9krra8;

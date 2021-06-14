@@ -13,11 +13,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -28,9 +24,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -52,26 +48,26 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _A_p_symbol_rna0c8 = Symbol();
+const _A_p_symbol_5cuv9o = Symbol();
 
 class A {
-  _A_p_temp_iqp52o(v) {}
-  static [_A_p_symbol_rna0c8] = decorator(A.prototype._A_p_temp_iqp52o, {
+  _A_p_temp_cocc1(v) {}
+  static [_A_p_symbol_5cuv9o] = decorator(A.prototype._A_p_temp_cocc1, {
     kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: A.prototype[_A_p_symbol_rna0c8]
+      get: A.prototype[_A_p_symbol_5cuv9o]
     },
     ...__PrepareMetadata(A.prototype, "private", undefined)
-  }) ?? A.prototype._A_p_temp_iqp52o;
+  }) ?? A.prototype._A_p_temp_cocc1;
   set #p(v) {
-    return A[_A_p_symbol_rna0c8].bind(this)(v);
+    return A[_A_p_symbol_5cuv9o].bind(this)(v);
   }
-  [_A_p_symbol_rna0c8]() {
-    return A[_A_p_symbol_rna0c8].bind(this);
+  [_A_p_symbol_5cuv9o]() {
+    return A[_A_p_symbol_5cuv9o].bind(this);
   }
 }
 
-delete A.prototype._A_p_temp_iqp52o;
+delete A.prototype._A_p_temp_cocc1;

@@ -11,11 +11,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -26,9 +22,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -50,37 +46,37 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_fp653 = Symbol();
+const _C_p_get_symbol_5rudog = Symbol();
 
-const _C_p_set_symbol_dll218 = Symbol();
+const _C_p_set_symbol_3ibjt = Symbol();
 
-const _C_static_initializers_n62igo = [];
+const _C_static_initializers_4201p = [];
 
 class C {
   static #p = 1;
-  static [_C_p_get_symbol_fp653]() {
+  static [_C_p_get_symbol_5rudog]() {
     return C.#p;
   }
-  static [_C_p_set_symbol_dll218](v) {
+  static [_C_p_set_symbol_3ibjt](v) {
     C.#p = v;
   }
 }
 
-const _C_p_initializer_uqvc2 = decorator(undefined, {
+const _C_p_initializer_kfrblg = decorator(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_fp653],
-    set: C[_C_p_set_symbol_dll218]
+    get: C[_C_p_get_symbol_5rudog],
+    set: C[_C_p_set_symbol_3ibjt]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(C, "private", undefined),
-  addInitializer: initializer => _C_static_initializers_n62igo.push(initializer)
+  addInitializer: initializer => _C_static_initializers_4201p.push(initializer)
 }) ?? (v => v);
 
-C[_C_p_set_symbol_dll218](_C_p_initializer_uqvc2(C[_C_p_get_symbol_fp653]()));
+C[_C_p_set_symbol_3ibjt](_C_p_initializer_kfrblg(C[_C_p_get_symbol_5rudog]()));
 
-_C_static_initializers_n62igo.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_4201p.forEach(initialize => initialize.call(C, C));
 
 console.assert(C.test === 10);

@@ -13,11 +13,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -28,9 +24,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -52,26 +48,26 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _A_p_symbol_71h3mg = Symbol();
+const _A_p_symbol_kq8pf = Symbol();
 
 class A {
-  _A_p_temp_3bi6mo() {}
-  static [_A_p_symbol_71h3mg] = decorator(A.prototype._A_p_temp_3bi6mo, {
+  _A_p_temp_cga9do() {}
+  static [_A_p_symbol_kq8pf] = decorator(A.prototype._A_p_temp_cga9do, {
     kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: A.prototype[_A_p_symbol_71h3mg]
+      get: A.prototype[_A_p_symbol_kq8pf]
     },
     ...__PrepareMetadata(A.prototype, "private", undefined)
-  }) ?? A.prototype._A_p_temp_3bi6mo;
+  }) ?? A.prototype._A_p_temp_cga9do;
   get #p() {
-    return A[_A_p_symbol_71h3mg].bind(this)();
+    return A[_A_p_symbol_kq8pf].bind(this)();
   }
-  [_A_p_symbol_71h3mg]() {
-    return A[_A_p_symbol_71h3mg].bind(this);
+  [_A_p_symbol_kq8pf]() {
+    return A[_A_p_symbol_kq8pf].bind(this);
   }
 }
 
-delete A.prototype._A_p_temp_3bi6mo;
+delete A.prototype._A_p_temp_cga9do;

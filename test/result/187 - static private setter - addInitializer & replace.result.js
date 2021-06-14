@@ -14,11 +14,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -29,9 +25,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -53,34 +49,34 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_hempgo = [];
+const _C_static_initializers_k0rnng = [];
 
-const _C_p_symbol_98n05o = Symbol();
+const _C_p_symbol_vl8ut = Symbol();
 
 class C {
   static #q = 10;
   static get #p() {
     return this.#q;
   }
-  static _C_p_temp_9giji(v) {
+  static _C_p_temp_4rm0vo(v) {
     this.#q = v;
   }
-  static [_C_p_symbol_98n05o] = decorator(C._C_p_temp_9giji, {
+  static [_C_p_symbol_vl8ut] = decorator(C._C_p_temp_4rm0vo, {
     kind: "setter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_98n05o]
+      get: C[_C_p_symbol_vl8ut]
     },
     ...__PrepareMetadata(C, "private", undefined),
-    addInitializer: initializer => _C_static_initializers_hempgo.push(initializer)
-  }) ?? C._C_p_temp_9giji;
+    addInitializer: initializer => _C_static_initializers_k0rnng.push(initializer)
+  }) ?? C._C_p_temp_4rm0vo;
   static set #p(v) {
-    return C[_C_p_symbol_98n05o].bind(this)(v);
+    return C[_C_p_symbol_vl8ut].bind(this)(v);
   }
-  static [_C_p_symbol_98n05o]() {
-    return C[_C_p_symbol_98n05o].bind(this);
+  static [_C_p_symbol_vl8ut]() {
+    return C[_C_p_symbol_vl8ut].bind(this);
   }
   static get check() {
     return this.#p;
@@ -90,9 +86,9 @@ class C {
   }
 }
 
-delete C._C_p_temp_9giji;
+delete C._C_p_temp_4rm0vo;
 
-_C_static_initializers_hempgo.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_k0rnng.forEach(initialize => initialize.call(C, C));
 
 console.assert(C.test === 10);
 

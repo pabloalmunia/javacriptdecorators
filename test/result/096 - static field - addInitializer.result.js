@@ -11,11 +11,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -26,9 +22,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -50,24 +46,24 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_2800ko = [];
+const _C_static_initializers_armseo = [];
 
 class C {
   static p = 1;
 }
 
-const _C_p_initializer_1pf41o = decorator(undefined, {
+const _C_p_initializer_pff43g = decorator(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "p"),
-  addInitializer: initializer => _C_static_initializers_2800ko.push(initializer)
+  addInitializer: initializer => _C_static_initializers_armseo.push(initializer)
 }) ?? (v => v);
 
-C.p = _C_p_initializer_1pf41o.call(C, C.p);
+C.p = _C_p_initializer_pff43g.call(C, C.p);
 
-_C_static_initializers_2800ko.forEach(initializer => initializer.call(C, C));
+_C_static_initializers_armseo.forEach(initializer => initializer.call(C, C));
 
 console.assert(C.p === 1);
 

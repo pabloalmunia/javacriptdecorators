@@ -17,11 +17,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -32,9 +28,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -56,44 +52,44 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_3u42to = Symbol();
+const _C_p_symbol_94rq5 = Symbol();
 
 class C {
-  static _C_p_temp_hknfpo() {
+  static _C_p_temp_hmkqtg() {
     return "a";
   }
-  static [_C_p_symbol_3u42to] = decorator1(C._C_p_temp_hknfpo, {
+  static [_C_p_symbol_94rq5] = decorator1(C._C_p_temp_hmkqtg, {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_3u42to]
+      get: C[_C_p_symbol_94rq5]
     },
     ...__PrepareMetadata(C, "private", undefined)
-  }) ?? C._C_p_temp_hknfpo;
-  static [_C_p_symbol_3u42to] = decorator2(C[_C_p_symbol_3u42to], {
+  }) ?? C._C_p_temp_hmkqtg;
+  static [_C_p_symbol_94rq5] = decorator2(C[_C_p_symbol_94rq5], {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_3u42to]
+      get: C[_C_p_symbol_94rq5]
     },
     ...__PrepareMetadata(C, "private", undefined)
-  }) ?? C[_C_p_symbol_3u42to];
+  }) ?? C[_C_p_symbol_94rq5];
   static get #p() {
-    return C[_C_p_symbol_3u42to].bind(this)();
+    return C[_C_p_symbol_94rq5].bind(this)();
   }
-  static [_C_p_symbol_3u42to]() {
-    return C[_C_p_symbol_3u42to].bind(this);
+  static [_C_p_symbol_94rq5]() {
+    return C[_C_p_symbol_94rq5].bind(this);
   }
   static get check() {
     return this.#p;
   }
 }
 
-delete C._C_p_temp_hknfpo;
+delete C._C_p_temp_hmkqtg;
 
 console.assert(C.check === "a");
 

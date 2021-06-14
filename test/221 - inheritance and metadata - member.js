@@ -23,7 +23,7 @@ class C extends B {
   @metadata(30)
   c() {}
 }
-
+console.log(C.prototype[Symbol.metadata][KEY]);
 console.assert(C.prototype[Symbol.metadata][KEY].public.a === 10);
 console.assert(C.prototype[Symbol.metadata][KEY].public.c === 30);
 

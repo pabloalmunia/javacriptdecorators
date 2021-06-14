@@ -11,11 +11,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -26,9 +22,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -50,33 +46,33 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_8qt4io = [];
+const _C_static_initializers_08hm2o = [];
 
-const _C_p_symbol_okb05g = Symbol();
+const _C_p_symbol_bvi1l8 = Symbol();
 
 class C {
-  static _C_p_temp_5dj788() {}
-  static [_C_p_symbol_okb05g] = decorator(C._C_p_temp_5dj788, {
+  static _C_p_temp_4hfv5() {}
+  static [_C_p_symbol_bvi1l8] = decorator(C._C_p_temp_4hfv5, {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_okb05g]
+      get: C[_C_p_symbol_bvi1l8]
     },
     ...__PrepareMetadata(C, "private", undefined),
-    addInitializer: initializer => _C_static_initializers_8qt4io.push(initializer)
-  }) ?? C._C_p_temp_5dj788;
+    addInitializer: initializer => _C_static_initializers_08hm2o.push(initializer)
+  }) ?? C._C_p_temp_4hfv5;
   static get #p() {
-    return C[_C_p_symbol_okb05g].bind(this)();
+    return C[_C_p_symbol_bvi1l8].bind(this)();
   }
-  static [_C_p_symbol_okb05g]() {
-    return C[_C_p_symbol_okb05g].bind(this);
+  static [_C_p_symbol_bvi1l8]() {
+    return C[_C_p_symbol_bvi1l8].bind(this);
   }
 }
 
-delete C._C_p_temp_5dj788;
+delete C._C_p_temp_4hfv5;
 
-_C_static_initializers_8qt4io.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_08hm2o.forEach(initialize => initialize.call(C, C));
 
 console.assert(C.test === 10);

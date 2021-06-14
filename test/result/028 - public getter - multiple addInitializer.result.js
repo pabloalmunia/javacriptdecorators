@@ -15,11 +15,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -30,9 +26,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -54,77 +50,77 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_member_initializers_ntm378 = [];
+const _C_member_initializers_11v0l = [];
 
 class C {
   constructor() {
     this.z = 100;
-    _C_member_initializers_ntm378.forEach(initialize => initialize.call(this));
+    _C_member_initializers_11v0l.forEach(initialize => initialize.call(this));
   }
   get p() {}
 }
 
-const _C_p_descriptor_rhujgg = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_7k9o28 = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_C_p_descriptor_rhujgg.get = addProperty("a", 1)(_C_p_descriptor_rhujgg.get, {
+_C_p_descriptor_7k9o28.get = addProperty("a", 1)(_C_p_descriptor_7k9o28.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(C.prototype, "public", "p"),
-  addInitializer: initializer => _C_member_initializers_ntm378.push(initializer)
-}) ?? _C_p_descriptor_rhujgg.get;
+  addInitializer: initializer => _C_member_initializers_11v0l.push(initializer)
+}) ?? _C_p_descriptor_7k9o28.get;
 
-Object.defineProperty(C.prototype, "p", _C_p_descriptor_rhujgg);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_7k9o28);
 
-const _C_p_descriptor_evdt3 = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_dedh3g = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_C_p_descriptor_evdt3.get = addProperty("b", 2)(_C_p_descriptor_evdt3.get, {
+_C_p_descriptor_dedh3g.get = addProperty("b", 2)(_C_p_descriptor_dedh3g.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(C.prototype, "public", "p"),
-  addInitializer: initializer => _C_member_initializers_ntm378.push(initializer)
-}) ?? _C_p_descriptor_evdt3.get;
+  addInitializer: initializer => _C_member_initializers_11v0l.push(initializer)
+}) ?? _C_p_descriptor_dedh3g.get;
 
-Object.defineProperty(C.prototype, "p", _C_p_descriptor_evdt3);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_dedh3g);
 
-const _D_member_initializers_5l0da8 = [];
+const _D_member_initializers_3v7cdg = [];
 
 class D extends C {
   constructor() {
     super();
-    _D_member_initializers_5l0da8.forEach(initialize => initialize.call(this));
+    _D_member_initializers_3v7cdg.forEach(initialize => initialize.call(this));
   }
   get p() {}
 }
 
-const _D_p_descriptor_mjuhe8 = Object.getOwnPropertyDescriptor(D.prototype, "p");
+const _D_p_descriptor_ttrdfo = Object.getOwnPropertyDescriptor(D.prototype, "p");
 
-_D_p_descriptor_mjuhe8.get = addProperty("c", 3)(_D_p_descriptor_mjuhe8.get, {
+_D_p_descriptor_ttrdfo.get = addProperty("c", 3)(_D_p_descriptor_ttrdfo.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(D.prototype, "public", "p"),
-  addInitializer: initializer => _D_member_initializers_5l0da8.push(initializer)
-}) ?? _D_p_descriptor_mjuhe8.get;
+  addInitializer: initializer => _D_member_initializers_3v7cdg.push(initializer)
+}) ?? _D_p_descriptor_ttrdfo.get;
 
-Object.defineProperty(D.prototype, "p", _D_p_descriptor_mjuhe8);
+Object.defineProperty(D.prototype, "p", _D_p_descriptor_ttrdfo);
 
-const _D_p_descriptor_upqucg = Object.getOwnPropertyDescriptor(D.prototype, "p");
+const _D_p_descriptor_ggeefg = Object.getOwnPropertyDescriptor(D.prototype, "p");
 
-_D_p_descriptor_upqucg.get = addProperty("d", 4)(_D_p_descriptor_upqucg.get, {
+_D_p_descriptor_ggeefg.get = addProperty("d", 4)(_D_p_descriptor_ggeefg.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(D.prototype, "public", "p"),
-  addInitializer: initializer => _D_member_initializers_5l0da8.push(initializer)
-}) ?? _D_p_descriptor_upqucg.get;
+  addInitializer: initializer => _D_member_initializers_3v7cdg.push(initializer)
+}) ?? _D_p_descriptor_ggeefg.get;
 
-Object.defineProperty(D.prototype, "p", _D_p_descriptor_upqucg);
+Object.defineProperty(D.prototype, "p", _D_p_descriptor_ggeefg);
 
 const c = new C();
 

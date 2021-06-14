@@ -14,11 +14,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -29,9 +25,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -53,18 +49,18 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_l7ab1 = Symbol();
+const _C_p_get_symbol_dckpcg = Symbol();
 
-const _C_p_set_symbol_0hcvt = Symbol();
+const _C_p_set_symbol_dldj0o = Symbol();
 
-const _C_static_initializers_4icdd = [];
+const _C_static_initializers_m4pu2o = [];
 
 class C {
   static #p = 10;
-  static [_C_p_get_symbol_l7ab1]() {
+  static [_C_p_get_symbol_dckpcg]() {
     return C.#p;
   }
-  static [_C_p_set_symbol_0hcvt](v) {
+  static [_C_p_set_symbol_dldj0o](v) {
     C.#p = v;
   }
   static get check() {
@@ -75,22 +71,22 @@ class C {
   }
 }
 
-const _C_p_initializer_i79et = decorator(undefined, {
+const _C_p_initializer_p9b1lg = decorator(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_l7ab1],
-    set: C[_C_p_set_symbol_0hcvt]
+    get: C[_C_p_get_symbol_dckpcg],
+    set: C[_C_p_set_symbol_dldj0o]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(C, "private", undefined),
-  addInitializer: initializer => _C_static_initializers_4icdd.push(initializer)
+  addInitializer: initializer => _C_static_initializers_m4pu2o.push(initializer)
 }) ?? (v => v);
 
-C[_C_p_set_symbol_0hcvt](_C_p_initializer_i79et(C[_C_p_get_symbol_l7ab1]()));
+C[_C_p_set_symbol_dldj0o](_C_p_initializer_p9b1lg(C[_C_p_get_symbol_dckpcg]()));
 
-_C_static_initializers_4icdd.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_m4pu2o.forEach(initialize => initialize.call(C, C));
 
 console.assert(C.test === 10);
 

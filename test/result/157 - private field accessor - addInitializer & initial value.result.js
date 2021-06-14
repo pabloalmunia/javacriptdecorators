@@ -19,11 +19,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -34,9 +30,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -58,39 +54,39 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_q5di38 = Symbol();
+const _C_p_get_symbol_3nf1jo = Symbol();
 
-const _C_p_set_symbol_6ib1qg = Symbol();
+const _C_p_set_symbol_rr8g28 = Symbol();
 
-let _C_p_getter_eccrm;
+let _C_p_getter_06h98o;
 
-let _C_p_setter_pkcqn;
+let _C_p_setter_vk2mq8;
 
-let _C_p_initializer_8983;
+let _C_p_initializer_3sep4g;
 
-const _C_member_initializers_j68sh = [];
+const _C_member_initializers_v3vm8o = [];
 
 class C {
   constructor() {
-    _C_member_initializers_j68sh.forEach(initialize => initialize.call(this));
+    _C_member_initializers_v3vm8o.forEach(initialize => initialize.call(this));
   }
-  #_p_private_property_gdnmmg = _C_p_initializer_8983.call(this, 10);
+  #_p_private_property_t113n8 = _C_p_initializer_3sep4g.call(this, 10);
   get #p() {
-    return _C_p_getter_eccrm.call(this);
+    return _C_p_getter_06h98o.call(this);
   }
   set #p(v) {
-    return _C_p_setter_pkcqn.call(this, v);
+    return _C_p_setter_vk2mq8.call(this, v);
   }
-  static _C_p_getter_eccrm() {
-    return this.#_p_private_property_gdnmmg;
+  static _C_p_getter_06h98o() {
+    return this.#_p_private_property_t113n8;
   }
-  static _C_p_setter_pkcqn(v) {
-    this.#_p_private_property_gdnmmg = v;
+  static _C_p_setter_vk2mq8(v) {
+    this.#_p_private_property_t113n8 = v;
   }
-  [_C_p_get_symbol_q5di38]() {
+  [_C_p_get_symbol_3nf1jo]() {
     return this.#p;
   }
-  [_C_p_set_symbol_6ib1qg](v) {
+  [_C_p_set_symbol_rr8g28](v) {
     this.#p = v;
   }
   get check() {
@@ -101,35 +97,35 @@ class C {
   }
 }
 
-_C_p_getter_eccrm = C._C_p_getter_eccrm;
+_C_p_getter_06h98o = C._C_p_getter_06h98o;
 
-_C_p_setter_pkcqn = C._C_p_setter_pkcqn;
+_C_p_setter_vk2mq8 = C._C_p_setter_vk2mq8;
 
-delete C._C_p_getter_eccrm;
+delete C._C_p_getter_06h98o;
 
-delete C._C_p_setter_pkcqn;
+delete C._C_p_setter_vk2mq8;
 
-const _C_p_result_n50h4 = decorator({
-  get: _C_p_getter_eccrm,
-  set: _C_p_setter_pkcqn
+const _C_p_result_jbncj = decorator({
+  get: _C_p_getter_06h98o,
+  set: _C_p_setter_vk2mq8
 }, {
   kind: "auto-accessor",
   name: "#p",
   access: {
-    get: C.prototype[_C_p_get_symbol_q5di38],
-    set: C.prototype[_C_p_set_symbol_6ib1qg]
+    get: C.prototype[_C_p_get_symbol_3nf1jo],
+    set: C.prototype[_C_p_set_symbol_rr8g28]
   },
   isStatic: false,
   isPrivate: true,
   ...__PrepareMetadata(C.prototype, "private", undefined),
-  addInitializer: initializer => _C_member_initializers_j68sh.push(initializer)
+  addInitializer: initializer => _C_member_initializers_v3vm8o.push(initializer)
 }) || {};
 
-_C_p_initializer_8983 = _C_p_result_n50h4.initialize || (v => v);
+_C_p_initializer_3sep4g = _C_p_result_jbncj.initialize || (v => v);
 
-_C_p_getter_eccrm = _C_p_result_n50h4.get || _C_p_getter_eccrm;
+_C_p_getter_06h98o = _C_p_result_jbncj.get || _C_p_getter_06h98o;
 
-_C_p_setter_pkcqn = _C_p_result_n50h4.set || _C_p_setter_pkcqn;
+_C_p_setter_vk2mq8 = _C_p_result_jbncj.set || _C_p_setter_vk2mq8;
 
 console.assert(new C().test === 10);
 

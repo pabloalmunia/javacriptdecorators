@@ -17,11 +17,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -32,9 +28,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -56,37 +52,37 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_m_symbol_rai3lo = Symbol();
+const _C_m_symbol_513eig = Symbol();
 
 class C {
-  _C_m_temp_qibhe8() {}
-  static [_C_m_symbol_rai3lo] = decorator1(C.prototype._C_m_temp_qibhe8, {
+  _C_m_temp_5jdupo() {}
+  static [_C_m_symbol_513eig] = decorator1(C.prototype._C_m_temp_5jdupo, {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_m_symbol_rai3lo]
+      get: C.prototype[_C_m_symbol_513eig]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined)
-  }) ?? C.prototype._C_m_temp_qibhe8;
-  static [_C_m_symbol_rai3lo] = decorator2(C[_C_m_symbol_rai3lo], {
+  }) ?? C.prototype._C_m_temp_5jdupo;
+  static [_C_m_symbol_513eig] = decorator2(C[_C_m_symbol_513eig], {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_m_symbol_rai3lo]
+      get: C.prototype[_C_m_symbol_513eig]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined)
-  }) ?? C[_C_m_symbol_rai3lo];
-  #m = C[_C_m_symbol_rai3lo];
-  [_C_m_symbol_rai3lo]() {
+  }) ?? C[_C_m_symbol_513eig];
+  #m = C[_C_m_symbol_513eig];
+  [_C_m_symbol_513eig]() {
     return this.#m;
   }
 }
 
-delete C.prototype._C_m_temp_qibhe8;
+delete C.prototype._C_m_temp_5jdupo;
 
 console.assert(C.prototype[Symbol.metadata][ONE].private[0] === 1);
 

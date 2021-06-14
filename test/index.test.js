@@ -227,4 +227,5 @@ run ('211 - public member decorator with symbols');
 run ('212 - static decorator with symbols');
 
 // Inheritance
-run ('221 - inheritance and metadata');
+run ('221 - inheritance and metadata - member');
+run ('222 - inheritance and metadata - static');

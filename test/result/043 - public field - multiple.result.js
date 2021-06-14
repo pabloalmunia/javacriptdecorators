@@ -21,11 +21,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -36,9 +32,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -60,15 +56,15 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_4i64v8;
+let _C_p_initializer_ik54l8;
 
-let _C_p_initializer_c2rcdg;
+let _C_p_initializer_jdk3u8;
 
 class C {
-  p = _C_p_initializer_c2rcdg.call(this, _C_p_initializer_4i64v8.call(this, 1));
+  p = _C_p_initializer_jdk3u8.call(this, _C_p_initializer_ik54l8.call(this, 1));
 }
 
-_C_p_initializer_c2rcdg = decorator1(undefined, {
+_C_p_initializer_jdk3u8 = decorator1(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
@@ -76,7 +72,7 @@ _C_p_initializer_c2rcdg = decorator1(undefined, {
   ...__PrepareMetadata(C.prototype, "public", "p")
 }) ?? (v => v);
 
-_C_p_initializer_4i64v8 = decorator2(undefined, {
+_C_p_initializer_ik54l8 = decorator2(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,

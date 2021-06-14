@@ -14,11 +14,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -29,9 +25,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -53,20 +49,20 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_f_initializer_u221g8;
+let _C_f_initializer_g10em8;
 
-let _C_f_initializer_1r6m4o;
+let _C_f_initializer_9jlkno;
 
-let _C_p_initializer_nelba8;
+let _C_p_initializer_q81v7;
 
-let _C_p_initializer_o3irr;
+let _C_p_initializer_9ojos8;
 
 class C {
-  p = _C_p_initializer_o3irr.call(this, _C_p_initializer_nelba8.call(this, 10));
-  f = _C_f_initializer_1r6m4o.call(this, _C_f_initializer_u221g8.call(this, 20));
+  p = _C_p_initializer_9ojos8.call(this, _C_p_initializer_q81v7.call(this, 10));
+  f = _C_f_initializer_9jlkno.call(this, _C_f_initializer_g10em8.call(this, 20));
 }
 
-_C_p_initializer_o3irr = meta(1)(undefined, {
+_C_p_initializer_9ojos8 = meta(1)(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
@@ -74,7 +70,7 @@ _C_p_initializer_o3irr = meta(1)(undefined, {
   ...__PrepareMetadata(C.prototype, "public", "p")
 }) ?? (v => v);
 
-_C_p_initializer_nelba8 = meta(2)(undefined, {
+_C_p_initializer_q81v7 = meta(2)(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
@@ -82,7 +78,7 @@ _C_p_initializer_nelba8 = meta(2)(undefined, {
   ...__PrepareMetadata(C.prototype, "public", "p")
 }) ?? (v => v);
 
-_C_f_initializer_1r6m4o = meta(3)(undefined, {
+_C_f_initializer_9jlkno = meta(3)(undefined, {
   kind: "field",
   name: "f",
   isStatic: false,
@@ -90,7 +86,7 @@ _C_f_initializer_1r6m4o = meta(3)(undefined, {
   ...__PrepareMetadata(C.prototype, "public", "f")
 }) ?? (v => v);
 
-_C_f_initializer_u221g8 = meta(3)(undefined, {
+_C_f_initializer_g10em8 = meta(3)(undefined, {
   kind: "field",
   name: "f",
   isStatic: false,

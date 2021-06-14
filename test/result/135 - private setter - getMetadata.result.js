@@ -14,11 +14,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -29,9 +25,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -53,70 +49,70 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_mho7j8 = Symbol();
+const _C_p_symbol_6q5c1 = Symbol();
 
-const _C_p_symbol_pca0d8 = Symbol();
+const _C_p_symbol_csfrf8 = Symbol();
 
 class C {
-  _C_p_temp_0gke7o(v) {}
-  static [_C_p_symbol_mho7j8] = meta(1)(C.prototype._C_p_temp_0gke7o, {
+  _C_p_temp_busgq(v) {}
+  static [_C_p_symbol_6q5c1] = meta(1)(C.prototype._C_p_temp_busgq, {
     kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_mho7j8]
+      get: C.prototype[_C_p_symbol_6q5c1]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined)
-  }) ?? C.prototype._C_p_temp_0gke7o;
-  static [_C_p_symbol_mho7j8] = meta(2)(C[_C_p_symbol_mho7j8], {
+  }) ?? C.prototype._C_p_temp_busgq;
+  static [_C_p_symbol_6q5c1] = meta(2)(C[_C_p_symbol_6q5c1], {
     kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_mho7j8]
+      get: C.prototype[_C_p_symbol_6q5c1]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined)
-  }) ?? C[_C_p_symbol_mho7j8];
+  }) ?? C[_C_p_symbol_6q5c1];
   set #p(v) {
-    return C[_C_p_symbol_mho7j8].bind(this)(v);
+    return C[_C_p_symbol_6q5c1].bind(this)(v);
   }
-  [_C_p_symbol_mho7j8]() {
-    return C[_C_p_symbol_mho7j8].bind(this);
+  [_C_p_symbol_6q5c1]() {
+    return C[_C_p_symbol_6q5c1].bind(this);
   }
-  _C_p_temp_rusgqo() {}
-  static [_C_p_symbol_pca0d8] = meta(3)(C.prototype._C_p_temp_rusgqo, {
+  _C_p_temp_8udieo() {}
+  static [_C_p_symbol_csfrf8] = meta(3)(C.prototype._C_p_temp_8udieo, {
     kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_pca0d8]
+      get: C.prototype[_C_p_symbol_csfrf8]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined)
-  }) ?? C.prototype._C_p_temp_rusgqo;
-  static [_C_p_symbol_pca0d8] = meta(4)(C[_C_p_symbol_pca0d8], {
+  }) ?? C.prototype._C_p_temp_8udieo;
+  static [_C_p_symbol_csfrf8] = meta(4)(C[_C_p_symbol_csfrf8], {
     kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_pca0d8]
+      get: C.prototype[_C_p_symbol_csfrf8]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined)
-  }) ?? C[_C_p_symbol_pca0d8];
+  }) ?? C[_C_p_symbol_csfrf8];
   get #p() {
-    return C[_C_p_symbol_pca0d8].bind(this)();
+    return C[_C_p_symbol_csfrf8].bind(this)();
   }
-  [_C_p_symbol_pca0d8]() {
-    return C[_C_p_symbol_pca0d8].bind(this);
+  [_C_p_symbol_csfrf8]() {
+    return C[_C_p_symbol_csfrf8].bind(this);
   }
 }
 
-delete C.prototype._C_p_temp_rusgqo;
+delete C.prototype._C_p_temp_8udieo;
 
-delete C.prototype._C_p_temp_0gke7o;
+delete C.prototype._C_p_temp_busgq;
 
 console.assert(C.prototype[Symbol.metadata][META].private[0] === 1);
 

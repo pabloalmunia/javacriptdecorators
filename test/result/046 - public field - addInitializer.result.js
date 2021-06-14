@@ -11,11 +11,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -26,9 +22,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -50,24 +46,24 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_2fihm;
+let _C_p_initializer_eq21sg;
 
-const _C_member_initializers_9ovfco = [];
+const _C_member_initializers_hkvhc8 = [];
 
 class C {
   constructor() {
-    _C_member_initializers_9ovfco.forEach(initialize => initialize.call(this));
+    _C_member_initializers_hkvhc8.forEach(initialize => initialize.call(this));
   }
-  p = _C_p_initializer_2fihm.call(this, 1);
+  p = _C_p_initializer_eq21sg.call(this, 1);
 }
 
-_C_p_initializer_2fihm = decorator(undefined, {
+_C_p_initializer_eq21sg = decorator(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(C.prototype, "public", "p"),
-  addInitializer: initializer => _C_member_initializers_9ovfco.push(initializer)
+  addInitializer: initializer => _C_member_initializers_hkvhc8.push(initializer)
 }) ?? (v => v);
 
 console.assert(new C().p === 1);

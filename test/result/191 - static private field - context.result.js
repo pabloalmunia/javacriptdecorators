@@ -14,11 +14,7 @@ if (!Symbol.metadata) {
 const __metadataPrivate = new WeakMap();
 
 function __PrepareMetadata(base, kind, property) {
-  function createObjectWithPrototype(obj, key) {
-    if (!Object.hasOwnProperty.call(obj, key)) {
-      obj[key] = Object.create(obj[key] || null);
-    }
-  }
+  const createObjectWithPrototype = (obj, key) => Object.hasOwnProperty.call(obj, key) ? obj[key] : Object.create(obj[key] || null);
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
@@ -29,9 +25,9 @@ function __PrepareMetadata(base, kind, property) {
       if (typeof key !== "symbol") {
         throw new TypeError("the key must be a Symbol");
       }
-      createObjectWithPrototype(base, Symbol.metadata);
-      createObjectWithPrototype(base[Symbol.metadata], key);
-      createObjectWithPrototype(base[Symbol.metadata][key], "public");
+      base[Symbol.metadata] = createObjectWithPrototype(base, Symbol.metadata);
+      base[Symbol.metadata][key] = createObjectWithPrototype(base[Symbol.metadata], key);
+      base[Symbol.metadata][key].public = createObjectWithPrototype(base[Symbol.metadata][key], "public");
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], "private")) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
@@ -53,30 +49,30 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _A_p_get_symbol_tvo4ag = Symbol();
+const _A_p_get_symbol_igu6mg = Symbol();
 
-const _A_p_set_symbol_u9oe3g = Symbol();
+const _A_p_set_symbol_ai9gd8 = Symbol();
 
 class A {
   static #p = 1;
-  static [_A_p_get_symbol_tvo4ag]() {
+  static [_A_p_get_symbol_igu6mg]() {
     return A.#p;
   }
-  static [_A_p_set_symbol_u9oe3g](v) {
+  static [_A_p_set_symbol_ai9gd8](v) {
     A.#p = v;
   }
 }
 
-const _A_p_initializer_hifv8 = decorator(undefined, {
+const _A_p_initializer_hasvg = decorator(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: A[_A_p_get_symbol_tvo4ag],
-    set: A[_A_p_set_symbol_u9oe3g]
+    get: A[_A_p_get_symbol_igu6mg],
+    set: A[_A_p_set_symbol_ai9gd8]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(A, "private", undefined)
 }) ?? (v => v);
 
-A[_A_p_set_symbol_u9oe3g](_A_p_initializer_hifv8(A[_A_p_get_symbol_tvo4ag]()));
+A[_A_p_set_symbol_ai9gd8](_A_p_initializer_hasvg(A[_A_p_get_symbol_igu6mg]()));
