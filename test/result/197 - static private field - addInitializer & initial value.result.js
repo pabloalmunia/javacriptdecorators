@@ -16,12 +16,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -58,18 +53,18 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_3n6b4g = Symbol();
+const _C_p_get_symbol_l7ab1 = Symbol();
 
-const _C_p_set_symbol_pdmad = Symbol();
+const _C_p_set_symbol_0hcvt = Symbol();
 
-const _C_static_initializers_0mguk = [];
+const _C_static_initializers_4icdd = [];
 
 class C {
   static #p = 10;
-  static [_C_p_get_symbol_3n6b4g]() {
+  static [_C_p_get_symbol_l7ab1]() {
     return C.#p;
   }
-  static [_C_p_set_symbol_pdmad](v) {
+  static [_C_p_set_symbol_0hcvt](v) {
     C.#p = v;
   }
   static get check() {
@@ -80,22 +75,22 @@ class C {
   }
 }
 
-const _C_p_initializer_b03vv = decorator(undefined, {
+const _C_p_initializer_i79et = decorator(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_3n6b4g],
-    set: C[_C_p_set_symbol_pdmad]
+    get: C[_C_p_get_symbol_l7ab1],
+    set: C[_C_p_set_symbol_0hcvt]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(C, "private", undefined),
-  addInitializer: initializer => _C_static_initializers_0mguk.push(initializer)
+  addInitializer: initializer => _C_static_initializers_4icdd.push(initializer)
 }) ?? (v => v);
 
-C[_C_p_set_symbol_pdmad](_C_p_initializer_b03vv(C[_C_p_get_symbol_3n6b4g]()));
+C[_C_p_set_symbol_0hcvt](_C_p_initializer_i79et(C[_C_p_get_symbol_l7ab1]()));
 
-_C_static_initializers_0mguk.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_4icdd.forEach(initialize => initialize.call(C, C));
 
 console.assert(C.test === 10);
 

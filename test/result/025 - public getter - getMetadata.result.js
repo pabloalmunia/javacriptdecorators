@@ -16,12 +16,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -64,29 +59,29 @@ class C {
   }
 }
 
-const _C_p_descriptor_qkqtn8 = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_9il42g = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_C_p_descriptor_qkqtn8.get = meta(1)(_C_p_descriptor_qkqtn8.get, {
+_C_p_descriptor_9il42g.get = meta(1)(_C_p_descriptor_9il42g.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(C.prototype, "public", "p")
-}) ?? _C_p_descriptor_qkqtn8.get;
+}) ?? _C_p_descriptor_9il42g.get;
 
-Object.defineProperty(C.prototype, "p", _C_p_descriptor_qkqtn8);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_9il42g);
 
-const _C_p_descriptor_lvhjn = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_hr46og = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_C_p_descriptor_lvhjn.get = meta(2)(_C_p_descriptor_lvhjn.get, {
+_C_p_descriptor_hr46og.get = meta(2)(_C_p_descriptor_hr46og.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(C.prototype, "public", "p")
-}) ?? _C_p_descriptor_lvhjn.get;
+}) ?? _C_p_descriptor_hr46og.get;
 
-Object.defineProperty(C.prototype, "p", _C_p_descriptor_lvhjn);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_hr46og);
 
 const a = new C();
 

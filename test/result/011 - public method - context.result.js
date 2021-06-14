@@ -14,12 +14,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {

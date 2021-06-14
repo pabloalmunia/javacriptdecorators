@@ -15,12 +15,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -57,26 +52,26 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _A_p_symbol_27ljpg = Symbol();
+const _A_p_symbol_rna0c8 = Symbol();
 
 class A {
-  _A_p_temp_opacr(v) {}
-  static [_A_p_symbol_27ljpg] = decorator(A.prototype._A_p_temp_opacr, {
+  _A_p_temp_iqp52o(v) {}
+  static [_A_p_symbol_rna0c8] = decorator(A.prototype._A_p_temp_iqp52o, {
     kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: A.prototype[_A_p_symbol_27ljpg]
+      get: A.prototype[_A_p_symbol_rna0c8]
     },
     ...__PrepareMetadata(A.prototype, "private", undefined)
-  }) ?? A.prototype._A_p_temp_opacr;
+  }) ?? A.prototype._A_p_temp_iqp52o;
   set #p(v) {
-    return A[_A_p_symbol_27ljpg].bind(this)(v);
+    return A[_A_p_symbol_rna0c8].bind(this)(v);
   }
-  [_A_p_symbol_27ljpg]() {
-    return A[_A_p_symbol_27ljpg].bind(this);
+  [_A_p_symbol_rna0c8]() {
+    return A[_A_p_symbol_rna0c8].bind(this);
   }
 }
 
-delete A.prototype._A_p_temp_opacr;
+delete A.prototype._A_p_temp_iqp52o;

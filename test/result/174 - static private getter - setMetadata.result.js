@@ -19,12 +19,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -61,44 +56,44 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_qrspo = Symbol();
+const _C_p_symbol_3u42to = Symbol();
 
 class C {
-  static _C_p_temp_04df2() {
+  static _C_p_temp_hknfpo() {
     return "a";
   }
-  static [_C_p_symbol_qrspo] = decorator1(C._C_p_temp_04df2, {
+  static [_C_p_symbol_3u42to] = decorator1(C._C_p_temp_hknfpo, {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_qrspo]
+      get: C[_C_p_symbol_3u42to]
     },
     ...__PrepareMetadata(C, "private", undefined)
-  }) ?? C._C_p_temp_04df2;
-  static [_C_p_symbol_qrspo] = decorator2(C[_C_p_symbol_qrspo], {
+  }) ?? C._C_p_temp_hknfpo;
+  static [_C_p_symbol_3u42to] = decorator2(C[_C_p_symbol_3u42to], {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_qrspo]
+      get: C[_C_p_symbol_3u42to]
     },
     ...__PrepareMetadata(C, "private", undefined)
-  }) ?? C[_C_p_symbol_qrspo];
+  }) ?? C[_C_p_symbol_3u42to];
   static get #p() {
-    return C[_C_p_symbol_qrspo].bind(this)();
+    return C[_C_p_symbol_3u42to].bind(this)();
   }
-  static [_C_p_symbol_qrspo]() {
-    return C[_C_p_symbol_qrspo].bind(this);
+  static [_C_p_symbol_3u42to]() {
+    return C[_C_p_symbol_3u42to].bind(this);
   }
   static get check() {
     return this.#p;
   }
 }
 
-delete C._C_p_temp_04df2;
+delete C._C_p_temp_hknfpo;
 
 console.assert(C.check === "a");
 

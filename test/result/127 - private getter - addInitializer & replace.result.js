@@ -16,12 +16,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -58,41 +53,41 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_member_initializers_0a6n4o = [];
+const _C_member_initializers_joffbo = [];
 
-const _C_p_symbol_mj618o = Symbol();
+const _C_p_symbol_ed5sso = Symbol();
 
 class C {
   constructor() {
-    _C_member_initializers_0a6n4o.forEach(initialize => initialize.call(this));
+    _C_member_initializers_joffbo.forEach(initialize => initialize.call(this));
   }
   #q = 10;
-  _C_p_temp_ge6qkg() {
+  _C_p_temp_656i2g() {
     return this.#q;
   }
-  static [_C_p_symbol_mj618o] = decorator(C.prototype._C_p_temp_ge6qkg, {
+  static [_C_p_symbol_ed5sso] = decorator(C.prototype._C_p_temp_656i2g, {
     kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_mj618o]
+      get: C.prototype[_C_p_symbol_ed5sso]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined),
-    addInitializer: initializer => _C_member_initializers_0a6n4o.push(initializer)
-  }) ?? C.prototype._C_p_temp_ge6qkg;
+    addInitializer: initializer => _C_member_initializers_joffbo.push(initializer)
+  }) ?? C.prototype._C_p_temp_656i2g;
   get #p() {
-    return C[_C_p_symbol_mj618o].bind(this)();
+    return C[_C_p_symbol_ed5sso].bind(this)();
   }
-  [_C_p_symbol_mj618o]() {
-    return C[_C_p_symbol_mj618o].bind(this);
+  [_C_p_symbol_ed5sso]() {
+    return C[_C_p_symbol_ed5sso].bind(this);
   }
   get check() {
     return this.#p;
   }
 }
 
-delete C.prototype._C_p_temp_ge6qkg;
+delete C.prototype._C_p_temp_656i2g;
 
 console.assert(new C().test === 10);
 

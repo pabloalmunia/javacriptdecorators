@@ -13,12 +13,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -55,34 +50,34 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_qjv1e = Symbol();
+const _C_p_symbol_dcf6d8 = Symbol();
 
 class C {
-  _C_p_temp_4iq7eg() {
+  _C_p_temp_bdvvco() {
     return "a";
   }
-  static [_C_p_symbol_qjv1e] = decorator(C.prototype._C_p_temp_4iq7eg, {
+  static [_C_p_symbol_dcf6d8] = decorator(C.prototype._C_p_temp_bdvvco, {
     kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_qjv1e]
+      get: C.prototype[_C_p_symbol_dcf6d8]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined)
-  }) ?? C.prototype._C_p_temp_4iq7eg;
+  }) ?? C.prototype._C_p_temp_bdvvco;
   get #p() {
-    return C[_C_p_symbol_qjv1e].bind(this)();
+    return C[_C_p_symbol_dcf6d8].bind(this)();
   }
-  [_C_p_symbol_qjv1e]() {
-    return C[_C_p_symbol_qjv1e].bind(this);
+  [_C_p_symbol_dcf6d8]() {
+    return C[_C_p_symbol_dcf6d8].bind(this);
   }
   get check() {
     return this.#p;
   }
 }
 
-delete C.prototype._C_p_temp_4iq7eg;
+delete C.prototype._C_p_temp_bdvvco;
 
 const a = new C();
 

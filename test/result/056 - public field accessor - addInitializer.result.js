@@ -13,12 +13,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -55,42 +50,42 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_k7nb6o;
+let _C_p_initializer_m7j9k8;
 
-const _C_member_initializers_5jgfv = [];
+const _C_member_initializers_68scm = [];
 
 class C {
   constructor() {
-    _C_member_initializers_5jgfv.forEach(initialize => initialize.call(this));
+    _C_member_initializers_68scm.forEach(initialize => initialize.call(this));
   }
-  #_p_private_property_jt5hl = _C_p_initializer_k7nb6o.call(this, 1);
+  #_p_private_property_evavr = _C_p_initializer_m7j9k8.call(this, 1);
   get p() {
-    return this.#_p_private_property_jt5hl;
+    return this.#_p_private_property_evavr;
   }
   set p(v) {
-    this.#_p_private_property_jt5hl = v;
+    this.#_p_private_property_evavr = v;
   }
 }
 
-const _C_p_descriptor_9rerf = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_6g1bbg = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-const _C_p_result_0hj8o8 = decorator({
-  get: _C_p_descriptor_9rerf.get,
-  set: _C_p_descriptor_9rerf.set
+const _C_p_result_5h82i = decorator({
+  get: _C_p_descriptor_6g1bbg.get,
+  set: _C_p_descriptor_6g1bbg.set
 }, {
   kind: "auto-accessor",
   name: "p",
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(C.prototype, "public", "p"),
-  addInitializer: initializer => _C_member_initializers_5jgfv.push(initializer)
+  addInitializer: initializer => _C_member_initializers_68scm.push(initializer)
 }) || {};
 
-_C_p_initializer_k7nb6o = _C_p_result_0hj8o8.initialize || (v => v);
+_C_p_initializer_m7j9k8 = _C_p_result_5h82i.initialize || (v => v);
 
 Object.defineProperty(C.prototype, "p", {
-  get: _C_p_result_0hj8o8.get || _C_p_descriptor_9rerf.get,
-  set: _C_p_result_0hj8o8.set || _C_p_descriptor_9rerf.set
+  get: _C_p_result_5h82i.get || _C_p_descriptor_6g1bbg.get,
+  set: _C_p_result_5h82i.set || _C_p_descriptor_6g1bbg.set
 });
 
 console.assert(new C().p === 1);

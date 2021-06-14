@@ -21,12 +21,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -63,44 +58,44 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_99ccoo;
+let _C_p_initializer_ljleug;
 
-const _C_static_initializers_u78rm8 = [];
+const _C_static_initializers_ujvrpg = [];
 
 class C {
-  static #_p_private_property_8s1h8g = 10;
+  static #_p_private_property_npbago = 10;
   static get p() {
-    return this.#_p_private_property_8s1h8g;
+    return this.#_p_private_property_npbago;
   }
   static set p(v) {
-    this.#_p_private_property_8s1h8g = v;
+    this.#_p_private_property_npbago = v;
   }
 }
 
-const _C_p_descriptor_n92lsg = Object.getOwnPropertyDescriptor(C, "p");
+const _C_p_descriptor_kiq14o = Object.getOwnPropertyDescriptor(C, "p");
 
-const _C_p_result_av2ev = decorator({
-  get: _C_p_descriptor_n92lsg.get,
-  set: _C_p_descriptor_n92lsg.set
+const _C_p_result_noicc = decorator({
+  get: _C_p_descriptor_kiq14o.get,
+  set: _C_p_descriptor_kiq14o.set
 }, {
   kind: "auto-accessor",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "p"),
-  addInitializer: initializer => _C_static_initializers_u78rm8.push(initializer)
+  addInitializer: initializer => _C_static_initializers_ujvrpg.push(initializer)
 }) || {};
 
-_C_p_initializer_99ccoo = _C_p_result_av2ev.initialize || (v => v);
+_C_p_initializer_ljleug = _C_p_result_noicc.initialize || (v => v);
 
 Object.defineProperty(C, "p", {
-  get: _C_p_result_av2ev.get || _C_p_descriptor_n92lsg.get,
-  set: _C_p_result_av2ev.set || _C_p_descriptor_n92lsg.set
+  get: _C_p_result_noicc.get || _C_p_descriptor_kiq14o.get,
+  set: _C_p_result_noicc.set || _C_p_descriptor_kiq14o.set
 });
 
-_C_p_descriptor_n92lsg.set.call(C, _C_p_initializer_99ccoo(_C_p_descriptor_n92lsg.get.call(C)));
+_C_p_descriptor_kiq14o.set.call(C, _C_p_initializer_ljleug(_C_p_descriptor_kiq14o.get.call(C)));
 
-_C_static_initializers_u78rm8.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_ujvrpg.forEach(initialize => initialize.call(C, C));
 
 console.assert(C.test === 10);
 

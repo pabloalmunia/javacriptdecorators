@@ -16,12 +16,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -58,26 +53,26 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _A_p_symbol_p9rhm8 = Symbol();
+const _A_p_symbol_7vn508 = Symbol();
 
 class A {
-  static _A_p_temp_9qhtq8() {}
-  static [_A_p_symbol_p9rhm8] = decorator(A._A_p_temp_9qhtq8, {
+  static _A_p_temp_tlf2no() {}
+  static [_A_p_symbol_7vn508] = decorator(A._A_p_temp_tlf2no, {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: A[_A_p_symbol_p9rhm8]
+      get: A[_A_p_symbol_7vn508]
     },
     ...__PrepareMetadata(A, "private", undefined)
-  }) ?? A._A_p_temp_9qhtq8;
+  }) ?? A._A_p_temp_tlf2no;
   static get #p() {
-    return A[_A_p_symbol_p9rhm8].bind(this)();
+    return A[_A_p_symbol_7vn508].bind(this)();
   }
-  static [_A_p_symbol_p9rhm8]() {
-    return A[_A_p_symbol_p9rhm8].bind(this);
+  static [_A_p_symbol_7vn508]() {
+    return A[_A_p_symbol_7vn508].bind(this);
   }
 }
 
-delete A._A_p_temp_9qhtq8;
+delete A._A_p_temp_tlf2no;

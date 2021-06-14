@@ -1,7 +1,9 @@
-function decorator(value, context) {
-  context.addInitializer(function() {
-    this.test = 10;
-  });
+const KEY = Symbol();
+
+function metadata(data) {
+  return function(value, context) {
+    context.setMetadata(KEY, data);
+  };
 }
 
 if (!Symbol.metadata) {
@@ -50,37 +52,40 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_fp653 = Symbol();
-
-const _C_p_set_symbol_dll218 = Symbol();
-
-const _C_static_initializers_n62igo = [];
-
-class C {
-  static #p = 1;
-  static [_C_p_get_symbol_fp653]() {
-    return C.#p;
-  }
-  static [_C_p_set_symbol_dll218](v) {
-    C.#p = v;
-  }
+class A {
+  a() {}
 }
 
-const _C_p_initializer_uqvc2 = decorator(undefined, {
-  kind: "field",
-  name: "#p",
-  access: {
-    get: C[_C_p_get_symbol_fp653],
-    set: C[_C_p_set_symbol_dll218]
-  },
-  isStatic: true,
-  isPrivate: true,
-  ...__PrepareMetadata(C, "private", undefined),
-  addInitializer: initializer => _C_static_initializers_n62igo.push(initializer)
-}) ?? (v => v);
+A.prototype.a = metadata(10)(A.prototype.a, {
+  kind: "method",
+  name: "a",
+  isStatic: false,
+  isPrivate: false,
+  ...__PrepareMetadata(A.prototype, "public", "a")
+}) ?? A.prototype.a;
 
-C[_C_p_set_symbol_dll218](_C_p_initializer_uqvc2(C[_C_p_get_symbol_fp653]()));
+console.assert(A.prototype[Symbol.metadata][KEY].public.a === 10);
 
-_C_static_initializers_n62igo.forEach(initialize => initialize.call(C, C));
+class B extends A {
+  b() {}
+}
 
-console.assert(C.test === 10);
+console.assert(B.prototype[Symbol.metadata][KEY].public.a === 10);
+
+class C extends B {
+  c() {}
+}
+
+C.prototype.c = metadata(30)(C.prototype.c, {
+  kind: "method",
+  name: "c",
+  isStatic: false,
+  isPrivate: false,
+  ...__PrepareMetadata(C.prototype, "public", "c")
+}) ?? C.prototype.c;
+
+console.assert(C.prototype[Symbol.metadata][KEY].public.a === 10);
+
+console.assert(C.prototype[Symbol.metadata][KEY].public.c === 30);
+
+console.assert(A.prototype[Symbol.metadata][KEY].public.c !== 30);

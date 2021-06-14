@@ -16,12 +16,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -63,7 +58,7 @@ class C {
   static f = 20;
 }
 
-const _C_f_initializer_eapqe = meta(3)(undefined, {
+const _C_f_initializer_3npib8 = meta(3)(undefined, {
   kind: "field",
   name: "f",
   isStatic: true,
@@ -71,9 +66,9 @@ const _C_f_initializer_eapqe = meta(3)(undefined, {
   ...__PrepareMetadata(C, "public", "f")
 }) ?? (v => v);
 
-C.f = _C_f_initializer_eapqe.call(C, C.f);
+C.f = _C_f_initializer_3npib8.call(C, C.f);
 
-const _C_f_initializer_8lpmmo = meta(3)(undefined, {
+const _C_f_initializer_pkrk48 = meta(3)(undefined, {
   kind: "field",
   name: "f",
   isStatic: true,
@@ -81,9 +76,9 @@ const _C_f_initializer_8lpmmo = meta(3)(undefined, {
   ...__PrepareMetadata(C, "public", "f")
 }) ?? (v => v);
 
-C.f = _C_f_initializer_8lpmmo.call(C, C.f);
+C.f = _C_f_initializer_pkrk48.call(C, C.f);
 
-const _C_p_initializer_bfhqco = meta(2)(undefined, {
+const _C_p_initializer_2gr3po = meta(2)(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
@@ -91,9 +86,9 @@ const _C_p_initializer_bfhqco = meta(2)(undefined, {
   ...__PrepareMetadata(C, "public", "p")
 }) ?? (v => v);
 
-C.p = _C_p_initializer_bfhqco.call(C, C.p);
+C.p = _C_p_initializer_2gr3po.call(C, C.p);
 
-const _C_p_initializer_0c8fpg = meta(1)(undefined, {
+const _C_p_initializer_ads3m = meta(1)(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
@@ -101,7 +96,7 @@ const _C_p_initializer_0c8fpg = meta(1)(undefined, {
   ...__PrepareMetadata(C, "public", "p")
 }) ?? (v => v);
 
-C.p = _C_p_initializer_0c8fpg.call(C, C.p);
+C.p = _C_p_initializer_ads3m.call(C, C.p);
 
 console.assert(C[Symbol.metadata][META].public.p === 3);
 

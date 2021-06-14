@@ -17,12 +17,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -59,101 +54,101 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_225da = Symbol();
+const _C_p_get_symbol_u185rg = Symbol();
 
-const _C_p_set_symbol_l609ko = Symbol();
+const _C_p_set_symbol_fl5tao = Symbol();
 
-const _C_static_initializers_o4mrg = [];
+const _C_static_initializers_991vi8 = [];
 
 class C {
   static #p = 1;
-  static [_C_p_get_symbol_225da]() {
+  static [_C_p_get_symbol_u185rg]() {
     return C.#p;
   }
-  static [_C_p_set_symbol_l609ko](v) {
+  static [_C_p_set_symbol_fl5tao](v) {
     C.#p = v;
   }
 }
 
-const _C_p_initializer_a41dug = addProperty("a", 1)(undefined, {
+const _C_p_initializer_no09n = addProperty("a", 1)(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_225da],
-    set: C[_C_p_set_symbol_l609ko]
+    get: C[_C_p_get_symbol_u185rg],
+    set: C[_C_p_set_symbol_fl5tao]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(C, "private", undefined),
-  addInitializer: initializer => _C_static_initializers_o4mrg.push(initializer)
+  addInitializer: initializer => _C_static_initializers_991vi8.push(initializer)
 }) ?? (v => v);
 
-C[_C_p_set_symbol_l609ko](_C_p_initializer_a41dug(C[_C_p_get_symbol_225da]()));
+C[_C_p_set_symbol_fl5tao](_C_p_initializer_no09n(C[_C_p_get_symbol_u185rg]()));
 
-const _C_p_initializer_ussr5o = addProperty("b", 2)(undefined, {
+const _C_p_initializer_im5e68 = addProperty("b", 2)(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_225da],
-    set: C[_C_p_set_symbol_l609ko]
+    get: C[_C_p_get_symbol_u185rg],
+    set: C[_C_p_set_symbol_fl5tao]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(C, "private", undefined),
-  addInitializer: initializer => _C_static_initializers_o4mrg.push(initializer)
+  addInitializer: initializer => _C_static_initializers_991vi8.push(initializer)
 }) ?? (v => v);
 
-C[_C_p_set_symbol_l609ko](_C_p_initializer_ussr5o(C[_C_p_get_symbol_225da]()));
+C[_C_p_set_symbol_fl5tao](_C_p_initializer_im5e68(C[_C_p_get_symbol_u185rg]()));
 
-_C_static_initializers_o4mrg.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_991vi8.forEach(initialize => initialize.call(C, C));
 
-const _D_p_get_symbol_iin4t = Symbol();
+const _D_p_get_symbol_5vp8b = Symbol();
 
-const _D_p_set_symbol_ta1u3o = Symbol();
+const _D_p_set_symbol_or22ng = Symbol();
 
-const _D_static_initializers_ogd3s = [];
+const _D_static_initializers_qg025 = [];
 
 class D extends C {
   static #p = 2;
-  static [_D_p_get_symbol_iin4t]() {
+  static [_D_p_get_symbol_5vp8b]() {
     return D.#p;
   }
-  static [_D_p_set_symbol_ta1u3o](v) {
+  static [_D_p_set_symbol_or22ng](v) {
     D.#p = v;
   }
 }
 
-const _D_p_initializer_irsbb8 = addProperty("c", 3)(undefined, {
+const _D_p_initializer_11rcno = addProperty("c", 3)(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: D[_D_p_get_symbol_iin4t],
-    set: D[_D_p_set_symbol_ta1u3o]
+    get: D[_D_p_get_symbol_5vp8b],
+    set: D[_D_p_set_symbol_or22ng]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(D, "private", undefined),
-  addInitializer: initializer => _D_static_initializers_ogd3s.push(initializer)
+  addInitializer: initializer => _D_static_initializers_qg025.push(initializer)
 }) ?? (v => v);
 
-D[_D_p_set_symbol_ta1u3o](_D_p_initializer_irsbb8(D[_D_p_get_symbol_iin4t]()));
+D[_D_p_set_symbol_or22ng](_D_p_initializer_11rcno(D[_D_p_get_symbol_5vp8b]()));
 
-const _D_p_initializer_rs1i7 = addProperty("d", 4)(undefined, {
+const _D_p_initializer_0s09po = addProperty("d", 4)(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: D[_D_p_get_symbol_iin4t],
-    set: D[_D_p_set_symbol_ta1u3o]
+    get: D[_D_p_get_symbol_5vp8b],
+    set: D[_D_p_set_symbol_or22ng]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(D, "private", undefined),
-  addInitializer: initializer => _D_static_initializers_ogd3s.push(initializer)
+  addInitializer: initializer => _D_static_initializers_qg025.push(initializer)
 }) ?? (v => v);
 
-D[_D_p_set_symbol_ta1u3o](_D_p_initializer_rs1i7(D[_D_p_get_symbol_iin4t]()));
+D[_D_p_set_symbol_or22ng](_D_p_initializer_0s09po(D[_D_p_get_symbol_5vp8b]()));
 
-_D_static_initializers_ogd3s.forEach(initialize => initialize.call(D, D));
+_D_static_initializers_qg025.forEach(initialize => initialize.call(D, D));
 
 console.assert(C.a === 1);
 

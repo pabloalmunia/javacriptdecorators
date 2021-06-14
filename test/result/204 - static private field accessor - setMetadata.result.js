@@ -19,12 +19,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -61,96 +56,96 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_bbausg = Symbol();
+const _C_p_get_symbol_rp8thg = Symbol();
 
-const _C_p_set_symbol_0p09jo = Symbol();
+const _C_p_set_symbol_0no9h8 = Symbol();
 
-let _C_p_getter_fbvttg;
+let _C_p_getter_2oioq;
 
-let _C_p_setter_iqq89;
+let _C_p_setter_n3epqg;
 
 class C {
-  static #_p_private_property_6h05ko = 10;
+  static #_p_private_property_d64neg = 10;
   static get #p() {
-    return _C_p_getter_fbvttg.call(this);
+    return _C_p_getter_2oioq.call(this);
   }
   static set #p(v) {
-    return _C_p_setter_iqq89.call(this, v);
+    return _C_p_setter_n3epqg.call(this, v);
   }
-  static _C_p_getter_fbvttg() {
-    return this.#_p_private_property_6h05ko;
+  static _C_p_getter_2oioq() {
+    return this.#_p_private_property_d64neg;
   }
-  static _C_p_setter_iqq89(v) {
-    this.#_p_private_property_6h05ko = v;
+  static _C_p_setter_n3epqg(v) {
+    this.#_p_private_property_d64neg = v;
   }
-  static [_C_p_get_symbol_bbausg]() {
+  static [_C_p_get_symbol_rp8thg]() {
     return C.#p;
   }
-  static [_C_p_set_symbol_0p09jo](v) {
+  static [_C_p_set_symbol_0no9h8](v) {
     C.#p = v;
   }
 }
 
-const _C_p_initializer_k9i1u8 = {
-  get: C._C_p_getter_fbvttg,
-  set: C._C_p_setter_iqq89
+const _C_p_initializer_pvvg48 = {
+  get: C._C_p_getter_2oioq,
+  set: C._C_p_setter_n3epqg
 };
 
-_C_p_getter_fbvttg = C._C_p_getter_fbvttg;
+_C_p_getter_2oioq = C._C_p_getter_2oioq;
 
-_C_p_setter_iqq89 = C._C_p_setter_iqq89;
+_C_p_setter_n3epqg = C._C_p_setter_n3epqg;
 
-delete C._C_p_getter_fbvttg;
+delete C._C_p_getter_2oioq;
 
-delete C._C_p_setter_iqq89;
+delete C._C_p_setter_n3epqg;
 
-const _C_p_result_dccamg = decorator1({
-  get: _C_p_getter_fbvttg,
-  set: _C_p_setter_iqq89
+const _C_p_result_m5cndo = decorator1({
+  get: _C_p_getter_2oioq,
+  set: _C_p_setter_n3epqg
 }, {
   kind: "auto-accessor",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_bbausg],
-    set: C[_C_p_set_symbol_0p09jo]
+    get: C[_C_p_get_symbol_rp8thg],
+    set: C[_C_p_set_symbol_0no9h8]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(C, "private", undefined)
 }) || {};
 
-_C_p_initializer_k9i1u8.set.call(
+_C_p_initializer_pvvg48.set.call(
   C,
-  (_C_p_result_dccamg.initialize || (v => v))(_C_p_initializer_k9i1u8.get.call(C))
+  (_C_p_result_m5cndo.initialize || (v => v))(_C_p_initializer_pvvg48.get.call(C))
 );
 
-_C_p_getter_fbvttg = _C_p_result_dccamg.get || _C_p_getter_fbvttg;
+_C_p_getter_2oioq = _C_p_result_m5cndo.get || _C_p_getter_2oioq;
 
-_C_p_setter_iqq89 = _C_p_result_dccamg.set || _C_p_setter_iqq89;
+_C_p_setter_n3epqg = _C_p_result_m5cndo.set || _C_p_setter_n3epqg;
 
-const _C_p_result_dmdb4 = decorator2({
-  get: _C_p_getter_fbvttg,
-  set: _C_p_setter_iqq89
+const _C_p_result_qb3a5o = decorator2({
+  get: _C_p_getter_2oioq,
+  set: _C_p_setter_n3epqg
 }, {
   kind: "auto-accessor",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_bbausg],
-    set: C[_C_p_set_symbol_0p09jo]
+    get: C[_C_p_get_symbol_rp8thg],
+    set: C[_C_p_set_symbol_0no9h8]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(C, "private", undefined)
 }) || {};
 
-_C_p_initializer_k9i1u8.set.call(
+_C_p_initializer_pvvg48.set.call(
   C,
-  (_C_p_result_dmdb4.initialize || (v => v))(_C_p_initializer_k9i1u8.get.call(C))
+  (_C_p_result_qb3a5o.initialize || (v => v))(_C_p_initializer_pvvg48.get.call(C))
 );
 
-_C_p_getter_fbvttg = _C_p_result_dmdb4.get || _C_p_getter_fbvttg;
+_C_p_getter_2oioq = _C_p_result_qb3a5o.get || _C_p_getter_2oioq;
 
-_C_p_setter_iqq89 = _C_p_result_dmdb4.set || _C_p_setter_iqq89;
+_C_p_setter_n3epqg = _C_p_result_qb3a5o.set || _C_p_setter_n3epqg;
 
 console.assert(C[Symbol.metadata][ONE].private[0] === 1);
 

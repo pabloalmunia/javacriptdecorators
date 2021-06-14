@@ -19,12 +19,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -61,42 +56,42 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_90m2og = Symbol();
+const _C_p_get_symbol_1a9qvg = Symbol();
 
-const _C_p_set_symbol_9bf3lg = Symbol();
+const _C_p_set_symbol_bjksdo = Symbol();
 
-let _C_p_initializer_ot4va8;
+let _C_p_initializer_c55dgg;
 
-let _C_p_initializer_8ji5b;
+let _C_p_initializer_rj89s;
 
 class C {
-  #p = _C_p_initializer_8ji5b.call(this, _C_p_initializer_ot4va8.call(this, 10));
-  [_C_p_get_symbol_90m2og]() {
+  #p = _C_p_initializer_rj89s.call(this, _C_p_initializer_c55dgg.call(this, 10));
+  [_C_p_get_symbol_1a9qvg]() {
     return this.#p;
   }
-  [_C_p_set_symbol_9bf3lg](v) {
+  [_C_p_set_symbol_bjksdo](v) {
     this.#p = v;
   }
 }
 
-_C_p_initializer_8ji5b = decorator1(undefined, {
+_C_p_initializer_rj89s = decorator1(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C.prototype[_C_p_get_symbol_90m2og],
-    set: C.prototype[_C_p_set_symbol_9bf3lg]
+    get: C.prototype[_C_p_get_symbol_1a9qvg],
+    set: C.prototype[_C_p_set_symbol_bjksdo]
   },
   isStatic: false,
   isPrivate: true,
   ...__PrepareMetadata(C.prototype, "private", undefined)
 }) ?? (v => v);
 
-_C_p_initializer_ot4va8 = decorator2(undefined, {
+_C_p_initializer_c55dgg = decorator2(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C.prototype[_C_p_get_symbol_90m2og],
-    set: C.prototype[_C_p_set_symbol_9bf3lg]
+    get: C.prototype[_C_p_get_symbol_1a9qvg],
+    set: C.prototype[_C_p_set_symbol_bjksdo]
   },
   isStatic: false,
   isPrivate: true,

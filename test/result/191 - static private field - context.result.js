@@ -16,12 +16,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -58,30 +53,30 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _A_p_get_symbol_d36u1g = Symbol();
+const _A_p_get_symbol_tvo4ag = Symbol();
 
-const _A_p_set_symbol_9fptmg = Symbol();
+const _A_p_set_symbol_u9oe3g = Symbol();
 
 class A {
   static #p = 1;
-  static [_A_p_get_symbol_d36u1g]() {
+  static [_A_p_get_symbol_tvo4ag]() {
     return A.#p;
   }
-  static [_A_p_set_symbol_9fptmg](v) {
+  static [_A_p_set_symbol_u9oe3g](v) {
     A.#p = v;
   }
 }
 
-const _A_p_initializer_60ilm8 = decorator(undefined, {
+const _A_p_initializer_hifv8 = decorator(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: A[_A_p_get_symbol_d36u1g],
-    set: A[_A_p_set_symbol_9fptmg]
+    get: A[_A_p_get_symbol_tvo4ag],
+    set: A[_A_p_set_symbol_u9oe3g]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(A, "private", undefined)
 }) ?? (v => v);
 
-A[_A_p_set_symbol_9fptmg](_A_p_initializer_60ilm8(A[_A_p_get_symbol_d36u1g]()));
+A[_A_p_set_symbol_u9oe3g](_A_p_initializer_hifv8(A[_A_p_get_symbol_tvo4ag]()));

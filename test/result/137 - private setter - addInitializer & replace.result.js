@@ -16,12 +16,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -58,37 +53,37 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_member_initializers_aucq4g = [];
+const _C_member_initializers_a1s73g = [];
 
-const _C_p_symbol_jtsg68 = Symbol();
+const _C_p_symbol_3etkvg = Symbol();
 
 class C {
   constructor() {
-    _C_member_initializers_aucq4g.forEach(initialize => initialize.call(this));
+    _C_member_initializers_a1s73g.forEach(initialize => initialize.call(this));
   }
   #q = 10;
   get #p() {
     return this.#q;
   }
-  _C_p_temp_vcoaj(v) {
+  _C_p_temp_obibug(v) {
     this.#q = v;
   }
-  static [_C_p_symbol_jtsg68] = decorator(C.prototype._C_p_temp_vcoaj, {
+  static [_C_p_symbol_3etkvg] = decorator(C.prototype._C_p_temp_obibug, {
     kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_jtsg68]
+      get: C.prototype[_C_p_symbol_3etkvg]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined),
-    addInitializer: initializer => _C_member_initializers_aucq4g.push(initializer)
-  }) ?? C.prototype._C_p_temp_vcoaj;
+    addInitializer: initializer => _C_member_initializers_a1s73g.push(initializer)
+  }) ?? C.prototype._C_p_temp_obibug;
   set #p(v) {
-    return C[_C_p_symbol_jtsg68].bind(this)(v);
+    return C[_C_p_symbol_3etkvg].bind(this)(v);
   }
-  [_C_p_symbol_jtsg68]() {
-    return C[_C_p_symbol_jtsg68].bind(this);
+  [_C_p_symbol_3etkvg]() {
+    return C[_C_p_symbol_3etkvg].bind(this);
   }
   get check() {
     return this.#p;
@@ -98,7 +93,7 @@ class C {
   }
 }
 
-delete C.prototype._C_p_temp_vcoaj;
+delete C.prototype._C_p_temp_obibug;
 
 console.assert(new C().test === 10);
 

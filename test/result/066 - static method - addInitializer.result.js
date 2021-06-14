@@ -13,12 +13,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -55,7 +50,7 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_sn2nk8 = [];
+const _C_static_initializers_vuis6g = [];
 
 class C {
   static m() {}
@@ -67,9 +62,9 @@ C.m = decorator(C.m, {
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "m"),
-  addInitializer: initializer => _C_static_initializers_sn2nk8.push(initializer)
+  addInitializer: initializer => _C_static_initializers_vuis6g.push(initializer)
 }) ?? C.m;
 
-_C_static_initializers_sn2nk8.forEach(initializer => initializer.call(C, C));
+_C_static_initializers_vuis6g.forEach(initializer => initializer.call(C, C));
 
 console.assert(C.test === 10);

@@ -23,12 +23,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -65,27 +60,27 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_43tlc8 = [];
+const _C_static_initializers_ofsf8o = [];
 
-const _C_m_symbol_l5ds2 = Symbol();
+const _C_m_symbol_44cav = Symbol();
 
 class C {
-  static _C_m_temp_m8mnj8(v) {
+  static _C_m_temp_orrhno(v) {
     return v * 2;
   }
-  static [_C_m_symbol_l5ds2] = decorator(C._C_m_temp_m8mnj8, {
+  static [_C_m_symbol_44cav] = decorator(C._C_m_temp_orrhno, {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_m_symbol_l5ds2]
+      get: C[_C_m_symbol_44cav]
     },
     ...__PrepareMetadata(C, "private", undefined),
-    addInitializer: initializer => _C_static_initializers_43tlc8.push(initializer)
-  }) ?? C._C_m_temp_m8mnj8;
-  static #m = C[_C_m_symbol_l5ds2];
-  static [_C_m_symbol_l5ds2]() {
+    addInitializer: initializer => _C_static_initializers_ofsf8o.push(initializer)
+  }) ?? C._C_m_temp_orrhno;
+  static #m = C[_C_m_symbol_44cav];
+  static [_C_m_symbol_44cav]() {
     return this.#m;
   }
   static check(v) {
@@ -93,9 +88,9 @@ class C {
   }
 }
 
-delete C._C_m_temp_m8mnj8;
+delete C._C_m_temp_orrhno;
 
-_C_static_initializers_43tlc8.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_ofsf8o.forEach(initialize => initialize.call(C, C));
 
 console.assert(C.check(2) === 4);
 

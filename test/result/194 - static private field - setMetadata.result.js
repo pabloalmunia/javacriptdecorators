@@ -19,12 +19,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -61,47 +56,47 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_ii4am = Symbol();
+const _C_p_get_symbol_1eslqg = Symbol();
 
-const _C_p_set_symbol_qel4sg = Symbol();
+const _C_p_set_symbol_u8spn = Symbol();
 
 class C {
   static #p = 10;
-  static [_C_p_get_symbol_ii4am]() {
+  static [_C_p_get_symbol_1eslqg]() {
     return C.#p;
   }
-  static [_C_p_set_symbol_qel4sg](v) {
+  static [_C_p_set_symbol_u8spn](v) {
     C.#p = v;
   }
 }
 
-const _C_p_initializer_tklmk8 = decorator1(undefined, {
+const _C_p_initializer_4t1bb = decorator1(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_ii4am],
-    set: C[_C_p_set_symbol_qel4sg]
+    get: C[_C_p_get_symbol_1eslqg],
+    set: C[_C_p_set_symbol_u8spn]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(C, "private", undefined)
 }) ?? (v => v);
 
-C[_C_p_set_symbol_qel4sg](_C_p_initializer_tklmk8(C[_C_p_get_symbol_ii4am]()));
+C[_C_p_set_symbol_u8spn](_C_p_initializer_4t1bb(C[_C_p_get_symbol_1eslqg]()));
 
-const _C_p_initializer_vpb248 = decorator2(undefined, {
+const _C_p_initializer_1pr488 = decorator2(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_ii4am],
-    set: C[_C_p_set_symbol_qel4sg]
+    get: C[_C_p_get_symbol_1eslqg],
+    set: C[_C_p_set_symbol_u8spn]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(C, "private", undefined)
 }) ?? (v => v);
 
-C[_C_p_set_symbol_qel4sg](_C_p_initializer_vpb248(C[_C_p_get_symbol_ii4am]()));
+C[_C_p_set_symbol_u8spn](_C_p_initializer_1pr488(C[_C_p_get_symbol_1eslqg]()));
 
 console.assert(C[Symbol.metadata][ONE].private[0] === 1);
 

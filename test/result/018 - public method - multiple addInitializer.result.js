@@ -17,12 +17,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -59,12 +54,12 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_member_initializers_t8ud8o = [];
+const _C_member_initializers_vtb21 = [];
 
 class C {
   constructor() {
     this.z = 100;
-    _C_member_initializers_t8ud8o.forEach(initialize => initialize.call(this));
+    _C_member_initializers_vtb21.forEach(initialize => initialize.call(this));
   }
   m() {}
 }
@@ -75,7 +70,7 @@ C.prototype.m = addProperty("a", 1)(C.prototype.m, {
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(C.prototype, "public", "m"),
-  addInitializer: initializer => _C_member_initializers_t8ud8o.push(initializer)
+  addInitializer: initializer => _C_member_initializers_vtb21.push(initializer)
 }) ?? C.prototype.m;
 
 C.prototype.m = addProperty("b", 2)(C.prototype.m, {
@@ -84,15 +79,15 @@ C.prototype.m = addProperty("b", 2)(C.prototype.m, {
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(C.prototype, "public", "m"),
-  addInitializer: initializer => _C_member_initializers_t8ud8o.push(initializer)
+  addInitializer: initializer => _C_member_initializers_vtb21.push(initializer)
 }) ?? C.prototype.m;
 
-const _D_member_initializers_4uv6eo = [];
+const _D_member_initializers_jkkjb8 = [];
 
 class D extends C {
   constructor() {
     super();
-    _D_member_initializers_4uv6eo.forEach(initialize => initialize.call(this));
+    _D_member_initializers_jkkjb8.forEach(initialize => initialize.call(this));
   }
   m() {}
 }
@@ -103,7 +98,7 @@ D.prototype.m = addProperty("c", 3)(D.prototype.m, {
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(D.prototype, "public", "m"),
-  addInitializer: initializer => _D_member_initializers_4uv6eo.push(initializer)
+  addInitializer: initializer => _D_member_initializers_jkkjb8.push(initializer)
 }) ?? D.prototype.m;
 
 D.prototype.m = addProperty("d", 4)(D.prototype.m, {
@@ -112,7 +107,7 @@ D.prototype.m = addProperty("d", 4)(D.prototype.m, {
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(D.prototype, "public", "m"),
-  addInitializer: initializer => _D_member_initializers_4uv6eo.push(initializer)
+  addInitializer: initializer => _D_member_initializers_jkkjb8.push(initializer)
 }) ?? D.prototype.m;
 
 const c = new C();

@@ -17,12 +17,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -59,7 +54,7 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_class_initializers_thph5g = [];
+const _C_class_initializers_7mo9sg = [];
 
 class C {}
 
@@ -67,19 +62,19 @@ C = addProperty("b", 2)(C, {
   kind: "class",
   name: "C",
   ...__PrepareMetadata(C, "constructor", undefined),
-  addInitializer: initializer => _C_class_initializers_thph5g.push(initializer)
+  addInitializer: initializer => _C_class_initializers_7mo9sg.push(initializer)
 }) ?? C;
 
 C = addProperty("a", 1)(C, {
   kind: "class",
   name: "C",
   ...__PrepareMetadata(C, "constructor", undefined),
-  addInitializer: initializer => _C_class_initializers_thph5g.push(initializer)
+  addInitializer: initializer => _C_class_initializers_7mo9sg.push(initializer)
 }) ?? C;
 
-_C_class_initializers_thph5g.forEach(initializer => initializer.call(C, C));
+_C_class_initializers_7mo9sg.forEach(initializer => initializer.call(C, C));
 
-const _D_class_initializers_asvg1g = [];
+const _D_class_initializers_mr1c5 = [];
 
 class D extends C {}
 
@@ -87,17 +82,17 @@ D = addProperty("d", 4)(D, {
   kind: "class",
   name: "D",
   ...__PrepareMetadata(D, "constructor", undefined),
-  addInitializer: initializer => _D_class_initializers_asvg1g.push(initializer)
+  addInitializer: initializer => _D_class_initializers_mr1c5.push(initializer)
 }) ?? D;
 
 D = addProperty("c", 3)(D, {
   kind: "class",
   name: "D",
   ...__PrepareMetadata(D, "constructor", undefined),
-  addInitializer: initializer => _D_class_initializers_asvg1g.push(initializer)
+  addInitializer: initializer => _D_class_initializers_mr1c5.push(initializer)
 }) ?? D;
 
-_D_class_initializers_asvg1g.forEach(initializer => initializer.call(D, D));
+_D_class_initializers_mr1c5.forEach(initializer => initializer.call(D, D));
 
 const c = new C();
 

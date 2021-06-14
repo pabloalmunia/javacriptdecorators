@@ -23,12 +23,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -65,38 +60,38 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_686nqo = Symbol();
+const _C_p_symbol_lki06g = Symbol();
 
 class C {
   #q = 0;
-  _C_p_temp_1imupg(v) {
+  _C_p_temp_gd6tm8(v) {
     this.#q = v;
   }
-  static [_C_p_symbol_686nqo] = decorator1(C.prototype._C_p_temp_1imupg, {
+  static [_C_p_symbol_lki06g] = decorator1(C.prototype._C_p_temp_gd6tm8, {
     kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_686nqo]
+      get: C.prototype[_C_p_symbol_lki06g]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined)
-  }) ?? C.prototype._C_p_temp_1imupg;
-  static [_C_p_symbol_686nqo] = decorator2(C[_C_p_symbol_686nqo], {
+  }) ?? C.prototype._C_p_temp_gd6tm8;
+  static [_C_p_symbol_lki06g] = decorator2(C[_C_p_symbol_lki06g], {
     kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_686nqo]
+      get: C.prototype[_C_p_symbol_lki06g]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined)
-  }) ?? C[_C_p_symbol_686nqo];
+  }) ?? C[_C_p_symbol_lki06g];
   set #p(v) {
-    return C[_C_p_symbol_686nqo].bind(this)(v);
+    return C[_C_p_symbol_lki06g].bind(this)(v);
   }
-  [_C_p_symbol_686nqo]() {
-    return C[_C_p_symbol_686nqo].bind(this);
+  [_C_p_symbol_lki06g]() {
+    return C[_C_p_symbol_lki06g].bind(this);
   }
   get #p() {
     return this.#q;
@@ -109,7 +104,7 @@ class C {
   }
 }
 
-delete C.prototype._C_p_temp_1imupg;
+delete C.prototype._C_p_temp_gd6tm8;
 
 const c = new C();
 

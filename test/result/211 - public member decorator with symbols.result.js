@@ -35,12 +35,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -77,12 +72,12 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _MyClass_A_initializer_mdrvn8;
+let _MyClass_A_initializer_u4vlho;
 
-let _MyClass_P_initializer_1orm38;
+let _MyClass_P_initializer_invfh;
 
 class MyClass {
-  [P] = _MyClass_P_initializer_1orm38.call(this, 1);
+  [P] = _MyClass_P_initializer_invfh.call(this, 1);
   [M]() {}
   get [G]() {
     return this[P];
@@ -90,16 +85,16 @@ class MyClass {
   set [G](v) {
     this[P] = v;
   }
-  #_A_private_property_lcmjn8 = _MyClass_A_initializer_mdrvn8.call(this, 2);
+  #_A_private_property_jcvcd8 = _MyClass_A_initializer_u4vlho.call(this, 2);
   get [A]() {
-    return this.#_A_private_property_lcmjn8;
+    return this.#_A_private_property_jcvcd8;
   }
   set [A](v) {
-    this.#_A_private_property_lcmjn8 = v;
+    this.#_A_private_property_jcvcd8 = v;
   }
 }
 
-_MyClass_P_initializer_1orm38 = checker("field", () => 2)(undefined, {
+_MyClass_P_initializer_invfh = checker("field", () => 2)(undefined, {
   kind: "field",
   name: P,
   isStatic: false,
@@ -107,11 +102,11 @@ _MyClass_P_initializer_1orm38 = checker("field", () => 2)(undefined, {
   ...__PrepareMetadata(MyClass.prototype, "public", P)
 }) ?? (v => v);
 
-const _MyClass_A_descriptor_2k9mgg = Object.getOwnPropertyDescriptor(MyClass.prototype, A);
+const _MyClass_A_descriptor_73h9f8 = Object.getOwnPropertyDescriptor(MyClass.prototype, A);
 
-const _MyClass_A_result_3jl9f = checker("auto-accessor")({
-  get: _MyClass_A_descriptor_2k9mgg.get,
-  set: _MyClass_A_descriptor_2k9mgg.set
+const _MyClass_A_result_hvn28g = checker("auto-accessor")({
+  get: _MyClass_A_descriptor_73h9f8.get,
+  set: _MyClass_A_descriptor_73h9f8.set
 }, {
   kind: "auto-accessor",
   name: "A",
@@ -120,40 +115,40 @@ const _MyClass_A_result_3jl9f = checker("auto-accessor")({
   ...__PrepareMetadata(MyClass.prototype, "public", A)
 }) || {};
 
-_MyClass_A_initializer_mdrvn8 = _MyClass_A_result_3jl9f.initialize || (v => v);
+_MyClass_A_initializer_u4vlho = _MyClass_A_result_hvn28g.initialize || (v => v);
 
 Object.defineProperty(MyClass.prototype, A, {
-  get: _MyClass_A_result_3jl9f.get || _MyClass_A_descriptor_2k9mgg.get,
-  set: _MyClass_A_result_3jl9f.set || _MyClass_A_descriptor_2k9mgg.set
+  get: _MyClass_A_result_hvn28g.get || _MyClass_A_descriptor_73h9f8.get,
+  set: _MyClass_A_result_hvn28g.set || _MyClass_A_descriptor_73h9f8.set
 });
 
-const _MyClass_G_descriptor_2av8uo = Object.getOwnPropertyDescriptor(MyClass.prototype, G);
+const _MyClass_G_descriptor_jdn8o8 = Object.getOwnPropertyDescriptor(MyClass.prototype, G);
 
-_MyClass_G_descriptor_2av8uo.set = checker("setter", function() {
+_MyClass_G_descriptor_jdn8o8.set = checker("setter", function() {
   this[P] = v * 2;
-})(_MyClass_G_descriptor_2av8uo.set, {
+})(_MyClass_G_descriptor_jdn8o8.set, {
   kind: "setter",
   name: G,
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(MyClass.prototype, "public", G)
-}) ?? _MyClass_G_descriptor_2av8uo.set;
+}) ?? _MyClass_G_descriptor_jdn8o8.set;
 
-Object.defineProperty(MyClass.prototype, G, _MyClass_G_descriptor_2av8uo);
+Object.defineProperty(MyClass.prototype, G, _MyClass_G_descriptor_jdn8o8);
 
-const _MyClass_G_descriptor_rld7sg = Object.getOwnPropertyDescriptor(MyClass.prototype, G);
+const _MyClass_G_descriptor_cu8kgo = Object.getOwnPropertyDescriptor(MyClass.prototype, G);
 
-_MyClass_G_descriptor_rld7sg.get = checker("getter", function() {
+_MyClass_G_descriptor_cu8kgo.get = checker("getter", function() {
   return this[P] * 2;
-})(_MyClass_G_descriptor_rld7sg.get, {
+})(_MyClass_G_descriptor_cu8kgo.get, {
   kind: "getter",
   name: G,
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(MyClass.prototype, "public", G)
-}) ?? _MyClass_G_descriptor_rld7sg.get;
+}) ?? _MyClass_G_descriptor_cu8kgo.get;
 
-Object.defineProperty(MyClass.prototype, G, _MyClass_G_descriptor_rld7sg);
+Object.defineProperty(MyClass.prototype, G, _MyClass_G_descriptor_cu8kgo);
 
 MyClass.prototype[M] = checker("method", function() {
   return "abc";

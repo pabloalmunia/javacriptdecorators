@@ -23,12 +23,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -65,44 +60,44 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_crfm0o = Symbol();
+const _C_p_symbol_rnnuig = Symbol();
 
 class C {
-  _C_p_temp_h06nn8() {
+  _C_p_temp_eh0k6() {
     return 2;
   }
-  static [_C_p_symbol_crfm0o] = decorator1(C.prototype._C_p_temp_h06nn8, {
+  static [_C_p_symbol_rnnuig] = decorator1(C.prototype._C_p_temp_eh0k6, {
     kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_crfm0o]
+      get: C.prototype[_C_p_symbol_rnnuig]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined)
-  }) ?? C.prototype._C_p_temp_h06nn8;
-  static [_C_p_symbol_crfm0o] = decorator2(C[_C_p_symbol_crfm0o], {
+  }) ?? C.prototype._C_p_temp_eh0k6;
+  static [_C_p_symbol_rnnuig] = decorator2(C[_C_p_symbol_rnnuig], {
     kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_crfm0o]
+      get: C.prototype[_C_p_symbol_rnnuig]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined)
-  }) ?? C[_C_p_symbol_crfm0o];
+  }) ?? C[_C_p_symbol_rnnuig];
   get #p() {
-    return C[_C_p_symbol_crfm0o].bind(this)();
+    return C[_C_p_symbol_rnnuig].bind(this)();
   }
-  [_C_p_symbol_crfm0o]() {
-    return C[_C_p_symbol_crfm0o].bind(this);
+  [_C_p_symbol_rnnuig]() {
+    return C[_C_p_symbol_rnnuig].bind(this);
   }
   get check() {
     return this.#p;
   }
 }
 
-delete C.prototype._C_p_temp_h06nn8;
+delete C.prototype._C_p_temp_eh0k6;
 
 const a = new C();
 

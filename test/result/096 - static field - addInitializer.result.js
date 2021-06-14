@@ -13,12 +13,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -55,24 +50,24 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_i3c9m8 = [];
+const _C_static_initializers_2800ko = [];
 
 class C {
   static p = 1;
 }
 
-const _C_p_initializer_3ljloo = decorator(undefined, {
+const _C_p_initializer_1pf41o = decorator(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "p"),
-  addInitializer: initializer => _C_static_initializers_i3c9m8.push(initializer)
+  addInitializer: initializer => _C_static_initializers_2800ko.push(initializer)
 }) ?? (v => v);
 
-C.p = _C_p_initializer_3ljloo.call(C, C.p);
+C.p = _C_p_initializer_1pf41o.call(C, C.p);
 
-_C_static_initializers_i3c9m8.forEach(initializer => initializer.call(C, C));
+_C_static_initializers_2800ko.forEach(initializer => initializer.call(C, C));
 
 console.assert(C.p === 1);
 

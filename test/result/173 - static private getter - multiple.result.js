@@ -23,12 +23,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -65,43 +60,43 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_0vfn08 = Symbol();
+const _C_p_symbol_t8p788 = Symbol();
 
 class C {
-  static _C_p_temp_5tj01() {
+  static _C_p_temp_1o2et8() {
     return 2;
   }
-  static [_C_p_symbol_0vfn08] = decorator1(C._C_p_temp_5tj01, {
+  static [_C_p_symbol_t8p788] = decorator1(C._C_p_temp_1o2et8, {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_0vfn08]
+      get: C[_C_p_symbol_t8p788]
     },
     ...__PrepareMetadata(C, "private", undefined)
-  }) ?? C._C_p_temp_5tj01;
-  static [_C_p_symbol_0vfn08] = decorator2(C[_C_p_symbol_0vfn08], {
+  }) ?? C._C_p_temp_1o2et8;
+  static [_C_p_symbol_t8p788] = decorator2(C[_C_p_symbol_t8p788], {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_0vfn08]
+      get: C[_C_p_symbol_t8p788]
     },
     ...__PrepareMetadata(C, "private", undefined)
-  }) ?? C[_C_p_symbol_0vfn08];
+  }) ?? C[_C_p_symbol_t8p788];
   static get #p() {
-    return C[_C_p_symbol_0vfn08].bind(this)();
+    return C[_C_p_symbol_t8p788].bind(this)();
   }
-  static [_C_p_symbol_0vfn08]() {
-    return C[_C_p_symbol_0vfn08].bind(this);
+  static [_C_p_symbol_t8p788]() {
+    return C[_C_p_symbol_t8p788].bind(this);
   }
   static get check() {
     return this.#p;
   }
 }
 
-delete C._C_p_temp_5tj01;
+delete C._C_p_temp_1o2et8;
 
 console.assert(C.check === 12);

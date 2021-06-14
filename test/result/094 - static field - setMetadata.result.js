@@ -19,12 +19,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -61,15 +56,15 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_kqmdu8;
+let _C_p_initializer_iumfc;
 
-let _C_p_initializer_rsamjg;
+let _C_p_initializer_efc92;
 
 class C {
-  p = _C_p_initializer_rsamjg.call(this, _C_p_initializer_kqmdu8.call(this, 10));
+  p = _C_p_initializer_efc92.call(this, _C_p_initializer_iumfc.call(this, 10));
 }
 
-_C_p_initializer_rsamjg = decorator1(undefined, {
+_C_p_initializer_efc92 = decorator1(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
@@ -77,7 +72,7 @@ _C_p_initializer_rsamjg = decorator1(undefined, {
   ...__PrepareMetadata(C.prototype, "public", "p")
 }) ?? (v => v);
 
-_C_p_initializer_kqmdu8 = decorator2(undefined, {
+_C_p_initializer_iumfc = decorator2(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,

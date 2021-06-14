@@ -16,12 +16,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -58,41 +53,41 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_pjf1to = Symbol();
+const _C_p_symbol_vmjpu8 = Symbol();
 
 class C {
-  _C_p_temp_5os2o8() {
+  _C_p_temp_vierfo() {
     return "a";
   }
-  static [_C_p_symbol_pjf1to] = meta(1)(C.prototype._C_p_temp_5os2o8, {
+  static [_C_p_symbol_vmjpu8] = meta(1)(C.prototype._C_p_temp_vierfo, {
     kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_pjf1to]
+      get: C.prototype[_C_p_symbol_vmjpu8]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined)
-  }) ?? C.prototype._C_p_temp_5os2o8;
-  static [_C_p_symbol_pjf1to] = meta(2)(C[_C_p_symbol_pjf1to], {
+  }) ?? C.prototype._C_p_temp_vierfo;
+  static [_C_p_symbol_vmjpu8] = meta(2)(C[_C_p_symbol_vmjpu8], {
     kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_pjf1to]
+      get: C.prototype[_C_p_symbol_vmjpu8]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined)
-  }) ?? C[_C_p_symbol_pjf1to];
+  }) ?? C[_C_p_symbol_vmjpu8];
   get #p() {
-    return C[_C_p_symbol_pjf1to].bind(this)();
+    return C[_C_p_symbol_vmjpu8].bind(this)();
   }
-  [_C_p_symbol_pjf1to]() {
-    return C[_C_p_symbol_pjf1to].bind(this);
+  [_C_p_symbol_vmjpu8]() {
+    return C[_C_p_symbol_vmjpu8].bind(this);
   }
 }
 
-delete C.prototype._C_p_temp_5os2o8;
+delete C.prototype._C_p_temp_vierfo;
 
 console.assert(C.prototype[Symbol.metadata][META].private[0] === 1);
 

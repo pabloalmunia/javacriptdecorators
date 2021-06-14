@@ -13,12 +13,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -55,28 +50,28 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_99l59g = Symbol();
+const _C_p_symbol_ts407g = Symbol();
 
 class C {
   static #q = 0;
-  static _C_p_temp_gslgm8(v) {
+  static _C_p_temp_4k25s8(v) {
     this.#q = v;
   }
-  static [_C_p_symbol_99l59g] = decorator(C._C_p_temp_gslgm8, {
+  static [_C_p_symbol_ts407g] = decorator(C._C_p_temp_4k25s8, {
     kind: "setter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_99l59g]
+      get: C[_C_p_symbol_ts407g]
     },
     ...__PrepareMetadata(C, "private", undefined)
-  }) ?? C._C_p_temp_gslgm8;
+  }) ?? C._C_p_temp_4k25s8;
   static set #p(v) {
-    return C[_C_p_symbol_99l59g].bind(this)(v);
+    return C[_C_p_symbol_ts407g].bind(this)(v);
   }
-  static [_C_p_symbol_99l59g]() {
-    return C[_C_p_symbol_99l59g].bind(this);
+  static [_C_p_symbol_ts407g]() {
+    return C[_C_p_symbol_ts407g].bind(this);
   }
   static get #p() {
     return this.#q;
@@ -89,7 +84,7 @@ class C {
   }
 }
 
-delete C._C_p_temp_gslgm8;
+delete C._C_p_temp_4k25s8;
 
 C.check = 10;
 

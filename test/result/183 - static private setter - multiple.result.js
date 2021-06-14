@@ -23,12 +23,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -65,38 +60,38 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_u031lo = Symbol();
+const _C_p_symbol_mifcag = Symbol();
 
 class C {
   static #q = 0;
-  static _C_p_temp_7q2q9(v) {
+  static _C_p_temp_2t1aio(v) {
     this.#q = v;
   }
-  static [_C_p_symbol_u031lo] = decorator1(C._C_p_temp_7q2q9, {
+  static [_C_p_symbol_mifcag] = decorator1(C._C_p_temp_2t1aio, {
     kind: "setter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_u031lo]
+      get: C[_C_p_symbol_mifcag]
     },
     ...__PrepareMetadata(C, "private", undefined)
-  }) ?? C._C_p_temp_7q2q9;
-  static [_C_p_symbol_u031lo] = decorator2(C[_C_p_symbol_u031lo], {
+  }) ?? C._C_p_temp_2t1aio;
+  static [_C_p_symbol_mifcag] = decorator2(C[_C_p_symbol_mifcag], {
     kind: "setter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_u031lo]
+      get: C[_C_p_symbol_mifcag]
     },
     ...__PrepareMetadata(C, "private", undefined)
-  }) ?? C[_C_p_symbol_u031lo];
+  }) ?? C[_C_p_symbol_mifcag];
   static set #p(v) {
-    return C[_C_p_symbol_u031lo].bind(this)(v);
+    return C[_C_p_symbol_mifcag].bind(this)(v);
   }
-  static [_C_p_symbol_u031lo]() {
-    return C[_C_p_symbol_u031lo].bind(this);
+  static [_C_p_symbol_mifcag]() {
+    return C[_C_p_symbol_mifcag].bind(this);
   }
   static get #p() {
     return this.#q;
@@ -109,7 +104,7 @@ class C {
   }
 }
 
-delete C._C_p_temp_7q2q9;
+delete C._C_p_temp_2t1aio;
 
 console.assert(C.check === 0);
 

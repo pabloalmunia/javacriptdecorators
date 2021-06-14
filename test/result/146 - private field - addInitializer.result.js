@@ -13,12 +13,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -55,38 +50,38 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_6fs81g = Symbol();
+const _C_p_get_symbol_8cu8lg = Symbol();
 
-const _C_p_set_symbol_v08e2 = Symbol();
+const _C_p_set_symbol_nsltjo = Symbol();
 
-let _C_p_initializer_mj515;
+let _C_p_initializer_7lkuo8;
 
-const _C_member_initializers_tbu6v8 = [];
+const _C_member_initializers_tl3j38 = [];
 
 class C {
   constructor() {
-    _C_member_initializers_tbu6v8.forEach(initialize => initialize.call(this));
+    _C_member_initializers_tl3j38.forEach(initialize => initialize.call(this));
   }
-  #p = _C_p_initializer_mj515.call(this, 1);
-  [_C_p_get_symbol_6fs81g]() {
+  #p = _C_p_initializer_7lkuo8.call(this, 1);
+  [_C_p_get_symbol_8cu8lg]() {
     return this.#p;
   }
-  [_C_p_set_symbol_v08e2](v) {
+  [_C_p_set_symbol_nsltjo](v) {
     this.#p = v;
   }
 }
 
-_C_p_initializer_mj515 = decorator(undefined, {
+_C_p_initializer_7lkuo8 = decorator(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C.prototype[_C_p_get_symbol_6fs81g],
-    set: C.prototype[_C_p_set_symbol_v08e2]
+    get: C.prototype[_C_p_get_symbol_8cu8lg],
+    set: C.prototype[_C_p_set_symbol_nsltjo]
   },
   isStatic: false,
   isPrivate: true,
   ...__PrepareMetadata(C.prototype, "private", undefined),
-  addInitializer: initializer => _C_member_initializers_tbu6v8.push(initializer)
+  addInitializer: initializer => _C_member_initializers_tl3j38.push(initializer)
 }) ?? (v => v);
 
 console.assert(new C().test === 10);

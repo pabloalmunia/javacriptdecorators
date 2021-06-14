@@ -16,12 +16,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -58,23 +53,23 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_la12f8 = Symbol();
+const _C_p_get_symbol_8qorfg = Symbol();
 
-const _C_p_set_symbol_9ltsm = Symbol();
+const _C_p_set_symbol_icmds8 = Symbol();
 
-let _C_p_initializer_7ucupg;
+let _C_p_initializer_1jnvlo;
 
-const _C_member_initializers_3bks08 = [];
+const _C_member_initializers_i28sno = [];
 
 class C {
   constructor() {
-    _C_member_initializers_3bks08.forEach(initialize => initialize.call(this));
+    _C_member_initializers_i28sno.forEach(initialize => initialize.call(this));
   }
-  #p = _C_p_initializer_7ucupg.call(this, 10);
-  [_C_p_get_symbol_la12f8]() {
+  #p = _C_p_initializer_1jnvlo.call(this, 10);
+  [_C_p_get_symbol_8qorfg]() {
     return this.#p;
   }
-  [_C_p_set_symbol_9ltsm](v) {
+  [_C_p_set_symbol_icmds8](v) {
     this.#p = v;
   }
   get check() {
@@ -85,17 +80,17 @@ class C {
   }
 }
 
-_C_p_initializer_7ucupg = decorator(undefined, {
+_C_p_initializer_1jnvlo = decorator(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C.prototype[_C_p_get_symbol_la12f8],
-    set: C.prototype[_C_p_set_symbol_9ltsm]
+    get: C.prototype[_C_p_get_symbol_8qorfg],
+    set: C.prototype[_C_p_set_symbol_icmds8]
   },
   isStatic: false,
   isPrivate: true,
   ...__PrepareMetadata(C.prototype, "private", undefined),
-  addInitializer: initializer => _C_member_initializers_3bks08.push(initializer)
+  addInitializer: initializer => _C_member_initializers_i28sno.push(initializer)
 }) ?? (v => v);
 
 console.assert(new C().test === 10);

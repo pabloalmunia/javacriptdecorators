@@ -23,12 +23,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -65,16 +60,16 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_t58cmo = Symbol();
+const _C_p_get_symbol_bh3ho = Symbol();
 
-const _C_p_set_symbol_ivh2to = Symbol();
+const _C_p_set_symbol_f7ippg = Symbol();
 
 class C {
   static #p = 1;
-  static [_C_p_get_symbol_t58cmo]() {
+  static [_C_p_get_symbol_bh3ho]() {
     return C.#p;
   }
-  static [_C_p_set_symbol_ivh2to](v) {
+  static [_C_p_set_symbol_f7ippg](v) {
     C.#p = v;
   }
   static get check() {
@@ -82,32 +77,32 @@ class C {
   }
 }
 
-const _C_p_initializer_imgtr = decorator1(undefined, {
+const _C_p_initializer_d45ico = decorator1(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_t58cmo],
-    set: C[_C_p_set_symbol_ivh2to]
+    get: C[_C_p_get_symbol_bh3ho],
+    set: C[_C_p_set_symbol_f7ippg]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(C, "private", undefined)
 }) ?? (v => v);
 
-C[_C_p_set_symbol_ivh2to](_C_p_initializer_imgtr(C[_C_p_get_symbol_t58cmo]()));
+C[_C_p_set_symbol_f7ippg](_C_p_initializer_d45ico(C[_C_p_get_symbol_bh3ho]()));
 
-const _C_p_initializer_29rlog = decorator2(undefined, {
+const _C_p_initializer_2p8oi8 = decorator2(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_t58cmo],
-    set: C[_C_p_set_symbol_ivh2to]
+    get: C[_C_p_get_symbol_bh3ho],
+    set: C[_C_p_set_symbol_f7ippg]
   },
   isStatic: true,
   isPrivate: true,
   ...__PrepareMetadata(C, "private", undefined)
 }) ?? (v => v);
 
-C[_C_p_set_symbol_ivh2to](_C_p_initializer_29rlog(C[_C_p_get_symbol_t58cmo]()));
+C[_C_p_set_symbol_f7ippg](_C_p_initializer_2p8oi8(C[_C_p_get_symbol_bh3ho]()));
 
 console.assert(C.check === 6);

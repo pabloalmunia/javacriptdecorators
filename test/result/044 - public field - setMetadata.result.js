@@ -19,12 +19,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -61,15 +56,15 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_05asao;
+let _C_p_initializer_u9pjso;
 
-let _C_p_initializer_21bfc8;
+let _C_p_initializer_tah29;
 
 class C {
-  p = _C_p_initializer_21bfc8.call(this, _C_p_initializer_05asao.call(this, 10));
+  p = _C_p_initializer_tah29.call(this, _C_p_initializer_u9pjso.call(this, 10));
 }
 
-_C_p_initializer_21bfc8 = decorator1(undefined, {
+_C_p_initializer_tah29 = decorator1(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
@@ -77,7 +72,7 @@ _C_p_initializer_21bfc8 = decorator1(undefined, {
   ...__PrepareMetadata(C.prototype, "public", "p")
 }) ?? (v => v);
 
-_C_p_initializer_05asao = decorator2(undefined, {
+_C_p_initializer_u9pjso = decorator2(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,

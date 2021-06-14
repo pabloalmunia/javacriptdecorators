@@ -14,12 +14,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -56,13 +51,13 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _A_p_initializer_g9fvv;
+let _A_p_initializer_qa9bj;
 
 class A {
-  p = _A_p_initializer_g9fvv.call(this, 1);
+  p = _A_p_initializer_qa9bj.call(this, 1);
 }
 
-_A_p_initializer_g9fvv = decorator(undefined, {
+_A_p_initializer_qa9bj = decorator(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,

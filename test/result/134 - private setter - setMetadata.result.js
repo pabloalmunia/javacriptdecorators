@@ -19,12 +19,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -61,39 +56,39 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_b1qss = Symbol();
+const _C_p_symbol_6570uo = Symbol();
 
 class C {
-  _C_p_temp_7famjg(v) {}
-  static [_C_p_symbol_b1qss] = decorator1(C.prototype._C_p_temp_7famjg, {
+  _C_p_temp_5n6uco(v) {}
+  static [_C_p_symbol_6570uo] = decorator1(C.prototype._C_p_temp_5n6uco, {
     kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_b1qss]
+      get: C.prototype[_C_p_symbol_6570uo]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined)
-  }) ?? C.prototype._C_p_temp_7famjg;
-  static [_C_p_symbol_b1qss] = decorator2(C[_C_p_symbol_b1qss], {
+  }) ?? C.prototype._C_p_temp_5n6uco;
+  static [_C_p_symbol_6570uo] = decorator2(C[_C_p_symbol_6570uo], {
     kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_b1qss]
+      get: C.prototype[_C_p_symbol_6570uo]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined)
-  }) ?? C[_C_p_symbol_b1qss];
+  }) ?? C[_C_p_symbol_6570uo];
   set #p(v) {
-    return C[_C_p_symbol_b1qss].bind(this)(v);
+    return C[_C_p_symbol_6570uo].bind(this)(v);
   }
-  [_C_p_symbol_b1qss]() {
-    return C[_C_p_symbol_b1qss].bind(this);
+  [_C_p_symbol_6570uo]() {
+    return C[_C_p_symbol_6570uo].bind(this);
   }
 }
 
-delete C.prototype._C_p_temp_7famjg;
+delete C.prototype._C_p_temp_5n6uco;
 
 const a = new C();
 

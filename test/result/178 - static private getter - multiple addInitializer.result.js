@@ -17,12 +17,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -59,85 +54,85 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_qe4eog = [];
+const _C_static_initializers_90d2j = [];
 
-const _C_p_symbol_bmskf8 = Symbol();
+const _C_p_symbol_st61e = Symbol();
 
 class C {
-  static _C_p_temp_mb81jo() {}
-  static [_C_p_symbol_bmskf8] = addProperty("a", 1)(C._C_p_temp_mb81jo, {
+  static _C_p_temp_cbh4l() {}
+  static [_C_p_symbol_st61e] = addProperty("a", 1)(C._C_p_temp_cbh4l, {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_bmskf8]
+      get: C[_C_p_symbol_st61e]
     },
     ...__PrepareMetadata(C, "private", undefined),
-    addInitializer: initializer => _C_static_initializers_qe4eog.push(initializer)
-  }) ?? C._C_p_temp_mb81jo;
-  static [_C_p_symbol_bmskf8] = addProperty("b", 2)(C[_C_p_symbol_bmskf8], {
+    addInitializer: initializer => _C_static_initializers_90d2j.push(initializer)
+  }) ?? C._C_p_temp_cbh4l;
+  static [_C_p_symbol_st61e] = addProperty("b", 2)(C[_C_p_symbol_st61e], {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_bmskf8]
+      get: C[_C_p_symbol_st61e]
     },
     ...__PrepareMetadata(C, "private", undefined),
-    addInitializer: initializer => _C_static_initializers_qe4eog.push(initializer)
-  }) ?? C[_C_p_symbol_bmskf8];
+    addInitializer: initializer => _C_static_initializers_90d2j.push(initializer)
+  }) ?? C[_C_p_symbol_st61e];
   static get #p() {
-    return C[_C_p_symbol_bmskf8].bind(this)();
+    return C[_C_p_symbol_st61e].bind(this)();
   }
-  static [_C_p_symbol_bmskf8]() {
-    return C[_C_p_symbol_bmskf8].bind(this);
+  static [_C_p_symbol_st61e]() {
+    return C[_C_p_symbol_st61e].bind(this);
   }
 }
 
-delete C._C_p_temp_mb81jo;
+delete C._C_p_temp_cbh4l;
 
-_C_static_initializers_qe4eog.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_90d2j.forEach(initialize => initialize.call(C, C));
 
-const _D_static_initializers_in9tq = [];
+const _D_static_initializers_gfds2g = [];
 
-const _D_p_symbol_0fv4tg = Symbol();
+const _D_p_symbol_ufatuo = Symbol();
 
 class D extends C {
-  static _D_p_temp_4hoov8() {}
-  static [_D_p_symbol_0fv4tg] = addProperty("c", 3)(D._D_p_temp_4hoov8, {
+  static _D_p_temp_dapmqg() {}
+  static [_D_p_symbol_ufatuo] = addProperty("c", 3)(D._D_p_temp_dapmqg, {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: D[_D_p_symbol_0fv4tg]
+      get: D[_D_p_symbol_ufatuo]
     },
     ...__PrepareMetadata(D, "private", undefined),
-    addInitializer: initializer => _D_static_initializers_in9tq.push(initializer)
-  }) ?? D._D_p_temp_4hoov8;
-  static [_D_p_symbol_0fv4tg] = addProperty("d", 4)(D[_D_p_symbol_0fv4tg], {
+    addInitializer: initializer => _D_static_initializers_gfds2g.push(initializer)
+  }) ?? D._D_p_temp_dapmqg;
+  static [_D_p_symbol_ufatuo] = addProperty("d", 4)(D[_D_p_symbol_ufatuo], {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: D[_D_p_symbol_0fv4tg]
+      get: D[_D_p_symbol_ufatuo]
     },
     ...__PrepareMetadata(D, "private", undefined),
-    addInitializer: initializer => _D_static_initializers_in9tq.push(initializer)
-  }) ?? D[_D_p_symbol_0fv4tg];
+    addInitializer: initializer => _D_static_initializers_gfds2g.push(initializer)
+  }) ?? D[_D_p_symbol_ufatuo];
   static get #p() {
-    return D[_D_p_symbol_0fv4tg].bind(this)();
+    return D[_D_p_symbol_ufatuo].bind(this)();
   }
-  static [_D_p_symbol_0fv4tg]() {
-    return D[_D_p_symbol_0fv4tg].bind(this);
+  static [_D_p_symbol_ufatuo]() {
+    return D[_D_p_symbol_ufatuo].bind(this);
   }
 }
 
-delete D._D_p_temp_4hoov8;
+delete D._D_p_temp_dapmqg;
 
-_D_static_initializers_in9tq.forEach(initialize => initialize.call(D, D));
+_D_static_initializers_gfds2g.forEach(initialize => initialize.call(D, D));
 
 console.assert(C.a === 1);
 

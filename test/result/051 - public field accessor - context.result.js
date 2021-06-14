@@ -14,12 +14,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -56,23 +51,23 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _A_p_initializer_6vg2b;
+let _A_p_initializer_buuk1;
 
 class A {
-  #_p_private_property_h9jb8g = _A_p_initializer_6vg2b.call(this, 1);
+  #_p_private_property_l9lkig = _A_p_initializer_buuk1.call(this, 1);
   get p() {
-    return this.#_p_private_property_h9jb8g;
+    return this.#_p_private_property_l9lkig;
   }
   set p(v) {
-    this.#_p_private_property_h9jb8g = v;
+    this.#_p_private_property_l9lkig = v;
   }
 }
 
-const _A_p_descriptor_as0lp = Object.getOwnPropertyDescriptor(A.prototype, "p");
+const _A_p_descriptor_8dugeg = Object.getOwnPropertyDescriptor(A.prototype, "p");
 
-const _A_p_result_uha4s = decorator({
-  get: _A_p_descriptor_as0lp.get,
-  set: _A_p_descriptor_as0lp.set
+const _A_p_result_8j1cco = decorator({
+  get: _A_p_descriptor_8dugeg.get,
+  set: _A_p_descriptor_8dugeg.set
 }, {
   kind: "auto-accessor",
   name: "p",
@@ -81,9 +76,9 @@ const _A_p_result_uha4s = decorator({
   ...__PrepareMetadata(A.prototype, "public", "p")
 }) || {};
 
-_A_p_initializer_6vg2b = _A_p_result_uha4s.initialize || (v => v);
+_A_p_initializer_buuk1 = _A_p_result_8j1cco.initialize || (v => v);
 
 Object.defineProperty(A.prototype, "p", {
-  get: _A_p_result_uha4s.get || _A_p_descriptor_as0lp.get,
-  set: _A_p_result_uha4s.set || _A_p_descriptor_as0lp.set
+  get: _A_p_result_8j1cco.get || _A_p_descriptor_8dugeg.get,
+  set: _A_p_result_8j1cco.set || _A_p_descriptor_8dugeg.set
 });

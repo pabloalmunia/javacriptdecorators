@@ -13,12 +13,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -55,18 +50,18 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_2keom8 = Symbol();
+const _C_p_get_symbol_kn274o = Symbol();
 
-const _C_p_set_symbol_mimlqo = Symbol();
+const _C_p_set_symbol_dnauvo = Symbol();
 
-let _C_p_initializer_6f6pl;
+let _C_p_initializer_3npfsg;
 
 class C {
-  #p = _C_p_initializer_6f6pl.call(this, 10);
-  [_C_p_get_symbol_2keom8]() {
+  #p = _C_p_initializer_3npfsg.call(this, 10);
+  [_C_p_get_symbol_kn274o]() {
     return this.#p;
   }
-  [_C_p_set_symbol_mimlqo](v) {
+  [_C_p_set_symbol_dnauvo](v) {
     this.#p = v;
   }
   get check() {
@@ -74,12 +69,12 @@ class C {
   }
 }
 
-_C_p_initializer_6f6pl = decorator(undefined, {
+_C_p_initializer_3npfsg = decorator(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C.prototype[_C_p_get_symbol_2keom8],
-    set: C.prototype[_C_p_set_symbol_mimlqo]
+    get: C.prototype[_C_p_get_symbol_kn274o],
+    set: C.prototype[_C_p_set_symbol_dnauvo]
   },
   isStatic: false,
   isPrivate: true,

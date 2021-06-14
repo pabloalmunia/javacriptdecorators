@@ -15,12 +15,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -57,23 +52,23 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_rtlghg;
+let _C_p_initializer_6g6vt8;
 
 class C {
-  #_p_private_property_dq22h = _C_p_initializer_rtlghg.call(this, 10);
+  #_p_private_property_7ojf1o = _C_p_initializer_6g6vt8.call(this, 10);
   get p() {
-    return this.#_p_private_property_dq22h;
+    return this.#_p_private_property_7ojf1o;
   }
   set p(v) {
-    this.#_p_private_property_dq22h = v;
+    this.#_p_private_property_7ojf1o = v;
   }
 }
 
-const _C_p_descriptor_4n8rlg = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_5ged3 = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-const _C_p_result_nq7f0o = decorator({
-  get: _C_p_descriptor_4n8rlg.get,
-  set: _C_p_descriptor_4n8rlg.set
+const _C_p_result_gph78o = decorator({
+  get: _C_p_descriptor_5ged3.get,
+  set: _C_p_descriptor_5ged3.set
 }, {
   kind: "auto-accessor",
   name: "p",
@@ -82,11 +77,11 @@ const _C_p_result_nq7f0o = decorator({
   ...__PrepareMetadata(C.prototype, "public", "p")
 }) || {};
 
-_C_p_initializer_rtlghg = _C_p_result_nq7f0o.initialize || (v => v);
+_C_p_initializer_6g6vt8 = _C_p_result_gph78o.initialize || (v => v);
 
 Object.defineProperty(C.prototype, "p", {
-  get: _C_p_result_nq7f0o.get || _C_p_descriptor_4n8rlg.get,
-  set: _C_p_result_nq7f0o.set || _C_p_descriptor_4n8rlg.set
+  get: _C_p_result_gph78o.get || _C_p_descriptor_5ged3.get,
+  set: _C_p_result_gph78o.set || _C_p_descriptor_5ged3.set
 });
 
 const c = new C();

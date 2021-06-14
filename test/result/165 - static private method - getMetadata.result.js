@@ -16,12 +16,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -58,37 +53,37 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_m_symbol_c2vfio = Symbol();
+const _C_m_symbol_krckao = Symbol();
 
 class C {
-  static _C_m_temp_kn9g98() {}
-  static [_C_m_symbol_c2vfio] = decorator(1)(C._C_m_temp_kn9g98, {
+  static _C_m_temp_i8bcd() {}
+  static [_C_m_symbol_krckao] = decorator(1)(C._C_m_temp_i8bcd, {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_m_symbol_c2vfio]
+      get: C[_C_m_symbol_krckao]
     },
     ...__PrepareMetadata(C, "private", undefined)
-  }) ?? C._C_m_temp_kn9g98;
-  static [_C_m_symbol_c2vfio] = decorator(2)(C[_C_m_symbol_c2vfio], {
+  }) ?? C._C_m_temp_i8bcd;
+  static [_C_m_symbol_krckao] = decorator(2)(C[_C_m_symbol_krckao], {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_m_symbol_c2vfio]
+      get: C[_C_m_symbol_krckao]
     },
     ...__PrepareMetadata(C, "private", undefined)
-  }) ?? C[_C_m_symbol_c2vfio];
-  static #m = C[_C_m_symbol_c2vfio];
-  static [_C_m_symbol_c2vfio]() {
+  }) ?? C[_C_m_symbol_krckao];
+  static #m = C[_C_m_symbol_krckao];
+  static [_C_m_symbol_krckao]() {
     return this.#m;
   }
 }
 
-delete C._C_m_temp_kn9g98;
+delete C._C_m_temp_i8bcd;
 
 console.assert(C[Symbol.metadata][ONE].private[0] === 1);
 

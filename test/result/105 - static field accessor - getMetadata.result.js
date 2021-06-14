@@ -16,12 +16,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -58,36 +53,36 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_f_initializer_cq1kfg;
+let _C_f_initializer_2adhn8;
 
-let _C_f_initializer_d2brgo;
+let _C_f_initializer_qr1bm8;
 
-let _C_p_initializer_988qmg;
+let _C_p_initializer_6e4nvo;
 
-let _C_p_initializer_r0n7sg;
+let _C_p_initializer_1k382;
 
 class C {
-  static #_p_private_property_pi3bb8 = 10;
+  static #_p_private_property_heccro = 10;
   static get p() {
-    return this.#_p_private_property_pi3bb8;
+    return this.#_p_private_property_heccro;
   }
   static set p(v) {
-    this.#_p_private_property_pi3bb8 = v;
+    this.#_p_private_property_heccro = v;
   }
-  static #_f_private_property_v7phs = 20;
+  static #_f_private_property_nusmc8 = 20;
   static get f() {
-    return this.#_f_private_property_v7phs;
+    return this.#_f_private_property_nusmc8;
   }
   static set f(v) {
-    this.#_f_private_property_v7phs = v;
+    this.#_f_private_property_nusmc8 = v;
   }
 }
 
-const _C_p_descriptor_dcrd8g = Object.getOwnPropertyDescriptor(C, "p");
+const _C_p_descriptor_10bl9g = Object.getOwnPropertyDescriptor(C, "p");
 
-const _C_p_result_o3vl9o = meta(1)({
-  get: _C_p_descriptor_dcrd8g.get,
-  set: _C_p_descriptor_dcrd8g.set
+const _C_p_result_o6j97o = meta(1)({
+  get: _C_p_descriptor_10bl9g.get,
+  set: _C_p_descriptor_10bl9g.set
 }, {
   kind: "auto-accessor",
   name: "p",
@@ -96,20 +91,20 @@ const _C_p_result_o3vl9o = meta(1)({
   ...__PrepareMetadata(C, "public", "p")
 }) || {};
 
-_C_p_initializer_r0n7sg = _C_p_result_o3vl9o.initialize || (v => v);
+_C_p_initializer_1k382 = _C_p_result_o6j97o.initialize || (v => v);
 
 Object.defineProperty(C, "p", {
-  get: _C_p_result_o3vl9o.get || _C_p_descriptor_dcrd8g.get,
-  set: _C_p_result_o3vl9o.set || _C_p_descriptor_dcrd8g.set
+  get: _C_p_result_o6j97o.get || _C_p_descriptor_10bl9g.get,
+  set: _C_p_result_o6j97o.set || _C_p_descriptor_10bl9g.set
 });
 
-_C_p_descriptor_dcrd8g.set.call(C, _C_p_initializer_r0n7sg(_C_p_descriptor_dcrd8g.get.call(C)));
+_C_p_descriptor_10bl9g.set.call(C, _C_p_initializer_1k382(_C_p_descriptor_10bl9g.get.call(C)));
 
-const _C_p_descriptor_oe24b8 = Object.getOwnPropertyDescriptor(C, "p");
+const _C_p_descriptor_m039ig = Object.getOwnPropertyDescriptor(C, "p");
 
-const _C_p_result_si9tj8 = meta(2)({
-  get: _C_p_descriptor_oe24b8.get,
-  set: _C_p_descriptor_oe24b8.set
+const _C_p_result_m71dgo = meta(2)({
+  get: _C_p_descriptor_m039ig.get,
+  set: _C_p_descriptor_m039ig.set
 }, {
   kind: "auto-accessor",
   name: "p",
@@ -118,20 +113,20 @@ const _C_p_result_si9tj8 = meta(2)({
   ...__PrepareMetadata(C, "public", "p")
 }) || {};
 
-_C_p_initializer_988qmg = _C_p_result_si9tj8.initialize || (v => v);
+_C_p_initializer_6e4nvo = _C_p_result_m71dgo.initialize || (v => v);
 
 Object.defineProperty(C, "p", {
-  get: _C_p_result_si9tj8.get || _C_p_descriptor_oe24b8.get,
-  set: _C_p_result_si9tj8.set || _C_p_descriptor_oe24b8.set
+  get: _C_p_result_m71dgo.get || _C_p_descriptor_m039ig.get,
+  set: _C_p_result_m71dgo.set || _C_p_descriptor_m039ig.set
 });
 
-_C_p_descriptor_oe24b8.set.call(C, _C_p_initializer_988qmg(_C_p_descriptor_oe24b8.get.call(C)));
+_C_p_descriptor_m039ig.set.call(C, _C_p_initializer_6e4nvo(_C_p_descriptor_m039ig.get.call(C)));
 
-const _C_f_descriptor_6ckf48 = Object.getOwnPropertyDescriptor(C, "f");
+const _C_f_descriptor_4m38k8 = Object.getOwnPropertyDescriptor(C, "f");
 
-const _C_f_result_4hi10g = meta(3)({
-  get: _C_f_descriptor_6ckf48.get,
-  set: _C_f_descriptor_6ckf48.set
+const _C_f_result_luhnp = meta(3)({
+  get: _C_f_descriptor_4m38k8.get,
+  set: _C_f_descriptor_4m38k8.set
 }, {
   kind: "auto-accessor",
   name: "f",
@@ -140,20 +135,20 @@ const _C_f_result_4hi10g = meta(3)({
   ...__PrepareMetadata(C, "public", "f")
 }) || {};
 
-_C_f_initializer_d2brgo = _C_f_result_4hi10g.initialize || (v => v);
+_C_f_initializer_qr1bm8 = _C_f_result_luhnp.initialize || (v => v);
 
 Object.defineProperty(C, "f", {
-  get: _C_f_result_4hi10g.get || _C_f_descriptor_6ckf48.get,
-  set: _C_f_result_4hi10g.set || _C_f_descriptor_6ckf48.set
+  get: _C_f_result_luhnp.get || _C_f_descriptor_4m38k8.get,
+  set: _C_f_result_luhnp.set || _C_f_descriptor_4m38k8.set
 });
 
-_C_f_descriptor_6ckf48.set.call(C, _C_f_initializer_d2brgo(_C_f_descriptor_6ckf48.get.call(C)));
+_C_f_descriptor_4m38k8.set.call(C, _C_f_initializer_qr1bm8(_C_f_descriptor_4m38k8.get.call(C)));
 
-const _C_f_descriptor_pau2vo = Object.getOwnPropertyDescriptor(C, "f");
+const _C_f_descriptor_0r148g = Object.getOwnPropertyDescriptor(C, "f");
 
-const _C_f_result_cfbb7g = meta(3)({
-  get: _C_f_descriptor_pau2vo.get,
-  set: _C_f_descriptor_pau2vo.set
+const _C_f_result_agcuo = meta(3)({
+  get: _C_f_descriptor_0r148g.get,
+  set: _C_f_descriptor_0r148g.set
 }, {
   kind: "auto-accessor",
   name: "f",
@@ -162,14 +157,14 @@ const _C_f_result_cfbb7g = meta(3)({
   ...__PrepareMetadata(C, "public", "f")
 }) || {};
 
-_C_f_initializer_cq1kfg = _C_f_result_cfbb7g.initialize || (v => v);
+_C_f_initializer_2adhn8 = _C_f_result_agcuo.initialize || (v => v);
 
 Object.defineProperty(C, "f", {
-  get: _C_f_result_cfbb7g.get || _C_f_descriptor_pau2vo.get,
-  set: _C_f_result_cfbb7g.set || _C_f_descriptor_pau2vo.set
+  get: _C_f_result_agcuo.get || _C_f_descriptor_0r148g.get,
+  set: _C_f_result_agcuo.set || _C_f_descriptor_0r148g.set
 });
 
-_C_f_descriptor_pau2vo.set.call(C, _C_f_initializer_cq1kfg(_C_f_descriptor_pau2vo.get.call(C)));
+_C_f_descriptor_0r148g.set.call(C, _C_f_initializer_2adhn8(_C_f_descriptor_0r148g.get.call(C)));
 
 console.assert(C[Symbol.metadata][META].public.p === 3);
 

@@ -17,12 +17,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -59,84 +54,84 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_kcgfcg = [];
+const _C_static_initializers_6r99r8 = [];
 
-const _C_m_symbol_79mit8 = Symbol();
+const _C_m_symbol_uqv0mo = Symbol();
 
 class C {
   constructor() {
     this.z = 100;
   }
-  static _C_m_temp_fhss48() {}
-  static [_C_m_symbol_79mit8] = addProperty("a", 1)(C._C_m_temp_fhss48, {
+  static _C_m_temp_r42528() {}
+  static [_C_m_symbol_uqv0mo] = addProperty("a", 1)(C._C_m_temp_r42528, {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_m_symbol_79mit8]
+      get: C[_C_m_symbol_uqv0mo]
     },
     ...__PrepareMetadata(C, "private", undefined),
-    addInitializer: initializer => _C_static_initializers_kcgfcg.push(initializer)
-  }) ?? C._C_m_temp_fhss48;
-  static [_C_m_symbol_79mit8] = addProperty("b", 2)(C[_C_m_symbol_79mit8], {
+    addInitializer: initializer => _C_static_initializers_6r99r8.push(initializer)
+  }) ?? C._C_m_temp_r42528;
+  static [_C_m_symbol_uqv0mo] = addProperty("b", 2)(C[_C_m_symbol_uqv0mo], {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_m_symbol_79mit8]
+      get: C[_C_m_symbol_uqv0mo]
     },
     ...__PrepareMetadata(C, "private", undefined),
-    addInitializer: initializer => _C_static_initializers_kcgfcg.push(initializer)
-  }) ?? C[_C_m_symbol_79mit8];
-  static #m = C[_C_m_symbol_79mit8];
-  static [_C_m_symbol_79mit8]() {
+    addInitializer: initializer => _C_static_initializers_6r99r8.push(initializer)
+  }) ?? C[_C_m_symbol_uqv0mo];
+  static #m = C[_C_m_symbol_uqv0mo];
+  static [_C_m_symbol_uqv0mo]() {
     return this.#m;
   }
 }
 
-delete C._C_m_temp_fhss48;
+delete C._C_m_temp_r42528;
 
-_C_static_initializers_kcgfcg.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_6r99r8.forEach(initialize => initialize.call(C, C));
 
-const _D_static_initializers_6v23r = [];
+const _D_static_initializers_p2au3g = [];
 
-const _D_m_symbol_lvsuh = Symbol();
+const _D_m_symbol_235he8 = Symbol();
 
 class D extends C {
-  static _D_m_temp_c842uo() {}
-  static [_D_m_symbol_lvsuh] = addProperty("c", 3)(D._D_m_temp_c842uo, {
+  static _D_m_temp_hml79g() {}
+  static [_D_m_symbol_235he8] = addProperty("c", 3)(D._D_m_temp_hml79g, {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: D[_D_m_symbol_lvsuh]
+      get: D[_D_m_symbol_235he8]
     },
     ...__PrepareMetadata(D, "private", undefined),
-    addInitializer: initializer => _D_static_initializers_6v23r.push(initializer)
-  }) ?? D._D_m_temp_c842uo;
-  static [_D_m_symbol_lvsuh] = addProperty("d", 4)(D[_D_m_symbol_lvsuh], {
+    addInitializer: initializer => _D_static_initializers_p2au3g.push(initializer)
+  }) ?? D._D_m_temp_hml79g;
+  static [_D_m_symbol_235he8] = addProperty("d", 4)(D[_D_m_symbol_235he8], {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: D[_D_m_symbol_lvsuh]
+      get: D[_D_m_symbol_235he8]
     },
     ...__PrepareMetadata(D, "private", undefined),
-    addInitializer: initializer => _D_static_initializers_6v23r.push(initializer)
-  }) ?? D[_D_m_symbol_lvsuh];
-  static #m = D[_D_m_symbol_lvsuh];
-  static [_D_m_symbol_lvsuh]() {
+    addInitializer: initializer => _D_static_initializers_p2au3g.push(initializer)
+  }) ?? D[_D_m_symbol_235he8];
+  static #m = D[_D_m_symbol_235he8];
+  static [_D_m_symbol_235he8]() {
     return this.#m;
   }
 }
 
-delete D._D_m_temp_c842uo;
+delete D._D_m_temp_hml79g;
 
-_D_static_initializers_6v23r.forEach(initialize => initialize.call(D, D));
+_D_static_initializers_p2au3g.forEach(initialize => initialize.call(D, D));
 
 console.assert(C.a === 1);
 

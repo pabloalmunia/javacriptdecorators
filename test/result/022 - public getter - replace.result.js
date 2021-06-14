@@ -13,12 +13,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -61,17 +56,17 @@ class C {
   }
 }
 
-const _C_p_descriptor_kptndo = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_ksn9rg = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_C_p_descriptor_kptndo.get = decorator(_C_p_descriptor_kptndo.get, {
+_C_p_descriptor_ksn9rg.get = decorator(_C_p_descriptor_ksn9rg.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(C.prototype, "public", "p")
-}) ?? _C_p_descriptor_kptndo.get;
+}) ?? _C_p_descriptor_ksn9rg.get;
 
-Object.defineProperty(C.prototype, "p", _C_p_descriptor_kptndo);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_ksn9rg);
 
 const a = new C();
 

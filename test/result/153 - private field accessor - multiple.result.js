@@ -27,12 +27,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -69,36 +64,36 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_aa0bc = Symbol();
+const _C_p_get_symbol_bfmgu8 = Symbol();
 
-const _C_p_set_symbol_571f7o = Symbol();
+const _C_p_set_symbol_kpd4ko = Symbol();
 
-let _C_p_getter_6gngdo;
+let _C_p_getter_6jkn9;
 
-let _C_p_setter_ej05io;
+let _C_p_setter_a6ald;
 
-let _C_p_initializer_tssgv8;
+let _C_p_initializer_7a2vp;
 
-let _C_p_initializer_ipalog;
+let _C_p_initializer_7mjn6;
 
 class C {
-  #_p_private_property_jqrtao = _C_p_initializer_ipalog.call(this, _C_p_initializer_tssgv8.call(this, 1));
+  #_p_private_property_u9tp48 = _C_p_initializer_7mjn6.call(this, _C_p_initializer_7a2vp.call(this, 1));
   get #p() {
-    return _C_p_getter_6gngdo.call(this);
+    return _C_p_getter_6jkn9.call(this);
   }
   set #p(v) {
-    return _C_p_setter_ej05io.call(this, v);
+    return _C_p_setter_a6ald.call(this, v);
   }
-  static _C_p_getter_6gngdo() {
-    return this.#_p_private_property_jqrtao;
+  static _C_p_getter_6jkn9() {
+    return this.#_p_private_property_u9tp48;
   }
-  static _C_p_setter_ej05io(v) {
-    this.#_p_private_property_jqrtao = v;
+  static _C_p_setter_a6ald(v) {
+    this.#_p_private_property_u9tp48 = v;
   }
-  [_C_p_get_symbol_aa0bc]() {
+  [_C_p_get_symbol_bfmgu8]() {
     return this.#p;
   }
-  [_C_p_set_symbol_571f7o](v) {
+  [_C_p_set_symbol_kpd4ko](v) {
     this.#p = v;
   }
   get check() {
@@ -106,55 +101,55 @@ class C {
   }
 }
 
-_C_p_getter_6gngdo = C._C_p_getter_6gngdo;
+_C_p_getter_6jkn9 = C._C_p_getter_6jkn9;
 
-_C_p_setter_ej05io = C._C_p_setter_ej05io;
+_C_p_setter_a6ald = C._C_p_setter_a6ald;
 
-delete C._C_p_getter_6gngdo;
+delete C._C_p_getter_6jkn9;
 
-delete C._C_p_setter_ej05io;
+delete C._C_p_setter_a6ald;
 
-const _C_p_result_h5dshg = decorator1({
-  get: _C_p_getter_6gngdo,
-  set: _C_p_setter_ej05io
+const _C_p_result_bplglg = decorator1({
+  get: _C_p_getter_6jkn9,
+  set: _C_p_setter_a6ald
 }, {
   kind: "auto-accessor",
   name: "#p",
   access: {
-    get: C.prototype[_C_p_get_symbol_aa0bc],
-    set: C.prototype[_C_p_set_symbol_571f7o]
+    get: C.prototype[_C_p_get_symbol_bfmgu8],
+    set: C.prototype[_C_p_set_symbol_kpd4ko]
   },
   isStatic: false,
   isPrivate: true,
   ...__PrepareMetadata(C.prototype, "private", undefined)
 }) || {};
 
-_C_p_initializer_ipalog = _C_p_result_h5dshg.initialize || (v => v);
+_C_p_initializer_7mjn6 = _C_p_result_bplglg.initialize || (v => v);
 
-_C_p_getter_6gngdo = _C_p_result_h5dshg.get || _C_p_getter_6gngdo;
+_C_p_getter_6jkn9 = _C_p_result_bplglg.get || _C_p_getter_6jkn9;
 
-_C_p_setter_ej05io = _C_p_result_h5dshg.set || _C_p_setter_ej05io;
+_C_p_setter_a6ald = _C_p_result_bplglg.set || _C_p_setter_a6ald;
 
-const _C_p_result_i126lo = decorator2({
-  get: _C_p_getter_6gngdo,
-  set: _C_p_setter_ej05io
+const _C_p_result_88lo3o = decorator2({
+  get: _C_p_getter_6jkn9,
+  set: _C_p_setter_a6ald
 }, {
   kind: "auto-accessor",
   name: "#p",
   access: {
-    get: C.prototype[_C_p_get_symbol_aa0bc],
-    set: C.prototype[_C_p_set_symbol_571f7o]
+    get: C.prototype[_C_p_get_symbol_bfmgu8],
+    set: C.prototype[_C_p_set_symbol_kpd4ko]
   },
   isStatic: false,
   isPrivate: true,
   ...__PrepareMetadata(C.prototype, "private", undefined)
 }) || {};
 
-_C_p_initializer_tssgv8 = _C_p_result_i126lo.initialize || (v => v);
+_C_p_initializer_7a2vp = _C_p_result_88lo3o.initialize || (v => v);
 
-_C_p_getter_6gngdo = _C_p_result_i126lo.get || _C_p_getter_6gngdo;
+_C_p_getter_6jkn9 = _C_p_result_88lo3o.get || _C_p_getter_6jkn9;
 
-_C_p_setter_ej05io = _C_p_result_i126lo.set || _C_p_setter_ej05io;
+_C_p_setter_a6ald = _C_p_result_88lo3o.set || _C_p_setter_a6ald;
 
 const c = new C();
 

@@ -17,12 +17,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -59,85 +54,85 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_member_initializers_ch3khg = [];
+const _C_member_initializers_f67u7g = [];
 
-const _C_m_symbol_5ohleg = Symbol();
+const _C_m_symbol_oel4o = Symbol();
 
 class C {
   constructor() {
     this.z = 100;
-    _C_member_initializers_ch3khg.forEach(initialize => initialize.call(this));
+    _C_member_initializers_f67u7g.forEach(initialize => initialize.call(this));
   }
-  _C_m_temp_gm9o9g() {}
-  static [_C_m_symbol_5ohleg] = addProperty("a", 1)(C.prototype._C_m_temp_gm9o9g, {
+  _C_m_temp_a2bgcg() {}
+  static [_C_m_symbol_oel4o] = addProperty("a", 1)(C.prototype._C_m_temp_a2bgcg, {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_m_symbol_5ohleg]
+      get: C.prototype[_C_m_symbol_oel4o]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined),
-    addInitializer: initializer => _C_member_initializers_ch3khg.push(initializer)
-  }) ?? C.prototype._C_m_temp_gm9o9g;
-  static [_C_m_symbol_5ohleg] = addProperty("b", 2)(C[_C_m_symbol_5ohleg], {
+    addInitializer: initializer => _C_member_initializers_f67u7g.push(initializer)
+  }) ?? C.prototype._C_m_temp_a2bgcg;
+  static [_C_m_symbol_oel4o] = addProperty("b", 2)(C[_C_m_symbol_oel4o], {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_m_symbol_5ohleg]
+      get: C.prototype[_C_m_symbol_oel4o]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined),
-    addInitializer: initializer => _C_member_initializers_ch3khg.push(initializer)
-  }) ?? C[_C_m_symbol_5ohleg];
-  #m = C[_C_m_symbol_5ohleg];
-  [_C_m_symbol_5ohleg]() {
+    addInitializer: initializer => _C_member_initializers_f67u7g.push(initializer)
+  }) ?? C[_C_m_symbol_oel4o];
+  #m = C[_C_m_symbol_oel4o];
+  [_C_m_symbol_oel4o]() {
     return this.#m;
   }
 }
 
-delete C.prototype._C_m_temp_gm9o9g;
+delete C.prototype._C_m_temp_a2bgcg;
 
-const _D_member_initializers_rld838 = [];
+const _D_member_initializers_gvh908 = [];
 
-const _D_m_symbol_76qq4o = Symbol();
+const _D_m_symbol_g2rmk = Symbol();
 
 class D extends C {
   constructor() {
     super();
-    _D_member_initializers_rld838.forEach(initialize => initialize.call(this));
+    _D_member_initializers_gvh908.forEach(initialize => initialize.call(this));
   }
-  _D_m_temp_443fco() {}
-  static [_D_m_symbol_76qq4o] = addProperty("c", 3)(D.prototype._D_m_temp_443fco, {
+  _D_m_temp_0u0oo8() {}
+  static [_D_m_symbol_g2rmk] = addProperty("c", 3)(D.prototype._D_m_temp_0u0oo8, {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: D.prototype[_D_m_symbol_76qq4o]
+      get: D.prototype[_D_m_symbol_g2rmk]
     },
     ...__PrepareMetadata(D.prototype, "private", undefined),
-    addInitializer: initializer => _D_member_initializers_rld838.push(initializer)
-  }) ?? D.prototype._D_m_temp_443fco;
-  static [_D_m_symbol_76qq4o] = addProperty("d", 4)(D[_D_m_symbol_76qq4o], {
+    addInitializer: initializer => _D_member_initializers_gvh908.push(initializer)
+  }) ?? D.prototype._D_m_temp_0u0oo8;
+  static [_D_m_symbol_g2rmk] = addProperty("d", 4)(D[_D_m_symbol_g2rmk], {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: D.prototype[_D_m_symbol_76qq4o]
+      get: D.prototype[_D_m_symbol_g2rmk]
     },
     ...__PrepareMetadata(D.prototype, "private", undefined),
-    addInitializer: initializer => _D_member_initializers_rld838.push(initializer)
-  }) ?? D[_D_m_symbol_76qq4o];
-  #m = D[_D_m_symbol_76qq4o];
-  [_D_m_symbol_76qq4o]() {
+    addInitializer: initializer => _D_member_initializers_gvh908.push(initializer)
+  }) ?? D[_D_m_symbol_g2rmk];
+  #m = D[_D_m_symbol_g2rmk];
+  [_D_m_symbol_g2rmk]() {
     return this.#m;
   }
 }
 
-delete D.prototype._D_m_temp_443fco;
+delete D.prototype._D_m_temp_0u0oo8;
 
 const c = new C();
 

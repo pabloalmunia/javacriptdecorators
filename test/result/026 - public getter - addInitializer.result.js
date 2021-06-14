@@ -13,12 +13,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -55,26 +50,26 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_member_initializers_rnb05g = [];
+const _C_member_initializers_g4v8gg = [];
 
 class C {
   constructor() {
-    _C_member_initializers_rnb05g.forEach(initialize => initialize.call(this));
+    _C_member_initializers_g4v8gg.forEach(initialize => initialize.call(this));
   }
   get p() {}
 }
 
-const _C_p_descriptor_c395so = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_1si21o = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_C_p_descriptor_c395so.get = decorator(_C_p_descriptor_c395so.get, {
+_C_p_descriptor_1si21o.get = decorator(_C_p_descriptor_1si21o.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(C.prototype, "public", "p"),
-  addInitializer: initializer => _C_member_initializers_rnb05g.push(initializer)
-}) ?? _C_p_descriptor_c395so.get;
+  addInitializer: initializer => _C_member_initializers_g4v8gg.push(initializer)
+}) ?? _C_p_descriptor_1si21o.get;
 
-Object.defineProperty(C.prototype, "p", _C_p_descriptor_c395so);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_1si21o);
 
 console.assert(new C().test === 10);

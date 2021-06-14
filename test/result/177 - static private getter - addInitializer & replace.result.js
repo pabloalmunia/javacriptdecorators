@@ -16,12 +16,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -58,40 +53,40 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_vh67t = [];
+const _C_static_initializers_no1tso = [];
 
-const _C_p_symbol_tbd8j = Symbol();
+const _C_p_symbol_4mgfuo = Symbol();
 
 class C {
   static #q = 10;
-  static _C_p_temp_9c8scg() {
+  static _C_p_temp_49l65o() {
     return this.#q;
   }
-  static [_C_p_symbol_tbd8j] = decorator(C._C_p_temp_9c8scg, {
+  static [_C_p_symbol_4mgfuo] = decorator(C._C_p_temp_49l65o, {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_tbd8j]
+      get: C[_C_p_symbol_4mgfuo]
     },
     ...__PrepareMetadata(C, "private", undefined),
-    addInitializer: initializer => _C_static_initializers_vh67t.push(initializer)
-  }) ?? C._C_p_temp_9c8scg;
+    addInitializer: initializer => _C_static_initializers_no1tso.push(initializer)
+  }) ?? C._C_p_temp_49l65o;
   static get #p() {
-    return C[_C_p_symbol_tbd8j].bind(this)();
+    return C[_C_p_symbol_4mgfuo].bind(this)();
   }
-  static [_C_p_symbol_tbd8j]() {
-    return C[_C_p_symbol_tbd8j].bind(this);
+  static [_C_p_symbol_4mgfuo]() {
+    return C[_C_p_symbol_4mgfuo].bind(this);
   }
   static get check() {
     return this.#p;
   }
 }
 
-delete C._C_p_temp_9c8scg;
+delete C._C_p_temp_49l65o;
 
-_C_static_initializers_vh67t.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_no1tso.forEach(initialize => initialize.call(C, C));
 
 console.assert(C.test === 10);
 

@@ -15,12 +15,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -57,28 +52,28 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _A_p_get_symbol_ssmk1o = Symbol();
+const _A_p_get_symbol_u70b8o = Symbol();
 
-const _A_p_set_symbol_tvuvlg = Symbol();
+const _A_p_set_symbol_6ke0uo = Symbol();
 
-let _A_p_initializer_hb38m;
+let _A_p_initializer_qh5vuo;
 
 class A {
-  #p = _A_p_initializer_hb38m.call(this, 1);
-  [_A_p_get_symbol_ssmk1o]() {
+  #p = _A_p_initializer_qh5vuo.call(this, 1);
+  [_A_p_get_symbol_u70b8o]() {
     return this.#p;
   }
-  [_A_p_set_symbol_tvuvlg](v) {
+  [_A_p_set_symbol_6ke0uo](v) {
     this.#p = v;
   }
 }
 
-_A_p_initializer_hb38m = decorator(undefined, {
+_A_p_initializer_qh5vuo = decorator(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: A.prototype[_A_p_get_symbol_ssmk1o],
-    set: A.prototype[_A_p_set_symbol_tvuvlg]
+    get: A.prototype[_A_p_get_symbol_u70b8o],
+    set: A.prototype[_A_p_set_symbol_6ke0uo]
   },
   isStatic: false,
   isPrivate: true,

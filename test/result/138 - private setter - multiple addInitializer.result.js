@@ -17,12 +17,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -59,89 +54,89 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_member_initializers_6tjhj8 = [];
+const _C_member_initializers_beifqg = [];
 
-const _C_p_symbol_cgbar8 = Symbol();
+const _C_p_symbol_h1orp8 = Symbol();
 
 class C {
   constructor() {
     this.z = 100;
-    _C_member_initializers_6tjhj8.forEach(initialize => initialize.call(this));
+    _C_member_initializers_beifqg.forEach(initialize => initialize.call(this));
   }
-  _C_p_temp_r56qdg(v) {}
-  static [_C_p_symbol_cgbar8] = addProperty("a", 1)(C.prototype._C_p_temp_r56qdg, {
+  _C_p_temp_fftr4g(v) {}
+  static [_C_p_symbol_h1orp8] = addProperty("a", 1)(C.prototype._C_p_temp_fftr4g, {
     kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_cgbar8]
+      get: C.prototype[_C_p_symbol_h1orp8]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined),
-    addInitializer: initializer => _C_member_initializers_6tjhj8.push(initializer)
-  }) ?? C.prototype._C_p_temp_r56qdg;
-  static [_C_p_symbol_cgbar8] = addProperty("b", 2)(C[_C_p_symbol_cgbar8], {
+    addInitializer: initializer => _C_member_initializers_beifqg.push(initializer)
+  }) ?? C.prototype._C_p_temp_fftr4g;
+  static [_C_p_symbol_h1orp8] = addProperty("b", 2)(C[_C_p_symbol_h1orp8], {
     kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_cgbar8]
+      get: C.prototype[_C_p_symbol_h1orp8]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined),
-    addInitializer: initializer => _C_member_initializers_6tjhj8.push(initializer)
-  }) ?? C[_C_p_symbol_cgbar8];
+    addInitializer: initializer => _C_member_initializers_beifqg.push(initializer)
+  }) ?? C[_C_p_symbol_h1orp8];
   set #p(v) {
-    return C[_C_p_symbol_cgbar8].bind(this)(v);
+    return C[_C_p_symbol_h1orp8].bind(this)(v);
   }
-  [_C_p_symbol_cgbar8]() {
-    return C[_C_p_symbol_cgbar8].bind(this);
+  [_C_p_symbol_h1orp8]() {
+    return C[_C_p_symbol_h1orp8].bind(this);
   }
 }
 
-delete C.prototype._C_p_temp_r56qdg;
+delete C.prototype._C_p_temp_fftr4g;
 
-const _D_member_initializers_aiugco = [];
+const _D_member_initializers_j0pkrg = [];
 
-const _D_p_symbol_1rneoo = Symbol();
+const _D_p_symbol_e6btt8 = Symbol();
 
 class D extends C {
   constructor() {
     super();
-    _D_member_initializers_aiugco.forEach(initialize => initialize.call(this));
+    _D_member_initializers_j0pkrg.forEach(initialize => initialize.call(this));
   }
-  _D_p_temp_he0g(v) {}
-  static [_D_p_symbol_1rneoo] = addProperty("c", 3)(D.prototype._D_p_temp_he0g, {
+  _D_p_temp_ed1mj8(v) {}
+  static [_D_p_symbol_e6btt8] = addProperty("c", 3)(D.prototype._D_p_temp_ed1mj8, {
     kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: D.prototype[_D_p_symbol_1rneoo]
+      get: D.prototype[_D_p_symbol_e6btt8]
     },
     ...__PrepareMetadata(D.prototype, "private", undefined),
-    addInitializer: initializer => _D_member_initializers_aiugco.push(initializer)
-  }) ?? D.prototype._D_p_temp_he0g;
-  static [_D_p_symbol_1rneoo] = addProperty("d", 4)(D[_D_p_symbol_1rneoo], {
+    addInitializer: initializer => _D_member_initializers_j0pkrg.push(initializer)
+  }) ?? D.prototype._D_p_temp_ed1mj8;
+  static [_D_p_symbol_e6btt8] = addProperty("d", 4)(D[_D_p_symbol_e6btt8], {
     kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: D.prototype[_D_p_symbol_1rneoo]
+      get: D.prototype[_D_p_symbol_e6btt8]
     },
     ...__PrepareMetadata(D.prototype, "private", undefined),
-    addInitializer: initializer => _D_member_initializers_aiugco.push(initializer)
-  }) ?? D[_D_p_symbol_1rneoo];
+    addInitializer: initializer => _D_member_initializers_j0pkrg.push(initializer)
+  }) ?? D[_D_p_symbol_e6btt8];
   set #p(v) {
-    return D[_D_p_symbol_1rneoo].bind(this)(v);
+    return D[_D_p_symbol_e6btt8].bind(this)(v);
   }
-  [_D_p_symbol_1rneoo]() {
-    return D[_D_p_symbol_1rneoo].bind(this);
+  [_D_p_symbol_e6btt8]() {
+    return D[_D_p_symbol_e6btt8].bind(this);
   }
 }
 
-delete D.prototype._D_p_temp_he0g;
+delete D.prototype._D_p_temp_ed1mj8;
 
 const c = new C();
 

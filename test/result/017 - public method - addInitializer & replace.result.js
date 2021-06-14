@@ -23,12 +23,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -65,11 +60,11 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_member_initializers_qufd2o = [];
+const _C_member_initializers_tf2egg = [];
 
 class C {
   constructor() {
-    _C_member_initializers_qufd2o.forEach(initialize => initialize.call(this));
+    _C_member_initializers_tf2egg.forEach(initialize => initialize.call(this));
   }
   m(v) {
     return v * 2;
@@ -82,7 +77,7 @@ C.prototype.m = decorator(C.prototype.m, {
   isStatic: false,
   isPrivate: false,
   ...__PrepareMetadata(C.prototype, "public", "m"),
-  addInitializer: initializer => _C_member_initializers_qufd2o.push(initializer)
+  addInitializer: initializer => _C_member_initializers_tf2egg.push(initializer)
 }) ?? C.prototype.m;
 
 console.assert(new C().m(2) === 4);

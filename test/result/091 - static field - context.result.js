@@ -15,12 +15,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -61,7 +56,7 @@ class A {
   static p = 1;
 }
 
-const _A_p_initializer_7tup9g = decorator(undefined, {
+const _A_p_initializer_sk94v = decorator(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
@@ -69,4 +64,4 @@ const _A_p_initializer_7tup9g = decorator(undefined, {
   ...__PrepareMetadata(A, "public", "p")
 }) ?? (v => v);
 
-A.p = _A_p_initializer_7tup9g.call(A, A.p);
+A.p = _A_p_initializer_sk94v.call(A, A.p);

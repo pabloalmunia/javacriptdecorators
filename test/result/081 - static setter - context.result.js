@@ -15,12 +15,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -61,14 +56,14 @@ class A {
   static set p(v) {}
 }
 
-const _A_p_descriptor_3ootm8 = Object.getOwnPropertyDescriptor(A, "p");
+const _A_p_descriptor_slpsrg = Object.getOwnPropertyDescriptor(A, "p");
 
-_A_p_descriptor_3ootm8.set = decorator(_A_p_descriptor_3ootm8.set, {
+_A_p_descriptor_slpsrg.set = decorator(_A_p_descriptor_slpsrg.set, {
   kind: "setter",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(A, "public", "p")
-}) ?? _A_p_descriptor_3ootm8.set;
+}) ?? _A_p_descriptor_slpsrg.set;
 
-Object.defineProperty(A, "p", _A_p_descriptor_3ootm8);
+Object.defineProperty(A, "p", _A_p_descriptor_slpsrg);

@@ -17,12 +17,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -59,7 +54,7 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_r7mfgg = [];
+const _C_static_initializers_c5r3lg = [];
 
 class C {
   constructor() {
@@ -68,59 +63,59 @@ class C {
   static p = 1;
 }
 
-const _C_p_initializer_b6rd4g = addProperty("b", 2)(undefined, {
+const _C_p_initializer_6ea59 = addProperty("b", 2)(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "p"),
-  addInitializer: initializer => _C_static_initializers_r7mfgg.push(initializer)
+  addInitializer: initializer => _C_static_initializers_c5r3lg.push(initializer)
 }) ?? (v => v);
 
-C.p = _C_p_initializer_b6rd4g.call(C, C.p);
+C.p = _C_p_initializer_6ea59.call(C, C.p);
 
-const _C_p_initializer_b5mf5 = addProperty("a", 1)(undefined, {
+const _C_p_initializer_t0s458 = addProperty("a", 1)(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "p"),
-  addInitializer: initializer => _C_static_initializers_r7mfgg.push(initializer)
+  addInitializer: initializer => _C_static_initializers_c5r3lg.push(initializer)
 }) ?? (v => v);
 
-C.p = _C_p_initializer_b5mf5.call(C, C.p);
+C.p = _C_p_initializer_t0s458.call(C, C.p);
 
-_C_static_initializers_r7mfgg.forEach(initializer => initializer.call(C, C));
+_C_static_initializers_c5r3lg.forEach(initializer => initializer.call(C, C));
 
-const _D_static_initializers_trqph = [];
+const _D_static_initializers_a3gdgg = [];
 
 class D extends C {
   static p = 2;
 }
 
-const _D_p_initializer_rk00do = addProperty("d", 4)(undefined, {
+const _D_p_initializer_uhduq = addProperty("d", 4)(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(D, "public", "p"),
-  addInitializer: initializer => _D_static_initializers_trqph.push(initializer)
+  addInitializer: initializer => _D_static_initializers_a3gdgg.push(initializer)
 }) ?? (v => v);
 
-D.p = _D_p_initializer_rk00do.call(D, D.p);
+D.p = _D_p_initializer_uhduq.call(D, D.p);
 
-const _D_p_initializer_3pl66g = addProperty("c", 3)(undefined, {
+const _D_p_initializer_dkmdg = addProperty("c", 3)(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(D, "public", "p"),
-  addInitializer: initializer => _D_static_initializers_trqph.push(initializer)
+  addInitializer: initializer => _D_static_initializers_a3gdgg.push(initializer)
 }) ?? (v => v);
 
-D.p = _D_p_initializer_3pl66g.call(D, D.p);
+D.p = _D_p_initializer_dkmdg.call(D, D.p);
 
-_D_static_initializers_trqph.forEach(initializer => initializer.call(D, D));
+_D_static_initializers_a3gdgg.forEach(initializer => initializer.call(D, D));
 
 console.assert(C.p === 1);
 

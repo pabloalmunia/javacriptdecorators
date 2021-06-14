@@ -17,12 +17,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -59,7 +54,7 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_rb5cco = [];
+const _C_static_initializers_ambc78 = [];
 
 class C {
   constructor() {
@@ -74,7 +69,7 @@ C.m = addProperty("b", 2)(C.m, {
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "m"),
-  addInitializer: initializer => _C_static_initializers_rb5cco.push(initializer)
+  addInitializer: initializer => _C_static_initializers_ambc78.push(initializer)
 }) ?? C.m;
 
 C.m = addProperty("a", 1)(C.m, {
@@ -83,12 +78,12 @@ C.m = addProperty("a", 1)(C.m, {
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "m"),
-  addInitializer: initializer => _C_static_initializers_rb5cco.push(initializer)
+  addInitializer: initializer => _C_static_initializers_ambc78.push(initializer)
 }) ?? C.m;
 
-_C_static_initializers_rb5cco.forEach(initializer => initializer.call(C, C));
+_C_static_initializers_ambc78.forEach(initializer => initializer.call(C, C));
 
-const _D_static_initializers_hakfu8 = [];
+const _D_static_initializers_m0a01 = [];
 
 class D extends C {
   static m() {}
@@ -100,7 +95,7 @@ D.m = addProperty("d", 4)(D.m, {
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(D, "public", "m"),
-  addInitializer: initializer => _D_static_initializers_hakfu8.push(initializer)
+  addInitializer: initializer => _D_static_initializers_m0a01.push(initializer)
 }) ?? D.m;
 
 D.m = addProperty("c", 3)(D.m, {
@@ -109,10 +104,10 @@ D.m = addProperty("c", 3)(D.m, {
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(D, "public", "m"),
-  addInitializer: initializer => _D_static_initializers_hakfu8.push(initializer)
+  addInitializer: initializer => _D_static_initializers_m0a01.push(initializer)
 }) ?? D.m;
 
-_D_static_initializers_hakfu8.forEach(initializer => initializer.call(D, D));
+_D_static_initializers_m0a01.forEach(initializer => initializer.call(D, D));
 
 console.assert(C.a === 1);
 

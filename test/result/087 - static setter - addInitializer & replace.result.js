@@ -16,12 +16,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -58,7 +53,7 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_rn2lo8 = [];
+const _C_static_initializers_7u1ke = [];
 
 class C {
   static #p = 10;
@@ -70,20 +65,20 @@ class C {
   }
 }
 
-const _C_p_descriptor_d3mtn8 = Object.getOwnPropertyDescriptor(C, "p");
+const _C_p_descriptor_as19l = Object.getOwnPropertyDescriptor(C, "p");
 
-_C_p_descriptor_d3mtn8.set = decorator(_C_p_descriptor_d3mtn8.set, {
+_C_p_descriptor_as19l.set = decorator(_C_p_descriptor_as19l.set, {
   kind: "setter",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "p"),
-  addInitializer: initializer => _C_static_initializers_rn2lo8.push(initializer)
-}) ?? _C_p_descriptor_d3mtn8.set;
+  addInitializer: initializer => _C_static_initializers_7u1ke.push(initializer)
+}) ?? _C_p_descriptor_as19l.set;
 
-Object.defineProperty(C, "p", _C_p_descriptor_d3mtn8);
+Object.defineProperty(C, "p", _C_p_descriptor_as19l);
 
-_C_static_initializers_rn2lo8.forEach(initializer => initializer.call(C, C));
+_C_static_initializers_7u1ke.forEach(initializer => initializer.call(C, C));
 
 console.assert(C.test === 10);
 

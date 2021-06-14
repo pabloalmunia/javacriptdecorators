@@ -13,12 +13,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -55,34 +50,34 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_member_initializers_sjuc5g = [];
+const _C_member_initializers_pdth2g = [];
 
-const _C_p_symbol_ot1tkg = Symbol();
+const _C_p_symbol_hjvvdo = Symbol();
 
 class C {
   constructor() {
-    _C_member_initializers_sjuc5g.forEach(initialize => initialize.call(this));
+    _C_member_initializers_pdth2g.forEach(initialize => initialize.call(this));
   }
-  _C_p_temp_3i1fog() {}
-  static [_C_p_symbol_ot1tkg] = decorator(C.prototype._C_p_temp_3i1fog, {
+  _C_p_temp_log748() {}
+  static [_C_p_symbol_hjvvdo] = decorator(C.prototype._C_p_temp_log748, {
     kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_ot1tkg]
+      get: C.prototype[_C_p_symbol_hjvvdo]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined),
-    addInitializer: initializer => _C_member_initializers_sjuc5g.push(initializer)
-  }) ?? C.prototype._C_p_temp_3i1fog;
+    addInitializer: initializer => _C_member_initializers_pdth2g.push(initializer)
+  }) ?? C.prototype._C_p_temp_log748;
   get #p() {
-    return C[_C_p_symbol_ot1tkg].bind(this)();
+    return C[_C_p_symbol_hjvvdo].bind(this)();
   }
-  [_C_p_symbol_ot1tkg]() {
-    return C[_C_p_symbol_ot1tkg].bind(this);
+  [_C_p_symbol_hjvvdo]() {
+    return C[_C_p_symbol_hjvvdo].bind(this);
   }
 }
 
-delete C.prototype._C_p_temp_3i1fog;
+delete C.prototype._C_p_temp_log748;
 
 console.assert(new C().test === 10);

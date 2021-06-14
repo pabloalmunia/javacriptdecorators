@@ -32,12 +32,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -74,7 +69,7 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_class_initializers_put2mo = [];
+const _C_class_initializers_g2ptt8 = [];
 
 class C {}
 
@@ -82,10 +77,10 @@ C = logged(C, {
   kind: "class",
   name: "C",
   ...__PrepareMetadata(C, "constructor", undefined),
-  addInitializer: initializer => _C_class_initializers_put2mo.push(initializer)
+  addInitializer: initializer => _C_class_initializers_g2ptt8.push(initializer)
 }) ?? C;
 
-_C_class_initializers_put2mo.forEach(initializer => initializer.call(C, C));
+_C_class_initializers_g2ptt8.forEach(initializer => initializer.call(C, C));
 
 new C(1);
 

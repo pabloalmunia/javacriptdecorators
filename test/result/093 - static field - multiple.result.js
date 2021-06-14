@@ -23,12 +23,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -69,7 +64,7 @@ class C {
   static p = 1;
 }
 
-const _C_p_initializer_91eut8 = decorator2(undefined, {
+const _C_p_initializer_d693v8 = decorator2(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
@@ -77,9 +72,9 @@ const _C_p_initializer_91eut8 = decorator2(undefined, {
   ...__PrepareMetadata(C, "public", "p")
 }) ?? (v => v);
 
-C.p = _C_p_initializer_91eut8.call(C, C.p);
+C.p = _C_p_initializer_d693v8.call(C, C.p);
 
-const _C_p_initializer_h6sesg = decorator1(undefined, {
+const _C_p_initializer_s60te8 = decorator1(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
@@ -87,6 +82,6 @@ const _C_p_initializer_h6sesg = decorator1(undefined, {
   ...__PrepareMetadata(C, "public", "p")
 }) ?? (v => v);
 
-C.p = _C_p_initializer_h6sesg.call(C, C.p);
+C.p = _C_p_initializer_s60te8.call(C, C.p);
 
 console.assert(C.p === 6);

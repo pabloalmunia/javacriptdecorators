@@ -23,12 +23,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -65,20 +60,20 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_q9j7m = Symbol();
+const _C_p_get_symbol_4qvclg = Symbol();
 
-const _C_p_set_symbol_o50lq = Symbol();
+const _C_p_set_symbol_b8l22g = Symbol();
 
-let _C_p_initializer_spg1go;
+let _C_p_initializer_e8kefo;
 
-let _C_p_initializer_ocjjeg;
+let _C_p_initializer_7qce4;
 
 class C {
-  #p = _C_p_initializer_ocjjeg.call(this, _C_p_initializer_spg1go.call(this, 1));
-  [_C_p_get_symbol_q9j7m]() {
+  #p = _C_p_initializer_7qce4.call(this, _C_p_initializer_e8kefo.call(this, 1));
+  [_C_p_get_symbol_4qvclg]() {
     return this.#p;
   }
-  [_C_p_set_symbol_o50lq](v) {
+  [_C_p_set_symbol_b8l22g](v) {
     this.#p = v;
   }
   get check() {
@@ -86,24 +81,24 @@ class C {
   }
 }
 
-_C_p_initializer_ocjjeg = decorator1(undefined, {
+_C_p_initializer_7qce4 = decorator1(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C.prototype[_C_p_get_symbol_q9j7m],
-    set: C.prototype[_C_p_set_symbol_o50lq]
+    get: C.prototype[_C_p_get_symbol_4qvclg],
+    set: C.prototype[_C_p_set_symbol_b8l22g]
   },
   isStatic: false,
   isPrivate: true,
   ...__PrepareMetadata(C.prototype, "private", undefined)
 }) ?? (v => v);
 
-_C_p_initializer_spg1go = decorator2(undefined, {
+_C_p_initializer_e8kefo = decorator2(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C.prototype[_C_p_get_symbol_q9j7m],
-    set: C.prototype[_C_p_set_symbol_o50lq]
+    get: C.prototype[_C_p_get_symbol_4qvclg],
+    set: C.prototype[_C_p_set_symbol_b8l22g]
   },
   isStatic: false,
   isPrivate: true,

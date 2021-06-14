@@ -15,12 +15,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -57,23 +52,23 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _A_p_initializer_qf9ndo;
+let _A_p_initializer_o0oa3o;
 
 class A {
-  static #_p_private_property_s5o93o = 1;
+  static #_p_private_property_64eks = 1;
   static get p() {
-    return this.#_p_private_property_s5o93o;
+    return this.#_p_private_property_64eks;
   }
   static set p(v) {
-    this.#_p_private_property_s5o93o = v;
+    this.#_p_private_property_64eks = v;
   }
 }
 
-const _A_p_descriptor_0ubug8 = Object.getOwnPropertyDescriptor(A, "p");
+const _A_p_descriptor_jg7fuo = Object.getOwnPropertyDescriptor(A, "p");
 
-const _A_p_result_dt4aag = decorator({
-  get: _A_p_descriptor_0ubug8.get,
-  set: _A_p_descriptor_0ubug8.set
+const _A_p_result_c7cku = decorator({
+  get: _A_p_descriptor_jg7fuo.get,
+  set: _A_p_descriptor_jg7fuo.set
 }, {
   kind: "auto-accessor",
   name: "p",
@@ -82,11 +77,11 @@ const _A_p_result_dt4aag = decorator({
   ...__PrepareMetadata(A, "public", "p")
 }) || {};
 
-_A_p_initializer_qf9ndo = _A_p_result_dt4aag.initialize || (v => v);
+_A_p_initializer_o0oa3o = _A_p_result_c7cku.initialize || (v => v);
 
 Object.defineProperty(A, "p", {
-  get: _A_p_result_dt4aag.get || _A_p_descriptor_0ubug8.get,
-  set: _A_p_result_dt4aag.set || _A_p_descriptor_0ubug8.set
+  get: _A_p_result_c7cku.get || _A_p_descriptor_jg7fuo.get,
+  set: _A_p_result_c7cku.set || _A_p_descriptor_jg7fuo.set
 });
 
-_A_p_descriptor_0ubug8.set.call(A, _A_p_initializer_qf9ndo(_A_p_descriptor_0ubug8.get.call(A)));
+_A_p_descriptor_jg7fuo.set.call(A, _A_p_initializer_o0oa3o(_A_p_descriptor_jg7fuo.get.call(A)));

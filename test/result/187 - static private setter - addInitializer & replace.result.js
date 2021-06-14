@@ -16,12 +16,7 @@ const __metadataPrivate = new WeakMap();
 function __PrepareMetadata(base, kind, property) {
   function createObjectWithPrototype(obj, key) {
     if (!Object.hasOwnProperty.call(obj, key)) {
-      for (let proto = obj; proto; proto = Object.getPrototypeOf(proto)) {
-        if (Object.hasOwnProperty.call(proto, key)) {
-          return obj[key] = Object.create(proto[key]);
-        }
-      }
-      obj[key] = Object.create(null);
+      obj[key] = Object.create(obj[key] || null);
     }
   }
   return {
@@ -58,34 +53,34 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_8eftcg = [];
+const _C_static_initializers_hempgo = [];
 
-const _C_p_symbol_4gkk7 = Symbol();
+const _C_p_symbol_98n05o = Symbol();
 
 class C {
   static #q = 10;
   static get #p() {
     return this.#q;
   }
-  static _C_p_temp_900t6g(v) {
+  static _C_p_temp_9giji(v) {
     this.#q = v;
   }
-  static [_C_p_symbol_4gkk7] = decorator(C._C_p_temp_900t6g, {
+  static [_C_p_symbol_98n05o] = decorator(C._C_p_temp_9giji, {
     kind: "setter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_4gkk7]
+      get: C[_C_p_symbol_98n05o]
     },
     ...__PrepareMetadata(C, "private", undefined),
-    addInitializer: initializer => _C_static_initializers_8eftcg.push(initializer)
-  }) ?? C._C_p_temp_900t6g;
+    addInitializer: initializer => _C_static_initializers_hempgo.push(initializer)
+  }) ?? C._C_p_temp_9giji;
   static set #p(v) {
-    return C[_C_p_symbol_4gkk7].bind(this)(v);
+    return C[_C_p_symbol_98n05o].bind(this)(v);
   }
-  static [_C_p_symbol_4gkk7]() {
-    return C[_C_p_symbol_4gkk7].bind(this);
+  static [_C_p_symbol_98n05o]() {
+    return C[_C_p_symbol_98n05o].bind(this);
   }
   static get check() {
     return this.#p;
@@ -95,9 +90,9 @@ class C {
   }
 }
 
-delete C._C_p_temp_900t6g;
+delete C._C_p_temp_9giji;
 
-_C_static_initializers_8eftcg.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_hempgo.forEach(initialize => initialize.call(C, C));
 
 console.assert(C.test === 10);
 
