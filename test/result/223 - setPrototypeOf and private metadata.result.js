@@ -48,84 +48,77 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _A_a_symbol_887u4 = Symbol();
+const _A_a_symbol_tmllf = Symbol();
 
 class A {
-  a = "a";
-  _A_a_temp_v5b4n8() {}
-  static [_A_a_symbol_887u4] = metadata(10)(A.prototype._A_a_temp_v5b4n8, {
+  _A_a_temp_5vq678() {}
+  static [_A_a_symbol_tmllf] = metadata(10)(A.prototype._A_a_temp_5vq678, {
     kind: "method",
     name: "#a",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: A.prototype[_A_a_symbol_887u4]
+      get: A.prototype[_A_a_symbol_tmllf]
     },
     ...__PrepareMetadata(A.prototype, "private", undefined)
-  }) ?? A.prototype._A_a_temp_v5b4n8;
-  #a = A[_A_a_symbol_887u4];
-  [_A_a_symbol_887u4]() {
+  }) ?? A.prototype._A_a_temp_5vq678;
+  #a = A[_A_a_symbol_tmllf];
+  [_A_a_symbol_tmllf]() {
     return this.#a;
   }
 }
 
-delete A.prototype._A_a_temp_v5b4n8;
+delete A.prototype._A_a_temp_5vq678;
 
-const _B_b_symbol_vkc9gg = Symbol();
+const _B_b_symbol_29gqmo = Symbol();
 
 class B extends A {
-  b = "b";
-  _B_b_temp_9vq35o() {}
-  static [_B_b_symbol_vkc9gg] = metadata(20)(B.prototype._B_b_temp_9vq35o, {
+  _B_b_temp_s4c3a() {}
+  static [_B_b_symbol_29gqmo] = metadata(20)(B.prototype._B_b_temp_s4c3a, {
     kind: "method",
     name: "#b",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: B.prototype[_B_b_symbol_vkc9gg]
+      get: B.prototype[_B_b_symbol_29gqmo]
     },
     ...__PrepareMetadata(B.prototype, "private", undefined)
-  }) ?? B.prototype._B_b_temp_9vq35o;
-  #b = B[_B_b_symbol_vkc9gg];
-  [_B_b_symbol_vkc9gg]() {
+  }) ?? B.prototype._B_b_temp_s4c3a;
+  #b = B[_B_b_symbol_29gqmo];
+  [_B_b_symbol_29gqmo]() {
     return this.#b;
   }
 }
 
-delete B.prototype._B_b_temp_9vq35o;
+delete B.prototype._B_b_temp_s4c3a;
 
-const _C_c_symbol_cl9ma = Symbol();
+const _C_c_symbol_ogi4l = Symbol();
 
 class C extends B {
-  c = "c";
-  _C_c_temp_o6vp2() {}
-  static [_C_c_symbol_cl9ma] = metadata(30)(C.prototype._C_c_temp_o6vp2, {
+  _C_c_temp_vg9ug8() {}
+  static [_C_c_symbol_ogi4l] = metadata(30)(C.prototype._C_c_temp_vg9ug8, {
     kind: "method",
     name: "#c",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_c_symbol_cl9ma]
+      get: C.prototype[_C_c_symbol_ogi4l]
     },
     ...__PrepareMetadata(C.prototype, "private", undefined)
-  }) ?? C.prototype._C_c_temp_o6vp2;
-  #c = C[_C_c_symbol_cl9ma];
-  [_C_c_symbol_cl9ma]() {
+  }) ?? C.prototype._C_c_temp_vg9ug8;
+  #c = C[_C_c_symbol_ogi4l];
+  [_C_c_symbol_ogi4l]() {
     return this.#c;
   }
 }
 
-delete C.prototype._C_c_temp_o6vp2;
+delete C.prototype._C_c_temp_vg9ug8;
 
 console.assert(C.prototype[Symbol.metadata][KEY].private[0] === 30);
 
 console.assert(C.prototype[Symbol.metadata][KEY].private[1] === 20);
 
 console.assert(C.prototype[Symbol.metadata][KEY].private[2] === 10);
-
-const c = new C();
-
-console.log(c);
 
 class Z {
   z() {}
