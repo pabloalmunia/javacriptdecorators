@@ -3,7 +3,7 @@ function logged (value, {kind, name, addInitializer}) {
   if (kind === 'class') {
     if (addInitializer) {
       addInitializer (function () {
-        log.push (`finished defining ${ this.name }`);
+        log.push (`finished defining ${ name }`);
       });
     }
     return class extends value {

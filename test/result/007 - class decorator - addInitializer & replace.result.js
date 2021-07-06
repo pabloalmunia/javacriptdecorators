@@ -11,7 +11,7 @@ function logged(
   if (kind === "class") {
     if (addInitializer) {
       addInitializer(function() {
-        log.push(`finished defining ${this.name}`);
+        log.push(`finished defining ${name}`);
       });
     }
     return class extends value {
@@ -65,7 +65,7 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_class_initializers_aqcthg = [];
+const _C_class_initializers_knrle8 = [];
 
 class C {}
 
@@ -73,10 +73,10 @@ C = logged(C, {
   kind: "class",
   name: "C",
   ...__PrepareMetadata(C, "constructor", undefined),
-  addInitializer: initializer => _C_class_initializers_aqcthg.push(initializer)
+  addInitializer: initializer => _C_class_initializers_knrle8.push(initializer)
 }) ?? C;
 
-_C_class_initializers_aqcthg.forEach(initializer => initializer.call(C, C));
+_C_class_initializers_knrle8.forEach(initializer => initializer.call(C, C));
 
 new C(1);
 
