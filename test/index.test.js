@@ -229,3 +229,4 @@ run ('212 - static decorator with symbols');
 // Inheritance
 run ('221 - inheritance and metadata - member');
 run ('222 - inheritance and metadata - static');
+run ('223 - setPrototypeOf and private metadata');
