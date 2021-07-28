@@ -162,6 +162,7 @@ module.exports = (code) => {
     .parse (
       code,
       {
+        sourceType: 'module',
         ecmaVersion : 2020
       }
     );
