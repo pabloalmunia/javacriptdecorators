@@ -17,3 +17,9 @@ function horizontalResizer(resizer, left, right) {
     window.removeEventListener('mouseup', stopResize, false);
   }
 }
+
+horizontalResizer(
+  document.querySelector('.resizer-ew'),
+  document.querySelector('.section-left'),
+  document.querySelector('.section-right')
+);

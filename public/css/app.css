@@ -30,6 +30,8 @@
   --button-border-color       : transparent;
   --button-hover-border-color : transparent;
   --button-group-border-color : rgba(124, 124, 124, 0.54);
+  --console-height            : 30%;
+  --code-color                : #009900
 }
 html,
 body {
@@ -117,6 +119,11 @@ input:disabled, input[disabled], textarea:disabled, textarea[disabled], select:d
   cursor  : not-allowed;
   opacity : 0.75;
 }
+code {
+  font-family : "Courier New", monospace;
+  color       : var(--code-color);
+  font-weight : 600;
+}
 .header {
   position : absolute;
   top      : 0;
@@ -170,34 +177,56 @@ input:disabled, input[disabled], textarea:disabled, textarea[disabled], select:d
   top      : 12px;
   right    : 156px;
 }
-.section-left .subheader h2,
-.section-left .subfooter h3 {
+.home .section-left .subheader h2,
+.home .section-left .subfooter h3 {
   display : inline-block;
 }
-.section-right .subheader h2 {
+.tutorial #tutorial {
+  overflow : auto;
+}
+.tutorial #tutorial h2,
+.tutorial #tutorial h3 {
+  margin-left   : 0;
+  margin-right  : 0;
+  padding-left  : 2rem;
+  padding-right : 2rem;
+}
+.home .section-right .subheader h2 {
   display     : inline-block;
   font-weight : normal;
   cursor      : pointer;
 }
-.section-right .subheader h2.selected {
+.home .section-right .subheader h2.selected {
   display     : inline-block;
   font-weight : bold;
   cursor      : inherit;
 }
-.section-left #run {
+.home .section-left #run,
+.tutorial .section-right #resolve {
   position : absolute;
   top      : 4px;
-  right    : 84px;
   margin   : 0;
 }
-.section-left #analyze {
+.home .section-left #run {
+  right : 84px;
+}
+.tutorial .section-right #resolve {
+  right : 60px;
+}
+.home .section-left #analyze,
+.tutorial .section-right #reset {
   position : absolute;
   top      : 4px;
   right    : 3px;
   margin   : 0;
 }
-.section-left #code,
-.section-right #result {
+.tutorial .section-right #resolve:hover {
+  opacity : 100%;
+}
+.home .section-left #code,
+.home .section-right #result,
+.tutorial .section-left #tutorial,
+.tutorial .section-right #code {
   position : absolute;
   top      : 3em;
   bottom   : 0;
@@ -205,46 +234,51 @@ input:disabled, input[disabled], textarea:disabled, textarea[disabled], select:d
   resize   : none;
   border   : 1px solid grey;
 }
-.section-left #code {
+.home .section-left #code {
   left   : 0;
   bottom : 3em;
 }
-#console-open:checked + .section-left #code {
-  bottom : 40%;
+#console-open:checked + .section-left #code,
+.tutorial .section-right #code {
+  bottom : var(--console-height);
 }
-.section-left .subfooter {
+.home .section-left .subfooter,
+.tutorial .section-right .subfooter {
   position : absolute;
   bottom   : 1px;
   left     : 1px;
   width    : 100%;
   height   : 3em;
 }
-#console-open:checked + .section-left .subfooter {
-  bottom : calc(40% - 3em);
+#console-open:checked + .section-left .subfooter,
+.tutorial .section-right .subfooter {
+  bottom : calc(var(--console-height) - 3em);
 }
-.section-left .subfooter h3 {
+.home .section-left .subfooter h3 {
   cursor : pointer;
 }
-.section-left .subfooter h3:before {
+.home .section-left .subfooter h3:before {
   margin-right : 0.5em;
   content      : url("data:image/svg+xml;chartset=UTF-8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 320 512\"><path d=\"M85.165 475.751C81.727 472.61 80.008 468.314 80.008 464.001C80.008 460.11 81.415 456.22 84.258 453.142L266.227 256.001L84.258 58.86C78.258 52.36 78.633 42.22 85.165 36.251C91.665 30.251 101.758 30.657 107.758 37.142L299.758 245.142C305.446 251.298 305.446 260.704 299.758 266.86L107.758 474.86C101.758 481.345 91.665 481.751 85.165 475.751Z\"/></svg>")
 }
 #console-open:checked + .section-left .subfooter h3:before {
   content : url("data:image/svg+xml;chartset=UTF-8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 448 512\"><path d=\"M4.249 181.141C7.39 177.703 11.686 175.984 15.999 175.984C19.89 175.984 23.78 177.391 26.858 180.234L223.999 362.203L421.14 180.234C427.64 174.234 437.78 174.609 443.749 181.141C449.749 187.641 449.343 197.734 442.858 203.734L234.858 395.734C228.702 401.422 219.296 401.422 213.14 395.734L5.14 203.734C-1.345 197.734 -1.751 187.641 4.249 181.141Z\"/></svg>")
 }
-.section-left #console {
+.home .section-left #console,
+.tutorial .section-right #console {
   position         : absolute;
   bottom           : 1px;
   left             : 1px;
   width            : calc(100% - 3px);
-  height           : calc(40% - 3em);
+  height           : calc(var(--console-height) - 3em);
   display          : none;
   background-color : #333333;
   overflow         : auto;
   font-family      : monospace;
   font-size        : 14px;
 }
-#console-open:checked + .section-left #console {
+#console-open:checked + .section-left #console,
+.tutorial .section-right #console {
   display : block;
 }
 #console-clear {
@@ -257,25 +291,70 @@ input:disabled, input[disabled], textarea:disabled, textarea[disabled], select:d
   top      : 12px;
   right    : 12px;
 }
-.section-left #console .log {
+#console .log {
   position : relative;
   color    : #FFFFFF;
 }
-.section-left #console .error {
+#console .error {
   position         : relative;
   color            : #FF8080;
   background-color : #290000
 }
-.section-left #console .time {
+#console .warn {
+  position         : relative;
+  color            : #FFFF80;
+  background-color : #290000
+}
+#console .time {
   opacity     : 0.75;
   display     : block;
   float       : left;
   margin-left : 8px;
 }
-.section-left #console .msg {
+#console .msg {
   display : block;
   margin  : 0 0 0 110px;
 }
-.section-right #result {
+.home .section-right #result {
   right : 0;
+}
+.version {
+  float        : right;
+  text-align   : right;
+  margin-right : 55px;
+  margin-top   : 18px;
+}
+.tutorial #tutorial section {
+  font-size   : 1.2em;
+  user-select : text;
+  margin-top  : 3em;
+  display     : none;
+}
+.tutorial #tutorial section.active {
+  display : block;
+}
+.tutorial #tutorial p {
+  padding-left  : 2rem;
+  padding-right : 2rem;
+}
+.tutorial #tutorial p.header {
+  text-align : right;
+}
+.tutorial .prev,
+.tutorial .next {
+  width   : calc(50% - 4em);
+  float   : left;
+  padding : 2rem;
+  cursor  : pointer;
+}
+.tutorial .next {
+  text-align : right;
+}
+.tutorial .prev:hover #prev,
+.tutorial .next:hover #next {
+  text-decoration : underline;
+}
+.tutorial .prev strong,
+.tutorial .next strong {
+  font-weight: 600;
 }

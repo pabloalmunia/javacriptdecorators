@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <link rel="mask-icon" href="../safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#00aba9">
+  <meta name="theme-color" content="#ffffff">
+  <title>Javascript Decorators</title>
+  <link rel="stylesheet" href="../css/app.css">
+  <script src="../js/codeflask.min.js"></script>
+</head>
+<body>
+<div class="header">
+  <h1>Javascript <a href="https://github.com/tc39/proposal-decorators"><em>Proposal</em></a>
+    Decorators Tutorial</h1> | &nbsp;<a href="../">Playground</a>
+  <div class="version">version <span id="version"></span></div>
+</div>
+<a href="https://github.com/pabloalmunia/javacriptdecorators" class="github-corner"
+   aria-label="View source on GitHub">
+  <svg width="50" height="50" viewBox="0 0 250 250"
+       style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;"
+       aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+    <path
+        d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+        fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+    <path
+        d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+        fill="currentColor" class="octo-body"></path>
+  </svg>
+</a>
+<div class="content tutorial">
+  <div class="section-left">
+    <div class="subheader">
+      <h2 class="selected">Tutorial</h2>
+    </div>
+    <div id="tutorial">
+      <p class="header"><span id="current"></span>/<span id="total"></span></p>
+      <section id="introduction">
+        <h2>Introduction</h2>
+        <p>This tutorial describes step by step how to use and build Javascript decorators.</p>
+        <p>The decorators provide a way to add features or metadata to class declarations and class
+          members. You can use JavaScript decorators if you need to add functionality or annotate
+          classes or class members.</p>
+        <p>This interactive tutorial will help you get started with Javascript decorators and see
+          how easy it is to use and build these new elements. Each step of this tutorial introduces
+          one or two decorator features.</p>
+        <p>Use the interactive editor to add features to the initial code sample and see the result
+          in the console. If you have problems with a step, click the "resolve" button to see the
+          finished code, or click the "reset" button to return to the initial code. The editor
+          displays a basic code like the one you will create in the following steps.</p>
+        <p>You can also review the <a href="https://github.com/tc39/proposal-decorators">proposal
+          documentation</a> for more information. Remember, this is a stage 2 specification and is
+          subject to change before incorporating it into the Javascript standard.</p>
+        <script type="origin">
+// This area is for your excercise
+console.log('this message is displayed on console window');
+        </script>
+        <script type="resolve">
+// This area is for your excercise
+console.log('this message is displayed on console window');
+console.log('you are clicked on "resolve" button');
+        </script>
+      </section>
+      <section id="use-decorator">
+        <h2>Use a decorator</h2>
+        <p>We are going to discover how to use a decorator in your classes.</p>
+        <p>Usually, the decorator is obtained with an import expression. Decorators are functions
+          and can be imported without problems. Of course, they can also be written in the same
+          module as the class they decorate, especially while learning how they work.</p>
+        <p>The decorator is used with "@" before the decorator's name and writing this statement
+          before the decorated element. A decorator can be attached to a class or a class member
+          (methods, getter/setter, fields).</p>
+        <h3>Exercise</h3>
+        <p>Write <code>@simpleDecorator</code> before the class <code>C</code>. A message must
+          be displayed on the console window.</p>
+        <p>Now, write <code>@simpleDecorator</code> before the <code>m()</code> method. Two
+          messages must be displayed on the console window, one for the method and the other about
+          the class decoration.</p>
+        <h3>Notice</h3>
+        <p>The decorator can be written on the same line as the decorated element or on
+          the lines before it.</p>
+        <script type="origin">
+import simpleDecorator from './lib/simple-decorator.js';
+
+class C {
+  m() {
+  }
+}
+        </script>
+        <script type="resolve">
+import simpleDecorator from './lib/simple-decorator.js';
+
+@simpleDecorator
+class C {
+  @simpleDecorator
+  m() {
+  }
+}
+        </script>
+      </section>
+      <section id="use-decorator-factory">
+        <h2>Use a decorator factory</h2>
+        <p>Some decorators need explicit configurations for their work, in these cases, the
+          decorator is called with parenthesis, and the parameters are included between them.</p>
+        <p>You have to read the decorator's documentation to know the accepted and necessary
+          parameters for each decorator factory.</p>
+        <h3>Exercise</h3>
+        <p>Write <code>@log ('warn')</code> before the class method <code>sum()</code>.</p>
+        <p>If you change the decorator factory parameter, you can change the message level between
+          <code>log</code>, <code>warn</code>, and <code>error</code>.</p>
+        <script type="origin">
+import log from './lib/simple-log.js';
+
+class C {
+  sum (a, b) {
+    return a + b;
+  }
+}
+
+const c = new C ();
+c.sum (1, 2);
+        </script>
+        <script type="resolve">
+import log from './lib/simple-log.js';
+
+class C {
+  @log ('warn')
+  sum (a, b) {
+    return a + b;
+  }
+}
+
+const c = new C ();
+c.sum (1, 2);
+        </script>
+      </section>
+      <section id="use-decorator-init">
+        <h2>Use decorator with @init</h2>
+        <p>In some cases, the decorator requires to be invoked with <code>@init</code>. This is
+          because that decorator includes an instance initialization of the objects of the
+          class.</p>
+        <p>You have to read the decorator's documentation to know what is the correct way to call
+          it.</p>
+        <h3>Exercise 1</h3>
+        <p>Please, write <code>@init:log</code> before the class method <code>sum()</code>.</p>
+        <h3>Exercise 2</h3>
+        <p>Now, remove <code>init:</code> and keep <code>@log</code> before the class method
+          <code>sum()</code>. See the result and check the difference.</p>
+        <script type="origin">
+import log from './lib/simple-log-init.js';
+
+class C {
+  sum (a, b) {
+    return a + b;
+  }
+}
+
+const c = new C ();
+c.sum (1, 2);
+        
+        </script>
+        <script type="resolve">
+import log from './lib/simple-log-init.js';
+
+class C {
+  @init:log
+  sum (a, b) {
+    return a + b;
+  }
+}
+
+const c = new C ();
+c.sum (1, 2);
+        </script>
+      </section>
+      <section id="decorator-order">
+        <h2>Decorator order</h2>
+        <p>If a class or a class member has several decorators, these are called from left to
+          right and from top to bottom.</p>
+        <p>The member class decorators are called before the class decorators.</p>
+        <p>The static member class decorators are called after the class decorators.</p>
+        <h3>Exercise</h3>
+        <p>Include a number into the <code>@order( )</code> with the applied position for each
+          decorator.</p>
+        <script type="origin">
+import order from './lib/applied-order.js';
+
+@order( )
+class C {
+
+  @order( )
+  @order( )
+  @order( )
+  #p = 10;
+
+  @order( )
+  m() {}
+
+  @order( )
+  static M() {}
+}
+        
+        </script>
+        <script type="resolve">
+import order from './lib/applied-order.js';
+
+@order( 5 )
+class C {
+
+  @order( 1 )
+  @order( 2 )
+  @order( 3 )
+  #p = 10;
+
+  @order( 4 )
+  m() {}
+
+  @order( 6 )
+  static M() {}
+}
+        </script>
+      </section>
+      <section id="build-simple-decorator">
+        <h2>Build a simple decorator</h2>
+        <p>Build your own decorator is very simple. A decorator is a function that receives two
+          parameters, the first is the element decorated, and the second is an object with
+          information and helpers (we will see this context object in the next steps in this
+          tutorial).</p>
+        <p>The return of our function can replace the element decorated. For example, if we return
+          a new function, this function replaces the method.</p>
+        <h3>Exercise</h3>
+        <ul>
+          <li>Create a function with <code>function myDecorator(method) {}</code></li>
+          <li>The function return a new function: <code>return function (...args) {}</code></li>
+          <li>Inside the returned function write a <code>console.log('method called')</code></li>
+          <li>Inside the returned function write a call to the original method:
+            <code>return method.apply(this, args)</code></li>
+          <li>Apply the decorator over the <code>sum()</code> method</li>
+        </ul>
+        <script type="origin">
+class C {
+  sum(a, b) {
+    return a + b;
+  }
+}
+
+const c = new C();
+c.sum(1,2);
+        </script>
+        <script type="resolve">
+function myDecorator(method) {
+  return function(...args) {
+    console.log('method called');
+    method.apply(this, args);
+  }
+}
+
+class C {
+  @myDecorator
+  sum(a, b) {
+    return a + b;
+  }
+}
+
+const c = new C();
+c.sum(1,2);
+</script>
+      </section>
+      <section id="build-decorator-factory">
+        <h2>Build a decorator with parameters</h2>
+        <p>To build a decorator that receives configuration options, you must create a function that
+          receives this information as parameters and returns the decorator function.</p>
+        <h3>Exercise</h3>
+        <ul>
+          <li>Create a function with <code>function myLog(message) {}</code></li>
+          <li>The function return a new function: <code>return function () {}</code></li>
+          <li>Inside the returned function write a <code>console.log(message)</code></li>
+          <li>Now, add the decorator <code>@log('the method "sum()" is deprecated')</code> to the
+            <code>sum()</code> method</li>
+        </ul>
+        <script type="origin">
+class C {
+  sum(a, b) {
+    return a + b;
+  }
+}
+        </script>
+        <script type="resolve">
+function myLog(message) {
+  return function() {
+    console.log(message);
+  }
+}
+
+class C {
+  @myLog('the method "sum()" is deprecated')
+  sum(a, b) {
+    return a + b;
+  }
+}
+</script>
+      </section>
+      <section id="class-decorator">
+        <h2>Class decorator</h2>
+        <p>Decorators can be applied to the class and to the different class members. We need a way
+          to identify the type of element on which our decorator is applied. The second parameter
+          that the decorator receives is the solution. This <code>context</code> has a property
+          named <code>kind</code> that contains the type of element our decorator is operating.
+        </p>
+        <p>A class decorator can check the correct element with
+          <code>context.kind === 'class'</code> and cancel de execution if the type is other.
+          Normally, decorators do not throw an error when applied to an element for which they are
+          not prepared and ignore the case.</p>
+        <p>The decorator receives the class and can check or modify the class content, such as
+          adding a new method into the prototype or checking if a method is implemented.</p>
+        <h3>Exercise</h3>
+        <p>The objective is to add a new method into the class prototype:</p>
+        <ul>
+          <li>Copy the <code>sum</code> decorator and paste with the name <code>min</code> </li>
+          <li>Add <code>@min</code> to the class</li>
+          <li>Check the result with <code>console.log('c.min(1,2) =', c.min(1, 2))</code></li>
+        </ul>
+        <script type="origin">
+function sum(element, context) {
+  if (context.kind !== 'class') {
+    return;
+  }
+  element.prototype.sum = function(a, b) {
+    return a + b;
+  }
+}
+
+@sum
+class C {
+}
+
+const c = new C();
+console.log('c.sum(1,2) =', c.sum(1, 2));
+        </script>
+        <script type="resolve">
+function sum(element, context) {
+  if (context.kind !== 'class') {
+    return;
+  }
+  element.prototype.sum = function(a, b) {
+    return a + b;
+  }
+}
+
+function min(element, context) {
+  if (context.kind !== 'class') {
+    return;
+  }
+  element.prototype.min = function(a, b) {
+    return a - b;
+  }
+}
+
+@sum
+@min
+class C {
+}
+
+const c = new C();
+console.log('c.sum(1,2) =', c.sum(1, 2));
+console.log('c.min(1,2) =', c.min(1, 2));
+        </script>
+      </section>
+      <section id="class-decorator-replace">
+        <h2>A class decorator can replace the class</h2>
+        <p>When the decorated element is a class, we can optionally return a new class and replace
+          the original one. We must be careful with the possibility of replacing the whole class, as
+          we may break the code that uses the class and expects specific behavior. A possible
+          solution is to create a new class that inherits from the original.</p>
+        <h3>Exercise</h3>
+        <p>The goal is to create a class decorator that adds two methods by inheriting from the
+          original class</p>
+        <ul>
+          <li>Create the decorator width <code>function operations(element, context)</code></li>
+          <li>Cancel de execution if <code>context.kind</code> is different to <code>"class"</code>
+          </li>
+          <li>Return a new class that inherits from the original class with
+            <code>return class extends element {}</code></li>
+          <li>Inside this inherited class add two methods: <code>mul(a,b) { return a * b }</code>
+            and div(a,b) { return a / b }
+          </li>
+          <li>Apply the decorator on the class with <code>@operations</code></li>
+          <li>Check the result with two <code>console.log</code> at the end of the code</li>
+        </ul>
+        <script type="origin">
+class C {
+  sum(a, b) {
+    return a + b;
+  }
+  min(a, b) {
+    return a - b;
+  }
+}
+
+const c = new C();
+console.log('c.sum(1,2) =', c.sum(1,2));
+console.log('c.min(1,2) =', c.min(1,2));
+        </script>
+        <script type="resolve">
+function operations(element, context) {
+  if (context.kind !== 'class') {
+    return;
+  }
+  return class extends element {
+    mul(a,b) {
+      return a * b;
+    }
+    div(a,b) {
+      return a / b;
+    }
+  }
+}
+
+@operations
+class C {
+  sum(a, b) {
+    return a + b;
+  }
+  min(a, b) {
+    return a - b;
+  }
+}
+
+const c = new C();
+console.log('c.sum(1,2) =', c.sum(1,2));
+console.log('c.min(1,2) =', c.min(1,2));
+console.log('c.mul(1,2) =', c.mul(1,2));
+console.log('c.div(1,2) =', c.div(1,2));
+        </script>
+      </section>
+      <section id="method-decorator">
+        <h2>Method decorator</h2>
+      </section>
+      <section id="field-decorator">
+        <h2>Field decorator</h2>
+      </section>
+      <section id="getter-setter-decorator">
+        <h2>Getter/Setter decorator</h2>
+      </section>
+      <section id="auto accessor">
+        <h2>Auto accessor</h2>
+      </section>
+      <section id="static-decorator">
+        <h2>Static member decorator</h2>
+      </section>
+      <section id="private-decorator">
+        <h2>Private member decorator</h2>
+      </section>
+      <section id="init-decorator">
+        <h2>@init: decorator</h2>
+      </section>
+      <section id="metadata">
+        <h2>Metadata</h2>
+      </section>
+      <section id="collaboration">
+        <h2>Decorator collaboration</h2>
+      </section>
+      <div class="navigation">
+        <div class="prev"><strong>Previous:</strong> <span id="prev"></span></div>
+        <div class="next"><strong>Next:</strong> <span id="next"></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="resizer-ew">:<br/>:<br/>:</div>
+  <div class="section-right">
+    <div class="subheader">
+      <h2>Source code</h2>
+      <span id="message"></span>
+      <div id="resolve" class="button primary" title="revolve the exercice">resolve</div>
+      <div id="reset" class="button secundary" title="revolve the exercice">reset</div>
+    </div>
+    <div id="code"></div>
+    <div class="resizer-ns">....</div>
+    <div class="subfooter">
+      <h2>Console output</h2>
+    </div>
+    <div id="console"></div>
+  </div>
+</div>
+<script src="../js/app.js"></script>
+<script src="../js/tutorial.js"></script>
+<script src="../js/resizer.js"></script>
+</body>
+</html>
