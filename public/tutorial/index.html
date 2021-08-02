@@ -44,6 +44,7 @@
         </select>
         <span id="current"></span>/<span id="total"></span>
       </p>
+      <div class="sections">
       <section id="introduction">
         <h2>Introduction</h2>
         <p>This tutorial describes step by step how to use and build the new Javascript decorators.
@@ -62,15 +63,11 @@
         <script type="origin">
 // This area is for your exercise
 console.log('this message is displayed on console window');
-        
-        
         </script>
         <script type="resolve">
 // This area is for your exercise
 console.log('this message is displayed on console window');
 console.log('you have clicked on "resolve" button');
-        
-        
         </script>
       </section>
       <section id="use-decorator">
@@ -120,10 +117,11 @@ class C {
         
         </script>
       </section>
-      <section id="use-decorator-factory">
-        <h2>Use a decorator factory</h2>
+      <section id="use-decorator-with-parameters">
+        <h2>Use a decorator with parameters</h2>
         <p>Some decorators need explicit configurations for their work. In these cases, the
-          decorator is called with parenthesis, and the parameters are included between them.</p>
+          decorator is called as a function with parenthesis, and the parameters are included
+          between them.</p>
         <p>You have to read the decorator's documentation to know the accepted and necessary
           parameters for each decorator.</p>
         <h3>Exercise</h3>
@@ -321,7 +319,7 @@ c.sum(1,2);
         
         </script>
       </section>
-      <section id="build-decorator-factory">
+      <section id="build-decorator-with-parameters">
         <h2>Build a decorator with parameters</h2>
         <p>If your decorator needs to receive configuration options, you must create a function that
           receives this information as parameters and returns the decorator function. You need two
@@ -1440,10 +1438,11 @@ console.log (calc.result ()); // 100
       </section>
       <div id="resolve" class="button primary" title="revolve the exercise">resolve</div>
       <div id="reset" class="button secondary" title="reset the exercise">reset</div>
+      </div>
       <div class="navigation">
-        <div class="prev-parent"><span class="prev">&#8678;</span></div>
+        <div class="prev-parent"><span class="prev"><span class="arrow">&#8678;</span></span></div>
         <div class="next-parent"><span class="next"><strong>Next:</strong> <span
-            id="next"></span></span></div>
+            id="next"></span> <span class="arrow">&#8680;</span></span></div>
       </div>
     </div>
   </div>

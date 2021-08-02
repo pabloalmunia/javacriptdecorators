@@ -356,7 +356,7 @@ code {
 .tutorial .next strong {
   font-weight : 600;
 }
-.tutorial .prev {
+.tutorial .navigation .arrow {
   font-size : 1.5rem;
 }
 #navigator {
@@ -383,4 +383,7 @@ code {
 .tutorial ul li ul {
   margin: 1rem 0 !important;
   list-style-type: square;
+}
+.tutorial #tutorial .sections {
+  min-height: calc(100% - 10rem);
 }
