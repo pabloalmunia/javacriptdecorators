@@ -1,5 +1,10 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.4.1 - 2021/08/02
+
+- fixed the next-previous tutorial position
+- fixed the tutorial text
+
 ## version 0.4.0 - 2021/08/02
 
 - added a complete tutorial (unlinked)
