@@ -39,51 +39,65 @@
       <h2 class="selected">Tutorial</h2>
     </div>
     <div id="tutorial">
-      <p class="header"><span id="current"></span>/<span id="total"></span></p>
+      <p class="header">
+        <select id="navigator">
+        </select>
+        <span id="current"></span>/<span id="total"></span>
+      </p>
       <section id="introduction">
         <h2>Introduction</h2>
-        <p>This tutorial describes step by step how to use and build Javascript decorators.</p>
-        <p>The decorators provide a way to add features or metadata to class declarations and class
-          members. You can use JavaScript decorators if you need to add functionality or annotate
-          classes or class members.</p>
+        <p>This tutorial describes step by step how to use and build the new Javascript decorators.
+          The decorators provide a defined way to add features or metadata to class declarations and
+          class members.</p>
+        <p>Javascript decorators specification are in stage 2 of standardized process and is
+          subject to change before incorporating it into the Javascript standard. You can also
+          review the <a href="https://github.com/tc39/proposal-decorators">proposal
+            documentation</a> for more information.</p>
         <p>This interactive tutorial will help you get started with Javascript decorators and see
           how easy it is to use and build these new elements. Each step of this tutorial introduces
           one or two decorator features.</p>
         <p>Use the interactive editor to add features to the initial code sample and see the result
           in the console. If you have problems with a step, click the "resolve" button to see the
-          finished code, or click the "reset" button to return to the initial code. The editor
-          displays a basic code like the one you will create in the following steps.</p>
-        <p>You can also review the <a href="https://github.com/tc39/proposal-decorators">proposal
-          documentation</a> for more information. Remember, this is a stage 2 specification and is
-          subject to change before incorporating it into the Javascript standard.</p>
+          finished code, or click the "reset" button to return to the initial code.</p>
         <script type="origin">
-// This area is for your excercise
+// This area is for your exercise
 console.log('this message is displayed on console window');
+        
+        
         </script>
         <script type="resolve">
-// This area is for your excercise
+// This area is for your exercise
 console.log('this message is displayed on console window');
-console.log('you are clicked on "resolve" button');
+console.log('you have clicked on "resolve" button');
+        
+        
         </script>
       </section>
       <section id="use-decorator">
         <h2>Use a decorator</h2>
-        <p>We are going to discover how to use a decorator in your classes.</p>
+        <p>Let's discover how to use a decorator in your classes. Remember that decorators provide
+          a way to add functionality to your classes and class members. We will use very simple
+          decorators in this tutorial. Real-life decorators usually give much more value.</p>
         <p>Usually, the decorator is obtained with an import expression. Decorators are functions
-          and can be imported without problems. Of course, they can also be written in the same
-          module as the class they decorate, especially while learning how they work.</p>
-        <p>The decorator is used with "@" before the decorator's name and writing this statement
-          before the decorated element. A decorator can be attached to a class or a class member
-          (methods, getter/setter, fields).</p>
-        <h3>Exercise</h3>
-        <p>Write <code>@simpleDecorator</code> before the class <code>C</code>. A message must
-          be displayed on the console window.</p>
-        <p>Now, write <code>@simpleDecorator</code> before the <code>m()</code> method. Two
-          messages must be displayed on the console window, one for the method and the other about
-          the class decoration.</p>
-        <h3>Notice</h3>
+          and can be imported without problems from modules. Of course, they can also be written
+          the decorator and the class in the same script, especially while learning how they
+          work.</p>
+        <p>The first key point is that the decorator is applied with <code>@</code> before the
+          decorator's name and writing this statement before the decorated element. A decorator can
+          be attached to a class or a class member (methods, getter/setter, fields, public, private,
+          or static).</p>
         <p>The decorator can be written on the same line as the decorated element or on
           the lines before it.</p>
+        <h3>Exercise</h3>
+        <p>The objective is to apply the decorator to the class and method:</p>
+        <ul>
+          <li>Write <code>@simpleDecorator</code> before the <code>class C</code>. A message should
+            appear in the console window.
+          </li>
+          <li>Write <code>@simpleDecorator</code> before the <code>m()</code>. Two messages should
+            appear in the console window, one for the method and one about decorating the class.
+          </li>
+        </ul>
         <script type="origin">
 import simpleDecorator from './lib/simple-decorator.js';
 
@@ -91,6 +105,8 @@ class C {
   m() {
   }
 }
+        
+        
         </script>
         <script type="resolve">
 import simpleDecorator from './lib/simple-decorator.js';
@@ -101,18 +117,25 @@ class C {
   m() {
   }
 }
+        
+        
         </script>
       </section>
       <section id="use-decorator-factory">
         <h2>Use a decorator factory</h2>
-        <p>Some decorators need explicit configurations for their work, in these cases, the
+        <p>Some decorators need explicit configurations for their work. In these cases, the
           decorator is called with parenthesis, and the parameters are included between them.</p>
         <p>You have to read the decorator's documentation to know the accepted and necessary
-          parameters for each decorator factory.</p>
+          parameters for each decorator.</p>
         <h3>Exercise</h3>
-        <p>Write <code>@log ('warn')</code> before the class method <code>sum()</code>.</p>
-        <p>If you change the decorator factory parameter, you can change the message level between
-          <code>log</code>, <code>warn</code>, and <code>error</code>.</p>
+        <p>The objective is to run the <code>@log()</code> decorator with different
+          options:</p>
+        <ul>
+          <li>Write <code>@log ('warn')</code> before the class method <code>sum()</code>. A
+            warning is displayed in the console.
+          </li>
+          <li>Change the decorator parameter to <code>log</code> or <code>error</code>.</li>
+        </ul>
         <script type="origin">
 import log from './lib/simple-log.js';
 
@@ -124,6 +147,8 @@ class C {
 
 const c = new C ();
 c.sum (1, 2);
+        
+        
         </script>
         <script type="resolve">
 import log from './lib/simple-log.js';
@@ -137,20 +162,28 @@ class C {
 
 const c = new C ();
 c.sum (1, 2);
+        
+        
         </script>
       </section>
       <section id="use-decorator-init">
         <h2>Use decorator with @init</h2>
-        <p>In some cases, the decorator requires to be invoked with <code>@init</code>. This is
-          because that decorator includes an instance initialization of the objects of the
-          class.</p>
+        <p>In some cases, the decorator requires to be invoked with <code>@init:</code>. This clause
+          is necessary when the decorator needs to include an initializer function to rightly apply
+          the decorator.</p>
         <p>You have to read the decorator's documentation to know what is the correct way to call
           it.</p>
-        <h3>Exercise 1</h3>
-        <p>Please, write <code>@init:log</code> before the class method <code>sum()</code>.</p>
-        <h3>Exercise 2</h3>
-        <p>Now, remove <code>init:</code> and keep <code>@log</code> before the class method
-          <code>sum()</code>. See the result and check the difference.</p>
+        <h3>Exercise</h3>
+        <p>The objective is to see the difference between <code>@init:log</code> and
+          <code>@log</code>.</p>
+        <ul>
+          <li>Write <code>@init:log</code> before the class method <code>sum()</code>. See the
+            console result.
+          </li>
+          <li>Remove <code>init:</code> and keep <code>@log</code> before the class method
+            <code>sum()</code>. See the result and check the difference with the previous execution.
+          </li>
+        </ul>
         <script type="origin">
 import log from './lib/simple-log-init.js';
 
@@ -162,6 +195,8 @@ class C {
 
 const c = new C ();
 c.sum (1, 2);
+        
+        
         
         </script>
         <script type="resolve">
@@ -176,6 +211,8 @@ class C {
 
 const c = new C ();
 c.sum (1, 2);
+        
+        
         </script>
       </section>
       <section id="decorator-order">
@@ -185,8 +222,12 @@ c.sum (1, 2);
         <p>The member class decorators are called before the class decorators.</p>
         <p>The static member class decorators are called after the class decorators.</p>
         <h3>Exercise</h3>
-        <p>Include a number into the <code>@order( )</code> with the applied position for each
-          decorator.</p>
+        <p>The objective is to understand the decorator execution order.</p>
+        <ul>
+          <li>Include into the <code>@order( _ )</code> the applied position for each decorator,
+            from 1 to 6.
+          </li>
+        </ul>
         <script type="origin">
 import order from './lib/applied-order.js';
 
@@ -204,6 +245,8 @@ class C {
   @order( )
   static M() {}
 }
+        
+        
         
         </script>
         <script type="resolve">
@@ -223,6 +266,8 @@ class C {
   @order( 6 )
   static M() {}
 }
+        
+        
         </script>
       </section>
       <section id="build-simple-decorator">
@@ -231,16 +276,18 @@ class C {
           parameters, the first is the element decorated, and the second is an object with
           information and helpers (we will see this context object in the next steps in this
           tutorial).</p>
-        <p>The return of our function can replace the element decorated. For example, if we return
-          a new function, this function replaces the method.</p>
+        <p>The return of our decorator can replace the element decorated. For example, if it
+          returns a new function, this function replaces the method.</p>
         <h3>Exercise</h3>
+        <p>The objective is to create a decorator <code>myDecorator</code> that
+          writes in the console when a method is called.</p>
         <ul>
-          <li>Create a function with <code>function myDecorator(method) {}</code></li>
-          <li>The function return a new function: <code>return function (...args) {}</code></li>
-          <li>Inside the returned function write a <code>console.log('method called')</code></li>
+          <li>Create a function with <code>function myDecorator(method) {}</code>.</li>
+          <li>This first function return a new function: <code>return function (...args) {}</code>.</li>
+          <li>Inside the returned function write a <code>console.log('method called')</code>.</li>
           <li>Inside the returned function write a call to the original method:
-            <code>return method.apply(this, args)</code></li>
-          <li>Apply the decorator over the <code>sum()</code> method</li>
+            <code>return method.apply(this, args)</code>.</li>
+          <li>Apply the decorator over the <code>sum()</code> method.</li>
         </ul>
         <script type="origin">
 class C {
@@ -251,12 +298,14 @@ class C {
 
 const c = new C();
 c.sum(1,2);
+        
+        
         </script>
         <script type="resolve">
 function myDecorator(method) {
   return function(...args) {
     console.log('method called');
-    method.apply(this, args);
+    return method.apply(this, args);
   }
 }
 
@@ -269,19 +318,27 @@ class C {
 
 const c = new C();
 c.sum(1,2);
-</script>
+
+        
+        </script>
       </section>
       <section id="build-decorator-factory">
         <h2>Build a decorator with parameters</h2>
-        <p>To build a decorator that receives configuration options, you must create a function that
-          receives this information as parameters and returns the decorator function.</p>
+        <p>If your decorator needs to receive configuration options, you must create a function that
+          receives this information as parameters and returns the decorator function. You need two
+          nested functions, the first function gets the configuration and the second function is
+          the decorator.</p>
         <h3>Exercise</h3>
+        <p>The objective is to create <code>myLog</code> decorator. This decorator
+          receives a message and displays this in the console when the decorator is applied:</p>
         <ul>
           <li>Create a function with <code>function myLog(message) {}</code></li>
-          <li>The function return a new function: <code>return function () {}</code></li>
-          <li>Inside the returned function write a <code>console.log(message)</code></li>
-          <li>Now, add the decorator <code>@log('the method "sum()" is deprecated')</code> to the
-            <code>sum()</code> method</li>
+          <li>In this function return the decorator function: <code>return function () {}</code>.
+          </li>
+          <li>Inside the returned function write a <code>console.log(message)</code>.</li>
+          <li>Add the decorator <code>@log('the method "sum()" is deprecated')</code> to the
+            <code>sum()</code> method.
+          </li>
         </ul>
         <script type="origin">
 class C {
@@ -303,15 +360,14 @@ class C {
     return a + b;
   }
 }
-</script>
+        </script>
       </section>
       <section id="class-decorator">
         <h2>Class decorator</h2>
-        <p>Decorators can be applied to the class and to the different class members. We need a way
-          to identify the type of element on which our decorator is applied. The second parameter
-          that the decorator receives is the solution. This <code>context</code> has a property
-          named <code>kind</code> that contains the type of element our decorator is operating.
-        </p>
+        <p>Decorators can be applied to the class and to the class members. We need a way to
+          identify the type of element on which our decorator is applied. The decorator's second
+          parameter is the solution. This <code>context</code> has a property <code>kind</code>
+          that contains the kind of element our decorator is operating.</p>
         <p>A class decorator can check the correct element with
           <code>context.kind === 'class'</code> and cancel de execution if the type is other.
           Normally, decorators do not throw an error when applied to an element for which they are
@@ -321,9 +377,12 @@ class C {
         <h3>Exercise</h3>
         <p>The objective is to add a new method into the class prototype:</p>
         <ul>
-          <li>Copy the <code>sum</code> decorator and paste with the name <code>min</code> </li>
-          <li>Add <code>@min</code> to the class</li>
-          <li>Check the result with <code>console.log('c.min(1,2) =', c.min(1, 2))</code></li>
+          <li>Copy the <code>sum</code> decorator and paste with the name <code>min</code>.</li>
+          <li>Change <code>sum</code> with <code>min</code> in all locations and change
+            the operator from <code>+</code> to <code>-</code>.
+          </li>
+          <li>Add <code>@min</code> to the class.</li>
+          <li>Check the result with <code>console.log('c.min(1,2) =', c.min(1, 2))</code>.</li>
         </ul>
         <script type="origin">
 function sum(element, context) {
@@ -341,6 +400,8 @@ class C {
 
 const c = new C();
 console.log('c.sum(1,2) =', c.sum(1, 2));
+        
+        
         </script>
         <script type="resolve">
 function sum(element, context) {
@@ -369,28 +430,31 @@ class C {
 const c = new C();
 console.log('c.sum(1,2) =', c.sum(1, 2));
 console.log('c.min(1,2) =', c.min(1, 2));
+        
+        
         </script>
       </section>
       <section id="class-decorator-replace">
         <h2>A class decorator can replace the class</h2>
         <p>When the decorated element is a class, we can optionally return a new class and replace
-          the original one. We must be careful with the possibility of replacing the whole class, as
-          we may break the code that uses the class and expects specific behavior. A possible
-          solution is to create a new class that inherits from the original.</p>
+          the original one. We must be careful replacing the class because we can break the code
+          that uses the class that expects a specific behavior or signature. A possible solution is
+          to create a new class that inherits from the original.</p>
         <h3>Exercise</h3>
-        <p>The goal is to create a class decorator that adds two methods by inheriting from the
-          original class</p>
+        <p>The objective is to create a class decorator that adds two methods by
+          inheriting from the original class:</p>
         <ul>
-          <li>Create the decorator width <code>function operations(element, context)</code></li>
-          <li>Cancel de execution if <code>context.kind</code> is different to <code>"class"</code>
+          <li>Create the decorator width <code>function operations(element, context)</code>.</li>
+          <li>Cancel de execution if <code>context.kind</code> is different to <code>"class"</code>.
           </li>
           <li>Return a new class that inherits from the original class with
-            <code>return class extends element {}</code></li>
-          <li>Inside this inherited class add two methods: <code>mul(a,b) { return a * b }</code>
-            and div(a,b) { return a / b }
+            <code>return class extends element {}</code>.
           </li>
-          <li>Apply the decorator on the class with <code>@operations</code></li>
-          <li>Check the result with two <code>console.log</code> at the end of the code</li>
+          <li>Inside this inherited class add two methods: <code>mul(a,b) { return a * b }</code>
+            and <code>div(a,b) { return a / b }</code>.
+          </li>
+          <li>Apply the decorator on the class with <code>@operations</code>.</li>
+          <li>Check the result with two <code>console.log</code> at the end of the code.</li>
         </ul>
         <script type="origin">
 class C {
@@ -405,6 +469,8 @@ class C {
 const c = new C();
 console.log('c.sum(1,2) =', c.sum(1,2));
 console.log('c.min(1,2) =', c.min(1,2));
+        
+        
         </script>
         <script type="resolve">
 function operations(element, context) {
@@ -436,38 +502,953 @@ console.log('c.sum(1,2) =', c.sum(1,2));
 console.log('c.min(1,2) =', c.min(1,2));
 console.log('c.mul(1,2) =', c.mul(1,2));
 console.log('c.div(1,2) =', c.div(1,2));
+        
+        
         </script>
       </section>
       <section id="method-decorator">
         <h2>Method decorator</h2>
-      </section>
-      <section id="field-decorator">
-        <h2>Field decorator</h2>
+        <p>These decorators receive the method, check its characteristics, and optionally return a
+          new function to replacing the original method.</p>
+        <p>The method decorators can check the kind element with
+          <code>context.kind === 'method'</code>.</p>
+        <h3>Exercise</h3>
+        <p>The objective is to write a <code>@log</code> that wraps the original method and writes
+          in the console the method's name (included in the <code>context.name</code>), the
+          parameters, and the return value when the method is called:</p>
+        <ul>
+          <li>Create the decorator with <code>function log(method, context) {}</code>.</li>
+          <li>Check if <code>context.kind</code> is equal to <code>"method"</code>.</li>
+          <li>Return a new function with <code>return function(...args) {}</code>.</li>
+          <li>In this function, call to the original method with <code>const return =
+            method.apply(this, args)</code>.
+          </li>
+          <li>Use <code>console.log</code> to write the method name, the parameters and the result.
+          </li>
+          <li>Include in this function <code>return result</code>.</li>
+          <li>Apply this decorator to the methods.</li>
+        </ul>
+        <script type="origin">
+class C {
+  value = 0;
+  sum(n) {
+    this.value = this.value + n;
+    return this.value;
+  }
+  min(n) {
+    this.value = this.value - n;
+    return this.value;
+  }
+  mul(n) {
+    this.value = this.value * n;
+    return this.value;
+  }
+  div(n) {
+    this.value = this.value / n;
+    return this.value;
+  }
+}
+
+const c = new C();
+c.sum(10);
+c.min(5);
+c.mul(6);
+c.div(2);
+console.log(c.value);
+        
+        
+        </script>
+        <script type="resolve">
+function log(method, context) {
+  if (context.kind !== 'method') {
+    return;
+  }
+  return function(...args) {
+    const result = method.apply(this, args);
+    console.log(
+      'the method', '"' + context.name + '"',
+      'is called with', args.join(', ') || 'undefined',
+      'and return', result
+    );
+    return result;
+  }
+}
+
+class C {
+  value = 0;
+  @log sum(n) {
+    this.value = this.value + n;
+    return this.value;
+  }
+  @log min(n) {
+    this.value = this.value - n;
+    return this.value;
+  }
+  @log mul(n) {
+    this.value = this.value * n;
+    return this.value;
+  }
+  @log div(n) {
+    this.value = this.value / n;
+    return this.value;
+  }
+}
+
+const c = new C();
+c.sum(10);
+c.min(5);
+c.mul(6);
+c.div(2);
+console.log(c.value);
+        
+        
+        </script>
       </section>
       <section id="getter-setter-decorator">
         <h2>Getter/Setter decorator</h2>
+        <p>A decorator applied to a getter or setter is very similar to a method decorator. You can
+          identify this kind of decorator with the values <code>"getter"</code> and
+          <code>"setter"</code> into <code>context.kind</code>.</p>
+        <p>These decorators apply only for a getter or a setter. If you need to decorate both, you
+          can put a decorator in each function, i.e., you must write a decorator for the getter
+          <code>@log get value() {}</code>, and a decorator for the setter
+          <code>@log set value(v) {}</code>.</p>
+        <h3>Exercise</h3>
+        <p>The objective is to adapt the previous exercise to getter/setter and apply it:</p>
+        <ul>
+          <li>Change the decorator for accept getter and setters.</li>
+          <li>Apply <code>@log</code> to <code>get value()</code> and <code>set value(v)</code>.
+          </li>
+        </ul>
+        <script type="origin">
+function log(method, context) {
+  if (context.kind !== 'method') {
+    return;
+  }
+  return function(...args) {
+    const result = method.apply(this, args);
+    console.log(
+      'the method', context.name,
+      'is called with the parameters', args.join(', '),
+      'and return', result
+    );
+    return result;
+  }
+}
+
+class C {
+  #value = 0;
+  get value() {
+    return this.#value;
+  };
+  set value(v) {
+    this.#value = v;
+  };
+  sum(n) {
+    this.value = this.value + n;
+    return this.value;
+  }
+  min(n) {
+    this.value = this.value - n;
+    return this.value;
+  }
+  mul(n) {
+    this.value = this.value * n;
+    return this.value;
+  }
+  div(n) {
+    this.value = this.value / n;
+    return this.value;
+  }
+}
+
+const c = new C();
+c.sum(10);
+c.min(5);
+c.mul(6);
+c.div(2);
+console.log(c.value);
+        
+        
+        </script>
+        <script type="resolve">
+function log(method, context) {
+  if (context.kind !== 'method' && context.kind !== 'getter' && context.kind !== 'setter') {
+    return;
+  }
+  return function(...args) {
+    const result = method.apply(this, args);
+    console.log(
+      'the', context.kind, '"' + context.name + '"',
+      'is called with', args.join(', ') || 'undefined',
+      'and return', result
+    );
+    return result;
+  }
+}
+
+class C {
+  #value = 0;
+  @log
+  get value() {
+    return this.#value;
+  };
+  @log
+  set value(v) {
+    this.#value = v;
+  };
+  sum(n) {
+    this.value = this.value + n;
+    return this.value;
+  }
+  min(n) {
+    this.value = this.value - n;
+    return this.value;
+  }
+  mul(n) {
+    this.value = this.value * n;
+    return this.value;
+  }
+  div(n) {
+    this.value = this.value / n;
+    return this.value;
+  }
+}
+
+const c = new C();
+c.sum(10);
+c.min(5);
+c.mul(6);
+c.div(2);
+console.log(c.value);
+        
+        
+        </script>
       </section>
-      <section id="auto accessor">
+      <section id="field-decorator">
+        <h2>Field decorator</h2>
+        <p>The field decorator is a little different because the first parameter received by the
+          decorator function is always <code>undefined</code>. As a result, we cannot operate
+          directly on the field. To get the initial value and optionally change it, we must return
+          a function that receives the initial value and can return the new initial value for the
+          field.</p>
+        <p>We can identify the field decorator with <code>context.kind</code> with the value
+          <code>"field"</code>.</p>
+        <h3>Exercise</h3>
+        <p>The objective is to create a decorator than put a random value into a field:</p>
+        <ul>
+          <li>Create the decorator <code>function random(value, context) {}</code>.</li>
+          <li>Check if the decorated element is or not a field.</li>
+          <li>Return a function than return a random value
+            <code>return function(value) { return Math.random(); }</code>.
+          </li>
+          <li>Apply the decorator <code>@random</code> to the field <code>num</code>.</li>
+        </ul>
+        <script type="origin">
+class C {
+  num = 0;
+}
+
+const c = new C();
+console.log(c.num);
+        
+        
+        </script>
+        <script type="resolve">
+function random(value, context) {
+  if (context.kind !== 'field') {
+    return;
+  }
+  return function(value) {
+    return Math.random();
+  }
+}
+
+class C {
+  @random
+  num = 0;
+}
+
+const c = new C();
+console.log(c.num);
+        
+        
+        </script>
+      </section>
+      <section id="auto-accessor">
         <h2>Auto accessor</h2>
+        <p>The new <code>accessor</code> keyword before a class field defines internally a getter
+          and setter for this field and storage the value into a private slot. This kind of element
+          can be decorated, and the decorator receives as value an object with the getter and setter
+          (<code>{get, set}</code>) and the <code>context.kind</code> is
+          <code>"auto-accessor"</code>.</p>
+        <p>Optionally the auto-accessor decorator can return an object with a new getter and/or a
+          new setter (<code>{get, set}</code>) that replace the originals. In addition,
+          auto-accessors decorators can add an <code>initialize</code> method used to
+          change the initial value.</p>
+        <h3>Exercise</h3>
+        <p>The objective is to convert to number any value assigned to the <code>.num</code>
+          property:</p>
+        <ul>
+          <li>Create the decorator <code>function number(value, context) {}</code>.</li>
+          <li>Check if <code>context.kind</code> is <code>"auto-accessor</code>.</li>
+          <li>Return a new object with a <code>{ set(v) {}}</code>.</li>
+          <li>In the <code>set</code> method convert the parameter to number and call to the
+            original <code>value.set.call(this, Number(v))</code>.
+          </li>
+          <li>Apply <code>@number accessor</code> to the <code>num</code> property.</li>
+        </ul>
+        <script type="origin">
+class C {
+  num = 0;
+}
+
+const c = new C();
+c.num = '10';
+console.log(typeof c.num);
+        
+        
+        </script>
+        <script type="resolve">
+function number(value, context) {
+  if (context.kind !== 'auto-accessor') {
+    return;
+  }
+  return {
+    set(v) {
+      value.set.call(this, Number(v));
+    }
+  }
+}
+
+class C {
+  @number
+  accessor num = 0;
+}
+
+const c = new C();
+c.num = '10';
+console.log(typeof c.num);
+        
+        
+        </script>
       </section>
       <section id="static-decorator">
         <h2>Static member decorator</h2>
+        <p>The static class members (methods, fields, getter, setter, and auto accessors) can be
+          decorated without problems and work in the same form as instance members. If you need
+          to identify a static element, you can check if is <code>true</code> the property
+          <code>context.isStatic</code>.</p>
+        <h3>Exercise</h3>
+        <p>The objective is to create a <code>log</code> decorator that displays a message when a
+          static method, getter, or setter is called.</p>
+        <ul>
+          <li>Create the decorator <code>function log(value, context) {}</code></li>
+          <li>Check if the decorated element kind is <code>'method'</code>, <code>'getter'</code>
+            or <code>'setter'</code>.
+          </li>
+          <li>Return a wrapped function for the original element.</li>
+          <li>In this wrapped function, call to the original element.</li>
+          <li>Write in the console a message with information about the method, includes if it is
+            static.
+          </li>
+        </ul>
+        <script type="origin">
+class C {
+  static sqr(v) {
+    return v * v;
+  }
+}
+
+console.log(C.sqr(12));
+        
+        
+        </script>
+        <script type="resolve">
+function log (value, context) {
+  if (!['method', 'getter', 'setter'].includes(context.kind)) {
+    return;
+  }
+  return function(...args) {
+    const result = value.apply(this, args);
+    console.log(
+      context.isStatic ? 'static' : '',
+      context.kind + ' ' + context.name,
+      'is called with (' + args.join(', ') + ')',
+      'and return the value ' + result);
+    return result;
+  }
+}
+class C {
+  @log
+  static sqr(v) {
+    return v * v;
+  }
+}
+
+console.log(C.sqr(12));
+        
+        
+        </script>
       </section>
       <section id="private-decorator">
         <h2>Private member decorator</h2>
+        <p>It's straightforward to identify a private member decorator: the property
+          <code>context.isPrivate</code> is <code>true</code>. When a decorator is applied to a
+          private member, the decorator has some limitations because it cannot use
+          <code>context.name</code> to access the member. The name included in this property is
+          only for informational proposal. For access to the private member, we must use
+          <code>context.access</code> and its methods <code>get()</code> and <code>set(v)</code>.
+        </p>
+        <p>The rest of the functionalities are precisely the same for each type of decorator, and
+          we can use everything we have learned so far in this tutorial.</p>
+        <h3>Exercise</h3>
+        <p>The objective is to complete the log decorator with a message, including if the member
+          is private.</p>
+        <ul>
+          <li>Update the <code>get()</code> and
+            <cod>set()</cod>
+            methods for writing a message when
+            the decorator is applied to a private member.
+          </li>
+          <li>Apply <code>@log</code> to <code>#value</code> private auto accessor field.</li>
+        </ul>
+        <script type="origin">
+function log(value, context) {
+  if (context.kind !== 'auto-accessor') {
+    return;
+  }
+  return {
+    get() {
+      const result = value.get.call(this);
+      console.log( 'get', '"' + context.name + '"', '=', result );
+      return result;
+    },
+    set(v) {
+      value.set.call(this, v);
+      console.log( 'set', '"' + context.name + '"', '=', v );
+    }
+  };
+}
+
+class C {
+  accessor #value = 0;
+  sum(n) {
+    return this.#value = this.#value + n;
+  }
+  min(n) {
+    return this.#value = this.#value - n;
+  }
+  mul(n) {
+    return this.#value = this.#value * n;
+  }
+  div(n) {
+    return this.#value = this.#value / n;
+  }
+  result() {
+    return this.#value;
+  }
+}
+
+const c = new C();
+c.sum(10);
+c.min(5);
+c.mul(6);
+c.div(2);
+console.log(c.result());
+        
+        
+        </script>
+        <script type="resolve">
+function log(value, context) {
+  if (context.kind !== 'auto-accessor') {
+    return;
+  }
+  return {
+    get() {
+      const result = value.get.call(this);
+      console.log(
+        context.isPrivate ? 'private' : '',
+        'get', '"' + context.name + '"',
+        '=', result
+      );
+      return result;
+    },
+    set(v) {
+      value.set.call(this, v);
+      console.log(
+        context.isPrivate ? 'private' : '',
+        'set', '"' + context.name + '"',
+        '=', v
+      );
+    }
+  };
+}
+
+class C {
+  @log
+  accessor #value = 0;
+  sum(n) {
+    return this.#value = this.#value + n;
+  }
+  min(n) {
+    return this.#value = this.#value - n;
+  }
+  mul(n) {
+    return this.#value = this.#value * n;
+  }
+  div(n) {
+    return this.#value = this.#value / n;
+  }
+  result() {
+    return this.#value;
+  }
+}
+
+const c = new C();
+c.sum(10);
+c.min(5);
+c.mul(6);
+c.div(2);
+console.log(c.result());
+        
+        
+        </script>
       </section>
-      <section id="init-decorator">
-        <h2>@init: decorator</h2>
+      <section id="init-member-decorator">
+        <h2>@init: member decorator</h2>
+        <p>Some decorators need to be called with<code>@init:</code>. This form allows the decorator
+          to add an initializer function. This initializer is executed:
+        </p>
+        <ul>
+          <li>for member decorator, after the constructor (for each object)</li>
+          <li>for static member decorators, after the class is defined</li>
+          <li>for the class decorator, after the static member are defined.</li>
+        </ul>
+        <p>The decorator can check if it is called or not with <code>#init:</code> checked the
+          function <code>context.addInitializer</code>. If exist it, the decorator is called with
+          <code>@init:</code>. This function <code>context.addInitializer</code> is the form to
+          add new initializer functions.</p>
+        <h3>Exercise</h3>
+        <p>The objective is to create a decorator with <code>@init:</code> that defines a
+          field as read-only. It's essential to understand that the member initializer runs after
+          the constructor.</p>
+        <ul>
+          <li>Create a decorator <code>function readonly(value, context) {}</code>.</li>
+          <li>Check if the <code>context.addInitializer</code> exist and throw an error if not.
+          </li>
+          <li>Call to <code>context.addInitializer()</code> and pass as parameter a function that
+            define the property as readonly with
+            <code>Object.defineProperty(this, context.name, { get() { return value; }, set(v)
+              {}});</code></li>
+          <li>Apply the decorator to <code>n</code> field.</li>
+        </ul>
+        <script type="origin">
+class C {
+  n = 0;
+
+  constructor(value) {
+    this.n = value;
+  }
+}
+const c = new C(30);
+c.n = 20;
+console.log(c.n);
+        
+        
+        </script>
+        <script type="resolve">
+function readonly(value, context) {
+  if (!context.addInitializer) {
+    throw 'the readonly decorator must be applied with @init:';
+  }
+  context.addInitializer(function () {
+    const value = this[context.name];
+    Object.defineProperty(this, context.name, {
+      get() {
+        return value;
+      },
+      set(v) {}
+    });
+  });
+}
+
+class C {
+  @init:readonly
+  n = 0;
+
+  constructor(value) {
+    this.n = value;
+  }
+}
+const c = new C(30);
+c.n = 20;
+console.log(c.n);
+        
+        
+        </script>
       </section>
       <section id="metadata">
         <h2>Metadata</h2>
+        <p>Decorators provide a simple way to add metadata to classes and their members. Some people
+          use "annotation" as a synonym of "decorator" because one of their features is to annotate
+          classes and class members with metadata.</p>
+        <p>Metadata can be used by other decorators in a collaborative environment, can be used by
+          other programs to recognize some features, can be used for debugging purposes, etc.</p>
+        <p>We need a Symbol key for write metadata. This is the key to avoiding name collisions
+          between different metadata sources. With this Symbol is used when we call to
+          <code>context.setMetadata(key, value)</code> to add metadata and
+          <code>context.getMetadata(key)</code> to get metadata of current decorated element.</p>
+        <h3>Exercise</h3>
+        <p>The objective is to create the <code>close</code> decorator that adds metadata, and the
+          <code>log</code> decorator reads the metadata and avoids logging if the previous metadata
+          is defined.</p>
+        <ul>
+          <li>Define a new Symbol with <code>const IS_HIDDEN = Symbol()</code>.</li>
+          <li>Create the <code>hide</code> decorator that writes metadata with this Symbol:
+            <code>context.setMetadata(IS_HIDDEN, true)</code>.
+          </li>
+          <li>Check the metadata with <code>context.getMetadata(IS_HIDDEN)</code> into
+            <code>log</code> decorator and cancel the execution if the metadata is
+            <code>true</code>.
+          </li>
+          <li>Add <code>@hide</code> before than <code>@log</code> (remember the decorator
+            order: from top to bottom and left to right).
+          </li>
+        </ul>
+        <script type="origin">
+function log (value, context) {
+  if (!['method', 'getter', 'setter'].includes(context.kind)) {
+    return;
+  }
+  return function(...args) {
+    const result = value.apply(this, args);
+    console.log(
+      context.isStatic ? 'static' : '',
+      context.isPrivate ? 'private' : '',
+      context.kind + ' ' + context.name,
+      'is called with (' + args.join(', ') + ')',
+      'and return the value ' + result);
+    return result;
+  }
+}
+class C {
+  @log
+  sum(a, b) {
+    return a + b;
+  }
+}
+const c = new C();
+c.sum(1,2);
+        
+        
+        </script>
+        <script type="resolve">
+const IS_HIDDEN = Symbol();
+
+function hide(value, context) {
+  context.setMetadata(IS_HIDDEN, true)
+}
+
+function log (value, context) {
+  if (!['method', 'getter', 'setter'].includes(context.kind)) {
+    return;
+  }
+  if (context.getMetadata(IS_HIDDEN)) {
+     return console.log('the log is not added');
+  }
+  return function(...args) {
+    const result = value.apply(this, args);
+    console.log(
+      context.isStatic ? 'static' : '',
+      context.isPrivate ? 'private' : '',
+      context.kind + ' ' + context.name,
+      'is called with (' + args.join(', ') + ')',
+      'and return the value ' + result);
+    return result;
+  }
+}
+
+class C {
+  @hide
+  @log
+  sum(a, b) {
+    return a + b;
+  }
+}
+const c = new C();
+c.sum(1,2);
+        
+        
+        </script>
       </section>
       <section id="collaboration">
-        <h2>Decorator collaboration</h2>
+        <h2>Getting metadata</h2>
+        <p>If you need to read the metadata outside the decorators of the same element, we need to
+          find this metadata. The metadata is stored in the class with a particular structure, and
+          we can access it if we have the original Symbol (<code>KEY</code>).</p>
+        <p><code>Symbol.metadata</code> is a well know Symbol used for storing the metadata.
+          Depending on whether the metadata has been defined, the class or the class element,
+          public, private or static, the metadata is stored in different places.</p>
+        <ul>
+          <li>The class metadata is located in<br/><code>Class[Symbol.metadata][<i>KEY</i>].constructor</code>
+          </li>
+          <li>The public member metadata is located
+            in<br/><code>Class.prototype[Symbol.metadata][<i>KEY</i>].public[<i>member_name</i>]</code>
+          </li>
+          <li>The private member metadata is located
+            in<br/><code>Class.prototype[Symbol.metadata][<i>KEY</i>].private</code></li>
+          <li>The static member metadata is located in<br/><code>Class[Symbol.metadata][<i>KEY</i>].public[<i>member_name</i>]</code>
+          </li>
+          <li>The static and private member metadata is located in<br/><code>Class[Symbol.metadata][<i>KEY</i>].private</code>
+          </li>
+        </ul>
+        <p><i>Notice</i>: The private metadata doesn't have the member's private name and is an
+          array with all private metadata.</p>
+        <h3>Exercise</h3>
+        <p>The objective is to check the metadata storage for each kind of element.</p>
+        <ul>
+          <li>Define a Symbol: <code>const MY_META = Symbol()</code></li>
+          <li>Create a new decorator <code>meta</code> that receive a message and write the message
+            as metadata.
+          </li>
+          <li>Add the <code>@meta()</code> decorator for each element with a descriptive
+            parameter.
+          </li>
+          <li>Get all metadata with <code>console.log(C[Symbol.metadata][MY_META])</code> and
+            <code>console.log(C.prototype[Symbol.metadata][MY_META])</code>.
+          </li>
+        </ul>
+        <script type="origin">
+class C {
+  n = 0;
+  m() {}
+  #p = 1;
+
+  static N = 0;
+  static M() {}
+  static #P = 1;
+}
+        </script>
+        <script type="resolve">
+const MY_META = Symbol();
+
+function meta(message) {
+  return function (value, context) {
+    context.setMetadata(MY_META, message);
+  }
+}
+
+@meta('class metadata')
+class C {
+  @meta ('field metadata')
+  n = 0;
+  @meta ('method metadata')
+  m() {}
+  @meta ('private field metadata')
+  #p = 1;
+
+  @meta ('static field metadata')
+  static N = 0;
+  @meta ('static method metadata')
+  static M() {}
+  @meta ('static and private field metadata')
+  static #P = 1;
+}
+
+console.log('C[Symbol.metadata][MY_META]', C[Symbol.metadata][MY_META]);
+console.log('C.prototype[Symbol.metadata][MY_META]', C.prototype[Symbol.metadata][MY_META]);
+        </script>
       </section>
+      <section id="final-exercise">
+        <h2>Final exercise</h2>
+        <p>This complete exercise has the objective of creating a set of decorators to obtain the
+          object's state, create a history, and add an <code>undo()</code> method to restore
+          previous states.</p>
+        <p>In this case, we have to follow several steps::</p>
+        <ul>
+          <li>Create a Symbol as the key for our metadata:
+            <pre>const HISTORY = Symbol()</pre>
+          </li>
+          <li>Create a WeakMap for storage the status for each object:
+            <pre>const data    = new WeakMap();</pre>
+          </li>
+          <li>Create a <code>@mutation</code> decorator to set the methods that change the status:
+            <pre>context.setMetadata (HISTORY, 'change');</pre>
+          </li>
+          <li>Create a <code>@state accessor</code> decorator to set the private field that
+            stores the current status and put the access object into the metadata with
+            <pre>context.setMetadata (HISTORY, context.access)</pre>
+          </li>
+          <li>Create an <code>@history</code> decorator with these features:
+            <ul>
+              <li>Get the access object saved into the metadata:<br/>
+                <pre>const access = value.prototype[ Symbol.metadata ][ HISTORY ].private[0];</pre>
+              </li>
+              <li>Add the <code>history()</code> method to the prototype:
+                <pre>
+value.prototype.history = function () {
+  if (!data.has(this)) {
+    data.set(this, [])
+  }
+  return data.get(this)
+};</pre>
+              </li>
+              <li>Add the <code>undo()</code> method to the prototype:
+                <pre>
+value.prototype.undo = function () {
+  if (this.history().length) {
+    access.set.call(this, this.history().pop () );
+  }
+};</pre>
+              </li>
+              <li>Wrap all methods annotated as a mutation with a new function that stores the
+                previous state:
+                <pre>
+Object.keys (value.prototype[ Symbol.metadata ][ HISTORY ].public).forEach (method => {
+  const fn = value.prototype[ method ];
+  value.prototype[ method ] = function (...args) {
+    this.history().push (access.get.call(this));
+    return fn.apply (this, args);
+  };
+});</pre>
+              </li>
+            </ul>
+          </li>
+          <li>Apply the decorators:
+            <ul>
+              <li><code>@state</code> to <code>#value = 0</code>.</li>
+              <li><code>@mutation</code> to <code>add()</code>, <code>sub()</code>,
+                <code>mul()</code>, and <code>div()</code>.
+              </li>
+              <li><code>@history</code> to <code>class Calc</code></li>
+            </ul>
+          </li>
+          <li>Now, you can call <code>calc.undo()</code> to restore the previous status.</li>
+        </ul>
+        
+        <script type="origin">
+class Calc {
+  
+  #value = 0;
+  
+  add (n) {
+    return this.#value = this.#value + n;
+  }
+  sub (n) {
+    return this.#value = this.#value - n;
+  }
+  mul (n) {
+    return this.#value = this.#value * n;
+  }
+  div (n) {
+    return this.#value = this.#value / n;
+  }
+  result () {
+    return this.#value;
+  }
+}
+
+const calc = new Calc ();
+calc.add (10);
+calc.add (20);
+calc.add (30);
+calc.add (40);
+calc.mul (10);
+calc.sub (1)
+console.log (calc.result ()); // 999
+        </script>
+        <script type="resolve">
+const HISTORY = Symbol ();
+const data    = new WeakMap();
+
+function mutation(value, context) {
+  context.setMetadata (HISTORY, 'change');
+}
+
+function state (value, context) {
+  context.setMetadata (HISTORY, context.access);
+}
+
+function history (value, context) {
+
+  const access = value.prototype[ Symbol.metadata ][ HISTORY ].private[0];
+  
+  value.prototype.history = function () {
+    if (!data.has(this)) {
+      data.set(this, [])
+    }
+    return data.get(this)
+  };
+  
+  value.prototype.undo = function () {
+    if (this.history().length) {
+      access.set.call(this, this.history().pop () );
+    }
+  };
+  
+  Object.keys (value.prototype[ Symbol.metadata ][ HISTORY ].public).forEach (method => {
+    const fn = value.prototype[ method ];
+    value.prototype[ method ] = function (...args) {
+      this.history().push (access.get.call(this));
+      return fn.apply (this, args);
+    };
+  });
+
+}
+
+
+@history
+class Calc {
+  
+  @state accessor
+  #value = 0;
+  
+  @mutation
+  add (n) {
+    return this.#value = this.#value + n;
+  }
+  
+  @mutation
+  sub (n) {
+    return this.#value = this.#value - n;
+  }
+  
+  @mutation
+  mul (n) {
+    return this.#value = this.#value * n;
+  }
+  
+  @mutation
+  div (n) {
+    return this.#value = this.#value / n;
+  }
+  
+  result () {
+    return this.#value;
+  }
+}
+
+const calc = new Calc ();
+calc.add (10);
+calc.add (20);
+calc.add (30);
+calc.add (40);
+calc.mul (10);
+calc.sub (1)
+console.log (calc.result ()); // 999
+calc.undo();
+console.log (calc.result ()); // 1000
+calc.undo();
+console.log (calc.result ()); // 100
+        </script>
+      </section>
+      <div id="resolve" class="button primary" title="revolve the exercise">resolve</div>
+      <div id="reset" class="button secondary" title="reset the exercise">reset</div>
       <div class="navigation">
-        <div class="prev"><strong>Previous:</strong> <span id="prev"></span></div>
-        <div class="next"><strong>Next:</strong> <span id="next"></span></div>
+        <div class="prev-parent"><span class="prev">&#8678;</span></div>
+        <div class="next-parent"><span class="next"><strong>Next:</strong> <span
+            id="next"></span></span></div>
       </div>
     </div>
   </div>
@@ -476,8 +1457,6 @@ console.log('c.div(1,2) =', c.div(1,2));
     <div class="subheader">
       <h2>Source code</h2>
       <span id="message"></span>
-      <div id="resolve" class="button primary" title="revolve the exercice">resolve</div>
-      <div id="reset" class="button secundary" title="revolve the exercice">reset</div>
     </div>
     <div id="code"></div>
     <div class="resizer-ns">....</div>

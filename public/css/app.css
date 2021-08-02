@@ -184,7 +184,9 @@ code {
 .tutorial #tutorial {
   overflow : auto;
 }
-.tutorial #tutorial h2,
+.tutorial #tutorial h2 {
+  display : none;
+}
 .tutorial #tutorial h3 {
   margin-left   : 0;
   margin-right  : 0;
@@ -201,8 +203,7 @@ code {
   font-weight : bold;
   cursor      : inherit;
 }
-.home .section-left #run,
-.tutorial .section-right #resolve {
+.home .section-left #run {
   position : absolute;
   top      : 4px;
   margin   : 0;
@@ -210,18 +211,14 @@ code {
 .home .section-left #run {
   right : 84px;
 }
-.tutorial .section-right #resolve {
-  right : 60px;
+.tutorial .section-left #resolve {
+  margin-left : 2rem;
 }
-.home .section-left #analyze,
-.tutorial .section-right #reset {
+.home .section-left #analyze {
   position : absolute;
   top      : 4px;
   right    : 3px;
   margin   : 0;
-}
-.tutorial .section-right #resolve:hover {
-  opacity : 100%;
 }
 .home .section-left #code,
 .home .section-right #result,
@@ -333,22 +330,23 @@ code {
 .tutorial #tutorial section.active {
   display : block;
 }
-.tutorial #tutorial p {
-  padding-left  : 2rem;
-  padding-right : 2rem;
+.tutorial #tutorial p,
+.tutorial #tutorial ul {
+  margin-left  : 2rem;
+  margin-right : 2rem;
 }
-.tutorial #tutorial p.header {
+.tutorial .prev-parent,
+.tutorial .next-parent {
+  width   : calc(50% - 4em);
+  float   : left;
+  padding : 2rem;
+}
+.tutorial .next-parent {
   text-align : right;
 }
 .tutorial .prev,
 .tutorial .next {
-  width   : calc(50% - 4em);
-  float   : left;
-  padding : 2rem;
-  cursor  : pointer;
-}
-.tutorial .next {
-  text-align : right;
+  cursor : pointer;
 }
 .tutorial .prev:hover #prev,
 .tutorial .next:hover #next {
@@ -356,5 +354,33 @@ code {
 }
 .tutorial .prev strong,
 .tutorial .next strong {
-  font-weight: 600;
+  font-weight : 600;
+}
+.tutorial .prev {
+  font-size : 1.5rem;
+}
+#navigator {
+  border      : 0;
+  outline     : none;
+  background  : transparent;
+  cursor      : pointer;
+  margin-top  : 0.3rem;
+  margin-left : -0.3rem;
+  font-size   : 1.2rem;
+  font-weight : 600;
+}
+.reference .bordered {
+  border      : 1px solid #000000;
+  margin-left : -1px;
+  margin-top  : -1px;
+}
+.tutorial #tutorial pre {
+  color: var(--code-color);
+}
+.tutorial li pre {
+  margin: 0.5em 0;
+}
+.tutorial ul li ul {
+  margin: 1rem 0 !important;
+  list-style-type: square;
 }

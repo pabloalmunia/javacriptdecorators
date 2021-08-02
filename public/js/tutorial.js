@@ -7,6 +7,7 @@ const execute = (() => {
   let timer;
   let controller;
   return function () {
+    result.innerHTML = '<div class="log">&nbsp;...</div>';
     clearTimeout (timer);
     if (controller) {
       controller.abort ();
@@ -28,11 +29,11 @@ const execute = (() => {
         console.error (res);
       }).then (res => {
         run (result, res.transpiled);
-      }).catch(err => {
+      }).catch (err => {
         controller = null;
-        console.error(err);
+        console.error (err);
       });
-    }, 600);
+    }, 1000);
   };
 }) ();
 
@@ -51,9 +52,20 @@ document.querySelector ('.prev').addEventListener ('click', setPrev);
 document.querySelector ('.next').addEventListener ('click', setNext);
 document.querySelector ('#resolve').addEventListener ('click', setResolve);
 document.querySelector ('#reset').addEventListener ('click', setCode);
+const navigator = document.querySelector ('#navigator');
+for (let section of sections) {
+  const option     = document.createElement ('option');
+  option.innerHTML = section.querySelector ('h2').innerText;
+  option.value     = section.id;
+  navigator.appendChild (option);
+}
+navigator.addEventListener('change', (evt) => {
+  setActive(getSectionById (navigator.value));
+})
 
 if (!active) {
-  setActive (location.hash ? getSectionById (location.hash.substring (1)) : 0);
+  const hashSection = getSectionById (location.hash.substring (1));
+  setActive (hashSection !== -1 ? hashSection : 0);
 }
 
 function getSectionById (id) {
@@ -76,13 +88,14 @@ function setActive (n) {
   active.classList.add ('active');
   document.querySelector ('#current').innerHTML     = n + 1;
   document.querySelector ('.prev').style.visibility = n === 0 ? 'hidden' : 'inherit';
-  document.querySelector ('.prev #prev').innerHTML  = getPrevTitle ();
+  // document.querySelector ('.prev #prev').innerHTML  = getPrevTitle ();
   document.querySelector ('.next').style.visibility = n === sections.length - 1 ?
     'hidden' :
     'inherit';
   document.querySelector ('.next #next').innerHTML  = getNextTitle ();
   setCode ();
-  location.hash = active.id;
+  location.hash   = active.id;
+  navigator.value = active.id;
 }
 
 function setNext () {

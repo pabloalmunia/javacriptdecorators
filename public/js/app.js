@@ -25,7 +25,10 @@ function time () {
  * @param value
  * @returns {string}
  */
-function show (value) {
+function show (value, margin = '  ') {
+  if (typeof value === 'string') {
+    return '"' + value + '"';
+  }
   if (typeof value === 'undefined') {
     return 'undefined';
   }
@@ -33,28 +36,31 @@ function show (value) {
     return '[Function]';
   }
   if (typeof value === 'symbol') {
-    return 'Symbol()';
+    return '[Symbol(' + (value.description || '') + ')]';
   }
   if (value === null) {
     return 'null';
   }
   if (typeof value === 'object') {
-    return JSON.stringify (value, (k, v) => {
-      // Filtering out properties
-      if (typeof v === 'function') {
-        return '[Function]';
-      }
-      if (typeof v === 'undefined') {
-        return 'undefined';
-      }
-      if (typeof v === 'symbol') {
-        return 'Symbol()';
-      }
-      return v;
-    }, 2);
+    const isArray = Array.isArray(value);
+    let result = (isArray ? '[' : '{') + '\n';
+    let first   = true;
+    (isArray ? Object.keys(value) : Reflect.ownKeys (value))
+      .forEach (prop => {
+        if (first) {
+          first = false
+        } else {
+          result += ',\n'
+        }
+        result += margin + (isArray ? '' : show(prop) + ': ') + show(value[ prop ], margin + '  ');
+      })
+    result += '\n' + margin.substring(0, margin.length - 2) + (isArray ? ']' : '}');
+    return result;
   }
   return value;
 }
+
+
 
 let __panel;
 
@@ -68,17 +74,17 @@ function run (panel, code) {
     console          = {
       log (...args) {
         __panel.innerHTML += '<div class="log"><div class="time">' + time () + ' </div><pre class="msg">' + [...args]
-          .map (show)
+          .map (v => show(v))
           .join (' ') + '</pre></div>';
       },
       warn (...args) {
         __panel.innerHTML += '<div class="warn"><div class="time">' + time () + ' </div><pre class="msg">' + [...args]
-          .map (show)
+          .map (v => show(v))
           .join (' ') + '</pre></div>';
       },
       error (...args) {
         __panel.innerHTML += '<div class="error"><div class="time">' + time () + ' </div><pre class="msg">' + [...args]
-          .map (show)
+          .map (v => show(v))
           .join (' ') + '</pre></div>';
       },
       assert (assertion, ...args) {
