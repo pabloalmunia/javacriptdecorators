@@ -1,5 +1,13 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.4.0 - 2021/08/02
+
+- added a complete tutorial (unlinked)
+- added support for import (module)
+- fixed an error with anonymous class
+- fixed setMetadata()
+- fixed the README reference about field value parameter.
+
 ## version 0.3.1 - 2021/06/04
 
 - fixed a bug with methods name as Symbol.

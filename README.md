@@ -648,7 +648,7 @@ class MyClass {
 
 ##### decorator parameters
 
-- `value` is field itself
+- `value` is `undefined`
 
 - `context` with this object:
 
@@ -744,7 +744,7 @@ class MyClass {
 
 ##### decorator parameters
 
-- `value` is the field itself
+- `value` is `undefined`
 
 - `context` is an object with this content:
 
@@ -840,7 +840,7 @@ class MyClass {
 
 ##### decorator parameters
 
-- `value` is the field itself
+- `value` is `undefined`
 
 - `context` is an object with this content:
 
