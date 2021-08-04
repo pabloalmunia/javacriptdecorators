@@ -369,21 +369,45 @@ code {
   font-size   : 1.2rem;
   font-weight : 600;
 }
-.reference .bordered {
-  border      : 1px solid #000000;
-  margin-left : -1px;
-  margin-top  : -1px;
-}
 .tutorial #tutorial pre {
-  color: var(--code-color);
+  color : var(--code-color);
 }
 .tutorial li pre {
-  margin: 0.5em 0;
+  margin : 0.5em 0;
 }
 .tutorial ul li ul {
-  margin: 1rem 0 !important;
-  list-style-type: square;
+  margin          : 1rem 0 !important;
+  list-style-type : square;
 }
 .tutorial #tutorial .sections {
-  min-height: calc(100% - 10rem);
+  min-height : calc(100% - 10rem);
+}
+.content.reference {
+  text-align  : center;
+  padding-top : 2em;
+}
+.content.reference table {
+  margin-left     : auto;
+  margin-right    : auto;
+  min-width       : 600px;
+  max-width       : 900px;
+  background-color: #fafafa;
+  padding: 1em;
+  border-radius: 1em;
+}
+.content.reference table tr {
+  height : 2.5rem;
+}
+.content.reference table tr .left {
+  text-align: left;
+}
+.content.reference .bord {
+  border-top      : 1px solid #000000;
+  border-left      : 1px solid #000000;
+}
+.content.reference .bord-b {
+  border-bottom      : 1px solid #000000;
+}
+.content.reference .bord-r {
+  border-right      : 1px solid #000000;
 }
