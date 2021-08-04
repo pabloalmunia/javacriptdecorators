@@ -14,9 +14,8 @@
   <script src="../js/codeflask.min.js"></script>
 </head>
 <body>
-<div class="header">
-  <h1>Javascript <a href="https://github.com/tc39/proposal-decorators"><em>Proposal</em></a>
-    Decorators Quick Reference</h1> | &nbsp;<a href="../">Playground</a> | &nbsp;<a
+<div class="header"><h1>Javascript <a href="https://github.com/tc39/proposal-decorators"><em>Proposal</em></a>Decorators
+  Quick Reference</h1> | &nbsp;<a href="../">Playground</a> | &nbsp;<a
     href="../tutorial/">Tutorial</a>
   <div class="version">version <span id="version"></span></div>
 </div>
@@ -34,12 +33,10 @@
         fill="currentColor" class="octo-body"></path>
   </svg>
 </a>
-<div class="content reference">
-  <h2>Decorator parameters and return</h2>
-  <br/>
+<div class="content reference"><h2>Decorator parameters and return</h2><br/>
   <table cellspacing="0" border="0">
     <tr>
-      <td  align="left" width="28%"><br></td>
+      <td align="left" width="28%"><br></td>
       <td class="bord bord-b" width="12%"><b>Class</b></td>
       <td class="bord bord-b" width="12%"><b>Method</b></td>
       <td class="bord bord-b" width="12%"><b>Getter</b></td>
@@ -48,117 +45,130 @@
       <td class="bord bord-b bord-r" width="12%"><b>Accessor</b></td>
     </tr>
     <tr>
-      <td  align="left"><b>decorator parameters</b></td>
+      <td align="left"><b>decorator parameters</b></td>
       <td align="left" colspan="6"><br></td>
     </tr>
     <tr>
-      <td class="bord left" ><code>value</code></td>
+      <td class="bord left"><code>value</code></td>
       <td class="bord"><i>the class</i></td>
       <td class="bord"><i>the method</i></td>
       <td class="bord"><i>the getter</i></td>
       <td class="bord"><i>the setter</i></td>
       <td class="bord"><code>undefined</code></td>
-      <td class="bord bord-r"><code>{get, set}</code>
-      </td>
+      <td class="bord bord-r"><code>{get, set}</code></td>
     </tr>
     <tr>
-      <td class="bord left" >&nbsp;<code>{</code></td>
+      <td class="bord left">&nbsp;<code>{</code></td>
       <td class="bord bord-r" colspan="6"><br></td>
     </tr>
     <tr>
-      <td class="bord left" ><code>&nbsp;&nbsp;kind:</code></td>
-      <td class="bord" ><code>&quot;class&quot;</code></td>
-      <td class="bord" ><code>&quot;method&quot;</code></td>
-      <td class="bord" ><code>&quot;getter&quot;</code></td>
-      <td class="bord" ><code>&quot;setter&quot;</code></td>
-      <td class="bord" ><code>&quot;field&quot;</code></td>
-      <td class="bord bord-r" ><code>&quot;accessor&quot;</code></td>
+      <td class="bord left"><code>&nbsp;&nbsp;kind:</code></td>
+      <td class="bord"><code>&quot;class&quot;</code></td>
+      <td class="bord"><code>&quot;method&quot;</code></td>
+      <td class="bord"><code>&quot;getter&quot;</code></td>
+      <td class="bord"><code>&quot;setter&quot;</code></td>
+      <td class="bord"><code>&quot;field&quot;</code></td>
+      <td class="bord bord-r"><code>&quot;accessor&quot;</code></td>
     </tr>
     <tr>
-      <td class="bord left" ><code>&nbsp;&nbsp;name:</code></td>
+      <td class="bord left"><code>&nbsp;&nbsp;name:</code></td>
       <td class="bord bord-r" colspan=6><i>the element name</i></td>
     </tr>
     <tr>
-      <td class="bord left" ><code>&nbsp;&nbsp;isStatic:</code></td>
-      <td class="bord" ><code>undefined</code></td>
-      <td class="bord bord-r" colspan=5 ><code>true</code><i> if is a
-        static member</i>
-      </td>
+      <td class="bord left"><code>&nbsp;&nbsp;access.get()</code></td>
+      <td class="bord" rowspan="2"><code>undefined</code></td>
+      <td class="bord"><i>if it is private</i></td>
+      <td class="bord"><i>if it is private</i></td>
+      <td class="bord"><code>undefined</code></td>
+      <td class="bord"><i>if it is private</i></td>
+      <td class="bord bord-r"><i>if it is private</i></td>
     </tr>
     <tr>
-      <td class="bord "  align="left" >
-        <code>&nbsp;&nbsp;isPrivate:</code></td>
-      <td class="bord" ><code>undefined</code></td>
-      <td class="bord bord-r" colspan=5 ><code>true</code><i> if is a
-        private member
-      </td>
+      <td class="bord left"><code>&nbsp;&nbsp;access.set(value)</code></td>
+      <td class="bord"><code>undefined</code></td>
+      <td class="bord"><code>undefined</code></td>
+      <td class="bord"><i>if it is private</i></td>
+      <td class="bord"><i>if it is private</i></td>
+      <td class="bord bord-r"><i>if it is private</i></td>
     </tr>
     <tr>
-      <td class="bord left" ><code>&nbsp;&nbsp;getMetadata(key)</code></td>
+      <td class="bord left"><code>&nbsp;&nbsp;isStatic:</code></td>
+      <td class="bord"><code>undefined</code></td>
+      <td class="bord bord-r" colspan=5><code>true</code><i> if it is a static member</i></td>
+    </tr>
+    <tr>
+      <td class="bord " align="left"><code>&nbsp;&nbsp;isPrivate:</code></td>
+      <td class="bord"><code>undefined</code></td>
+      <td class="bord bord-r" colspan=5><code>true</code><i> if it is a private member</td>
+    </tr>
+    <tr>
+      <td class="bord left"><code>&nbsp;&nbsp;getMetadata(key)</code></td>
       <td class="bord bord-r" colspan=6><i>always</i></td>
     </tr>
     <tr>
-      <td class="bord left" ><code>&nbsp;&nbsp;setMetadata(key,value)</code></td>
+      <td class="bord left"><code>&nbsp;&nbsp;setMetadata(key,value)</code></td>
       <td class="bord bord-r" colspan=6><i>always</i></td>
     </tr>
     <tr>
-      <td class="bord left" ><code>&nbsp;&nbsp;addInitializer(initalizer)</code></td>
-      <td class="bord bord-r" colspan=6><i>only if called with </i><code>@init:</code>
-      </td>
+      <td class="bord left"><code>&nbsp;&nbsp;addInitializer(initalizer)</code></td>
+      <td class="bord bord-r" colspan=6><i>only if it called with </i><code>@init:</code></td>
     </tr>
     <tr>
-      <td class="bord bord-b left" >&nbsp;<code>}</code></td>
+      <td class="bord bord-b left">&nbsp;<code>}</code></td>
       <td class="bord bord-b bord-r" colspan="6"><br></td>
     </tr>
     <tr>
-      <td  align="left"><b>decorator return</b></td>
+      <td align="left"><b>decorator return</b></td>
       <td colspan="6"><br></td>
     </tr>
     <tr>
-      <td class="bord bord-b left" >&nbsp;<code>return</code> (optional)</td>
-      <td class="bord bord-b" ><i>new class</i></td>
-      <td class="bord bord-b" ><i>new method</i></td>
-      <td class="bord bord-b" ><i>new getter</i></td>
-      <td class="bord bord-b" ><i>new setter</i></td>
-      <td class="bord bord-b" ><i>function for the initial value</i></td>
-      <td class="bord bord-b bord-r" ><i>new object with <code>{get, set}</code></i></td>
+      <td class="bord bord-b left">&nbsp;<code>return</code> (optional)</td>
+      <td class="bord bord-b"><i>new class</i></td>
+      <td class="bord bord-b"><i>new method</i></td>
+      <td class="bord bord-b"><i>new getter</i></td>
+      <td class="bord bord-b"><i>new setter</i></td>
+      <td class="bord bord-b"><i>function for the initial value</i></td>
+      <td class="bord bord-b bord-r"><i>new object with <code>{get, set}</code></i></td>
     </tr>
   </table>
   <br/>
-  <h2>Metadata</h2>
-  <br/>
+  <h2>Metadata</h2><br/>
   <table cellspacing="0" border="0">
     <tr>
       <td class="bord" colspan="2"><strong>Class</strong></td>
-      <td class="bord bord-r left">&nbsp;&nbsp;<code>MyClass[Symbol.metadata][KEY].constructor</code></td>
+      <td class="bord bord-r left">
+        &nbsp;&nbsp;<code>MyClass[Symbol.metadata][KEY].constructor</code></td>
     </tr>
     <tr>
       <td class="bord" rowspan="2"><strong>Object member</strong></td>
-      <td class="bord" ><strong>public</strong></td>
-      <td class="bord bord-r left">&nbsp;&nbsp;<code>MyClass.prototype[Symbol.metadata][KEY].public.<i>name</i></code></td>
+      <td class="bord"><strong>public</strong></td>
+      <td class="bord bord-r left">&nbsp;&nbsp;<code>MyClass.prototype[Symbol.metadata][KEY].public.<i>name</i></code>
+      </td>
     </tr>
     <tr>
-      <td class="bord" ><strong>private</strong></td>
-      <td class="bord bord-r left">&nbsp;&nbsp;<code>MyClass.prototype[Symbol.metadata][KEY].private</code></td>
+      <td class="bord"><strong>private</strong></td>
+      <td class="bord bord-r left">
+        &nbsp;&nbsp;<code>MyClass.prototype[Symbol.metadata][KEY].private</code></td>
     </tr>
     <tr>
       <td class="bord bord-b" rowspan="2"><strong>Static</strong></td>
-      <td class="bord" ><strong>public</strong></td>
-      <td class="bord bord-r left">&nbsp;&nbsp;<code>MyClass[Symbol.metadata][KEY].public.<i>name</i></code></td>
+      <td class="bord"><strong>public</strong></td>
+      <td class="bord bord-r left">
+        &nbsp;&nbsp;<code>MyClass[Symbol.metadata][KEY].public.<i>name</i></code></td>
     </tr>
     <tr>
       <td class="bord bord-b"><strong>private</strong></td>
-      <td class="bord bord-r bord-b left">&nbsp;&nbsp;<code>MyClass[Symbol.metadata][KEY].private</code></td>
+      <td class="bord bord-r bord-b left">
+        &nbsp;&nbsp;<code>MyClass[Symbol.metadata][KEY].private</code></td>
     </tr>
-    <tr><td class="left" colspan="3">
-      <code>MyClass</code> is the class name<br/>
-      <code>Symbol.metadata</code> is a well know symbol<br/>
-      <code>KEY</code> is the symbol used as key<br/>
-      <code>name</code> is the member name<br/>
-      <code>private</code> is an array with all private members metadata
-    </td></tr>
+    <tr>
+      <td class="left" colspan="3"><code>MyClass</code> is the class
+        name<br/><code>Symbol.metadata</code> is a well know symbol<br/><code>KEY</code> is the
+        symbol used as key<br/><code>name</code> is the member name<br/><code>private</code> is an
+        array with all private members metadata
+      </td>
+    </tr>
   </table>
-
 </div>
 <script src="../js/app.js"></script>
 <script src="../js/tutorial.js"></script>

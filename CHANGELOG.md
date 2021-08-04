@@ -1,5 +1,9 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.4.3 - 2021/08/04
+
+- added 'access' to the quick reference
+
 ## version 0.4.2 - 2021/08/04
 
 - added quick reference
