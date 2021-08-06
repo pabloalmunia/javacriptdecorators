@@ -1,5 +1,9 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.4.4 -  2021/08/06
+
+- fix the metadata object create width Object.create(null).
+
 ## version 0.4.3 - 2021/08/04
 
 - added 'access' to the quick reference
