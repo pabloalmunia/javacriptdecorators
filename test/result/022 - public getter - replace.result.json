@@ -1,0 +1,248 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 199,
+  "body": [
+    {
+      "type": "FunctionDeclaration",
+      "start": 0,
+      "end": 85,
+      "id": {
+        "type": "Identifier",
+        "start": 9,
+        "end": 18,
+        "name": "decorator"
+      },
+      "expression": false,
+      "generator": false,
+      "async": false,
+      "params": [
+        {
+          "type": "Identifier",
+          "start": 20,
+          "end": 25,
+          "name": "value"
+        },
+        {
+          "type": "Identifier",
+          "start": 27,
+          "end": 34,
+          "name": "context"
+        }
+      ],
+      "body": {
+        "type": "BlockStatement",
+        "start": 36,
+        "end": 85,
+        "body": [
+          {
+            "type": "ReturnStatement",
+            "start": 41,
+            "end": 82,
+            "argument": {
+              "type": "FunctionExpression",
+              "start": 48,
+              "end": 82,
+              "id": null,
+              "expression": false,
+              "generator": false,
+              "async": false,
+              "params": [],
+              "body": {
+                "type": "BlockStatement",
+                "start": 59,
+                "end": 82,
+                "body": [
+                  {
+                    "type": "ReturnStatement",
+                    "start": 66,
+                    "end": 77,
+                    "argument": {
+                      "type": "Literal",
+                      "start": 73,
+                      "end": 76,
+                      "value": "b",
+                      "raw": "'b'"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "ClassDeclaration",
+      "start": 87,
+      "end": 148,
+      "id": {
+        "type": "Identifier",
+        "start": 93,
+        "end": 94,
+        "name": "C"
+      },
+      "superClass": null,
+      "body": {
+        "type": "ClassBody",
+        "start": 95,
+        "end": 148,
+        "body": [
+          {
+            "type": "MethodDefinition",
+            "start": 114,
+            "end": 145,
+            "kind": "get",
+            "static": false,
+            "computed": false,
+            "key": {
+              "type": "Identifier",
+              "start": 118,
+              "end": 119,
+              "name": "p"
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "start": 119,
+              "end": 145,
+              "id": null,
+              "expression": false,
+              "generator": false,
+              "async": false,
+              "params": [],
+              "body": {
+                "type": "BlockStatement",
+                "start": 122,
+                "end": 145,
+                "body": [
+                  {
+                    "type": "ReturnStatement",
+                    "start": 129,
+                    "end": 140,
+                    "argument": {
+                      "type": "Literal",
+                      "start": 136,
+                      "end": 139,
+                      "value": "a",
+                      "raw": "'a'"
+                    }
+                  }
+                ]
+              }
+            },
+            "decorators": [
+              {
+                "type": "Decorator",
+                "start": 100,
+                "end": 110,
+                "expression": {
+                  "type": "Identifier",
+                  "start": 101,
+                  "end": 110,
+                  "name": "decorator"
+                },
+                "kind": "getter"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "VariableDeclaration",
+      "start": 152,
+      "end": 170,
+      "declarations": [
+        {
+          "type": "VariableDeclarator",
+          "start": 158,
+          "end": 169,
+          "id": {
+            "type": "Identifier",
+            "start": 158,
+            "end": 159,
+            "name": "a"
+          },
+          "init": {
+            "type": "NewExpression",
+            "start": 162,
+            "end": 169,
+            "callee": {
+              "type": "Identifier",
+              "start": 166,
+              "end": 167,
+              "name": "C"
+            },
+            "arguments": []
+          }
+        }
+      ],
+      "kind": "const"
+    },
+    {
+      "type": "ExpressionStatement",
+      "start": 172,
+      "end": 199,
+      "expression": {
+        "type": "CallExpression",
+        "start": 172,
+        "end": 199,
+        "callee": {
+          "type": "MemberExpression",
+          "start": 172,
+          "end": 186,
+          "object": {
+            "type": "Identifier",
+            "start": 172,
+            "end": 179,
+            "name": "console"
+          },
+          "property": {
+            "type": "Identifier",
+            "start": 180,
+            "end": 186,
+            "name": "assert"
+          },
+          "computed": false,
+          "optional": false
+        },
+        "arguments": [
+          {
+            "type": "BinaryExpression",
+            "start": 187,
+            "end": 198,
+            "left": {
+              "type": "MemberExpression",
+              "start": 187,
+              "end": 190,
+              "object": {
+                "type": "Identifier",
+                "start": 187,
+                "end": 188,
+                "name": "a"
+              },
+              "property": {
+                "type": "Identifier",
+                "start": 189,
+                "end": 190,
+                "name": "p"
+              },
+              "computed": false,
+              "optional": false
+            },
+            "operator": "===",
+            "right": {
+              "type": "Literal",
+              "start": 195,
+              "end": 198,
+              "value": "b",
+              "raw": "'b'"
+            }
+          }
+        ],
+        "optional": false
+      }
+    }
+  ],
+  "sourceType": "module"
+}
