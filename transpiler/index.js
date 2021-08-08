@@ -1871,7 +1871,7 @@ function __PrepareMetadata(base, kind, property) {
   const createObjectWithPrototype = (obj, key) =>
     Object.hasOwnProperty.call(obj, key) ?
       obj[key] :
-      Object.create(obj[key] || {});
+      Object.create(obj[key] || Object.prototype);
   
   return {
     getMetadata(key) {
