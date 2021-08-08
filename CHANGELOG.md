@@ -1,12 +1,16 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.5.0 - 2021/08/08
+
+- fixed an important error with private metadata structure.
+
 ## version 0.4.5 - 2021/08/08
 
-- fix inheritance in metadata base object creation (@senocular) 
+- fixed inheritance in metadata base object creation (@senocular). 
 
 ## version 0.4.4 -  2021/08/06
 
-- fix the metadata object create width Object.create(null).
+- fixed the metadata object create width Object.create(null).
 
 ## version 0.4.3 - 2021/08/04
 
