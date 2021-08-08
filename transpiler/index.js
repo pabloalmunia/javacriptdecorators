@@ -889,7 +889,8 @@ function accessorPrivateGenerator ({init, className, decoratorName, propertyName
     },
     ContextMetadata (
       isStatic ? className : className + '.prototype',
-      'private'
+      'private',
+      '#' + propertyName
     )
   ];
   if (init) {
@@ -1396,7 +1397,8 @@ function privateFieldGenerator ({init, kind, className, elementName, decoratorNa
     },
     ContextMetadata (
       className + (isStatic ? '' : '.prototype'),
-      'private'
+      'private',
+      elementName
     )
   ];
   if (init) {
@@ -1517,7 +1519,8 @@ function privateCallDecorator ({init, kind, className, decoratorName, symbolName
     },
     ContextMetadata (
       className + (isStatic ? '' : '.prototype'),
-      'private'
+      'private',
+      elementPrivateName
     )
   ];
   if (init) {
@@ -1876,7 +1879,13 @@ function __PrepareMetadata(base, kind, property) {
   return {
     getMetadata(key) {
       if (base[Symbol.metadata] && base[Symbol.metadata][key] && typeof base[Symbol.metadata][key][kind] !== "undefined") {
-        return kind === "public" ? base[Symbol.metadata][key].public[property] : base[Symbol.metadata][key][kind];
+        return kind === "public" ? 
+          base[Symbol.metadata][key].public[property] : 
+          kind === "private" ?
+            (__metadataPrivate.has(base[Symbol.metadata][key]) ? 
+              __metadataPrivate.get(base[Symbol.metadata][key])[property] : 
+              undefined) :
+            base[Symbol.metadata][key][kind];
       }
     },
     setMetadata(key, value) {
@@ -1889,7 +1898,7 @@ function __PrepareMetadata(base, kind, property) {
       if (!Object.hasOwnProperty.call(base[Symbol.metadata][key], 'private')) {
         Object.defineProperty(base[Symbol.metadata][key], "private", {
           get() {
-            return (__metadataPrivate.get(base[Symbol.metadata][key]) || [])
+            return Object.values(__metadataPrivate.get(base[Symbol.metadata][key]) || {})
               .concat(Object.getPrototypeOf(base[Symbol.metadata][key])?.private || []);
           }
         });
@@ -1898,9 +1907,9 @@ function __PrepareMetadata(base, kind, property) {
         base[Symbol.metadata][key].public[property] = value;
       } else if (kind === "private") {
         if (!__metadataPrivate.has(base[Symbol.metadata][key])) {
-          __metadataPrivate.set(base[Symbol.metadata][key], []);
+          __metadataPrivate.set(base[Symbol.metadata][key], {});
         }
-        __metadataPrivate.get(base[Symbol.metadata][key]).push(value);
+        __metadataPrivate.get(base[Symbol.metadata][key])[property] = value;
       } else if (kind === "constructor") {
         base[Symbol.metadata][key].constructor = value;
       }

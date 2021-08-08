@@ -12,6 +12,7 @@ function decorator2 (value, context) {
 class C {
   @decorator1
   @decorator2
+  @decorator2
   set #p (v) {
   }
 }
@@ -19,3 +20,4 @@ class C {
 const a = new C ();
 console.assert (C.prototype[ Symbol.metadata ][ONE].private[0] === 1);
 console.assert (C.prototype[ Symbol.metadata ][TWO].private[0] === 2);
+console.assert (C.prototype[ Symbol.metadata ][TWO].private.length === 1);

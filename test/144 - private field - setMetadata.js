@@ -12,9 +12,12 @@ function decorator2 (value, context) {
 class C {
   @decorator1
   @decorator2
+  @decorator2
   #p = 10;
 }
 
 const c = new C ();
 console.assert (C.prototype[ Symbol.metadata ][ONE].private[0] === 1);
 console.assert (C.prototype[ Symbol.metadata ][TWO].private[0] === 2);
+console.assert (C.prototype[ Symbol.metadata ][TWO].private.length === 1);
+console.assert (C.prototype[ Symbol.metadata ][TWO].private[1] === undefined);
