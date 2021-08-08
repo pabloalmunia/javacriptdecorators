@@ -1,5 +1,9 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.4.5 - 2021/08/08
+
+- fix inheritance in metadata base object creation (@senocular) 
+
 ## version 0.4.4 -  2021/08/06
 
 - fix the metadata object create width Object.create(null).

@@ -5,6 +5,7 @@ function decorator1 (value, context) {
 }
 
 function decorator2 (value, context) {
+  console.log(context.getMetadata())
   context.setMetadata (TWO, 2);
 }
 
@@ -12,8 +13,10 @@ function decorator2 (value, context) {
 class C {
   @decorator1
   @decorator2
+  @decorator2
   static #p = 10;
 }
 
 console.assert (C[ Symbol.metadata ][ONE].private[0] === 1);
 console.assert (C[ Symbol.metadata ][TWO].private[0] === 2);
+console.assert (C[ Symbol.metadata ][TWO].private[1] === 2);
