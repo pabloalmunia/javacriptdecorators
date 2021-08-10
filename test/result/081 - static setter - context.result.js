@@ -48,24 +48,24 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __A_6l24eo {
+class __A_sofgmg {
   static set p(v) {}
 }
 
-let A = __A_6l24eo;
+let A = __A_sofgmg;
 
 Object.defineProperty(A, "name", {
   value: "A"
 });
 
-const _A_p_descriptor_ftpvkg = Object.getOwnPropertyDescriptor(__A_6l24eo, "p");
+const _A_p_descriptor_l022s8 = Object.getOwnPropertyDescriptor(A, "p");
 
-_A_p_descriptor_ftpvkg.set = decorator(_A_p_descriptor_ftpvkg.set, {
+_A_p_descriptor_l022s8.set = decorator(_A_p_descriptor_l022s8.set, {
   kind: "setter",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__A_6l24eo, "public", "p")
-}) ?? _A_p_descriptor_ftpvkg.set;
+  ...__PrepareMetadata(A, "public", "p")
+}) ?? _A_p_descriptor_l022s8.set;
 
-Object.defineProperty(__A_6l24eo, "p", _A_p_descriptor_ftpvkg);
+Object.defineProperty(A, "p", _A_p_descriptor_l022s8);

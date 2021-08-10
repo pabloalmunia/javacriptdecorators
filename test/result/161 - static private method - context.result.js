@@ -49,24 +49,24 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_m_symbol_304ogg = Symbol();
+const _C_m_symbol_f74j68 = Symbol();
 
-class __C_bscbfo {
-  static _C_m_temp_fpm02g(v) {
+class __C_if5hd {
+  static _C_m_temp_2qppl8(v) {
     return v * 2;
   }
-  static [_C_m_symbol_304ogg] = decorator(__C_bscbfo._C_m_temp_fpm02g, {
+  static [_C_m_symbol_f74j68] = decorator(__C_if5hd._C_m_temp_2qppl8, {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: __C_bscbfo[_C_m_symbol_304ogg]
+      get: __C_if5hd[_C_m_symbol_f74j68]
     },
-    ...__PrepareMetadata(__C_bscbfo, "private", "#m")
-  }) ?? __C_bscbfo._C_m_temp_fpm02g;
-  static #m = __C_bscbfo[_C_m_symbol_304ogg];
-  static [_C_m_symbol_304ogg]() {
+    ...__PrepareMetadata(__C_if5hd, "private", "#m")
+  }) ?? __C_if5hd._C_m_temp_2qppl8;
+  static #m = __C_if5hd[_C_m_symbol_f74j68];
+  static [_C_m_symbol_f74j68]() {
     return this.#m;
   }
   static check(v) {
@@ -74,9 +74,9 @@ class __C_bscbfo {
   }
 }
 
-delete __C_bscbfo._C_m_temp_fpm02g;
+delete __C_if5hd._C_m_temp_2qppl8;
 
-let C = __C_bscbfo;
+let C = __C_if5hd;
 
 Object.defineProperty(C, "name", {
   value: "C"

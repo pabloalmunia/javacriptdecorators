@@ -95,7 +95,7 @@ function transform(ast) {
               publicMemberGenerator({
                                       init          : decorator.init,
                                       kind          : decorator.kind,
-                                      className     : classNameReplace,
+                                      className     : classNameOriginal,
                                       elementName   : o.key.name,
                                       decoratorName : decorator.expression,
                                       variableName  : `_${classNameOriginal}_${o.key.name}_${(decorator.kind === 'getter' || decorator.kind === 'setter' ?

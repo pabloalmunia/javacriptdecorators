@@ -48,22 +48,22 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __A_vt4efg {
+class __A_gesh7 {
   static p = 1;
 }
 
-let A = __A_vt4efg;
+let A = __A_gesh7;
 
 Object.defineProperty(A, "name", {
   value: "A"
 });
 
-const _A_p_initializer_74as4g = decorator(undefined, {
+const _A_p_initializer_d65hk = decorator(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__A_vt4efg, "public", "p")
+  ...__PrepareMetadata(A, "public", "p")
 }) ?? (v => v);
 
-__A_vt4efg.p = _A_p_initializer_74as4g.call(__A_vt4efg, __A_vt4efg.p);
+A.p = _A_p_initializer_d65hk.call(A, A.p);

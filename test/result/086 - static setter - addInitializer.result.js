@@ -46,31 +46,31 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_2umb7o = [];
+const _C_static_initializers_mkd58o = [];
 
-class __C_7ka6jg {
+class __C_6r7nqo {
   static set p(v) {}
 }
 
-let C = __C_7ka6jg;
+let C = __C_6r7nqo;
 
 Object.defineProperty(C, "name", {
   value: "C"
 });
 
-const _C_p_descriptor_crhu58 = Object.getOwnPropertyDescriptor(__C_7ka6jg, "p");
+const _C_p_descriptor_ekp65 = Object.getOwnPropertyDescriptor(C, "p");
 
-_C_p_descriptor_crhu58.set = decorator(_C_p_descriptor_crhu58.set, {
+_C_p_descriptor_ekp65.set = decorator(_C_p_descriptor_ekp65.set, {
   kind: "setter",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__C_7ka6jg, "public", "p"),
-  addInitializer: initializer => _C_static_initializers_2umb7o.push(initializer)
-}) ?? _C_p_descriptor_crhu58.set;
+  ...__PrepareMetadata(C, "public", "p"),
+  addInitializer: initializer => _C_static_initializers_mkd58o.push(initializer)
+}) ?? _C_p_descriptor_ekp65.set;
 
-Object.defineProperty(__C_7ka6jg, "p", _C_p_descriptor_crhu58);
+Object.defineProperty(C, "p", _C_p_descriptor_ekp65);
 
-_C_static_initializers_2umb7o.forEach(initializer => initializer.call(C, C));
+_C_static_initializers_mkd58o.forEach(initializer => initializer.call(C, C));
 
 console.assert(C.test === 10);

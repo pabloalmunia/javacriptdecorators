@@ -48,43 +48,43 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __A_ti2c9 {
+class __A_l56fu8 {
   static a() {}
 }
 
-let A = __A_ti2c9;
+let A = __A_l56fu8;
 
 Object.defineProperty(A, "name", {
   value: "A"
 });
 
-class __B_kdg0e8 extends A {
+class __B_fqibgo extends A {
   static b() {}
 }
 
-let B = __B_kdg0e8;
+let B = __B_fqibgo;
 
 Object.defineProperty(B, "name", {
   value: "B"
 });
 
-class __C_jt275o extends B {
+class __C_3u1hu extends B {
   static c() {}
 }
 
-let C = __C_jt275o;
+let C = __C_3u1hu;
 
 Object.defineProperty(C, "name", {
   value: "C"
 });
 
-__C_jt275o.c = metadata(30)(__C_jt275o.c, {
+C.c = metadata(30)(C.c, {
   kind: "method",
   name: "c",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__C_jt275o, "public", "c")
-}) ?? __C_jt275o.c;
+  ...__PrepareMetadata(C, "public", "c")
+}) ?? C.c;
 
 console.log(C[Symbol.metadata][KEY]);
 

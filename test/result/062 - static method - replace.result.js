@@ -53,23 +53,23 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_3oiuvo {
+class __C_7v2fug {
   static m() {}
 }
 
-let C = __C_3oiuvo;
+let C = __C_7v2fug;
 
 Object.defineProperty(C, "name", {
   value: "C"
 });
 
-__C_3oiuvo.m = decorator(__C_3oiuvo.m, {
+C.m = decorator(C.m, {
   kind: "method",
   name: "m",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__C_3oiuvo, "public", "m")
-}) ?? __C_3oiuvo.m;
+  ...__PrepareMetadata(C, "public", "m")
+}) ?? C.m;
 
 C.m(1);
 

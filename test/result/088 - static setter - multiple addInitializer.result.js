@@ -50,88 +50,88 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_djchv = [];
+const _C_static_initializers_blftt = [];
 
-class __C_nksqlg {
+class __C_l3glog {
   constructor() {
     this.z = 100;
   }
   static set p(v) {}
 }
 
-let C = __C_nksqlg;
+let C = __C_l3glog;
 
 Object.defineProperty(C, "name", {
   value: "C"
 });
 
-const _C_p_descriptor_7vepk = Object.getOwnPropertyDescriptor(__C_nksqlg, "p");
+const _C_p_descriptor_ei5nb = Object.getOwnPropertyDescriptor(C, "p");
 
-_C_p_descriptor_7vepk.set = addProperty("b", 2)(_C_p_descriptor_7vepk.set, {
+_C_p_descriptor_ei5nb.set = addProperty("b", 2)(_C_p_descriptor_ei5nb.set, {
   kind: "setter",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__C_nksqlg, "public", "p"),
-  addInitializer: initializer => _C_static_initializers_djchv.push(initializer)
-}) ?? _C_p_descriptor_7vepk.set;
+  ...__PrepareMetadata(C, "public", "p"),
+  addInitializer: initializer => _C_static_initializers_blftt.push(initializer)
+}) ?? _C_p_descriptor_ei5nb.set;
 
-Object.defineProperty(__C_nksqlg, "p", _C_p_descriptor_7vepk);
+Object.defineProperty(C, "p", _C_p_descriptor_ei5nb);
 
-const _C_p_descriptor_evuv98 = Object.getOwnPropertyDescriptor(__C_nksqlg, "p");
+const _C_p_descriptor_9hsgmo = Object.getOwnPropertyDescriptor(C, "p");
 
-_C_p_descriptor_evuv98.set = addProperty("a", 1)(_C_p_descriptor_evuv98.set, {
+_C_p_descriptor_9hsgmo.set = addProperty("a", 1)(_C_p_descriptor_9hsgmo.set, {
   kind: "setter",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__C_nksqlg, "public", "p"),
-  addInitializer: initializer => _C_static_initializers_djchv.push(initializer)
-}) ?? _C_p_descriptor_evuv98.set;
+  ...__PrepareMetadata(C, "public", "p"),
+  addInitializer: initializer => _C_static_initializers_blftt.push(initializer)
+}) ?? _C_p_descriptor_9hsgmo.set;
 
-Object.defineProperty(__C_nksqlg, "p", _C_p_descriptor_evuv98);
+Object.defineProperty(C, "p", _C_p_descriptor_9hsgmo);
 
-_C_static_initializers_djchv.forEach(initializer => initializer.call(C, C));
+_C_static_initializers_blftt.forEach(initializer => initializer.call(C, C));
 
-const _D_static_initializers_24cdi = [];
+const _D_static_initializers_9tap3 = [];
 
-class __D_fh59m8 extends C {
+class __D_oi2go8 extends C {
   static set p(v) {}
 }
 
-let D = __D_fh59m8;
+let D = __D_oi2go8;
 
 Object.defineProperty(D, "name", {
   value: "D"
 });
 
-const _D_p_descriptor_tvbo7o = Object.getOwnPropertyDescriptor(__D_fh59m8, "p");
+const _D_p_descriptor_423dc = Object.getOwnPropertyDescriptor(D, "p");
 
-_D_p_descriptor_tvbo7o.set = addProperty("d", 4)(_D_p_descriptor_tvbo7o.set, {
+_D_p_descriptor_423dc.set = addProperty("d", 4)(_D_p_descriptor_423dc.set, {
   kind: "setter",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__D_fh59m8, "public", "p"),
-  addInitializer: initializer => _D_static_initializers_24cdi.push(initializer)
-}) ?? _D_p_descriptor_tvbo7o.set;
+  ...__PrepareMetadata(D, "public", "p"),
+  addInitializer: initializer => _D_static_initializers_9tap3.push(initializer)
+}) ?? _D_p_descriptor_423dc.set;
 
-Object.defineProperty(__D_fh59m8, "p", _D_p_descriptor_tvbo7o);
+Object.defineProperty(D, "p", _D_p_descriptor_423dc);
 
-const _D_p_descriptor_gl69b8 = Object.getOwnPropertyDescriptor(__D_fh59m8, "p");
+const _D_p_descriptor_kjtb6o = Object.getOwnPropertyDescriptor(D, "p");
 
-_D_p_descriptor_gl69b8.set = addProperty("c", 3)(_D_p_descriptor_gl69b8.set, {
+_D_p_descriptor_kjtb6o.set = addProperty("c", 3)(_D_p_descriptor_kjtb6o.set, {
   kind: "setter",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__D_fh59m8, "public", "p"),
-  addInitializer: initializer => _D_static_initializers_24cdi.push(initializer)
-}) ?? _D_p_descriptor_gl69b8.set;
+  ...__PrepareMetadata(D, "public", "p"),
+  addInitializer: initializer => _D_static_initializers_9tap3.push(initializer)
+}) ?? _D_p_descriptor_kjtb6o.set;
 
-Object.defineProperty(__D_fh59m8, "p", _D_p_descriptor_gl69b8);
+Object.defineProperty(D, "p", _D_p_descriptor_kjtb6o);
 
-_D_static_initializers_24cdi.forEach(initializer => initializer.call(D, D));
+_D_static_initializers_9tap3.forEach(initializer => initializer.call(D, D));
 
 console.assert(C.a === 1);
 

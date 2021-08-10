@@ -49,56 +49,56 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_6m8ndg {
+class __C_4ae1ko {
   static p = 10;
   static f = 20;
 }
 
-let C = __C_6m8ndg;
+let C = __C_4ae1ko;
 
 Object.defineProperty(C, "name", {
   value: "C"
 });
 
-const _C_f_initializer_5adjp8 = meta(3)(undefined, {
+const _C_f_initializer_7r98bg = meta(3)(undefined, {
   kind: "field",
   name: "f",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__C_6m8ndg, "public", "f")
+  ...__PrepareMetadata(C, "public", "f")
 }) ?? (v => v);
 
-__C_6m8ndg.f = _C_f_initializer_5adjp8.call(__C_6m8ndg, __C_6m8ndg.f);
+C.f = _C_f_initializer_7r98bg.call(C, C.f);
 
-const _C_f_initializer_3q0o18 = meta(3)(undefined, {
+const _C_f_initializer_omma3o = meta(3)(undefined, {
   kind: "field",
   name: "f",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__C_6m8ndg, "public", "f")
+  ...__PrepareMetadata(C, "public", "f")
 }) ?? (v => v);
 
-__C_6m8ndg.f = _C_f_initializer_3q0o18.call(__C_6m8ndg, __C_6m8ndg.f);
+C.f = _C_f_initializer_omma3o.call(C, C.f);
 
-const _C_p_initializer_trcsv8 = meta(2)(undefined, {
+const _C_p_initializer_6gnh4o = meta(2)(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__C_6m8ndg, "public", "p")
+  ...__PrepareMetadata(C, "public", "p")
 }) ?? (v => v);
 
-__C_6m8ndg.p = _C_p_initializer_trcsv8.call(__C_6m8ndg, __C_6m8ndg.p);
+C.p = _C_p_initializer_6gnh4o.call(C, C.p);
 
-const _C_p_initializer_21j1oo = meta(1)(undefined, {
+const _C_p_initializer_9sl8bg = meta(1)(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__C_6m8ndg, "public", "p")
+  ...__PrepareMetadata(C, "public", "p")
 }) ?? (v => v);
 
-__C_6m8ndg.p = _C_p_initializer_21j1oo.call(__C_6m8ndg, __C_6m8ndg.p);
+C.p = _C_p_initializer_9sl8bg.call(C, C.p);
 
 console.assert(C[Symbol.metadata][META].public.p === 3);
 

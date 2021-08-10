@@ -46,24 +46,24 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_mv2nto {
+class __C_nrgtg8 {
   static p = 10;
 }
 
-let C = __C_mv2nto;
+let C = __C_nrgtg8;
 
 Object.defineProperty(C, "name", {
   value: "C"
 });
 
-const _C_p_initializer_vk30r = decorator(undefined, {
+const _C_p_initializer_age7gg = decorator(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__C_mv2nto, "public", "p")
+  ...__PrepareMetadata(C, "public", "p")
 }) ?? (v => v);
 
-__C_mv2nto.p = _C_p_initializer_vk30r.call(__C_mv2nto, __C_mv2nto.p);
+C.p = _C_p_initializer_age7gg.call(C, C.p);
 
 console.assert(C.p === 20);

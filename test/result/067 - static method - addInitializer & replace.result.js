@@ -56,30 +56,30 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_vf6em8 = [];
+const _C_static_initializers_g6c8e8 = [];
 
-class __C_ehc0to {
+class __C_eojono {
   static m(v) {
     return v * 2;
   }
 }
 
-let C = __C_ehc0to;
+let C = __C_eojono;
 
 Object.defineProperty(C, "name", {
   value: "C"
 });
 
-__C_ehc0to.m = decorator(__C_ehc0to.m, {
+C.m = decorator(C.m, {
   kind: "method",
   name: "m",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__C_ehc0to, "public", "m"),
-  addInitializer: initializer => _C_static_initializers_vf6em8.push(initializer)
-}) ?? __C_ehc0to.m;
+  ...__PrepareMetadata(C, "public", "m"),
+  addInitializer: initializer => _C_static_initializers_g6c8e8.push(initializer)
+}) ?? C.m;
 
-_C_static_initializers_vf6em8.forEach(initializer => initializer.call(C, C));
+_C_static_initializers_g6c8e8.forEach(initializer => initializer.call(C, C));
 
 console.assert(C.m(2) === 4);
 

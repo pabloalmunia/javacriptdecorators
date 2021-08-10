@@ -49,41 +49,41 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_6nh97o {
+class __C_20tfkg {
   static get p() {
     return "a";
   }
 }
 
-let C = __C_6nh97o;
+let C = __C_20tfkg;
 
 Object.defineProperty(C, "name", {
   value: "C"
 });
 
-const _C_p_descriptor_9pap48 = Object.getOwnPropertyDescriptor(__C_6nh97o, "p");
+const _C_p_descriptor_nk6g0o = Object.getOwnPropertyDescriptor(C, "p");
 
-_C_p_descriptor_9pap48.get = meta(2)(_C_p_descriptor_9pap48.get, {
+_C_p_descriptor_nk6g0o.get = meta(2)(_C_p_descriptor_nk6g0o.get, {
   kind: "getter",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__C_6nh97o, "public", "p")
-}) ?? _C_p_descriptor_9pap48.get;
+  ...__PrepareMetadata(C, "public", "p")
+}) ?? _C_p_descriptor_nk6g0o.get;
 
-Object.defineProperty(__C_6nh97o, "p", _C_p_descriptor_9pap48);
+Object.defineProperty(C, "p", _C_p_descriptor_nk6g0o);
 
-const _C_p_descriptor_lbfaso = Object.getOwnPropertyDescriptor(__C_6nh97o, "p");
+const _C_p_descriptor_l808i8 = Object.getOwnPropertyDescriptor(C, "p");
 
-_C_p_descriptor_lbfaso.get = meta(1)(_C_p_descriptor_lbfaso.get, {
+_C_p_descriptor_l808i8.get = meta(1)(_C_p_descriptor_l808i8.get, {
   kind: "getter",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__C_6nh97o, "public", "p")
-}) ?? _C_p_descriptor_lbfaso.get;
+  ...__PrepareMetadata(C, "public", "p")
+}) ?? _C_p_descriptor_l808i8.get;
 
-Object.defineProperty(__C_6nh97o, "p", _C_p_descriptor_lbfaso);
+Object.defineProperty(C, "p", _C_p_descriptor_l808i8);
 
 const a = new C();
 

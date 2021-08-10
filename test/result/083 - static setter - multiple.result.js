@@ -56,7 +56,7 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_p647ao {
+class __C_f40sp {
   static #p = 0;
   static set p(v) {
     this.#p = v;
@@ -66,35 +66,35 @@ class __C_p647ao {
   }
 }
 
-let C = __C_p647ao;
+let C = __C_f40sp;
 
 Object.defineProperty(C, "name", {
   value: "C"
 });
 
-const _C_p_descriptor_mokndo = Object.getOwnPropertyDescriptor(__C_p647ao, "p");
+const _C_p_descriptor_18ok2 = Object.getOwnPropertyDescriptor(C, "p");
 
-_C_p_descriptor_mokndo.set = decorator2(_C_p_descriptor_mokndo.set, {
+_C_p_descriptor_18ok2.set = decorator2(_C_p_descriptor_18ok2.set, {
   kind: "setter",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__C_p647ao, "public", "p")
-}) ?? _C_p_descriptor_mokndo.set;
+  ...__PrepareMetadata(C, "public", "p")
+}) ?? _C_p_descriptor_18ok2.set;
 
-Object.defineProperty(__C_p647ao, "p", _C_p_descriptor_mokndo);
+Object.defineProperty(C, "p", _C_p_descriptor_18ok2);
 
-const _C_p_descriptor_avaiq8 = Object.getOwnPropertyDescriptor(__C_p647ao, "p");
+const _C_p_descriptor_idp01 = Object.getOwnPropertyDescriptor(C, "p");
 
-_C_p_descriptor_avaiq8.set = decorator1(_C_p_descriptor_avaiq8.set, {
+_C_p_descriptor_idp01.set = decorator1(_C_p_descriptor_idp01.set, {
   kind: "setter",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__C_p647ao, "public", "p")
-}) ?? _C_p_descriptor_avaiq8.set;
+  ...__PrepareMetadata(C, "public", "p")
+}) ?? _C_p_descriptor_idp01.set;
 
-Object.defineProperty(__C_p647ao, "p", _C_p_descriptor_avaiq8);
+Object.defineProperty(C, "p", _C_p_descriptor_idp01);
 
 console.assert(C.p === 0);
 

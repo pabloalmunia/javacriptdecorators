@@ -50,72 +50,72 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_n9ueng = [];
+const _C_static_initializers_fgebog = [];
 
-class __C_ss7v4g {
+class __C_0bdui {
   constructor() {
     this.z = 100;
   }
   static m() {}
 }
 
-let C = __C_ss7v4g;
+let C = __C_0bdui;
 
 Object.defineProperty(C, "name", {
   value: "C"
 });
 
-__C_ss7v4g.m = addProperty("b", 2)(__C_ss7v4g.m, {
+C.m = addProperty("b", 2)(C.m, {
   kind: "method",
   name: "m",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__C_ss7v4g, "public", "m"),
-  addInitializer: initializer => _C_static_initializers_n9ueng.push(initializer)
-}) ?? __C_ss7v4g.m;
+  ...__PrepareMetadata(C, "public", "m"),
+  addInitializer: initializer => _C_static_initializers_fgebog.push(initializer)
+}) ?? C.m;
 
-__C_ss7v4g.m = addProperty("a", 1)(__C_ss7v4g.m, {
+C.m = addProperty("a", 1)(C.m, {
   kind: "method",
   name: "m",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__C_ss7v4g, "public", "m"),
-  addInitializer: initializer => _C_static_initializers_n9ueng.push(initializer)
-}) ?? __C_ss7v4g.m;
+  ...__PrepareMetadata(C, "public", "m"),
+  addInitializer: initializer => _C_static_initializers_fgebog.push(initializer)
+}) ?? C.m;
 
-_C_static_initializers_n9ueng.forEach(initializer => initializer.call(C, C));
+_C_static_initializers_fgebog.forEach(initializer => initializer.call(C, C));
 
-const _D_static_initializers_cmvrrg = [];
+const _D_static_initializers_gbfcs8 = [];
 
-class __D_mgehlo extends C {
+class __D_fmnjc extends C {
   static m() {}
 }
 
-let D = __D_mgehlo;
+let D = __D_fmnjc;
 
 Object.defineProperty(D, "name", {
   value: "D"
 });
 
-__D_mgehlo.m = addProperty("d", 4)(__D_mgehlo.m, {
+D.m = addProperty("d", 4)(D.m, {
   kind: "method",
   name: "m",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__D_mgehlo, "public", "m"),
-  addInitializer: initializer => _D_static_initializers_cmvrrg.push(initializer)
-}) ?? __D_mgehlo.m;
+  ...__PrepareMetadata(D, "public", "m"),
+  addInitializer: initializer => _D_static_initializers_gbfcs8.push(initializer)
+}) ?? D.m;
 
-__D_mgehlo.m = addProperty("c", 3)(__D_mgehlo.m, {
+D.m = addProperty("c", 3)(D.m, {
   kind: "method",
   name: "m",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__D_mgehlo, "public", "m"),
-  addInitializer: initializer => _D_static_initializers_cmvrrg.push(initializer)
-}) ?? __D_mgehlo.m;
+  ...__PrepareMetadata(D, "public", "m"),
+  addInitializer: initializer => _D_static_initializers_gbfcs8.push(initializer)
+}) ?? D.m;
 
-_D_static_initializers_cmvrrg.forEach(initializer => initializer.call(D, D));
+_D_static_initializers_gbfcs8.forEach(initializer => initializer.call(D, D));
 
 console.assert(C.a === 1);
 
