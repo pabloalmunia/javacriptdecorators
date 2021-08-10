@@ -1,9 +1,12 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.6.1 - 2021/08/10
+
+- the name of the static decorator class has been changed to make the structure clearer
 
 ## version 0.6.0 - 2021/08/10
 
-- the class is hidden while member decorators are applied 
+- the class is hidden while member decorators are applied
 
 ## version 0.5.0 - 2021/08/08
 
