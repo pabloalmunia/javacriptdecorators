@@ -44,6 +44,7 @@ function transform(ast) {
   let defineMetadataCreated = false;
   let applyDecoratorCreated = false;
   let preClassLocation      = null;
+  const classProcessed      = [];
 
   //-----------------------------------
   // By Class
@@ -51,14 +52,14 @@ function transform(ast) {
   walker(
     source,
     (o) => {
-      return o.type === 'ClassDeclaration';
+      return o.type === 'ClassDeclaration' && !classProcessed.includes(o);
     },
     (klass, parent) => {
-
+      classProcessed.push(klass);
       let decoratorsCreated         = 0;
       let initDecoratorsCreated     = 0;
       const classNameOriginal       = klass.id.name;
-      const classNameReplace        = `_${classNameOriginal}_${unique()}`;
+      const classNameReplace        = `__${classNameOriginal}_${unique()}`;
       console.log(classNameOriginal, '>', classNameReplace);
       const i                       = parent.indexOf(klass);
       preClassLocation              = preClassLocation || i;
@@ -94,7 +95,7 @@ function transform(ast) {
               publicMemberGenerator({
                                       init          : decorator.init,
                                       kind          : decorator.kind,
-                                      className     : classNameOriginal,
+                                      className     : classNameReplace,
                                       elementName   : o.key.name,
                                       decoratorName : decorator.expression,
                                       variableName  : `_${classNameOriginal}_${o.key.name}_${(decorator.kind === 'getter' || decorator.kind === 'setter' ?
@@ -140,15 +141,6 @@ function transform(ast) {
       //---------------------------------
       // Class decorators
       //---------------------------------
-      // Class rename
-      // insertAfter(
-      //   parent,
-      //   klass,
-      //   classRename(
-      //     classNameOriginal,
-      //     classNameReplace
-      //   )
-      // );
       for (let decorator of (klass.decorators || [])) {
         insertAfter(
           parent,
@@ -188,7 +180,15 @@ function transform(ast) {
           }
         }
       }
-      klass.decorators = undefined;
+      // Class rename
+      insertAfter(
+        parent,
+        klass,
+        classRename(
+          classNameOriginal,
+          classNameReplace
+        )
+      );      klass.decorators = undefined;
 
       //-----------------------------------
       // Methods public and static+private
@@ -211,7 +211,7 @@ function transform(ast) {
             const tempName           = `_${classNameOriginal}_${elementName}_temp_${unique()}`;
             const beforeClass        = privateMemberBeforeGenerator(symbolName);
             const afterClass         = privateMemberAfterGenerator(
-              classNameOriginal,
+              classNameReplace,
               tempName,
               !!o.static
             );
@@ -384,13 +384,13 @@ function transform(ast) {
                 decoratorsCreated++;
               }
               insertAfter(parent, klass, removeStaticMethodPrivateAccessor({
-                                                                             className: classNameOriginal,
+                                                                             className: classNameReplace,
                                                                              getName,
                                                                              setName
                                                                            }));
               if (isStatic) {
                 insertAfter(parent, klass, addInitializerPrivateStaticAccessor({
-                                                                                 className: classNameOriginal,
+                                                                                 className: classNameReplace,
                                                                                  globalInitializerName,
                                                                                  getName,
                                                                                  setName
@@ -415,7 +415,7 @@ function transform(ast) {
                                       decoratorName : decorator.expression,
                                       isStatic      : !!o.static,
                                       initCollection: o.static ? staticInitializersName : memberInitializersName,
-                                      className     : classNameOriginal,
+                                      className     : classNameReplace,
                                       initializeName,
                                       propertyName,
                                       isSymbol
@@ -454,7 +454,7 @@ function transform(ast) {
                                           elementName   : o.key.name,
                                           decoratorName : decorator.expression,
                                           isStatic      : !!o.static,
-                                          className     : classNameOriginal,
+                                          className     : classNameReplace,
                                           variableName  : initializerName,
                                           symbolGetName,
                                           symbolSetName
@@ -467,7 +467,7 @@ function transform(ast) {
                                           elementName   : o.key.name,
                                           decoratorName : decorator.expression,
                                           isStatic      : !!o.static,
-                                          className     : classNameOriginal,
+                                          className     : classNameReplace,
                                           variableName  : initializerName,
                                           isSymbol      : o.computed
                                         })
@@ -613,7 +613,7 @@ function byCode(code) {
 
 function classRename(original, replace) {
   return [
-    variableDeclaration('const', original, {'type': 'Identifier', 'name': replace}),
+    variableDeclaration('let', original, {'type': 'Identifier', 'name': replace}),
     {
       "type"      : "ExpressionStatement",
       "expression": callExpression(
