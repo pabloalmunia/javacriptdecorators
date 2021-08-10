@@ -1,5 +1,10 @@
 # JavascriptDecorators.org - CHANGELOG
 
+
+## version 0.6.0 - 2021/08/10
+
+- the class is hidden while member decorators are applied 
+
 ## version 0.5.0 - 2021/08/08
 
 - fixed an important error with private metadata structure.
