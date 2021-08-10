@@ -47,16 +47,22 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _A_p_initializer_smmu3;
+let _A_p_initializer_vlnce8;
 
-class A {
-  p = _A_p_initializer_smmu3.call(this, 1);
+class __A_u9q998 {
+  p = _A_p_initializer_vlnce8.call(this, 1);
 }
 
-_A_p_initializer_smmu3 = decorator(undefined, {
+_A_p_initializer_vlnce8 = decorator(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(A.prototype, "public", "p")
+  ...__PrepareMetadata(__A_u9q998.prototype, "public", "p")
 }) ?? (v => v);
+
+let A = __A_u9q998;
+
+Object.defineProperty(A, "name", {
+  value: "A"
+});

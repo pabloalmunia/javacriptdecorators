@@ -48,18 +48,24 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class C {
+class __C_vh5o68 {
   static m(v) {
     return v * 2;
   }
 }
 
-C.m = decorator(C.m, {
+let C = __C_vh5o68;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
+
+__C_vh5o68.m = decorator(__C_vh5o68.m, {
   kind: "method",
   name: "m",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(C, "public", "m")
-}) ?? C.m;
+  ...__PrepareMetadata(__C_vh5o68, "public", "m")
+}) ?? __C_vh5o68.m;
 
 console.assert(C.m(1) === 2);

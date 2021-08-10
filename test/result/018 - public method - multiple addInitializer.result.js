@@ -50,61 +50,73 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_member_initializers_lkso7 = [];
+const _C_member_initializers_ebg5o = [];
 
-class C {
+class __C_smhc7 {
   constructor() {
     this.z = 100;
-    _C_member_initializers_lkso7.forEach(initialize => initialize.call(this));
+    _C_member_initializers_ebg5o.forEach(initialize => initialize.call(this));
   }
   m() {}
 }
 
-C.prototype.m = addProperty("a", 1)(C.prototype.m, {
+__C_smhc7.prototype.m = addProperty("a", 1)(__C_smhc7.prototype.m, {
   kind: "method",
   name: "m",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "m"),
-  addInitializer: initializer => _C_member_initializers_lkso7.push(initializer)
-}) ?? C.prototype.m;
+  ...__PrepareMetadata(__C_smhc7.prototype, "public", "m"),
+  addInitializer: initializer => _C_member_initializers_ebg5o.push(initializer)
+}) ?? __C_smhc7.prototype.m;
 
-C.prototype.m = addProperty("b", 2)(C.prototype.m, {
+__C_smhc7.prototype.m = addProperty("b", 2)(__C_smhc7.prototype.m, {
   kind: "method",
   name: "m",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "m"),
-  addInitializer: initializer => _C_member_initializers_lkso7.push(initializer)
-}) ?? C.prototype.m;
+  ...__PrepareMetadata(__C_smhc7.prototype, "public", "m"),
+  addInitializer: initializer => _C_member_initializers_ebg5o.push(initializer)
+}) ?? __C_smhc7.prototype.m;
 
-const _D_member_initializers_qlev6o = [];
+let C = __C_smhc7;
 
-class D extends C {
+Object.defineProperty(C, "name", {
+  value: "C"
+});
+
+const _D_member_initializers_g7tjno = [];
+
+class __D_0ctjso extends C {
   constructor() {
     super();
-    _D_member_initializers_qlev6o.forEach(initialize => initialize.call(this));
+    _D_member_initializers_g7tjno.forEach(initialize => initialize.call(this));
   }
   m() {}
 }
 
-D.prototype.m = addProperty("c", 3)(D.prototype.m, {
+__D_0ctjso.prototype.m = addProperty("c", 3)(__D_0ctjso.prototype.m, {
   kind: "method",
   name: "m",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(D.prototype, "public", "m"),
-  addInitializer: initializer => _D_member_initializers_qlev6o.push(initializer)
-}) ?? D.prototype.m;
+  ...__PrepareMetadata(__D_0ctjso.prototype, "public", "m"),
+  addInitializer: initializer => _D_member_initializers_g7tjno.push(initializer)
+}) ?? __D_0ctjso.prototype.m;
 
-D.prototype.m = addProperty("d", 4)(D.prototype.m, {
+__D_0ctjso.prototype.m = addProperty("d", 4)(__D_0ctjso.prototype.m, {
   kind: "method",
   name: "m",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(D.prototype, "public", "m"),
-  addInitializer: initializer => _D_member_initializers_qlev6o.push(initializer)
-}) ?? D.prototype.m;
+  ...__PrepareMetadata(__D_0ctjso.prototype, "public", "m"),
+  addInitializer: initializer => _D_member_initializers_g7tjno.push(initializer)
+}) ?? __D_0ctjso.prototype.m;
+
+let D = __D_0ctjso;
+
+Object.defineProperty(D, "name", {
+  value: "D"
+});
 
 const c = new C();
 

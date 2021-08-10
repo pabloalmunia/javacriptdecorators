@@ -52,32 +52,32 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_m_symbol_ic4tsg = Symbol();
+const _C_m_symbol_g8lnf = Symbol();
 
-class C {
-  static _C_m_temp_lpooq() {}
-  static [_C_m_symbol_ic4tsg] = decorator1(C._C_m_temp_lpooq, {
+class __C_co3fog {
+  static _C_m_temp_nfe6og() {}
+  static [_C_m_symbol_g8lnf] = decorator1(__C_co3fog._C_m_temp_nfe6og, {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_m_symbol_ic4tsg]
+      get: __C_co3fog[_C_m_symbol_g8lnf]
     },
-    ...__PrepareMetadata(C, "private", "#m")
-  }) ?? C._C_m_temp_lpooq;
-  static [_C_m_symbol_ic4tsg] = decorator2(C[_C_m_symbol_ic4tsg], {
+    ...__PrepareMetadata(__C_co3fog, "private", "#m")
+  }) ?? __C_co3fog._C_m_temp_nfe6og;
+  static [_C_m_symbol_g8lnf] = decorator2(__C_co3fog[_C_m_symbol_g8lnf], {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_m_symbol_ic4tsg]
+      get: __C_co3fog[_C_m_symbol_g8lnf]
     },
-    ...__PrepareMetadata(C, "private", "#m")
-  }) ?? C[_C_m_symbol_ic4tsg];
-  static #m = C[_C_m_symbol_ic4tsg];
-  static [_C_m_symbol_ic4tsg]() {
+    ...__PrepareMetadata(__C_co3fog, "private", "#m")
+  }) ?? __C_co3fog[_C_m_symbol_g8lnf];
+  static #m = __C_co3fog[_C_m_symbol_g8lnf];
+  static [_C_m_symbol_g8lnf]() {
     return this.#m;
   }
   static check() {
@@ -85,7 +85,13 @@ class C {
   }
 }
 
-delete C._C_m_temp_lpooq;
+delete __C_co3fog._C_m_temp_nfe6og;
+
+let C = __C_co3fog;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(C.check().one === 1);
 

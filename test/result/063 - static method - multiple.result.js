@@ -52,25 +52,31 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class C {
+class __C_i0qnj8 {
   static m() {}
 }
 
-C.m = decorator2(C.m, {
-  kind: "method",
-  name: "m",
-  isStatic: true,
-  isPrivate: false,
-  ...__PrepareMetadata(C, "public", "m")
-}) ?? C.m;
+let C = __C_i0qnj8;
 
-C.m = decorator1(C.m, {
+Object.defineProperty(C, "name", {
+  value: "C"
+});
+
+__C_i0qnj8.m = decorator2(__C_i0qnj8.m, {
   kind: "method",
   name: "m",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(C, "public", "m")
-}) ?? C.m;
+  ...__PrepareMetadata(__C_i0qnj8, "public", "m")
+}) ?? __C_i0qnj8.m;
+
+__C_i0qnj8.m = decorator1(__C_i0qnj8.m, {
+  kind: "method",
+  name: "m",
+  isStatic: true,
+  isPrivate: false,
+  ...__PrepareMetadata(__C_i0qnj8, "public", "m")
+}) ?? __C_i0qnj8.m;
 
 console.assert(C.m.one === 1);
 

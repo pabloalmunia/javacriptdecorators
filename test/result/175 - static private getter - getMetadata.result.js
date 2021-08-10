@@ -49,40 +49,46 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_1vr0v = Symbol();
+const _C_p_symbol_k5pio = Symbol();
 
-class C {
-  static _C_p_temp_nh17ag() {
+class __C_f6r4qo {
+  static _C_p_temp_ecetdo() {
     return "a";
   }
-  static [_C_p_symbol_1vr0v] = meta(1)(C._C_p_temp_nh17ag, {
+  static [_C_p_symbol_k5pio] = meta(1)(__C_f6r4qo._C_p_temp_ecetdo, {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_1vr0v]
+      get: __C_f6r4qo[_C_p_symbol_k5pio]
     },
-    ...__PrepareMetadata(C, "private", "#p")
-  }) ?? C._C_p_temp_nh17ag;
-  static [_C_p_symbol_1vr0v] = meta(2)(C[_C_p_symbol_1vr0v], {
+    ...__PrepareMetadata(__C_f6r4qo, "private", "#p")
+  }) ?? __C_f6r4qo._C_p_temp_ecetdo;
+  static [_C_p_symbol_k5pio] = meta(2)(__C_f6r4qo[_C_p_symbol_k5pio], {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_1vr0v]
+      get: __C_f6r4qo[_C_p_symbol_k5pio]
     },
-    ...__PrepareMetadata(C, "private", "#p")
-  }) ?? C[_C_p_symbol_1vr0v];
+    ...__PrepareMetadata(__C_f6r4qo, "private", "#p")
+  }) ?? __C_f6r4qo[_C_p_symbol_k5pio];
   static get #p() {
-    return C[_C_p_symbol_1vr0v].bind(this)();
+    return __C_f6r4qo[_C_p_symbol_k5pio].bind(this)();
   }
-  static [_C_p_symbol_1vr0v]() {
-    return C[_C_p_symbol_1vr0v].bind(this);
+  static [_C_p_symbol_k5pio]() {
+    return __C_f6r4qo[_C_p_symbol_k5pio].bind(this);
   }
 }
 
-delete C._C_p_temp_nh17ag;
+delete __C_f6r4qo._C_p_temp_ecetdo;
+
+let C = __C_f6r4qo;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(C[Symbol.metadata][META].private[0] === 3);

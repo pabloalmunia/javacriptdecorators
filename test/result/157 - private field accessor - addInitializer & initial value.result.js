@@ -54,39 +54,39 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_3d8tqg = Symbol();
+const _C_p_get_symbol_7s9h = Symbol();
 
-const _C_p_set_symbol_elnae8 = Symbol();
+const _C_p_set_symbol_s30f9 = Symbol();
 
-let _C_p_getter_u0l8n;
+let _C_p_getter_k7uhig;
 
-let _C_p_setter_49qgk8;
+let _C_p_setter_58qp98;
 
-let _C_p_initializer_iahlco;
+let _C_p_initializer_drb388;
 
-const _C_member_initializers_3aa0bg = [];
+const _C_member_initializers_1i6kp8 = [];
 
-class C {
+class __C_btlipo {
   constructor() {
-    _C_member_initializers_3aa0bg.forEach(initialize => initialize.call(this));
+    _C_member_initializers_1i6kp8.forEach(initialize => initialize.call(this));
   }
-  #_p_private_property_3077ig = _C_p_initializer_iahlco.call(this, 10);
+  #_p_private_property_ilcf8 = _C_p_initializer_drb388.call(this, 10);
   get #p() {
-    return _C_p_getter_u0l8n.call(this);
+    return _C_p_getter_k7uhig.call(this);
   }
   set #p(v) {
-    return _C_p_setter_49qgk8.call(this, v);
+    return _C_p_setter_58qp98.call(this, v);
   }
-  static _C_p_getter_u0l8n() {
-    return this.#_p_private_property_3077ig;
+  static _C_p_getter_k7uhig() {
+    return this.#_p_private_property_ilcf8;
   }
-  static _C_p_setter_49qgk8(v) {
-    this.#_p_private_property_3077ig = v;
+  static _C_p_setter_58qp98(v) {
+    this.#_p_private_property_ilcf8 = v;
   }
-  [_C_p_get_symbol_3d8tqg]() {
+  [_C_p_get_symbol_7s9h]() {
     return this.#p;
   }
-  [_C_p_set_symbol_elnae8](v) {
+  [_C_p_set_symbol_s30f9](v) {
     this.#p = v;
   }
   get check() {
@@ -97,35 +97,41 @@ class C {
   }
 }
 
-_C_p_getter_u0l8n = C._C_p_getter_u0l8n;
+_C_p_getter_k7uhig = __C_btlipo._C_p_getter_k7uhig;
 
-_C_p_setter_49qgk8 = C._C_p_setter_49qgk8;
+_C_p_setter_58qp98 = __C_btlipo._C_p_setter_58qp98;
 
-delete C._C_p_getter_u0l8n;
+delete __C_btlipo._C_p_getter_k7uhig;
 
-delete C._C_p_setter_49qgk8;
+delete __C_btlipo._C_p_setter_58qp98;
 
-const _C_p_result_4181co = decorator({
-  get: _C_p_getter_u0l8n,
-  set: _C_p_setter_49qgk8
+const _C_p_result_o7mfp8 = decorator({
+  get: _C_p_getter_k7uhig,
+  set: _C_p_setter_58qp98
 }, {
   kind: "auto-accessor",
   name: "#p",
   access: {
-    get: C.prototype[_C_p_get_symbol_3d8tqg],
-    set: C.prototype[_C_p_set_symbol_elnae8]
+    get: __C_btlipo.prototype[_C_p_get_symbol_7s9h],
+    set: __C_btlipo.prototype[_C_p_set_symbol_s30f9]
   },
   isStatic: false,
   isPrivate: true,
-  ...__PrepareMetadata(C.prototype, "private", "#p"),
-  addInitializer: initializer => _C_member_initializers_3aa0bg.push(initializer)
+  ...__PrepareMetadata(__C_btlipo.prototype, "private", "#p"),
+  addInitializer: initializer => _C_member_initializers_1i6kp8.push(initializer)
 }) || {};
 
-_C_p_initializer_iahlco = _C_p_result_4181co.initialize || (v => v);
+_C_p_initializer_drb388 = _C_p_result_o7mfp8.initialize || (v => v);
 
-_C_p_getter_u0l8n = _C_p_result_4181co.get || _C_p_getter_u0l8n;
+_C_p_getter_k7uhig = _C_p_result_o7mfp8.get || _C_p_getter_k7uhig;
 
-_C_p_setter_49qgk8 = _C_p_result_4181co.set || _C_p_setter_49qgk8;
+_C_p_setter_58qp98 = _C_p_result_o7mfp8.set || _C_p_setter_58qp98;
+
+let C = __C_btlipo;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(new C().test === 10);
 

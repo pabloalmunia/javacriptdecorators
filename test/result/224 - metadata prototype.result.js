@@ -48,17 +48,23 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class A {
+class __A_6c8l9g {
   a() {}
 }
 
-A.prototype.a = metadata(10)(A.prototype.a, {
+__A_6c8l9g.prototype.a = metadata(10)(__A_6c8l9g.prototype.a, {
   kind: "method",
   name: "a",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(A.prototype, "public", "a")
-}) ?? A.prototype.a;
+  ...__PrepareMetadata(__A_6c8l9g.prototype, "public", "a")
+}) ?? __A_6c8l9g.prototype.a;
+
+let A = __A_6c8l9g;
+
+Object.defineProperty(A, "name", {
+  value: "A"
+});
 
 console.assert(Object.getPrototypeOf({}) === Object.prototype);
 

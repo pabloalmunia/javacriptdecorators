@@ -226,8 +226,11 @@ run ('208 - static private field - multiple addInitializer');
 run ('211 - public member decorator with symbols');
 run ('212 - static decorator with symbols');
 
-// Inheritance
+// Inheritance and metadata
 run ('221 - inheritance and metadata - member');
 run ('222 - inheritance and metadata - static');
 run ('223 - setPrototypeOf and private metadata');
 run ('224 - metadata prototype');
+
+// Fixes
+run ('231 - class definition');

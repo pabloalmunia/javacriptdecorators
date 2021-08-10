@@ -52,49 +52,55 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_bfrk2g = Symbol();
+const _C_p_symbol_jpnbp = Symbol();
 
-class C {
-  static _C_p_temp_c0hon(v) {}
-  static [_C_p_symbol_bfrk2g] = decorator1(C._C_p_temp_c0hon, {
+class __C_tmilb {
+  static _C_p_temp_mka2ng(v) {}
+  static [_C_p_symbol_jpnbp] = decorator1(__C_tmilb._C_p_temp_mka2ng, {
     kind: "setter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_bfrk2g]
+      get: __C_tmilb[_C_p_symbol_jpnbp]
     },
-    ...__PrepareMetadata(C, "private", "#p")
-  }) ?? C._C_p_temp_c0hon;
-  static [_C_p_symbol_bfrk2g] = decorator2(C[_C_p_symbol_bfrk2g], {
+    ...__PrepareMetadata(__C_tmilb, "private", "#p")
+  }) ?? __C_tmilb._C_p_temp_mka2ng;
+  static [_C_p_symbol_jpnbp] = decorator2(__C_tmilb[_C_p_symbol_jpnbp], {
     kind: "setter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_bfrk2g]
+      get: __C_tmilb[_C_p_symbol_jpnbp]
     },
-    ...__PrepareMetadata(C, "private", "#p")
-  }) ?? C[_C_p_symbol_bfrk2g];
-  static [_C_p_symbol_bfrk2g] = decorator2(C[_C_p_symbol_bfrk2g], {
+    ...__PrepareMetadata(__C_tmilb, "private", "#p")
+  }) ?? __C_tmilb[_C_p_symbol_jpnbp];
+  static [_C_p_symbol_jpnbp] = decorator2(__C_tmilb[_C_p_symbol_jpnbp], {
     kind: "setter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_bfrk2g]
+      get: __C_tmilb[_C_p_symbol_jpnbp]
     },
-    ...__PrepareMetadata(C, "private", "#p")
-  }) ?? C[_C_p_symbol_bfrk2g];
+    ...__PrepareMetadata(__C_tmilb, "private", "#p")
+  }) ?? __C_tmilb[_C_p_symbol_jpnbp];
   static set #p(v) {
-    return C[_C_p_symbol_bfrk2g].bind(this)(v);
+    return __C_tmilb[_C_p_symbol_jpnbp].bind(this)(v);
   }
-  static [_C_p_symbol_bfrk2g]() {
-    return C[_C_p_symbol_bfrk2g].bind(this);
+  static [_C_p_symbol_jpnbp]() {
+    return __C_tmilb[_C_p_symbol_jpnbp].bind(this);
   }
 }
 
-delete C._C_p_temp_c0hon;
+delete __C_tmilb._C_p_temp_mka2ng;
+
+let C = __C_tmilb;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(C[Symbol.metadata][ONE].private[0] === 1);
 

@@ -50,128 +50,140 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_d94av8;
+let _C_p_initializer_2bs9q8;
 
-const _C_member_initializers_krk858 = [];
+const _C_member_initializers_o720m = [];
 
-let _C_p_initializer_0ob9b;
+let _C_p_initializer_7alm9g;
 
-class C {
+class __C_gogu3 {
   constructor() {
     this.z = 100;
-    _C_member_initializers_krk858.forEach(initialize => initialize.call(this));
+    _C_member_initializers_o720m.forEach(initialize => initialize.call(this));
   }
-  #_p_private_property_pvb33 = _C_p_initializer_0ob9b.call(this, _C_p_initializer_d94av8.call(this, 1));
+  #_p_private_property_pgd9cg = _C_p_initializer_7alm9g.call(this, _C_p_initializer_2bs9q8.call(this, 1));
   get p() {
-    return this.#_p_private_property_pvb33;
+    return this.#_p_private_property_pgd9cg;
   }
   set p(v) {
-    this.#_p_private_property_pvb33 = v;
+    this.#_p_private_property_pgd9cg = v;
   }
 }
 
-const _C_p_descriptor_n42038 = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const ___C_gogu3_p_descriptor_7ijhu = Object.getOwnPropertyDescriptor(__C_gogu3.prototype, "p");
 
-const _C_p_result_1k0m7g = addProperty("a", 1)({
-  get: _C_p_descriptor_n42038.get,
-  set: _C_p_descriptor_n42038.set
+const ___C_gogu3_p_result_ccbi58 = addProperty("a", 1)({
+  get: ___C_gogu3_p_descriptor_7ijhu.get,
+  set: ___C_gogu3_p_descriptor_7ijhu.set
 }, {
   kind: "auto-accessor",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "p"),
-  addInitializer: initializer => _C_member_initializers_krk858.push(initializer)
+  ...__PrepareMetadata(__C_gogu3.prototype, "public", "p"),
+  addInitializer: initializer => _C_member_initializers_o720m.push(initializer)
 }) || {};
 
-_C_p_initializer_0ob9b = _C_p_result_1k0m7g.initialize || (v => v);
+_C_p_initializer_7alm9g = ___C_gogu3_p_result_ccbi58.initialize || (v => v);
 
-Object.defineProperty(C.prototype, "p", {
-  get: _C_p_result_1k0m7g.get || _C_p_descriptor_n42038.get,
-  set: _C_p_result_1k0m7g.set || _C_p_descriptor_n42038.set
+Object.defineProperty(__C_gogu3.prototype, "p", {
+  get: ___C_gogu3_p_result_ccbi58.get || ___C_gogu3_p_descriptor_7ijhu.get,
+  set: ___C_gogu3_p_result_ccbi58.set || ___C_gogu3_p_descriptor_7ijhu.set
 });
 
-const _C_p_descriptor_d7mm = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const ___C_gogu3_p_descriptor_0flmi = Object.getOwnPropertyDescriptor(__C_gogu3.prototype, "p");
 
-const _C_p_result_e54jt = addProperty("b", 2)({
-  get: _C_p_descriptor_d7mm.get,
-  set: _C_p_descriptor_d7mm.set
+const ___C_gogu3_p_result_mesulo = addProperty("b", 2)({
+  get: ___C_gogu3_p_descriptor_0flmi.get,
+  set: ___C_gogu3_p_descriptor_0flmi.set
 }, {
   kind: "auto-accessor",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "p"),
-  addInitializer: initializer => _C_member_initializers_krk858.push(initializer)
+  ...__PrepareMetadata(__C_gogu3.prototype, "public", "p"),
+  addInitializer: initializer => _C_member_initializers_o720m.push(initializer)
 }) || {};
 
-_C_p_initializer_d94av8 = _C_p_result_e54jt.initialize || (v => v);
+_C_p_initializer_2bs9q8 = ___C_gogu3_p_result_mesulo.initialize || (v => v);
 
-Object.defineProperty(C.prototype, "p", {
-  get: _C_p_result_e54jt.get || _C_p_descriptor_d7mm.get,
-  set: _C_p_result_e54jt.set || _C_p_descriptor_d7mm.set
+Object.defineProperty(__C_gogu3.prototype, "p", {
+  get: ___C_gogu3_p_result_mesulo.get || ___C_gogu3_p_descriptor_0flmi.get,
+  set: ___C_gogu3_p_result_mesulo.set || ___C_gogu3_p_descriptor_0flmi.set
 });
 
-let _D_p_initializer_3ivm3g;
+let C = __C_gogu3;
 
-const _D_member_initializers_95a3r8 = [];
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
-let _D_p_initializer_12corg;
+let _D_p_initializer_2gcjl8;
 
-class D extends C {
+const _D_member_initializers_c07908 = [];
+
+let _D_p_initializer_ujnjhg;
+
+class __D_b7tgig extends C {
   constructor() {
     super();
-    _D_member_initializers_95a3r8.forEach(initialize => initialize.call(this));
+    _D_member_initializers_c07908.forEach(initialize => initialize.call(this));
   }
-  #_p_private_property_d40t1 = _D_p_initializer_12corg.call(this, _D_p_initializer_3ivm3g.call(this, 2));
+  #_p_private_property_uara5 = _D_p_initializer_ujnjhg.call(this, _D_p_initializer_2gcjl8.call(this, 2));
   get p() {
-    return this.#_p_private_property_d40t1;
+    return this.#_p_private_property_uara5;
   }
   set p(v) {
-    this.#_p_private_property_d40t1 = v;
+    this.#_p_private_property_uara5 = v;
   }
 }
 
-const _D_p_descriptor_7akiv = Object.getOwnPropertyDescriptor(D.prototype, "p");
+const ___D_b7tgig_p_descriptor_4cb44g = Object.getOwnPropertyDescriptor(__D_b7tgig.prototype, "p");
 
-const _D_p_result_8d2uio = addProperty("c", 3)({
-  get: _D_p_descriptor_7akiv.get,
-  set: _D_p_descriptor_7akiv.set
+const ___D_b7tgig_p_result_3tu4s8 = addProperty("c", 3)({
+  get: ___D_b7tgig_p_descriptor_4cb44g.get,
+  set: ___D_b7tgig_p_descriptor_4cb44g.set
 }, {
   kind: "auto-accessor",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(D.prototype, "public", "p"),
-  addInitializer: initializer => _D_member_initializers_95a3r8.push(initializer)
+  ...__PrepareMetadata(__D_b7tgig.prototype, "public", "p"),
+  addInitializer: initializer => _D_member_initializers_c07908.push(initializer)
 }) || {};
 
-_D_p_initializer_12corg = _D_p_result_8d2uio.initialize || (v => v);
+_D_p_initializer_ujnjhg = ___D_b7tgig_p_result_3tu4s8.initialize || (v => v);
 
-Object.defineProperty(D.prototype, "p", {
-  get: _D_p_result_8d2uio.get || _D_p_descriptor_7akiv.get,
-  set: _D_p_result_8d2uio.set || _D_p_descriptor_7akiv.set
+Object.defineProperty(__D_b7tgig.prototype, "p", {
+  get: ___D_b7tgig_p_result_3tu4s8.get || ___D_b7tgig_p_descriptor_4cb44g.get,
+  set: ___D_b7tgig_p_result_3tu4s8.set || ___D_b7tgig_p_descriptor_4cb44g.set
 });
 
-const _D_p_descriptor_eoaa8g = Object.getOwnPropertyDescriptor(D.prototype, "p");
+const ___D_b7tgig_p_descriptor_90jm4 = Object.getOwnPropertyDescriptor(__D_b7tgig.prototype, "p");
 
-const _D_p_result_am25s8 = addProperty("d", 4)({
-  get: _D_p_descriptor_eoaa8g.get,
-  set: _D_p_descriptor_eoaa8g.set
+const ___D_b7tgig_p_result_bet0v = addProperty("d", 4)({
+  get: ___D_b7tgig_p_descriptor_90jm4.get,
+  set: ___D_b7tgig_p_descriptor_90jm4.set
 }, {
   kind: "auto-accessor",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(D.prototype, "public", "p"),
-  addInitializer: initializer => _D_member_initializers_95a3r8.push(initializer)
+  ...__PrepareMetadata(__D_b7tgig.prototype, "public", "p"),
+  addInitializer: initializer => _D_member_initializers_c07908.push(initializer)
 }) || {};
 
-_D_p_initializer_3ivm3g = _D_p_result_am25s8.initialize || (v => v);
+_D_p_initializer_2gcjl8 = ___D_b7tgig_p_result_bet0v.initialize || (v => v);
 
-Object.defineProperty(D.prototype, "p", {
-  get: _D_p_result_am25s8.get || _D_p_descriptor_eoaa8g.get,
-  set: _D_p_result_am25s8.set || _D_p_descriptor_eoaa8g.set
+Object.defineProperty(__D_b7tgig.prototype, "p", {
+  get: ___D_b7tgig_p_result_bet0v.get || ___D_b7tgig_p_descriptor_90jm4.get,
+  set: ___D_b7tgig_p_result_bet0v.set || ___D_b7tgig_p_descriptor_90jm4.set
+});
+
+let D = __D_b7tgig;
+
+Object.defineProperty(D, "name", {
+  value: "D"
 });
 
 const c = new C();

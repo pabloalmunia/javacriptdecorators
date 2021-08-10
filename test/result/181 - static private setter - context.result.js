@@ -49,26 +49,32 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _A_p_symbol_6mfgko = Symbol();
+const _A_p_symbol_8fcoeg = Symbol();
 
-class A {
-  static _A_p_temp_8irrl8(v) {}
-  static [_A_p_symbol_6mfgko] = decorator(A._A_p_temp_8irrl8, {
+class __A_n3ep {
+  static _A_p_temp_66jmoo(v) {}
+  static [_A_p_symbol_8fcoeg] = decorator(__A_n3ep._A_p_temp_66jmoo, {
     kind: "setter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: A[_A_p_symbol_6mfgko]
+      get: __A_n3ep[_A_p_symbol_8fcoeg]
     },
-    ...__PrepareMetadata(A, "private", "#p")
-  }) ?? A._A_p_temp_8irrl8;
+    ...__PrepareMetadata(__A_n3ep, "private", "#p")
+  }) ?? __A_n3ep._A_p_temp_66jmoo;
   static set #p(v) {
-    return A[_A_p_symbol_6mfgko].bind(this)(v);
+    return __A_n3ep[_A_p_symbol_8fcoeg].bind(this)(v);
   }
-  static [_A_p_symbol_6mfgko]() {
-    return A[_A_p_symbol_6mfgko].bind(this);
+  static [_A_p_symbol_8fcoeg]() {
+    return __A_n3ep[_A_p_symbol_8fcoeg].bind(this);
   }
 }
 
-delete A._A_p_temp_8irrl8;
+delete __A_n3ep._A_p_temp_66jmoo;
+
+let A = __A_n3ep;
+
+Object.defineProperty(A, "name", {
+  value: "A"
+});

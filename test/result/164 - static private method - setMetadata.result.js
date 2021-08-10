@@ -52,47 +52,53 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_m_symbol_q1cpno = Symbol();
+const _C_m_symbol_ij0ejg = Symbol();
 
-class C {
-  static _C_m_temp_asin2() {}
-  static [_C_m_symbol_q1cpno] = decorator1(C._C_m_temp_asin2, {
+class __C_apmeu8 {
+  static _C_m_temp_mfs2f() {}
+  static [_C_m_symbol_ij0ejg] = decorator1(__C_apmeu8._C_m_temp_mfs2f, {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_m_symbol_q1cpno]
+      get: __C_apmeu8[_C_m_symbol_ij0ejg]
     },
-    ...__PrepareMetadata(C, "private", "#m")
-  }) ?? C._C_m_temp_asin2;
-  static [_C_m_symbol_q1cpno] = decorator2(C[_C_m_symbol_q1cpno], {
+    ...__PrepareMetadata(__C_apmeu8, "private", "#m")
+  }) ?? __C_apmeu8._C_m_temp_mfs2f;
+  static [_C_m_symbol_ij0ejg] = decorator2(__C_apmeu8[_C_m_symbol_ij0ejg], {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_m_symbol_q1cpno]
+      get: __C_apmeu8[_C_m_symbol_ij0ejg]
     },
-    ...__PrepareMetadata(C, "private", "#m")
-  }) ?? C[_C_m_symbol_q1cpno];
-  static [_C_m_symbol_q1cpno] = decorator2(C[_C_m_symbol_q1cpno], {
+    ...__PrepareMetadata(__C_apmeu8, "private", "#m")
+  }) ?? __C_apmeu8[_C_m_symbol_ij0ejg];
+  static [_C_m_symbol_ij0ejg] = decorator2(__C_apmeu8[_C_m_symbol_ij0ejg], {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_m_symbol_q1cpno]
+      get: __C_apmeu8[_C_m_symbol_ij0ejg]
     },
-    ...__PrepareMetadata(C, "private", "#m")
-  }) ?? C[_C_m_symbol_q1cpno];
-  static #m = C[_C_m_symbol_q1cpno];
-  static [_C_m_symbol_q1cpno]() {
+    ...__PrepareMetadata(__C_apmeu8, "private", "#m")
+  }) ?? __C_apmeu8[_C_m_symbol_ij0ejg];
+  static #m = __C_apmeu8[_C_m_symbol_ij0ejg];
+  static [_C_m_symbol_ij0ejg]() {
     return this.#m;
   }
 }
 
-delete C._C_m_temp_asin2;
+delete __C_apmeu8._C_m_temp_mfs2f;
+
+let C = __C_apmeu8;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(C[Symbol.metadata][ONE].private[0] === 1);
 

@@ -46,31 +46,37 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_utp4fg = [];
+const _C_static_initializers_iqli98 = [];
 
-const _C_m_symbol_6vmahg = Symbol();
+const _C_m_symbol_spi0l = Symbol();
 
-class C {
-  static _C_m_temp_ra3nf() {}
-  static [_C_m_symbol_6vmahg] = decorator(C._C_m_temp_ra3nf, {
+class __C_13lcpo {
+  static _C_m_temp_1ufv1() {}
+  static [_C_m_symbol_spi0l] = decorator(__C_13lcpo._C_m_temp_1ufv1, {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_m_symbol_6vmahg]
+      get: __C_13lcpo[_C_m_symbol_spi0l]
     },
-    ...__PrepareMetadata(C, "private", "#m"),
-    addInitializer: initializer => _C_static_initializers_utp4fg.push(initializer)
-  }) ?? C._C_m_temp_ra3nf;
-  static #m = C[_C_m_symbol_6vmahg];
-  static [_C_m_symbol_6vmahg]() {
+    ...__PrepareMetadata(__C_13lcpo, "private", "#m"),
+    addInitializer: initializer => _C_static_initializers_iqli98.push(initializer)
+  }) ?? __C_13lcpo._C_m_temp_1ufv1;
+  static #m = __C_13lcpo[_C_m_symbol_spi0l];
+  static [_C_m_symbol_spi0l]() {
     return this.#m;
   }
 }
 
-delete C._C_m_temp_ra3nf;
+delete __C_13lcpo._C_m_temp_1ufv1;
 
-_C_static_initializers_utp4fg.forEach(initialize => initialize.call(C, C));
+let C = __C_13lcpo;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
+
+_C_static_initializers_iqli98.forEach(initialize => initialize.call(C, C));
 
 console.assert(C.test === 10);

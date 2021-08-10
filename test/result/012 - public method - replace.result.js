@@ -53,17 +53,23 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class C {
+class __C_ot1kqo {
   m() {}
 }
 
-C.prototype.m = decorator(C.prototype.m, {
+__C_ot1kqo.prototype.m = decorator(__C_ot1kqo.prototype.m, {
   kind: "method",
   name: "m",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "m")
-}) ?? C.prototype.m;
+  ...__PrepareMetadata(__C_ot1kqo.prototype, "public", "m")
+}) ?? __C_ot1kqo.prototype.m;
+
+let C = __C_ot1kqo;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 new C().m(1);
 

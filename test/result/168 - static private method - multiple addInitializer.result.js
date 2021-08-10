@@ -50,84 +50,96 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_gf7h2o = [];
+const _C_static_initializers_i4k2q = [];
 
-const _C_m_symbol_5fvlh8 = Symbol();
+const _C_m_symbol_efqq9 = Symbol();
 
-class C {
+class __C_je37r {
   constructor() {
     this.z = 100;
   }
-  static _C_m_temp_mneef() {}
-  static [_C_m_symbol_5fvlh8] = addProperty("a", 1)(C._C_m_temp_mneef, {
+  static _C_m_temp_a8cltg() {}
+  static [_C_m_symbol_efqq9] = addProperty("a", 1)(__C_je37r._C_m_temp_a8cltg, {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_m_symbol_5fvlh8]
+      get: __C_je37r[_C_m_symbol_efqq9]
     },
-    ...__PrepareMetadata(C, "private", "#m"),
-    addInitializer: initializer => _C_static_initializers_gf7h2o.push(initializer)
-  }) ?? C._C_m_temp_mneef;
-  static [_C_m_symbol_5fvlh8] = addProperty("b", 2)(C[_C_m_symbol_5fvlh8], {
+    ...__PrepareMetadata(__C_je37r, "private", "#m"),
+    addInitializer: initializer => _C_static_initializers_i4k2q.push(initializer)
+  }) ?? __C_je37r._C_m_temp_a8cltg;
+  static [_C_m_symbol_efqq9] = addProperty("b", 2)(__C_je37r[_C_m_symbol_efqq9], {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_m_symbol_5fvlh8]
+      get: __C_je37r[_C_m_symbol_efqq9]
     },
-    ...__PrepareMetadata(C, "private", "#m"),
-    addInitializer: initializer => _C_static_initializers_gf7h2o.push(initializer)
-  }) ?? C[_C_m_symbol_5fvlh8];
-  static #m = C[_C_m_symbol_5fvlh8];
-  static [_C_m_symbol_5fvlh8]() {
+    ...__PrepareMetadata(__C_je37r, "private", "#m"),
+    addInitializer: initializer => _C_static_initializers_i4k2q.push(initializer)
+  }) ?? __C_je37r[_C_m_symbol_efqq9];
+  static #m = __C_je37r[_C_m_symbol_efqq9];
+  static [_C_m_symbol_efqq9]() {
     return this.#m;
   }
 }
 
-delete C._C_m_temp_mneef;
+delete __C_je37r._C_m_temp_a8cltg;
 
-_C_static_initializers_gf7h2o.forEach(initialize => initialize.call(C, C));
+let C = __C_je37r;
 
-const _D_static_initializers_qs1t2g = [];
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
-const _D_m_symbol_qsctlo = Symbol();
+_C_static_initializers_i4k2q.forEach(initialize => initialize.call(C, C));
 
-class D extends C {
-  static _D_m_temp_midbc8() {}
-  static [_D_m_symbol_qsctlo] = addProperty("c", 3)(D._D_m_temp_midbc8, {
+const _D_static_initializers_0vo7og = [];
+
+const _D_m_symbol_tti6v = Symbol();
+
+class __D_u1d7g8 extends C {
+  static _D_m_temp_25d7u8() {}
+  static [_D_m_symbol_tti6v] = addProperty("c", 3)(__D_u1d7g8._D_m_temp_25d7u8, {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: D[_D_m_symbol_qsctlo]
+      get: __D_u1d7g8[_D_m_symbol_tti6v]
     },
-    ...__PrepareMetadata(D, "private", "#m"),
-    addInitializer: initializer => _D_static_initializers_qs1t2g.push(initializer)
-  }) ?? D._D_m_temp_midbc8;
-  static [_D_m_symbol_qsctlo] = addProperty("d", 4)(D[_D_m_symbol_qsctlo], {
+    ...__PrepareMetadata(__D_u1d7g8, "private", "#m"),
+    addInitializer: initializer => _D_static_initializers_0vo7og.push(initializer)
+  }) ?? __D_u1d7g8._D_m_temp_25d7u8;
+  static [_D_m_symbol_tti6v] = addProperty("d", 4)(__D_u1d7g8[_D_m_symbol_tti6v], {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: D[_D_m_symbol_qsctlo]
+      get: __D_u1d7g8[_D_m_symbol_tti6v]
     },
-    ...__PrepareMetadata(D, "private", "#m"),
-    addInitializer: initializer => _D_static_initializers_qs1t2g.push(initializer)
-  }) ?? D[_D_m_symbol_qsctlo];
-  static #m = D[_D_m_symbol_qsctlo];
-  static [_D_m_symbol_qsctlo]() {
+    ...__PrepareMetadata(__D_u1d7g8, "private", "#m"),
+    addInitializer: initializer => _D_static_initializers_0vo7og.push(initializer)
+  }) ?? __D_u1d7g8[_D_m_symbol_tti6v];
+  static #m = __D_u1d7g8[_D_m_symbol_tti6v];
+  static [_D_m_symbol_tti6v]() {
     return this.#m;
   }
 }
 
-delete D._D_m_temp_midbc8;
+delete __D_u1d7g8._D_m_temp_25d7u8;
 
-_D_static_initializers_qs1t2g.forEach(initialize => initialize.call(D, D));
+let D = __D_u1d7g8;
+
+Object.defineProperty(D, "name", {
+  value: "D"
+});
+
+_D_static_initializers_0vo7og.forEach(initialize => initialize.call(D, D));
 
 console.assert(C.a === 1);
 

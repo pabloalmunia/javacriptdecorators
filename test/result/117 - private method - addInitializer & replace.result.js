@@ -56,30 +56,30 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_member_initializers_dtcm88 = [];
+const _C_member_initializers_9g5vng = [];
 
-const _C_m_symbol_5btroo = Symbol();
+const _C_m_symbol_vt0038 = Symbol();
 
-class C {
+class __C_f5v4t {
   constructor() {
-    _C_member_initializers_dtcm88.forEach(initialize => initialize.call(this));
+    _C_member_initializers_9g5vng.forEach(initialize => initialize.call(this));
   }
-  _C_m_temp_7j6eh(v) {
+  _C_m_temp_le3pgg(v) {
     return v * 2;
   }
-  static [_C_m_symbol_5btroo] = decorator(C.prototype._C_m_temp_7j6eh, {
+  static [_C_m_symbol_vt0038] = decorator(__C_f5v4t.prototype._C_m_temp_le3pgg, {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_m_symbol_5btroo]
+      get: __C_f5v4t.prototype[_C_m_symbol_vt0038]
     },
-    ...__PrepareMetadata(C.prototype, "private", "#m"),
-    addInitializer: initializer => _C_member_initializers_dtcm88.push(initializer)
-  }) ?? C.prototype._C_m_temp_7j6eh;
-  #m = C[_C_m_symbol_5btroo];
-  [_C_m_symbol_5btroo]() {
+    ...__PrepareMetadata(__C_f5v4t.prototype, "private", "#m"),
+    addInitializer: initializer => _C_member_initializers_9g5vng.push(initializer)
+  }) ?? __C_f5v4t.prototype._C_m_temp_le3pgg;
+  #m = __C_f5v4t[_C_m_symbol_vt0038];
+  [_C_m_symbol_vt0038]() {
     return this.#m;
   }
   check(v) {
@@ -87,7 +87,13 @@ class C {
   }
 }
 
-delete C.prototype._C_m_temp_7j6eh;
+delete __C_f5v4t.prototype._C_m_temp_le3pgg;
+
+let C = __C_f5v4t;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(new C().check(2) === 4);
 

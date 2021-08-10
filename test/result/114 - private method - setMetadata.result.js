@@ -52,47 +52,53 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_m_symbol_ldkeag = Symbol();
+const _C_m_symbol_l9f94 = Symbol();
 
-class C {
-  _C_m_temp_3jiv28() {}
-  static [_C_m_symbol_ldkeag] = decorator1(C.prototype._C_m_temp_3jiv28, {
+class __C_c5tjn8 {
+  _C_m_temp_74nqe() {}
+  static [_C_m_symbol_l9f94] = decorator1(__C_c5tjn8.prototype._C_m_temp_74nqe, {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_m_symbol_ldkeag]
+      get: __C_c5tjn8.prototype[_C_m_symbol_l9f94]
     },
-    ...__PrepareMetadata(C.prototype, "private", "#m")
-  }) ?? C.prototype._C_m_temp_3jiv28;
-  static [_C_m_symbol_ldkeag] = decorator2(C[_C_m_symbol_ldkeag], {
+    ...__PrepareMetadata(__C_c5tjn8.prototype, "private", "#m")
+  }) ?? __C_c5tjn8.prototype._C_m_temp_74nqe;
+  static [_C_m_symbol_l9f94] = decorator2(__C_c5tjn8[_C_m_symbol_l9f94], {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_m_symbol_ldkeag]
+      get: __C_c5tjn8.prototype[_C_m_symbol_l9f94]
     },
-    ...__PrepareMetadata(C.prototype, "private", "#m")
-  }) ?? C[_C_m_symbol_ldkeag];
-  static [_C_m_symbol_ldkeag] = decorator2(C[_C_m_symbol_ldkeag], {
+    ...__PrepareMetadata(__C_c5tjn8.prototype, "private", "#m")
+  }) ?? __C_c5tjn8[_C_m_symbol_l9f94];
+  static [_C_m_symbol_l9f94] = decorator2(__C_c5tjn8[_C_m_symbol_l9f94], {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_m_symbol_ldkeag]
+      get: __C_c5tjn8.prototype[_C_m_symbol_l9f94]
     },
-    ...__PrepareMetadata(C.prototype, "private", "#m")
-  }) ?? C[_C_m_symbol_ldkeag];
-  #m = C[_C_m_symbol_ldkeag];
-  [_C_m_symbol_ldkeag]() {
+    ...__PrepareMetadata(__C_c5tjn8.prototype, "private", "#m")
+  }) ?? __C_c5tjn8[_C_m_symbol_l9f94];
+  #m = __C_c5tjn8[_C_m_symbol_l9f94];
+  [_C_m_symbol_l9f94]() {
     return this.#m;
   }
 }
 
-delete C.prototype._C_m_temp_3jiv28;
+delete __C_c5tjn8.prototype._C_m_temp_74nqe;
+
+let C = __C_c5tjn8;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(C.prototype[Symbol.metadata][ONE].private[0] === 1);
 

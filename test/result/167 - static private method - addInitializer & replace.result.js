@@ -56,27 +56,27 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_fr3j0o = [];
+const _C_static_initializers_2gmob8 = [];
 
-const _C_m_symbol_7o5hj8 = Symbol();
+const _C_m_symbol_riidig = Symbol();
 
-class C {
-  static _C_m_temp_vfij0o(v) {
+class __C_6srsp8 {
+  static _C_m_temp_9a40go(v) {
     return v * 2;
   }
-  static [_C_m_symbol_7o5hj8] = decorator(C._C_m_temp_vfij0o, {
+  static [_C_m_symbol_riidig] = decorator(__C_6srsp8._C_m_temp_9a40go, {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_m_symbol_7o5hj8]
+      get: __C_6srsp8[_C_m_symbol_riidig]
     },
-    ...__PrepareMetadata(C, "private", "#m"),
-    addInitializer: initializer => _C_static_initializers_fr3j0o.push(initializer)
-  }) ?? C._C_m_temp_vfij0o;
-  static #m = C[_C_m_symbol_7o5hj8];
-  static [_C_m_symbol_7o5hj8]() {
+    ...__PrepareMetadata(__C_6srsp8, "private", "#m"),
+    addInitializer: initializer => _C_static_initializers_2gmob8.push(initializer)
+  }) ?? __C_6srsp8._C_m_temp_9a40go;
+  static #m = __C_6srsp8[_C_m_symbol_riidig];
+  static [_C_m_symbol_riidig]() {
     return this.#m;
   }
   static check(v) {
@@ -84,9 +84,15 @@ class C {
   }
 }
 
-delete C._C_m_temp_vfij0o;
+delete __C_6srsp8._C_m_temp_9a40go;
 
-_C_static_initializers_fr3j0o.forEach(initialize => initialize.call(C, C));
+let C = __C_6srsp8;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
+
+_C_static_initializers_2gmob8.forEach(initialize => initialize.call(C, C));
 
 console.assert(C.check(2) === 4);
 

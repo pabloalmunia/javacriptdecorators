@@ -49,11 +49,11 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_member_initializers_im1l58 = [];
+const _C_member_initializers_h8qns = [];
 
-class C {
+class __C_992ck {
   constructor() {
-    _C_member_initializers_im1l58.forEach(initialize => initialize.call(this));
+    _C_member_initializers_h8qns.forEach(initialize => initialize.call(this));
   }
   #p = 10;
   get p() {
@@ -61,18 +61,24 @@ class C {
   }
 }
 
-const _C_p_descriptor_8l9rco = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_abmgoo = Object.getOwnPropertyDescriptor(__C_992ck.prototype, "p");
 
-_C_p_descriptor_8l9rco.get = decorator(_C_p_descriptor_8l9rco.get, {
+_C_p_descriptor_abmgoo.get = decorator(_C_p_descriptor_abmgoo.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "p"),
-  addInitializer: initializer => _C_member_initializers_im1l58.push(initializer)
-}) ?? _C_p_descriptor_8l9rco.get;
+  ...__PrepareMetadata(__C_992ck.prototype, "public", "p"),
+  addInitializer: initializer => _C_member_initializers_h8qns.push(initializer)
+}) ?? _C_p_descriptor_abmgoo.get;
 
-Object.defineProperty(C.prototype, "p", _C_p_descriptor_8l9rco);
+Object.defineProperty(__C_992ck.prototype, "p", _C_p_descriptor_abmgoo);
+
+let C = __C_992ck;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(new C().test === 10);
 

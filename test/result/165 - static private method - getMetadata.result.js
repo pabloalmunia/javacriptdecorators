@@ -49,36 +49,42 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_m_symbol_4heslg = Symbol();
+const _C_m_symbol_vb2lko = Symbol();
 
-class C {
-  static _C_m_temp_ufoebg() {}
-  static [_C_m_symbol_4heslg] = decorator(1)(C._C_m_temp_ufoebg, {
+class __C_driq3g {
+  static _C_m_temp_ppp24g() {}
+  static [_C_m_symbol_vb2lko] = decorator(1)(__C_driq3g._C_m_temp_ppp24g, {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_m_symbol_4heslg]
+      get: __C_driq3g[_C_m_symbol_vb2lko]
     },
-    ...__PrepareMetadata(C, "private", "#m")
-  }) ?? C._C_m_temp_ufoebg;
-  static [_C_m_symbol_4heslg] = decorator(2)(C[_C_m_symbol_4heslg], {
+    ...__PrepareMetadata(__C_driq3g, "private", "#m")
+  }) ?? __C_driq3g._C_m_temp_ppp24g;
+  static [_C_m_symbol_vb2lko] = decorator(2)(__C_driq3g[_C_m_symbol_vb2lko], {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_m_symbol_4heslg]
+      get: __C_driq3g[_C_m_symbol_vb2lko]
     },
-    ...__PrepareMetadata(C, "private", "#m")
-  }) ?? C[_C_m_symbol_4heslg];
-  static #m = C[_C_m_symbol_4heslg];
-  static [_C_m_symbol_4heslg]() {
+    ...__PrepareMetadata(__C_driq3g, "private", "#m")
+  }) ?? __C_driq3g[_C_m_symbol_vb2lko];
+  static #m = __C_driq3g[_C_m_symbol_vb2lko];
+  static [_C_m_symbol_vb2lko]() {
     return this.#m;
   }
 }
 
-delete C._C_m_temp_ufoebg;
+delete __C_driq3g._C_m_temp_ppp24g;
+
+let C = __C_driq3g;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(C[Symbol.metadata][ONE].private[0] === 3);

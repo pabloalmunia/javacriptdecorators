@@ -49,24 +49,24 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_m_symbol_e2n3mo = Symbol();
+const _C_m_symbol_304ogg = Symbol();
 
-class C {
-  static _C_m_temp_mumgqg(v) {
+class __C_bscbfo {
+  static _C_m_temp_fpm02g(v) {
     return v * 2;
   }
-  static [_C_m_symbol_e2n3mo] = decorator(C._C_m_temp_mumgqg, {
+  static [_C_m_symbol_304ogg] = decorator(__C_bscbfo._C_m_temp_fpm02g, {
     kind: "method",
     name: "#m",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_m_symbol_e2n3mo]
+      get: __C_bscbfo[_C_m_symbol_304ogg]
     },
-    ...__PrepareMetadata(C, "private", "#m")
-  }) ?? C._C_m_temp_mumgqg;
-  static #m = C[_C_m_symbol_e2n3mo];
-  static [_C_m_symbol_e2n3mo]() {
+    ...__PrepareMetadata(__C_bscbfo, "private", "#m")
+  }) ?? __C_bscbfo._C_m_temp_fpm02g;
+  static #m = __C_bscbfo[_C_m_symbol_304ogg];
+  static [_C_m_symbol_304ogg]() {
     return this.#m;
   }
   static check(v) {
@@ -74,6 +74,12 @@ class C {
   }
 }
 
-delete C._C_m_temp_mumgqg;
+delete __C_bscbfo._C_m_temp_fpm02g;
+
+let C = __C_bscbfo;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(C.check(1) === 2);

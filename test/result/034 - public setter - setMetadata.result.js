@@ -52,33 +52,39 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class C {
+class __C_2d4tog {
   set p(v) {}
 }
 
-const _C_p_descriptor_ri3ho = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_sj26i8 = Object.getOwnPropertyDescriptor(__C_2d4tog.prototype, "p");
 
-_C_p_descriptor_ri3ho.set = decorator1(_C_p_descriptor_ri3ho.set, {
+_C_p_descriptor_sj26i8.set = decorator1(_C_p_descriptor_sj26i8.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "p")
-}) ?? _C_p_descriptor_ri3ho.set;
+  ...__PrepareMetadata(__C_2d4tog.prototype, "public", "p")
+}) ?? _C_p_descriptor_sj26i8.set;
 
-Object.defineProperty(C.prototype, "p", _C_p_descriptor_ri3ho);
+Object.defineProperty(__C_2d4tog.prototype, "p", _C_p_descriptor_sj26i8);
 
-const _C_p_descriptor_f6aoag = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_a8crc = Object.getOwnPropertyDescriptor(__C_2d4tog.prototype, "p");
 
-_C_p_descriptor_f6aoag.set = decorator2(_C_p_descriptor_f6aoag.set, {
+_C_p_descriptor_a8crc.set = decorator2(_C_p_descriptor_a8crc.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "p")
-}) ?? _C_p_descriptor_f6aoag.set;
+  ...__PrepareMetadata(__C_2d4tog.prototype, "public", "p")
+}) ?? _C_p_descriptor_a8crc.set;
 
-Object.defineProperty(C.prototype, "p", _C_p_descriptor_f6aoag);
+Object.defineProperty(__C_2d4tog.prototype, "p", _C_p_descriptor_a8crc);
+
+let C = __C_2d4tog;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 const a = new C();
 

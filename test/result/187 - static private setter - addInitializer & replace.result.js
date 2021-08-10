@@ -49,34 +49,34 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_mmrefo = [];
+const _C_static_initializers_i77dr = [];
 
-const _C_p_symbol_805vrg = Symbol();
+const _C_p_symbol_58vju = Symbol();
 
-class C {
+class __C_7p3fh8 {
   static #q = 10;
   static get #p() {
     return this.#q;
   }
-  static _C_p_temp_mpphfo(v) {
+  static _C_p_temp_gl8vhg(v) {
     this.#q = v;
   }
-  static [_C_p_symbol_805vrg] = decorator(C._C_p_temp_mpphfo, {
+  static [_C_p_symbol_58vju] = decorator(__C_7p3fh8._C_p_temp_gl8vhg, {
     kind: "setter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_805vrg]
+      get: __C_7p3fh8[_C_p_symbol_58vju]
     },
-    ...__PrepareMetadata(C, "private", "#p"),
-    addInitializer: initializer => _C_static_initializers_mmrefo.push(initializer)
-  }) ?? C._C_p_temp_mpphfo;
+    ...__PrepareMetadata(__C_7p3fh8, "private", "#p"),
+    addInitializer: initializer => _C_static_initializers_i77dr.push(initializer)
+  }) ?? __C_7p3fh8._C_p_temp_gl8vhg;
   static set #p(v) {
-    return C[_C_p_symbol_805vrg].bind(this)(v);
+    return __C_7p3fh8[_C_p_symbol_58vju].bind(this)(v);
   }
-  static [_C_p_symbol_805vrg]() {
-    return C[_C_p_symbol_805vrg].bind(this);
+  static [_C_p_symbol_58vju]() {
+    return __C_7p3fh8[_C_p_symbol_58vju].bind(this);
   }
   static get check() {
     return this.#p;
@@ -86,9 +86,15 @@ class C {
   }
 }
 
-delete C._C_p_temp_mpphfo;
+delete __C_7p3fh8._C_p_temp_gl8vhg;
 
-_C_static_initializers_mmrefo.forEach(initialize => initialize.call(C, C));
+let C = __C_7p3fh8;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
+
+_C_static_initializers_i77dr.forEach(initialize => initialize.call(C, C));
 
 console.assert(C.test === 10);
 

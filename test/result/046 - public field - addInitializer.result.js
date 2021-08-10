@@ -46,25 +46,31 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_bapjho;
+let _C_p_initializer_s7796g;
 
-const _C_member_initializers_nap6i = [];
+const _C_member_initializers_lallhg = [];
 
-class C {
+class __C_50gr0g {
   constructor() {
-    _C_member_initializers_nap6i.forEach(initialize => initialize.call(this));
+    _C_member_initializers_lallhg.forEach(initialize => initialize.call(this));
   }
-  p = _C_p_initializer_bapjho.call(this, 1);
+  p = _C_p_initializer_s7796g.call(this, 1);
 }
 
-_C_p_initializer_bapjho = decorator(undefined, {
+_C_p_initializer_s7796g = decorator(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "p"),
-  addInitializer: initializer => _C_member_initializers_nap6i.push(initializer)
+  ...__PrepareMetadata(__C_50gr0g.prototype, "public", "p"),
+  addInitializer: initializer => _C_member_initializers_lallhg.push(initializer)
 }) ?? (v => v);
+
+let C = __C_50gr0g;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(new C().p === 1);
 

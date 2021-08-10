@@ -49,24 +49,30 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_eia79g = [];
+const _C_static_initializers_605na8 = [];
 
-class C {
+class __C_rop8r8 {
   static p = 10;
 }
 
-const _C_p_initializer_ocupv8 = decorator(undefined, {
+let C = __C_rop8r8;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
+
+const _C_p_initializer_kaua2o = decorator(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(C, "public", "p"),
-  addInitializer: initializer => _C_static_initializers_eia79g.push(initializer)
+  ...__PrepareMetadata(__C_rop8r8, "public", "p"),
+  addInitializer: initializer => _C_static_initializers_605na8.push(initializer)
 }) ?? (v => v);
 
-C.p = _C_p_initializer_ocupv8.call(C, C.p);
+__C_rop8r8.p = _C_p_initializer_kaua2o.call(__C_rop8r8, __C_rop8r8.p);
 
-_C_static_initializers_eia79g.forEach(initializer => initializer.call(C, C));
+_C_static_initializers_605na8.forEach(initializer => initializer.call(C, C));
 
 console.assert(C.test === 10);
 

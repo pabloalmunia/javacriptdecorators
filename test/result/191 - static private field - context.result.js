@@ -49,30 +49,36 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _A_p_get_symbol_0qh018 = Symbol();
+const _A_p_get_symbol_tpo1tg = Symbol();
 
-const _A_p_set_symbol_0j2ipo = Symbol();
+const _A_p_set_symbol_7r9ak = Symbol();
 
-class A {
+class __A_u8v1qg {
   static #p = 1;
-  static [_A_p_get_symbol_0qh018]() {
-    return A.#p;
+  static [_A_p_get_symbol_tpo1tg]() {
+    return __A_u8v1qg.#p;
   }
-  static [_A_p_set_symbol_0j2ipo](v) {
-    A.#p = v;
+  static [_A_p_set_symbol_7r9ak](v) {
+    __A_u8v1qg.#p = v;
   }
 }
 
-const _A_p_initializer_cljhco = decorator(undefined, {
+const _A_p_initializer_18j8jg = decorator(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: A[_A_p_get_symbol_0qh018],
-    set: A[_A_p_set_symbol_0j2ipo]
+    get: __A_u8v1qg[_A_p_get_symbol_tpo1tg],
+    set: __A_u8v1qg[_A_p_set_symbol_7r9ak]
   },
   isStatic: true,
   isPrivate: true,
-  ...__PrepareMetadata(A, "private", "p")
+  ...__PrepareMetadata(__A_u8v1qg, "private", "p")
 }) ?? (v => v);
 
-A[_A_p_set_symbol_0j2ipo](_A_p_initializer_cljhco(A[_A_p_get_symbol_0qh018]()));
+__A_u8v1qg[_A_p_set_symbol_7r9ak](_A_p_initializer_18j8jg(__A_u8v1qg[_A_p_get_symbol_tpo1tg]()));
+
+let A = __A_u8v1qg;
+
+Object.defineProperty(A, "name", {
+  value: "A"
+});

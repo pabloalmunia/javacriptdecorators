@@ -54,44 +54,53 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_t93ag8;
+let _C_p_initializer_l0gkv8;
 
-const _C_static_initializers_qli9k8 = [];
+const _C_static_initializers_g8tc2o = [];
 
-class C {
-  static #_p_private_property_593cco = 10;
+class __C_94c898 {
+  static #_p_private_property_72bse = 10;
   static get p() {
-    return this.#_p_private_property_593cco;
+    return this.#_p_private_property_72bse;
   }
   static set p(v) {
-    this.#_p_private_property_593cco = v;
+    this.#_p_private_property_72bse = v;
   }
 }
 
-const _C_p_descriptor_kjn3s = Object.getOwnPropertyDescriptor(C, "p");
+const ___C_94c898_p_descriptor_p1eg28 = Object.getOwnPropertyDescriptor(__C_94c898, "p");
 
-const _C_p_result_98hmm = decorator({
-  get: _C_p_descriptor_kjn3s.get,
-  set: _C_p_descriptor_kjn3s.set
+const ___C_94c898_p_result_lqqfu = decorator({
+  get: ___C_94c898_p_descriptor_p1eg28.get,
+  set: ___C_94c898_p_descriptor_p1eg28.set
 }, {
   kind: "auto-accessor",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(C, "public", "p"),
-  addInitializer: initializer => _C_static_initializers_qli9k8.push(initializer)
+  ...__PrepareMetadata(__C_94c898, "public", "p"),
+  addInitializer: initializer => _C_static_initializers_g8tc2o.push(initializer)
 }) || {};
 
-_C_p_initializer_t93ag8 = _C_p_result_98hmm.initialize || (v => v);
+_C_p_initializer_l0gkv8 = ___C_94c898_p_result_lqqfu.initialize || (v => v);
 
-Object.defineProperty(C, "p", {
-  get: _C_p_result_98hmm.get || _C_p_descriptor_kjn3s.get,
-  set: _C_p_result_98hmm.set || _C_p_descriptor_kjn3s.set
+Object.defineProperty(__C_94c898, "p", {
+  get: ___C_94c898_p_result_lqqfu.get || ___C_94c898_p_descriptor_p1eg28.get,
+  set: ___C_94c898_p_result_lqqfu.set || ___C_94c898_p_descriptor_p1eg28.set
 });
 
-_C_p_descriptor_kjn3s.set.call(C, _C_p_initializer_t93ag8(_C_p_descriptor_kjn3s.get.call(C)));
+___C_94c898_p_descriptor_p1eg28.set.call(
+  __C_94c898,
+  _C_p_initializer_l0gkv8(___C_94c898_p_descriptor_p1eg28.get.call(__C_94c898))
+);
 
-_C_static_initializers_qli9k8.forEach(initialize => initialize.call(C, C));
+let C = __C_94c898;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
+
+_C_static_initializers_g8tc2o.forEach(initialize => initialize.call(C, C));
 
 console.assert(C.test === 10);
 

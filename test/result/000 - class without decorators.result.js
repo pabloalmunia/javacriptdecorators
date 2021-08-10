@@ -1,6 +1,12 @@
-class A {}
+class __A_ofhc0o {}
 
-class C extends A {
+let A = __A_ofhc0o;
+
+Object.defineProperty(A, "name", {
+  value: "A"
+});
+
+class __C_37bnl8 extends A {
   constructor() {
     super();
   }
@@ -20,3 +26,9 @@ class C extends A {
   get #q() {}
   set #q(v) {}
 }
+
+let C = __C_37bnl8;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});

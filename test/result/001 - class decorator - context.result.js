@@ -48,7 +48,13 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class C {}
+class __C_ubl5p8 {}
+
+let C = __C_ubl5p8;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 C = decorator(C, {
   kind: "class",

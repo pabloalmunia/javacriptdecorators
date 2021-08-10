@@ -46,28 +46,28 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_q4rsbg = Symbol();
+const _C_p_symbol_6s6ldo = Symbol();
 
-class C {
+class __C_i4k118 {
   #q = 0;
-  _C_p_temp_7m21b8(v) {
+  _C_p_temp_o2080g(v) {
     this.#q = v;
   }
-  static [_C_p_symbol_q4rsbg] = decorator(C.prototype._C_p_temp_7m21b8, {
+  static [_C_p_symbol_6s6ldo] = decorator(__C_i4k118.prototype._C_p_temp_o2080g, {
     kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_q4rsbg]
+      get: __C_i4k118.prototype[_C_p_symbol_6s6ldo]
     },
-    ...__PrepareMetadata(C.prototype, "private", "#p")
-  }) ?? C.prototype._C_p_temp_7m21b8;
+    ...__PrepareMetadata(__C_i4k118.prototype, "private", "#p")
+  }) ?? __C_i4k118.prototype._C_p_temp_o2080g;
   set #p(v) {
-    return C[_C_p_symbol_q4rsbg].bind(this)(v);
+    return __C_i4k118[_C_p_symbol_6s6ldo].bind(this)(v);
   }
-  [_C_p_symbol_q4rsbg]() {
-    return C[_C_p_symbol_q4rsbg].bind(this);
+  [_C_p_symbol_6s6ldo]() {
+    return __C_i4k118[_C_p_symbol_6s6ldo].bind(this);
   }
   get #p() {
     return this.#q;
@@ -80,7 +80,13 @@ class C {
   }
 }
 
-delete C.prototype._C_p_temp_7m21b8;
+delete __C_i4k118.prototype._C_p_temp_o2080g;
+
+let C = __C_i4k118;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 const c = new C();
 

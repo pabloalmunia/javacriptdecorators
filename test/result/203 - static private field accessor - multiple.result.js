@@ -60,98 +60,104 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_9trpj8 = Symbol();
+const _C_p_get_symbol_lucedg = Symbol();
 
-const _C_p_set_symbol_35iilg = Symbol();
+const _C_p_set_symbol_1rtd2o = Symbol();
 
-let _C_p_getter_bgouf8;
+let _C_p_getter_p0bh1o;
 
-let _C_p_setter_opvcdg;
+let _C_p_setter_qo7mt8;
 
-class C {
-  static #_p_private_property_k31kvg = 1;
+class __C_7tset {
+  static #_p_private_property_48t8m = 1;
   static get #p() {
-    return _C_p_getter_bgouf8.call(this);
+    return _C_p_getter_p0bh1o.call(this);
   }
   static set #p(v) {
-    return _C_p_setter_opvcdg.call(this, v);
+    return _C_p_setter_qo7mt8.call(this, v);
   }
-  static _C_p_getter_bgouf8() {
-    return this.#_p_private_property_k31kvg;
+  static _C_p_getter_p0bh1o() {
+    return this.#_p_private_property_48t8m;
   }
-  static _C_p_setter_opvcdg(v) {
-    this.#_p_private_property_k31kvg = v;
+  static _C_p_setter_qo7mt8(v) {
+    this.#_p_private_property_48t8m = v;
   }
-  static [_C_p_get_symbol_9trpj8]() {
-    return C.#p;
+  static [_C_p_get_symbol_lucedg]() {
+    return __C_7tset.#p;
   }
-  static [_C_p_set_symbol_35iilg](v) {
-    C.#p = v;
+  static [_C_p_set_symbol_1rtd2o](v) {
+    __C_7tset.#p = v;
   }
   static get check() {
     return this.#p;
   }
 }
 
-const _C_p_initializer_sp3pe8 = {
-  get: C._C_p_getter_bgouf8,
-  set: C._C_p_setter_opvcdg
+const _C_p_initializer_9ufico = {
+  get: __C_7tset._C_p_getter_p0bh1o,
+  set: __C_7tset._C_p_setter_qo7mt8
 };
 
-_C_p_getter_bgouf8 = C._C_p_getter_bgouf8;
+_C_p_getter_p0bh1o = __C_7tset._C_p_getter_p0bh1o;
 
-_C_p_setter_opvcdg = C._C_p_setter_opvcdg;
+_C_p_setter_qo7mt8 = __C_7tset._C_p_setter_qo7mt8;
 
-delete C._C_p_getter_bgouf8;
+delete __C_7tset._C_p_getter_p0bh1o;
 
-delete C._C_p_setter_opvcdg;
+delete __C_7tset._C_p_setter_qo7mt8;
 
-const _C_p_result_g9spd = decorator1({
-  get: _C_p_getter_bgouf8,
-  set: _C_p_setter_opvcdg
+const _C_p_result_r3ssdo = decorator1({
+  get: _C_p_getter_p0bh1o,
+  set: _C_p_setter_qo7mt8
 }, {
   kind: "auto-accessor",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_9trpj8],
-    set: C[_C_p_set_symbol_35iilg]
+    get: __C_7tset[_C_p_get_symbol_lucedg],
+    set: __C_7tset[_C_p_set_symbol_1rtd2o]
   },
   isStatic: true,
   isPrivate: true,
-  ...__PrepareMetadata(C, "private", "#p")
+  ...__PrepareMetadata(__C_7tset, "private", "#p")
 }) || {};
 
-_C_p_initializer_sp3pe8.set.call(
-  C,
-  (_C_p_result_g9spd.initialize || (v => v))(_C_p_initializer_sp3pe8.get.call(C))
+_C_p_initializer_9ufico.set.call(
+  __C_7tset,
+  (_C_p_result_r3ssdo.initialize || (v => v))(_C_p_initializer_9ufico.get.call(__C_7tset))
 );
 
-_C_p_getter_bgouf8 = _C_p_result_g9spd.get || _C_p_getter_bgouf8;
+_C_p_getter_p0bh1o = _C_p_result_r3ssdo.get || _C_p_getter_p0bh1o;
 
-_C_p_setter_opvcdg = _C_p_result_g9spd.set || _C_p_setter_opvcdg;
+_C_p_setter_qo7mt8 = _C_p_result_r3ssdo.set || _C_p_setter_qo7mt8;
 
-const _C_p_result_aa0sj = decorator2({
-  get: _C_p_getter_bgouf8,
-  set: _C_p_setter_opvcdg
+const _C_p_result_luckb = decorator2({
+  get: _C_p_getter_p0bh1o,
+  set: _C_p_setter_qo7mt8
 }, {
   kind: "auto-accessor",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_9trpj8],
-    set: C[_C_p_set_symbol_35iilg]
+    get: __C_7tset[_C_p_get_symbol_lucedg],
+    set: __C_7tset[_C_p_set_symbol_1rtd2o]
   },
   isStatic: true,
   isPrivate: true,
-  ...__PrepareMetadata(C, "private", "#p")
+  ...__PrepareMetadata(__C_7tset, "private", "#p")
 }) || {};
 
-_C_p_initializer_sp3pe8.set.call(
-  C,
-  (_C_p_result_aa0sj.initialize || (v => v))(_C_p_initializer_sp3pe8.get.call(C))
+_C_p_initializer_9ufico.set.call(
+  __C_7tset,
+  (_C_p_result_luckb.initialize || (v => v))(_C_p_initializer_9ufico.get.call(__C_7tset))
 );
 
-_C_p_getter_bgouf8 = _C_p_result_aa0sj.get || _C_p_getter_bgouf8;
+_C_p_getter_p0bh1o = _C_p_result_luckb.get || _C_p_getter_p0bh1o;
 
-_C_p_setter_opvcdg = _C_p_result_aa0sj.set || _C_p_setter_opvcdg;
+_C_p_setter_qo7mt8 = _C_p_result_luckb.set || _C_p_setter_qo7mt8;
+
+let C = __C_7tset;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(C.check === 6);

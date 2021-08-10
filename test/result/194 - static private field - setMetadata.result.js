@@ -53,61 +53,67 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_ljnmk8 = Symbol();
+const _C_p_get_symbol_o387so = Symbol();
 
-const _C_p_set_symbol_3u5t9g = Symbol();
+const _C_p_set_symbol_k0t46g = Symbol();
 
-class C {
+class __C_nh537g {
   static #p = 10;
-  static [_C_p_get_symbol_ljnmk8]() {
-    return C.#p;
+  static [_C_p_get_symbol_o387so]() {
+    return __C_nh537g.#p;
   }
-  static [_C_p_set_symbol_3u5t9g](v) {
-    C.#p = v;
+  static [_C_p_set_symbol_k0t46g](v) {
+    __C_nh537g.#p = v;
   }
 }
 
-const _C_p_initializer_2gqlng = decorator1(undefined, {
+const _C_p_initializer_8rtfj8 = decorator1(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_ljnmk8],
-    set: C[_C_p_set_symbol_3u5t9g]
+    get: __C_nh537g[_C_p_get_symbol_o387so],
+    set: __C_nh537g[_C_p_set_symbol_k0t46g]
   },
   isStatic: true,
   isPrivate: true,
-  ...__PrepareMetadata(C, "private", "p")
+  ...__PrepareMetadata(__C_nh537g, "private", "p")
 }) ?? (v => v);
 
-C[_C_p_set_symbol_3u5t9g](_C_p_initializer_2gqlng(C[_C_p_get_symbol_ljnmk8]()));
+__C_nh537g[_C_p_set_symbol_k0t46g](_C_p_initializer_8rtfj8(__C_nh537g[_C_p_get_symbol_o387so]()));
 
-const _C_p_initializer_b1pv5 = decorator2(undefined, {
+const _C_p_initializer_cu5svo = decorator2(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_ljnmk8],
-    set: C[_C_p_set_symbol_3u5t9g]
+    get: __C_nh537g[_C_p_get_symbol_o387so],
+    set: __C_nh537g[_C_p_set_symbol_k0t46g]
   },
   isStatic: true,
   isPrivate: true,
-  ...__PrepareMetadata(C, "private", "p")
+  ...__PrepareMetadata(__C_nh537g, "private", "p")
 }) ?? (v => v);
 
-C[_C_p_set_symbol_3u5t9g](_C_p_initializer_b1pv5(C[_C_p_get_symbol_ljnmk8]()));
+__C_nh537g[_C_p_set_symbol_k0t46g](_C_p_initializer_cu5svo(__C_nh537g[_C_p_get_symbol_o387so]()));
 
-const _C_p_initializer_4tmkbo = decorator2(undefined, {
+const _C_p_initializer_ihju7 = decorator2(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_ljnmk8],
-    set: C[_C_p_set_symbol_3u5t9g]
+    get: __C_nh537g[_C_p_get_symbol_o387so],
+    set: __C_nh537g[_C_p_set_symbol_k0t46g]
   },
   isStatic: true,
   isPrivate: true,
-  ...__PrepareMetadata(C, "private", "p")
+  ...__PrepareMetadata(__C_nh537g, "private", "p")
 }) ?? (v => v);
 
-C[_C_p_set_symbol_3u5t9g](_C_p_initializer_4tmkbo(C[_C_p_get_symbol_ljnmk8]()));
+__C_nh537g[_C_p_set_symbol_k0t46g](_C_p_initializer_ihju7(__C_nh537g[_C_p_get_symbol_o387so]()));
+
+let C = __C_nh537g;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(C[Symbol.metadata][ONE].private[0] === 1);
 

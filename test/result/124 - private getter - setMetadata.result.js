@@ -52,54 +52,60 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_6j0mtg = Symbol();
+const _C_p_symbol_dsstco = Symbol();
 
-class C {
-  _C_p_temp_6uvm9() {
+class __C_f8a9eo {
+  _C_p_temp_2elito() {
     return "a";
   }
-  static [_C_p_symbol_6j0mtg] = decorator1(C.prototype._C_p_temp_6uvm9, {
+  static [_C_p_symbol_dsstco] = decorator1(__C_f8a9eo.prototype._C_p_temp_2elito, {
     kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_6j0mtg]
+      get: __C_f8a9eo.prototype[_C_p_symbol_dsstco]
     },
-    ...__PrepareMetadata(C.prototype, "private", "#p")
-  }) ?? C.prototype._C_p_temp_6uvm9;
-  static [_C_p_symbol_6j0mtg] = decorator2(C[_C_p_symbol_6j0mtg], {
+    ...__PrepareMetadata(__C_f8a9eo.prototype, "private", "#p")
+  }) ?? __C_f8a9eo.prototype._C_p_temp_2elito;
+  static [_C_p_symbol_dsstco] = decorator2(__C_f8a9eo[_C_p_symbol_dsstco], {
     kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_6j0mtg]
+      get: __C_f8a9eo.prototype[_C_p_symbol_dsstco]
     },
-    ...__PrepareMetadata(C.prototype, "private", "#p")
-  }) ?? C[_C_p_symbol_6j0mtg];
-  static [_C_p_symbol_6j0mtg] = decorator2(C[_C_p_symbol_6j0mtg], {
+    ...__PrepareMetadata(__C_f8a9eo.prototype, "private", "#p")
+  }) ?? __C_f8a9eo[_C_p_symbol_dsstco];
+  static [_C_p_symbol_dsstco] = decorator2(__C_f8a9eo[_C_p_symbol_dsstco], {
     kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_p_symbol_6j0mtg]
+      get: __C_f8a9eo.prototype[_C_p_symbol_dsstco]
     },
-    ...__PrepareMetadata(C.prototype, "private", "#p")
-  }) ?? C[_C_p_symbol_6j0mtg];
+    ...__PrepareMetadata(__C_f8a9eo.prototype, "private", "#p")
+  }) ?? __C_f8a9eo[_C_p_symbol_dsstco];
   get #p() {
-    return C[_C_p_symbol_6j0mtg].bind(this)();
+    return __C_f8a9eo[_C_p_symbol_dsstco].bind(this)();
   }
-  [_C_p_symbol_6j0mtg]() {
-    return C[_C_p_symbol_6j0mtg].bind(this);
+  [_C_p_symbol_dsstco]() {
+    return __C_f8a9eo[_C_p_symbol_dsstco].bind(this);
   }
   get check() {
     return this.#p;
   }
 }
 
-delete C.prototype._C_p_temp_6uvm9;
+delete __C_f8a9eo.prototype._C_p_temp_2elito;
+
+let C = __C_f8a9eo;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 const a = new C();
 

@@ -49,36 +49,42 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_m_symbol_bdf4cg = Symbol();
+const _C_m_symbol_q41bv = Symbol();
 
-class C {
-  _C_m_temp_1l838o() {}
-  static [_C_m_symbol_bdf4cg] = decorator(1)(C.prototype._C_m_temp_1l838o, {
+class __C_6s4jv8 {
+  _C_m_temp_ctlqj() {}
+  static [_C_m_symbol_q41bv] = decorator(1)(__C_6s4jv8.prototype._C_m_temp_ctlqj, {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_m_symbol_bdf4cg]
+      get: __C_6s4jv8.prototype[_C_m_symbol_q41bv]
     },
-    ...__PrepareMetadata(C.prototype, "private", "#m")
-  }) ?? C.prototype._C_m_temp_1l838o;
-  static [_C_m_symbol_bdf4cg] = decorator(2)(C[_C_m_symbol_bdf4cg], {
+    ...__PrepareMetadata(__C_6s4jv8.prototype, "private", "#m")
+  }) ?? __C_6s4jv8.prototype._C_m_temp_ctlqj;
+  static [_C_m_symbol_q41bv] = decorator(2)(__C_6s4jv8[_C_m_symbol_q41bv], {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_m_symbol_bdf4cg]
+      get: __C_6s4jv8.prototype[_C_m_symbol_q41bv]
     },
-    ...__PrepareMetadata(C.prototype, "private", "#m")
-  }) ?? C[_C_m_symbol_bdf4cg];
-  #m = C[_C_m_symbol_bdf4cg];
-  [_C_m_symbol_bdf4cg]() {
+    ...__PrepareMetadata(__C_6s4jv8.prototype, "private", "#m")
+  }) ?? __C_6s4jv8[_C_m_symbol_q41bv];
+  #m = __C_6s4jv8[_C_m_symbol_q41bv];
+  [_C_m_symbol_q41bv]() {
     return this.#m;
   }
 }
 
-delete C.prototype._C_m_temp_1l838o;
+delete __C_6s4jv8.prototype._C_m_temp_ctlqj;
+
+let C = __C_6s4jv8;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(C.prototype[Symbol.metadata][ONE].private[0] === 3);

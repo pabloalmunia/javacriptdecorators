@@ -52,25 +52,31 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class C {
+class __C_nv04sg {
   m() {}
 }
 
-C.prototype.m = decorator1(C.prototype.m, {
+__C_nv04sg.prototype.m = decorator1(__C_nv04sg.prototype.m, {
   kind: "method",
   name: "m",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "m")
-}) ?? C.prototype.m;
+  ...__PrepareMetadata(__C_nv04sg.prototype, "public", "m")
+}) ?? __C_nv04sg.prototype.m;
 
-C.prototype.m = decorator2(C.prototype.m, {
+__C_nv04sg.prototype.m = decorator2(__C_nv04sg.prototype.m, {
   kind: "method",
   name: "m",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "m")
-}) ?? C.prototype.m;
+  ...__PrepareMetadata(__C_nv04sg.prototype, "public", "m")
+}) ?? __C_nv04sg.prototype.m;
+
+let C = __C_nv04sg;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(C.prototype[Symbol.metadata][ONE].public.m === 1);
 

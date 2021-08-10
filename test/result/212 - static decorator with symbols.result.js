@@ -69,9 +69,9 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _MyClass_A_initializer_50j7cg;
+let _MyClass_A_initializer_u7bm5g;
 
-class MyClass {
+class __MyClass_5rh19g {
   static [P] = 1;
   static [M]() {}
   static get [G]() {
@@ -80,87 +80,93 @@ class MyClass {
   static set [G](v) {
     this[P] = v;
   }
-  static #_A_private_property_m86a1g = 2;
+  static #_A_private_property_3bkv7g = 2;
   static get [A]() {
-    return this.#_A_private_property_m86a1g;
+    return this.#_A_private_property_3bkv7g;
   }
   static set [A](v) {
-    this.#_A_private_property_m86a1g = v;
+    this.#_A_private_property_3bkv7g = v;
   }
 }
 
-const _MyClass_A_descriptor_rcsai = Object.getOwnPropertyDescriptor(MyClass, A);
+const ___MyClass_5rh19g_A_descriptor_qrlqd = Object.getOwnPropertyDescriptor(__MyClass_5rh19g, A);
 
-const _MyClass_A_result_4jtajo = checker("auto-accessor")({
-  get: _MyClass_A_descriptor_rcsai.get,
-  set: _MyClass_A_descriptor_rcsai.set
+const ___MyClass_5rh19g_A_result_hcb07o = checker("auto-accessor")({
+  get: ___MyClass_5rh19g_A_descriptor_qrlqd.get,
+  set: ___MyClass_5rh19g_A_descriptor_qrlqd.set
 }, {
   kind: "auto-accessor",
   name: "A",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(MyClass, "public", A)
+  ...__PrepareMetadata(__MyClass_5rh19g, "public", A)
 }) || {};
 
-_MyClass_A_initializer_50j7cg = _MyClass_A_result_4jtajo.initialize || (v => v);
+_MyClass_A_initializer_u7bm5g = ___MyClass_5rh19g_A_result_hcb07o.initialize || (v => v);
 
-Object.defineProperty(MyClass, A, {
-  get: _MyClass_A_result_4jtajo.get || _MyClass_A_descriptor_rcsai.get,
-  set: _MyClass_A_result_4jtajo.set || _MyClass_A_descriptor_rcsai.set
+Object.defineProperty(__MyClass_5rh19g, A, {
+  get: ___MyClass_5rh19g_A_result_hcb07o.get || ___MyClass_5rh19g_A_descriptor_qrlqd.get,
+  set: ___MyClass_5rh19g_A_result_hcb07o.set || ___MyClass_5rh19g_A_descriptor_qrlqd.set
 });
 
-_MyClass_A_descriptor_rcsai.set.call(
-  MyClass,
-  _MyClass_A_initializer_50j7cg(_MyClass_A_descriptor_rcsai.get.call(MyClass))
+___MyClass_5rh19g_A_descriptor_qrlqd.set.call(
+  __MyClass_5rh19g,
+  _MyClass_A_initializer_u7bm5g(___MyClass_5rh19g_A_descriptor_qrlqd.get.call(__MyClass_5rh19g))
 );
 
-const _MyClass_G_descriptor_f199q = Object.getOwnPropertyDescriptor(MyClass, G);
+let MyClass = __MyClass_5rh19g;
 
-_MyClass_G_descriptor_f199q.set = checker("setter", function() {
+Object.defineProperty(MyClass, "name", {
+  value: "MyClass"
+});
+
+const _MyClass_G_descriptor_3nogv8 = Object.getOwnPropertyDescriptor(__MyClass_5rh19g, G);
+
+_MyClass_G_descriptor_3nogv8.set = checker("setter", function() {
   this[P] = v * 2;
-})(_MyClass_G_descriptor_f199q.set, {
+})(_MyClass_G_descriptor_3nogv8.set, {
   kind: "setter",
   name: G,
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(MyClass, "public", G)
-}) ?? _MyClass_G_descriptor_f199q.set;
+  ...__PrepareMetadata(__MyClass_5rh19g, "public", G)
+}) ?? _MyClass_G_descriptor_3nogv8.set;
 
-Object.defineProperty(MyClass, G, _MyClass_G_descriptor_f199q);
+Object.defineProperty(__MyClass_5rh19g, G, _MyClass_G_descriptor_3nogv8);
 
-const _MyClass_G_descriptor_0a2mog = Object.getOwnPropertyDescriptor(MyClass, G);
+const _MyClass_G_descriptor_r7714 = Object.getOwnPropertyDescriptor(__MyClass_5rh19g, G);
 
-_MyClass_G_descriptor_0a2mog.get = checker("getter", function() {
+_MyClass_G_descriptor_r7714.get = checker("getter", function() {
   return this[P] * 2;
-})(_MyClass_G_descriptor_0a2mog.get, {
+})(_MyClass_G_descriptor_r7714.get, {
   kind: "getter",
   name: G,
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(MyClass, "public", G)
-}) ?? _MyClass_G_descriptor_0a2mog.get;
+  ...__PrepareMetadata(__MyClass_5rh19g, "public", G)
+}) ?? _MyClass_G_descriptor_r7714.get;
 
-Object.defineProperty(MyClass, G, _MyClass_G_descriptor_0a2mog);
+Object.defineProperty(__MyClass_5rh19g, G, _MyClass_G_descriptor_r7714);
 
-MyClass[M] = checker("method", function() {
+__MyClass_5rh19g[M] = checker("method", function() {
   return "abc";
-})(MyClass[M], {
+})(__MyClass_5rh19g[M], {
   kind: "method",
   name: M,
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(MyClass, "public", M)
-}) ?? MyClass[M];
+  ...__PrepareMetadata(__MyClass_5rh19g, "public", M)
+}) ?? __MyClass_5rh19g[M];
 
-const _MyClass_P_initializer_mnh1n8 = checker("field", () => 2)(undefined, {
+const _MyClass_P_initializer_a3m69o = checker("field", () => 2)(undefined, {
   kind: "field",
   name: P,
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(MyClass, "public", P)
+  ...__PrepareMetadata(__MyClass_5rh19g, "public", P)
 }) ?? (v => v);
 
-MyClass[P] = _MyClass_P_initializer_mnh1n8.call(MyClass, MyClass[P]);
+__MyClass_5rh19g[P] = _MyClass_P_initializer_a3m69o.call(__MyClass_5rh19g, __MyClass_5rh19g[P]);
 
 console.assert(typeof MyClass[P] === "number");
 

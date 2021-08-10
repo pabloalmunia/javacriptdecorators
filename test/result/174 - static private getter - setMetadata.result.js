@@ -52,54 +52,60 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_9m8u7 = Symbol();
+const _C_p_symbol_ufsevo = Symbol();
 
-class C {
-  static _C_p_temp_fgq08o() {
+class __C_qfo8go {
+  static _C_p_temp_shhoe8() {
     return "a";
   }
-  static [_C_p_symbol_9m8u7] = decorator1(C._C_p_temp_fgq08o, {
+  static [_C_p_symbol_ufsevo] = decorator1(__C_qfo8go._C_p_temp_shhoe8, {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_9m8u7]
+      get: __C_qfo8go[_C_p_symbol_ufsevo]
     },
-    ...__PrepareMetadata(C, "private", "#p")
-  }) ?? C._C_p_temp_fgq08o;
-  static [_C_p_symbol_9m8u7] = decorator2(C[_C_p_symbol_9m8u7], {
+    ...__PrepareMetadata(__C_qfo8go, "private", "#p")
+  }) ?? __C_qfo8go._C_p_temp_shhoe8;
+  static [_C_p_symbol_ufsevo] = decorator2(__C_qfo8go[_C_p_symbol_ufsevo], {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_9m8u7]
+      get: __C_qfo8go[_C_p_symbol_ufsevo]
     },
-    ...__PrepareMetadata(C, "private", "#p")
-  }) ?? C[_C_p_symbol_9m8u7];
-  static [_C_p_symbol_9m8u7] = decorator2(C[_C_p_symbol_9m8u7], {
+    ...__PrepareMetadata(__C_qfo8go, "private", "#p")
+  }) ?? __C_qfo8go[_C_p_symbol_ufsevo];
+  static [_C_p_symbol_ufsevo] = decorator2(__C_qfo8go[_C_p_symbol_ufsevo], {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_9m8u7]
+      get: __C_qfo8go[_C_p_symbol_ufsevo]
     },
-    ...__PrepareMetadata(C, "private", "#p")
-  }) ?? C[_C_p_symbol_9m8u7];
+    ...__PrepareMetadata(__C_qfo8go, "private", "#p")
+  }) ?? __C_qfo8go[_C_p_symbol_ufsevo];
   static get #p() {
-    return C[_C_p_symbol_9m8u7].bind(this)();
+    return __C_qfo8go[_C_p_symbol_ufsevo].bind(this)();
   }
-  static [_C_p_symbol_9m8u7]() {
-    return C[_C_p_symbol_9m8u7].bind(this);
+  static [_C_p_symbol_ufsevo]() {
+    return __C_qfo8go[_C_p_symbol_ufsevo].bind(this);
   }
   static get check() {
     return this.#p;
   }
 }
 
-delete C._C_p_temp_fgq08o;
+delete __C_qfo8go._C_p_temp_shhoe8;
+
+let C = __C_qfo8go;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(C.check === "a");
 

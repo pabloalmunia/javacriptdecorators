@@ -52,35 +52,41 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class C {
+class __C_sktsv {
   get p() {
     return "a";
   }
 }
 
-const _C_p_descriptor_r8750o = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_dvtna = Object.getOwnPropertyDescriptor(__C_sktsv.prototype, "p");
 
-_C_p_descriptor_r8750o.get = decorator1(_C_p_descriptor_r8750o.get, {
+_C_p_descriptor_dvtna.get = decorator1(_C_p_descriptor_dvtna.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "p")
-}) ?? _C_p_descriptor_r8750o.get;
+  ...__PrepareMetadata(__C_sktsv.prototype, "public", "p")
+}) ?? _C_p_descriptor_dvtna.get;
 
-Object.defineProperty(C.prototype, "p", _C_p_descriptor_r8750o);
+Object.defineProperty(__C_sktsv.prototype, "p", _C_p_descriptor_dvtna);
 
-const _C_p_descriptor_st4g9 = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const _C_p_descriptor_gfpsso = Object.getOwnPropertyDescriptor(__C_sktsv.prototype, "p");
 
-_C_p_descriptor_st4g9.get = decorator2(_C_p_descriptor_st4g9.get, {
+_C_p_descriptor_gfpsso.get = decorator2(_C_p_descriptor_gfpsso.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "p")
-}) ?? _C_p_descriptor_st4g9.get;
+  ...__PrepareMetadata(__C_sktsv.prototype, "public", "p")
+}) ?? _C_p_descriptor_gfpsso.get;
 
-Object.defineProperty(C.prototype, "p", _C_p_descriptor_st4g9);
+Object.defineProperty(__C_sktsv.prototype, "p", _C_p_descriptor_gfpsso);
+
+let C = __C_sktsv;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 const a = new C();
 

@@ -54,42 +54,48 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_f9ejoo;
+let _C_p_initializer_6e71;
 
-const _C_member_initializers_n4hi1o = [];
+const _C_member_initializers_178rp8 = [];
 
-class C {
+class __C_vtt8vo {
   constructor() {
-    _C_member_initializers_n4hi1o.forEach(initialize => initialize.call(this));
+    _C_member_initializers_178rp8.forEach(initialize => initialize.call(this));
   }
-  #_p_private_property_fbpca = _C_p_initializer_f9ejoo.call(this, 10);
+  #_p_private_property_78voho = _C_p_initializer_6e71.call(this, 10);
   get p() {
-    return this.#_p_private_property_fbpca;
+    return this.#_p_private_property_78voho;
   }
   set p(v) {
-    this.#_p_private_property_fbpca = v;
+    this.#_p_private_property_78voho = v;
   }
 }
 
-const _C_p_descriptor_585998 = Object.getOwnPropertyDescriptor(C.prototype, "p");
+const ___C_vtt8vo_p_descriptor_9dme8g = Object.getOwnPropertyDescriptor(__C_vtt8vo.prototype, "p");
 
-const _C_p_result_krhaf8 = decorator({
-  get: _C_p_descriptor_585998.get,
-  set: _C_p_descriptor_585998.set
+const ___C_vtt8vo_p_result_26b7cg = decorator({
+  get: ___C_vtt8vo_p_descriptor_9dme8g.get,
+  set: ___C_vtt8vo_p_descriptor_9dme8g.set
 }, {
   kind: "auto-accessor",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "p"),
-  addInitializer: initializer => _C_member_initializers_n4hi1o.push(initializer)
+  ...__PrepareMetadata(__C_vtt8vo.prototype, "public", "p"),
+  addInitializer: initializer => _C_member_initializers_178rp8.push(initializer)
 }) || {};
 
-_C_p_initializer_f9ejoo = _C_p_result_krhaf8.initialize || (v => v);
+_C_p_initializer_6e71 = ___C_vtt8vo_p_result_26b7cg.initialize || (v => v);
 
-Object.defineProperty(C.prototype, "p", {
-  get: _C_p_result_krhaf8.get || _C_p_descriptor_585998.get,
-  set: _C_p_result_krhaf8.set || _C_p_descriptor_585998.set
+Object.defineProperty(__C_vtt8vo.prototype, "p", {
+  get: ___C_vtt8vo_p_result_26b7cg.get || ___C_vtt8vo_p_descriptor_9dme8g.get,
+  set: ___C_vtt8vo_p_result_26b7cg.set || ___C_vtt8vo_p_descriptor_9dme8g.set
+});
+
+let C = __C_vtt8vo;
+
+Object.defineProperty(C, "name", {
+  value: "C"
 });
 
 console.assert(new C().test === 10);

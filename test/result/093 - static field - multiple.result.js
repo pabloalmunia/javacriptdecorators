@@ -56,28 +56,34 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class C {
+class __C_f29gt8 {
   static p = 1;
 }
 
-const _C_p_initializer_5l5o3 = decorator2(undefined, {
+let C = __C_f29gt8;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
+
+const _C_p_initializer_p1d4cg = decorator2(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(C, "public", "p")
+  ...__PrepareMetadata(__C_f29gt8, "public", "p")
 }) ?? (v => v);
 
-C.p = _C_p_initializer_5l5o3.call(C, C.p);
+__C_f29gt8.p = _C_p_initializer_p1d4cg.call(__C_f29gt8, __C_f29gt8.p);
 
-const _C_p_initializer_3ocdb = decorator1(undefined, {
+const _C_p_initializer_6b2108 = decorator1(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(C, "public", "p")
+  ...__PrepareMetadata(__C_f29gt8, "public", "p")
 }) ?? (v => v);
 
-C.p = _C_p_initializer_3ocdb.call(C, C.p);
+__C_f29gt8.p = _C_p_initializer_6b2108.call(__C_f29gt8, __C_f29gt8.p);
 
 console.assert(C.p === 6);

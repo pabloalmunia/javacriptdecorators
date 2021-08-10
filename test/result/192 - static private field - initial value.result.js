@@ -46,35 +46,41 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_o52h = Symbol();
+const _C_p_get_symbol_dmfb88 = Symbol();
 
-const _C_p_set_symbol_6al5kg = Symbol();
+const _C_p_set_symbol_b272f8 = Symbol();
 
-class C {
+class __C_urat4o {
   static #p = 10;
-  static [_C_p_get_symbol_o52h]() {
-    return C.#p;
+  static [_C_p_get_symbol_dmfb88]() {
+    return __C_urat4o.#p;
   }
-  static [_C_p_set_symbol_6al5kg](v) {
-    C.#p = v;
+  static [_C_p_set_symbol_b272f8](v) {
+    __C_urat4o.#p = v;
   }
   static get check() {
     return this.#p;
   }
 }
 
-const _C_p_initializer_1ih8k = decorator(undefined, {
+const _C_p_initializer_tmek5 = decorator(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_o52h],
-    set: C[_C_p_set_symbol_6al5kg]
+    get: __C_urat4o[_C_p_get_symbol_dmfb88],
+    set: __C_urat4o[_C_p_set_symbol_b272f8]
   },
   isStatic: true,
   isPrivate: true,
-  ...__PrepareMetadata(C, "private", "p")
+  ...__PrepareMetadata(__C_urat4o, "private", "p")
 }) ?? (v => v);
 
-C[_C_p_set_symbol_6al5kg](_C_p_initializer_1ih8k(C[_C_p_get_symbol_o52h]()));
+__C_urat4o[_C_p_set_symbol_b272f8](_C_p_initializer_tmek5(__C_urat4o[_C_p_get_symbol_dmfb88]()));
+
+let C = __C_urat4o;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(C.check === 20);

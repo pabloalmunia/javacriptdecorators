@@ -46,7 +46,7 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class C {
+class __C_omkrj8 {
   static #p = 0;
   static set p(v) {
     this.#p = v;
@@ -56,17 +56,23 @@ class C {
   }
 }
 
-const _C_p_descriptor_u6a54o = Object.getOwnPropertyDescriptor(C, "p");
+let C = __C_omkrj8;
 
-_C_p_descriptor_u6a54o.set = decorator(_C_p_descriptor_u6a54o.set, {
+Object.defineProperty(C, "name", {
+  value: "C"
+});
+
+const _C_p_descriptor_vb2l8o = Object.getOwnPropertyDescriptor(__C_omkrj8, "p");
+
+_C_p_descriptor_vb2l8o.set = decorator(_C_p_descriptor_vb2l8o.set, {
   kind: "setter",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(C, "public", "p")
-}) ?? _C_p_descriptor_u6a54o.set;
+  ...__PrepareMetadata(__C_omkrj8, "public", "p")
+}) ?? _C_p_descriptor_vb2l8o.set;
 
-Object.defineProperty(C, "p", _C_p_descriptor_u6a54o);
+Object.defineProperty(__C_omkrj8, "p", _C_p_descriptor_vb2l8o);
 
 C.p = 10;
 

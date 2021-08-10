@@ -48,37 +48,55 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class A {
+class __A_9v4lpo {
   a() {}
 }
 
-A.prototype.a = metadata(10)(A.prototype.a, {
+__A_9v4lpo.prototype.a = metadata(10)(__A_9v4lpo.prototype.a, {
   kind: "method",
   name: "a",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(A.prototype, "public", "a")
-}) ?? A.prototype.a;
+  ...__PrepareMetadata(__A_9v4lpo.prototype, "public", "a")
+}) ?? __A_9v4lpo.prototype.a;
+
+let A = __A_9v4lpo;
+
+Object.defineProperty(A, "name", {
+  value: "A"
+});
 
 console.assert(A.prototype[Symbol.metadata][KEY].public.a === 10);
 
-class B extends A {
+class __B_uqqmcg extends A {
   b() {}
 }
 
+let B = __B_uqqmcg;
+
+Object.defineProperty(B, "name", {
+  value: "B"
+});
+
 console.assert(B.prototype[Symbol.metadata][KEY].public.a === 10);
 
-class C extends B {
+class __C_696n58 extends B {
   c() {}
 }
 
-C.prototype.c = metadata(30)(C.prototype.c, {
+__C_696n58.prototype.c = metadata(30)(__C_696n58.prototype.c, {
   kind: "method",
   name: "c",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "c")
-}) ?? C.prototype.c;
+  ...__PrepareMetadata(__C_696n58.prototype, "public", "c")
+}) ?? __C_696n58.prototype.c;
+
+let C = __C_696n58;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.log(C.prototype[Symbol.metadata][KEY]);
 

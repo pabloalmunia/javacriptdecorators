@@ -54,24 +54,24 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_m_symbol_snvkuo = Symbol();
+const _C_m_symbol_j0gn6 = Symbol();
 
-class C {
-  _C_m_temp_tkr3s8(v) {
+class __C_62oam8 {
+  _C_m_temp_dsij1(v) {
     return v * 2;
   }
-  static [_C_m_symbol_snvkuo] = decorator(C.prototype._C_m_temp_tkr3s8, {
+  static [_C_m_symbol_j0gn6] = decorator(__C_62oam8.prototype._C_m_temp_dsij1, {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: C.prototype[_C_m_symbol_snvkuo]
+      get: __C_62oam8.prototype[_C_m_symbol_j0gn6]
     },
-    ...__PrepareMetadata(C.prototype, "private", "#m")
-  }) ?? C.prototype._C_m_temp_tkr3s8;
-  #m = C[_C_m_symbol_snvkuo];
-  [_C_m_symbol_snvkuo]() {
+    ...__PrepareMetadata(__C_62oam8.prototype, "private", "#m")
+  }) ?? __C_62oam8.prototype._C_m_temp_dsij1;
+  #m = __C_62oam8[_C_m_symbol_j0gn6];
+  [_C_m_symbol_j0gn6]() {
     return this.#m;
   }
   check(v) {
@@ -79,7 +79,13 @@ class C {
   }
 }
 
-delete C.prototype._C_m_temp_tkr3s8;
+delete __C_62oam8.prototype._C_m_temp_dsij1;
+
+let C = __C_62oam8;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(new C().check(1) === 2);
 

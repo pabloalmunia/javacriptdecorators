@@ -46,22 +46,28 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class C {
+class __C_rtjk4 {
   static get p() {
     return "a";
   }
 }
 
-const _C_p_descriptor_fli46o = Object.getOwnPropertyDescriptor(C, "p");
+let C = __C_rtjk4;
 
-_C_p_descriptor_fli46o.get = decorator(_C_p_descriptor_fli46o.get, {
+Object.defineProperty(C, "name", {
+  value: "C"
+});
+
+const _C_p_descriptor_f8f2r = Object.getOwnPropertyDescriptor(__C_rtjk4, "p");
+
+_C_p_descriptor_f8f2r.get = decorator(_C_p_descriptor_f8f2r.get, {
   kind: "getter",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(C, "public", "p")
-}) ?? _C_p_descriptor_fli46o.get;
+  ...__PrepareMetadata(__C_rtjk4, "public", "p")
+}) ?? _C_p_descriptor_f8f2r.get;
 
-Object.defineProperty(C, "p", _C_p_descriptor_fli46o);
+Object.defineProperty(__C_rtjk4, "p", _C_p_descriptor_f8f2r);
 
 console.assert(C.p === "b");

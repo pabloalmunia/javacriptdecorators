@@ -46,22 +46,28 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_member_initializers_2gkfoo = [];
+const _C_member_initializers_csfpkg = [];
 
-class C {
+class __C_k9qc7 {
   constructor() {
-    _C_member_initializers_2gkfoo.forEach(initialize => initialize.call(this));
+    _C_member_initializers_csfpkg.forEach(initialize => initialize.call(this));
   }
   m() {}
 }
 
-C.prototype.m = decorator(C.prototype.m, {
+__C_k9qc7.prototype.m = decorator(__C_k9qc7.prototype.m, {
   kind: "method",
   name: "m",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "m"),
-  addInitializer: initializer => _C_member_initializers_2gkfoo.push(initializer)
-}) ?? C.prototype.m;
+  ...__PrepareMetadata(__C_k9qc7.prototype, "public", "m"),
+  addInitializer: initializer => _C_member_initializers_csfpkg.push(initializer)
+}) ?? __C_k9qc7.prototype.m;
+
+let C = __C_k9qc7;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(new C().test === 10);

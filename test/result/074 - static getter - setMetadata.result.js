@@ -52,35 +52,41 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class C {
+class __C_hvsh98 {
   static get p() {
     return "a";
   }
 }
 
-const _C_p_descriptor_kvm23 = Object.getOwnPropertyDescriptor(C, "p");
+let C = __C_hvsh98;
 
-_C_p_descriptor_kvm23.get = decorator2(_C_p_descriptor_kvm23.get, {
+Object.defineProperty(C, "name", {
+  value: "C"
+});
+
+const _C_p_descriptor_g7g0o = Object.getOwnPropertyDescriptor(__C_hvsh98, "p");
+
+_C_p_descriptor_g7g0o.get = decorator2(_C_p_descriptor_g7g0o.get, {
   kind: "getter",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(C, "public", "p")
-}) ?? _C_p_descriptor_kvm23.get;
+  ...__PrepareMetadata(__C_hvsh98, "public", "p")
+}) ?? _C_p_descriptor_g7g0o.get;
 
-Object.defineProperty(C, "p", _C_p_descriptor_kvm23);
+Object.defineProperty(__C_hvsh98, "p", _C_p_descriptor_g7g0o);
 
-const _C_p_descriptor_s83pqg = Object.getOwnPropertyDescriptor(C, "p");
+const _C_p_descriptor_aa24v = Object.getOwnPropertyDescriptor(__C_hvsh98, "p");
 
-_C_p_descriptor_s83pqg.get = decorator1(_C_p_descriptor_s83pqg.get, {
+_C_p_descriptor_aa24v.get = decorator1(_C_p_descriptor_aa24v.get, {
   kind: "getter",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(C, "public", "p")
-}) ?? _C_p_descriptor_s83pqg.get;
+  ...__PrepareMetadata(__C_hvsh98, "public", "p")
+}) ?? _C_p_descriptor_aa24v.get;
 
-Object.defineProperty(C, "p", _C_p_descriptor_s83pqg);
+Object.defineProperty(__C_hvsh98, "p", _C_p_descriptor_aa24v);
 
 console.assert(C[Symbol.metadata][ONE].public.p === 1);
 

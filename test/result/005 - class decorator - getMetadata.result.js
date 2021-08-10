@@ -48,7 +48,13 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class C {}
+class __C_nbdlb {}
+
+let C = __C_nbdlb;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 C = myMeta(C, {
   kind: "class",

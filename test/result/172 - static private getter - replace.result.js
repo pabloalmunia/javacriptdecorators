@@ -46,33 +46,39 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_0lmjtg = Symbol();
+const _C_p_symbol_ts0vp = Symbol();
 
-class C {
-  static _C_p_temp_erad9g() {
+class __C_0mkac {
+  static _C_p_temp_u5u1vg() {
     return "a";
   }
-  static [_C_p_symbol_0lmjtg] = decorator(C._C_p_temp_erad9g, {
+  static [_C_p_symbol_ts0vp] = decorator(__C_0mkac._C_p_temp_u5u1vg, {
     kind: "getter",
     name: "#p",
     isStatic: true,
     isPrivate: true,
     access: {
-      get: C[_C_p_symbol_0lmjtg]
+      get: __C_0mkac[_C_p_symbol_ts0vp]
     },
-    ...__PrepareMetadata(C, "private", "#p")
-  }) ?? C._C_p_temp_erad9g;
+    ...__PrepareMetadata(__C_0mkac, "private", "#p")
+  }) ?? __C_0mkac._C_p_temp_u5u1vg;
   static get #p() {
-    return C[_C_p_symbol_0lmjtg].bind(this)();
+    return __C_0mkac[_C_p_symbol_ts0vp].bind(this)();
   }
-  static [_C_p_symbol_0lmjtg]() {
-    return C[_C_p_symbol_0lmjtg].bind(this);
+  static [_C_p_symbol_ts0vp]() {
+    return __C_0mkac[_C_p_symbol_ts0vp].bind(this);
   }
   static get check() {
     return this.#p;
   }
 }
 
-delete C._C_p_temp_erad9g;
+delete __C_0mkac._C_p_temp_u5u1vg;
+
+let C = __C_0mkac;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(C.check === "b");

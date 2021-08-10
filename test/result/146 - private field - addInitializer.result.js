@@ -46,38 +46,44 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_7nquag = Symbol();
+const _C_p_get_symbol_ce40u = Symbol();
 
-const _C_p_set_symbol_5ohljo = Symbol();
+const _C_p_set_symbol_qgi18g = Symbol();
 
-let _C_p_initializer_308618;
+let _C_p_initializer_da81v;
 
-const _C_member_initializers_iquu3g = [];
+const _C_member_initializers_imh4q8 = [];
 
-class C {
+class __C_au0opo {
   constructor() {
-    _C_member_initializers_iquu3g.forEach(initialize => initialize.call(this));
+    _C_member_initializers_imh4q8.forEach(initialize => initialize.call(this));
   }
-  #p = _C_p_initializer_308618.call(this, 1);
-  [_C_p_get_symbol_7nquag]() {
+  #p = _C_p_initializer_da81v.call(this, 1);
+  [_C_p_get_symbol_ce40u]() {
     return this.#p;
   }
-  [_C_p_set_symbol_5ohljo](v) {
+  [_C_p_set_symbol_qgi18g](v) {
     this.#p = v;
   }
 }
 
-_C_p_initializer_308618 = decorator(undefined, {
+_C_p_initializer_da81v = decorator(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C.prototype[_C_p_get_symbol_7nquag],
-    set: C.prototype[_C_p_set_symbol_5ohljo]
+    get: __C_au0opo.prototype[_C_p_get_symbol_ce40u],
+    set: __C_au0opo.prototype[_C_p_set_symbol_qgi18g]
   },
   isStatic: false,
   isPrivate: true,
-  ...__PrepareMetadata(C.prototype, "private", "p"),
-  addInitializer: initializer => _C_member_initializers_iquu3g.push(initializer)
+  ...__PrepareMetadata(__C_au0opo.prototype, "private", "p"),
+  addInitializer: initializer => _C_member_initializers_imh4q8.push(initializer)
 }) ?? (v => v);
+
+let C = __C_au0opo;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(new C().test === 10);

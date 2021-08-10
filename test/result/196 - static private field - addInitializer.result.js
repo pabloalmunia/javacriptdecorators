@@ -46,37 +46,43 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_pgm3hg = Symbol();
+const _C_p_get_symbol_q2jr6 = Symbol();
 
-const _C_p_set_symbol_r5htng = Symbol();
+const _C_p_set_symbol_2m6gsg = Symbol();
 
-const _C_static_initializers_0gdb5o = [];
+const _C_static_initializers_c5ln68 = [];
 
-class C {
+class __C_pv7ho8 {
   static #p = 1;
-  static [_C_p_get_symbol_pgm3hg]() {
-    return C.#p;
+  static [_C_p_get_symbol_q2jr6]() {
+    return __C_pv7ho8.#p;
   }
-  static [_C_p_set_symbol_r5htng](v) {
-    C.#p = v;
+  static [_C_p_set_symbol_2m6gsg](v) {
+    __C_pv7ho8.#p = v;
   }
 }
 
-const _C_p_initializer_nndsn = decorator(undefined, {
+const _C_p_initializer_3bit6g = decorator(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: C[_C_p_get_symbol_pgm3hg],
-    set: C[_C_p_set_symbol_r5htng]
+    get: __C_pv7ho8[_C_p_get_symbol_q2jr6],
+    set: __C_pv7ho8[_C_p_set_symbol_2m6gsg]
   },
   isStatic: true,
   isPrivate: true,
-  ...__PrepareMetadata(C, "private", "p"),
-  addInitializer: initializer => _C_static_initializers_0gdb5o.push(initializer)
+  ...__PrepareMetadata(__C_pv7ho8, "private", "p"),
+  addInitializer: initializer => _C_static_initializers_c5ln68.push(initializer)
 }) ?? (v => v);
 
-C[_C_p_set_symbol_r5htng](_C_p_initializer_nndsn(C[_C_p_get_symbol_pgm3hg]()));
+__C_pv7ho8[_C_p_set_symbol_2m6gsg](_C_p_initializer_3bit6g(__C_pv7ho8[_C_p_get_symbol_q2jr6]()));
 
-_C_static_initializers_0gdb5o.forEach(initialize => initialize.call(C, C));
+let C = __C_pv7ho8;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
+
+_C_static_initializers_c5ln68.forEach(initialize => initialize.call(C, C));
 
 console.assert(C.test === 10);

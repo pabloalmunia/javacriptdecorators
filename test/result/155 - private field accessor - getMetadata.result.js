@@ -49,170 +49,176 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_f_get_symbol_2auaug = Symbol();
+const _C_f_get_symbol_da2tc = Symbol();
 
-const _C_f_set_symbol_qmhd38 = Symbol();
+const _C_f_set_symbol_uihiuo = Symbol();
 
-let _C_f_getter_rcclp8;
+let _C_f_getter_hu8g68;
 
-let _C_f_setter_d4l9r8;
+let _C_f_setter_a57kk8;
 
-let _C_f_initializer_6o9n4;
+let _C_f_initializer_f6qk3;
 
-let _C_f_initializer_sv23lo;
+let _C_f_initializer_70cda8;
 
-const _C_p_get_symbol_c92ks = Symbol();
+const _C_p_get_symbol_0ihkq8 = Symbol();
 
-const _C_p_set_symbol_jtrueg = Symbol();
+const _C_p_set_symbol_m04vc8 = Symbol();
 
-let _C_p_getter_dkpouo;
+let _C_p_getter_v50i3g;
 
-let _C_p_setter_qbbil;
+let _C_p_setter_6dpm5o;
 
-let _C_p_initializer_tkhdo;
+let _C_p_initializer_37ggb8;
 
-let _C_p_initializer_ag8mlg;
+let _C_p_initializer_4p6c08;
 
-class C {
-  #_p_private_property_5hb398 = _C_p_initializer_ag8mlg.call(this, _C_p_initializer_tkhdo.call(this, 10));
+class __C_pnr1ho {
+  #_p_private_property_mgbmso = _C_p_initializer_4p6c08.call(this, _C_p_initializer_37ggb8.call(this, 10));
   get #p() {
-    return _C_p_getter_dkpouo.call(this);
+    return _C_p_getter_v50i3g.call(this);
   }
   set #p(v) {
-    return _C_p_setter_qbbil.call(this, v);
+    return _C_p_setter_6dpm5o.call(this, v);
   }
-  static _C_p_getter_dkpouo() {
-    return this.#_p_private_property_5hb398;
+  static _C_p_getter_v50i3g() {
+    return this.#_p_private_property_mgbmso;
   }
-  static _C_p_setter_qbbil(v) {
-    this.#_p_private_property_5hb398 = v;
+  static _C_p_setter_6dpm5o(v) {
+    this.#_p_private_property_mgbmso = v;
   }
-  [_C_p_get_symbol_c92ks]() {
+  [_C_p_get_symbol_0ihkq8]() {
     return this.#p;
   }
-  [_C_p_set_symbol_jtrueg](v) {
+  [_C_p_set_symbol_m04vc8](v) {
     this.#p = v;
   }
-  #_f_private_property_6jm2pg = _C_f_initializer_sv23lo.call(this, _C_f_initializer_6o9n4.call(this, 20));
+  #_f_private_property_pkf8f = _C_f_initializer_70cda8.call(this, _C_f_initializer_f6qk3.call(this, 20));
   get #f() {
-    return _C_f_getter_rcclp8.call(this);
+    return _C_f_getter_hu8g68.call(this);
   }
   set #f(v) {
-    return _C_f_setter_d4l9r8.call(this, v);
+    return _C_f_setter_a57kk8.call(this, v);
   }
-  static _C_f_getter_rcclp8() {
-    return this.#_f_private_property_6jm2pg;
+  static _C_f_getter_hu8g68() {
+    return this.#_f_private_property_pkf8f;
   }
-  static _C_f_setter_d4l9r8(v) {
-    this.#_f_private_property_6jm2pg = v;
+  static _C_f_setter_a57kk8(v) {
+    this.#_f_private_property_pkf8f = v;
   }
-  [_C_f_get_symbol_2auaug]() {
+  [_C_f_get_symbol_da2tc]() {
     return this.#f;
   }
-  [_C_f_set_symbol_qmhd38](v) {
+  [_C_f_set_symbol_uihiuo](v) {
     this.#f = v;
   }
 }
 
-_C_p_getter_dkpouo = C._C_p_getter_dkpouo;
+_C_p_getter_v50i3g = __C_pnr1ho._C_p_getter_v50i3g;
 
-_C_p_setter_qbbil = C._C_p_setter_qbbil;
+_C_p_setter_6dpm5o = __C_pnr1ho._C_p_setter_6dpm5o;
 
-delete C._C_p_getter_dkpouo;
+delete __C_pnr1ho._C_p_getter_v50i3g;
 
-delete C._C_p_setter_qbbil;
+delete __C_pnr1ho._C_p_setter_6dpm5o;
 
-const _C_p_result_hmhkvo = meta(1)({
-  get: _C_p_getter_dkpouo,
-  set: _C_p_setter_qbbil
+const _C_p_result_dc106o = meta(1)({
+  get: _C_p_getter_v50i3g,
+  set: _C_p_setter_6dpm5o
 }, {
   kind: "auto-accessor",
   name: "#p",
   access: {
-    get: C.prototype[_C_p_get_symbol_c92ks],
-    set: C.prototype[_C_p_set_symbol_jtrueg]
+    get: __C_pnr1ho.prototype[_C_p_get_symbol_0ihkq8],
+    set: __C_pnr1ho.prototype[_C_p_set_symbol_m04vc8]
   },
   isStatic: false,
   isPrivate: true,
-  ...__PrepareMetadata(C.prototype, "private", "#p")
+  ...__PrepareMetadata(__C_pnr1ho.prototype, "private", "#p")
 }) || {};
 
-_C_p_initializer_ag8mlg = _C_p_result_hmhkvo.initialize || (v => v);
+_C_p_initializer_4p6c08 = _C_p_result_dc106o.initialize || (v => v);
 
-_C_p_getter_dkpouo = _C_p_result_hmhkvo.get || _C_p_getter_dkpouo;
+_C_p_getter_v50i3g = _C_p_result_dc106o.get || _C_p_getter_v50i3g;
 
-_C_p_setter_qbbil = _C_p_result_hmhkvo.set || _C_p_setter_qbbil;
+_C_p_setter_6dpm5o = _C_p_result_dc106o.set || _C_p_setter_6dpm5o;
 
-const _C_p_result_gp18v = meta(2)({
-  get: _C_p_getter_dkpouo,
-  set: _C_p_setter_qbbil
+const _C_p_result_19j7kg = meta(2)({
+  get: _C_p_getter_v50i3g,
+  set: _C_p_setter_6dpm5o
 }, {
   kind: "auto-accessor",
   name: "#p",
   access: {
-    get: C.prototype[_C_p_get_symbol_c92ks],
-    set: C.prototype[_C_p_set_symbol_jtrueg]
+    get: __C_pnr1ho.prototype[_C_p_get_symbol_0ihkq8],
+    set: __C_pnr1ho.prototype[_C_p_set_symbol_m04vc8]
   },
   isStatic: false,
   isPrivate: true,
-  ...__PrepareMetadata(C.prototype, "private", "#p")
+  ...__PrepareMetadata(__C_pnr1ho.prototype, "private", "#p")
 }) || {};
 
-_C_p_initializer_tkhdo = _C_p_result_gp18v.initialize || (v => v);
+_C_p_initializer_37ggb8 = _C_p_result_19j7kg.initialize || (v => v);
 
-_C_p_getter_dkpouo = _C_p_result_gp18v.get || _C_p_getter_dkpouo;
+_C_p_getter_v50i3g = _C_p_result_19j7kg.get || _C_p_getter_v50i3g;
 
-_C_p_setter_qbbil = _C_p_result_gp18v.set || _C_p_setter_qbbil;
+_C_p_setter_6dpm5o = _C_p_result_19j7kg.set || _C_p_setter_6dpm5o;
 
-_C_f_getter_rcclp8 = C._C_f_getter_rcclp8;
+_C_f_getter_hu8g68 = __C_pnr1ho._C_f_getter_hu8g68;
 
-_C_f_setter_d4l9r8 = C._C_f_setter_d4l9r8;
+_C_f_setter_a57kk8 = __C_pnr1ho._C_f_setter_a57kk8;
 
-delete C._C_f_getter_rcclp8;
+delete __C_pnr1ho._C_f_getter_hu8g68;
 
-delete C._C_f_setter_d4l9r8;
+delete __C_pnr1ho._C_f_setter_a57kk8;
 
-const _C_f_result_fklnh8 = meta(3)({
-  get: _C_f_getter_rcclp8,
-  set: _C_f_setter_d4l9r8
+const _C_f_result_vvt0ng = meta(3)({
+  get: _C_f_getter_hu8g68,
+  set: _C_f_setter_a57kk8
 }, {
   kind: "auto-accessor",
   name: "#f",
   access: {
-    get: C.prototype[_C_f_get_symbol_2auaug],
-    set: C.prototype[_C_f_set_symbol_qmhd38]
+    get: __C_pnr1ho.prototype[_C_f_get_symbol_da2tc],
+    set: __C_pnr1ho.prototype[_C_f_set_symbol_uihiuo]
   },
   isStatic: false,
   isPrivate: true,
-  ...__PrepareMetadata(C.prototype, "private", "#f")
+  ...__PrepareMetadata(__C_pnr1ho.prototype, "private", "#f")
 }) || {};
 
-_C_f_initializer_sv23lo = _C_f_result_fklnh8.initialize || (v => v);
+_C_f_initializer_70cda8 = _C_f_result_vvt0ng.initialize || (v => v);
 
-_C_f_getter_rcclp8 = _C_f_result_fklnh8.get || _C_f_getter_rcclp8;
+_C_f_getter_hu8g68 = _C_f_result_vvt0ng.get || _C_f_getter_hu8g68;
 
-_C_f_setter_d4l9r8 = _C_f_result_fklnh8.set || _C_f_setter_d4l9r8;
+_C_f_setter_a57kk8 = _C_f_result_vvt0ng.set || _C_f_setter_a57kk8;
 
-const _C_f_result_klr0d = meta(3)({
-  get: _C_f_getter_rcclp8,
-  set: _C_f_setter_d4l9r8
+const _C_f_result_nut9f8 = meta(3)({
+  get: _C_f_getter_hu8g68,
+  set: _C_f_setter_a57kk8
 }, {
   kind: "auto-accessor",
   name: "#f",
   access: {
-    get: C.prototype[_C_f_get_symbol_2auaug],
-    set: C.prototype[_C_f_set_symbol_qmhd38]
+    get: __C_pnr1ho.prototype[_C_f_get_symbol_da2tc],
+    set: __C_pnr1ho.prototype[_C_f_set_symbol_uihiuo]
   },
   isStatic: false,
   isPrivate: true,
-  ...__PrepareMetadata(C.prototype, "private", "#f")
+  ...__PrepareMetadata(__C_pnr1ho.prototype, "private", "#f")
 }) || {};
 
-_C_f_initializer_6o9n4 = _C_f_result_klr0d.initialize || (v => v);
+_C_f_initializer_f6qk3 = _C_f_result_nut9f8.initialize || (v => v);
 
-_C_f_getter_rcclp8 = _C_f_result_klr0d.get || _C_f_getter_rcclp8;
+_C_f_getter_hu8g68 = _C_f_result_nut9f8.get || _C_f_getter_hu8g68;
 
-_C_f_setter_d4l9r8 = _C_f_result_klr0d.set || _C_f_setter_d4l9r8;
+_C_f_setter_a57kk8 = _C_f_result_nut9f8.set || _C_f_setter_a57kk8;
+
+let C = __C_pnr1ho;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(C.prototype[Symbol.metadata][META].private[0] === 3);
 

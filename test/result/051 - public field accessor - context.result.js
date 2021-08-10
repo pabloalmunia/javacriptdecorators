@@ -47,34 +47,40 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _A_p_initializer_04lm3;
+let _A_p_initializer_7om37;
 
-class A {
-  #_p_private_property_84t3p8 = _A_p_initializer_04lm3.call(this, 1);
+class __A_dtiik {
+  #_p_private_property_7417gg = _A_p_initializer_7om37.call(this, 1);
   get p() {
-    return this.#_p_private_property_84t3p8;
+    return this.#_p_private_property_7417gg;
   }
   set p(v) {
-    this.#_p_private_property_84t3p8 = v;
+    this.#_p_private_property_7417gg = v;
   }
 }
 
-const _A_p_descriptor_4i2c28 = Object.getOwnPropertyDescriptor(A.prototype, "p");
+const ___A_dtiik_p_descriptor_ppu8fo = Object.getOwnPropertyDescriptor(__A_dtiik.prototype, "p");
 
-const _A_p_result_pob0o8 = decorator({
-  get: _A_p_descriptor_4i2c28.get,
-  set: _A_p_descriptor_4i2c28.set
+const ___A_dtiik_p_result_ncsdi = decorator({
+  get: ___A_dtiik_p_descriptor_ppu8fo.get,
+  set: ___A_dtiik_p_descriptor_ppu8fo.set
 }, {
   kind: "auto-accessor",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(A.prototype, "public", "p")
+  ...__PrepareMetadata(__A_dtiik.prototype, "public", "p")
 }) || {};
 
-_A_p_initializer_04lm3 = _A_p_result_pob0o8.initialize || (v => v);
+_A_p_initializer_7om37 = ___A_dtiik_p_result_ncsdi.initialize || (v => v);
 
-Object.defineProperty(A.prototype, "p", {
-  get: _A_p_result_pob0o8.get || _A_p_descriptor_4i2c28.get,
-  set: _A_p_result_pob0o8.set || _A_p_descriptor_4i2c28.set
+Object.defineProperty(__A_dtiik.prototype, "p", {
+  get: ___A_dtiik_p_result_ncsdi.get || ___A_dtiik_p_descriptor_ppu8fo.get,
+  set: ___A_dtiik_p_result_ncsdi.set || ___A_dtiik_p_descriptor_ppu8fo.set
+});
+
+let A = __A_dtiik;
+
+Object.defineProperty(A, "name", {
+  value: "A"
 });

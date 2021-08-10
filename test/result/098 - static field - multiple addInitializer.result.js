@@ -50,68 +50,80 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_fquvu = [];
+const _C_static_initializers_hfonj = [];
 
-class C {
+class __C_tamvf {
   constructor() {
     this.z = 100;
   }
   static p = 1;
 }
 
-const _C_p_initializer_oe1848 = addProperty("b", 2)(undefined, {
+let C = __C_tamvf;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
+
+const _C_p_initializer_qgtk4g = addProperty("b", 2)(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(C, "public", "p"),
-  addInitializer: initializer => _C_static_initializers_fquvu.push(initializer)
+  ...__PrepareMetadata(__C_tamvf, "public", "p"),
+  addInitializer: initializer => _C_static_initializers_hfonj.push(initializer)
 }) ?? (v => v);
 
-C.p = _C_p_initializer_oe1848.call(C, C.p);
+__C_tamvf.p = _C_p_initializer_qgtk4g.call(__C_tamvf, __C_tamvf.p);
 
-const _C_p_initializer_8lchi = addProperty("a", 1)(undefined, {
+const _C_p_initializer_scmbgg = addProperty("a", 1)(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(C, "public", "p"),
-  addInitializer: initializer => _C_static_initializers_fquvu.push(initializer)
+  ...__PrepareMetadata(__C_tamvf, "public", "p"),
+  addInitializer: initializer => _C_static_initializers_hfonj.push(initializer)
 }) ?? (v => v);
 
-C.p = _C_p_initializer_8lchi.call(C, C.p);
+__C_tamvf.p = _C_p_initializer_scmbgg.call(__C_tamvf, __C_tamvf.p);
 
-_C_static_initializers_fquvu.forEach(initializer => initializer.call(C, C));
+_C_static_initializers_hfonj.forEach(initializer => initializer.call(C, C));
 
-const _D_static_initializers_m6iqc = [];
+const _D_static_initializers_i0cepg = [];
 
-class D extends C {
+class __D_7ksij extends C {
   static p = 2;
 }
 
-const _D_p_initializer_5d1clg = addProperty("d", 4)(undefined, {
+let D = __D_7ksij;
+
+Object.defineProperty(D, "name", {
+  value: "D"
+});
+
+const _D_p_initializer_038nmo = addProperty("d", 4)(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(D, "public", "p"),
-  addInitializer: initializer => _D_static_initializers_m6iqc.push(initializer)
+  ...__PrepareMetadata(__D_7ksij, "public", "p"),
+  addInitializer: initializer => _D_static_initializers_i0cepg.push(initializer)
 }) ?? (v => v);
 
-D.p = _D_p_initializer_5d1clg.call(D, D.p);
+__D_7ksij.p = _D_p_initializer_038nmo.call(__D_7ksij, __D_7ksij.p);
 
-const _D_p_initializer_l3jrjo = addProperty("c", 3)(undefined, {
+const _D_p_initializer_krhuag = addProperty("c", 3)(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(D, "public", "p"),
-  addInitializer: initializer => _D_static_initializers_m6iqc.push(initializer)
+  ...__PrepareMetadata(__D_7ksij, "public", "p"),
+  addInitializer: initializer => _D_static_initializers_i0cepg.push(initializer)
 }) ?? (v => v);
 
-D.p = _D_p_initializer_l3jrjo.call(D, D.p);
+__D_7ksij.p = _D_p_initializer_krhuag.call(__D_7ksij, __D_7ksij.p);
 
-_D_static_initializers_m6iqc.forEach(initializer => initializer.call(D, D));
+_D_static_initializers_i0cepg.forEach(initializer => initializer.call(D, D));
 
 console.assert(C.p === 1);
 

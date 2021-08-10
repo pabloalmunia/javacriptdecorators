@@ -56,25 +56,31 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_member_initializers_7ho09o = [];
+const _C_member_initializers_nesvb8 = [];
 
-class C {
+class __C_5au1r8 {
   constructor() {
-    _C_member_initializers_7ho09o.forEach(initialize => initialize.call(this));
+    _C_member_initializers_nesvb8.forEach(initialize => initialize.call(this));
   }
   m(v) {
     return v * 2;
   }
 }
 
-C.prototype.m = decorator(C.prototype.m, {
+__C_5au1r8.prototype.m = decorator(__C_5au1r8.prototype.m, {
   kind: "method",
   name: "m",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "m"),
-  addInitializer: initializer => _C_member_initializers_7ho09o.push(initializer)
-}) ?? C.prototype.m;
+  ...__PrepareMetadata(__C_5au1r8.prototype, "public", "m"),
+  addInitializer: initializer => _C_member_initializers_nesvb8.push(initializer)
+}) ?? __C_5au1r8.prototype.m;
+
+let C = __C_5au1r8;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 console.assert(new C().m(2) === 4);
 

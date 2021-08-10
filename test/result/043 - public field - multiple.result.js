@@ -56,29 +56,35 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_k6r86g;
+let _C_p_initializer_4f3j5o;
 
-let _C_p_initializer_u9qcu;
+let _C_p_initializer_c82di;
 
-class C {
-  p = _C_p_initializer_u9qcu.call(this, _C_p_initializer_k6r86g.call(this, 1));
+class __C_5rnajg {
+  p = _C_p_initializer_c82di.call(this, _C_p_initializer_4f3j5o.call(this, 1));
 }
 
-_C_p_initializer_u9qcu = decorator1(undefined, {
+_C_p_initializer_c82di = decorator1(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "p")
+  ...__PrepareMetadata(__C_5rnajg.prototype, "public", "p")
 }) ?? (v => v);
 
-_C_p_initializer_k6r86g = decorator2(undefined, {
+_C_p_initializer_4f3j5o = decorator2(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(C.prototype, "public", "p")
+  ...__PrepareMetadata(__C_5rnajg.prototype, "public", "p")
 }) ?? (v => v);
+
+let C = __C_5rnajg;
+
+Object.defineProperty(C, "name", {
+  value: "C"
+});
 
 const c = new C();
 
