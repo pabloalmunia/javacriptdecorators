@@ -1,5 +1,9 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.6.2 - 2021/08/10
+
+- removed unnecessary console message
+
 ## version 0.6.1 - 2021/08/10
 
 - the name of the static decorator class has been changed to make the structure clearer

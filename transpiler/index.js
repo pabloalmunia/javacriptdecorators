@@ -60,7 +60,6 @@ function transform(ast) {
       let initDecoratorsCreated     = 0;
       const classNameOriginal       = klass.id.name;
       const classNameReplace        = `__${classNameOriginal}_${unique()}`;
-      console.log(classNameOriginal, '>', classNameReplace);
       const i                       = parent.indexOf(klass);
       preClassLocation              = preClassLocation || i;
       let nextElement               = parent[i + 1] || null;
