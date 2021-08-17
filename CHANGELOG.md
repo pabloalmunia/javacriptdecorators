@@ -1,5 +1,9 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.6.3 - 2021/08/17
+
+- typos fixed
+
 ## version 0.6.2 - 2021/08/10
 
 - removed unnecessary console message
