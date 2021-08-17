@@ -3,7 +3,7 @@ export default function appliedOrder(description) {
     console.log(
       (description || '?') + '.- order has been applied over a',
       (context.isStatic ? 'static ' : '') + context.kind,
-      context.isPrivate ? 'private' : `width name "${ context.name }"`
+      context.isPrivate ? 'private' : `with name "${ context.name }"`
     );
   }
 }

@@ -5,7 +5,7 @@ export default function simpleLog (level) {
     }
     return function(...args) {
       const result = method.apply(this, args);
-      console[level] (`method ${ context.name } called width parameters ${ args.join(', ') } and return ${ result }`, );
+      console[level] (`method ${ context.name } called with parameters ${ args.join(', ') } and return ${ result }`, );
       return result;
     }
   };

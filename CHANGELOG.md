@@ -22,7 +22,7 @@
 
 ## version 0.4.4 -  2021/08/06
 
-- fixed the metadata object create width Object.create(null).
+- fixed the metadata object create with Object.create(null).
 
 ## version 0.4.3 - 2021/08/04
 

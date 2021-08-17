@@ -9,7 +9,7 @@ export default function (method, context) {
   }
   return function(...args) {
     const result = method.apply(this, args);
-    console.log (`method ${ context.name } called width parameters ${ args.join(', ') } and return ${ result }`, );
+    console.log (`method ${ context.name } called with parameters ${ args.join(', ') } and return ${ result }`, );
     return result;
   }
 }
