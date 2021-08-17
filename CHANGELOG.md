@@ -1,5 +1,9 @@
 # JavascriptDecorators.org - CHANGELOG
 
+## version 0.6.4 - 2021/08/17
+
+- fixed the margin in console with different time formats
+
 ## version 0.6.3 - 2021/08/17
 
 - typos fixed
