@@ -3,15 +3,11 @@
 
 ## TODO
 
-- [ ] Review the editor and mobile browsers
-- [ ] Complete automatic tests
-- [ ] Transpiler
-  - [ ] export
-
+- [ ] Delete temp symbols with private members 
 
 ## In progress
 
-- [ ] Examples
 
 ## Done
 
+- [x] Fix the error with class access from member decorators
