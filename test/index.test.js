@@ -232,5 +232,13 @@ run ('222 - inheritance and metadata - static');
 run ('223 - setPrototypeOf and private metadata');
 run ('224 - metadata prototype');
 
-// Fixes
-run ('231 - class definition');
+// Access to class definition
+run ('231 - access class from public method decorator');
+run ('231 - access class from public property decorator');
+run ('233 - access class from public accessor decorator');
+run ('234 - access class from private method decorator');
+run ('235 - access class from private property decorator');
+run ('236 - access class from private accessor decorator');
+run ('237 - access class from static decorators');
+
+

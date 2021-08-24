@@ -52,70 +52,64 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_13khp = Symbol();
+const _C_p_get_symbol_1kq4a8 = Symbol();
 
-const _C_p_set_symbol_2rc6sg = Symbol();
+const _C_p_set_symbol_2hu1j = Symbol();
 
-let _C_p_initializer_0da338;
+let _C_p_initializer_9cf8jo;
 
-let _C_p_initializer_claiao;
+let _C_p_initializer_rt13o;
 
-let _C_p_initializer_90quvg;
+let _C_p_initializer_sml7do;
 
-class __C_3r895o {
-  #p = _C_p_initializer_90quvg.call(
+class C {
+  #p = _C_p_initializer_sml7do.call(
     this,
-    _C_p_initializer_claiao.call(this, _C_p_initializer_0da338.call(this, 10))
+    _C_p_initializer_rt13o.call(this, _C_p_initializer_9cf8jo.call(this, 10))
   );
-  [_C_p_get_symbol_13khp]() {
+  [_C_p_get_symbol_1kq4a8]() {
     return this.#p;
   }
-  [_C_p_set_symbol_2rc6sg](v) {
+  [_C_p_set_symbol_2hu1j](v) {
     this.#p = v;
   }
 }
 
-_C_p_initializer_90quvg = decorator1(undefined, {
+_C_p_initializer_sml7do = decorator1(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: __C_3r895o.prototype[_C_p_get_symbol_13khp],
-    set: __C_3r895o.prototype[_C_p_set_symbol_2rc6sg]
+    get: C.prototype[_C_p_get_symbol_1kq4a8],
+    set: C.prototype[_C_p_set_symbol_2hu1j]
   },
   isStatic: false,
   isPrivate: true,
-  ...__PrepareMetadata(__C_3r895o.prototype, "private", "p")
+  ...__PrepareMetadata(C.prototype, "private", "p")
 }) ?? (v => v);
 
-_C_p_initializer_claiao = decorator2(undefined, {
+_C_p_initializer_rt13o = decorator2(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: __C_3r895o.prototype[_C_p_get_symbol_13khp],
-    set: __C_3r895o.prototype[_C_p_set_symbol_2rc6sg]
+    get: C.prototype[_C_p_get_symbol_1kq4a8],
+    set: C.prototype[_C_p_set_symbol_2hu1j]
   },
   isStatic: false,
   isPrivate: true,
-  ...__PrepareMetadata(__C_3r895o.prototype, "private", "p")
+  ...__PrepareMetadata(C.prototype, "private", "p")
 }) ?? (v => v);
 
-_C_p_initializer_0da338 = decorator2(undefined, {
+_C_p_initializer_9cf8jo = decorator2(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: __C_3r895o.prototype[_C_p_get_symbol_13khp],
-    set: __C_3r895o.prototype[_C_p_set_symbol_2rc6sg]
+    get: C.prototype[_C_p_get_symbol_1kq4a8],
+    set: C.prototype[_C_p_set_symbol_2hu1j]
   },
   isStatic: false,
   isPrivate: true,
-  ...__PrepareMetadata(__C_3r895o.prototype, "private", "p")
+  ...__PrepareMetadata(C.prototype, "private", "p")
 }) ?? (v => v);
-
-let C = __C_3r895o;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
 
 const c = new C();
 

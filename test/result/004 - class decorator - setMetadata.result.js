@@ -46,13 +46,7 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_4hppso {}
-
-let C = __C_4hppso;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
+class C {}
 
 C = myMeta(C, {
   kind: "class",

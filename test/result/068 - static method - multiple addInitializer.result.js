@@ -50,20 +50,14 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_fgebog = [];
+const _C_static_initializers_lrqgp8 = [];
 
-class __C_0bdui {
+class C {
   constructor() {
     this.z = 100;
   }
   static m() {}
 }
-
-let C = __C_0bdui;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
 
 C.m = addProperty("b", 2)(C.m, {
   kind: "method",
@@ -71,7 +65,7 @@ C.m = addProperty("b", 2)(C.m, {
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "m"),
-  addInitializer: initializer => _C_static_initializers_fgebog.push(initializer)
+  addInitializer: initializer => _C_static_initializers_lrqgp8.push(initializer)
 }) ?? C.m;
 
 C.m = addProperty("a", 1)(C.m, {
@@ -80,22 +74,16 @@ C.m = addProperty("a", 1)(C.m, {
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "m"),
-  addInitializer: initializer => _C_static_initializers_fgebog.push(initializer)
+  addInitializer: initializer => _C_static_initializers_lrqgp8.push(initializer)
 }) ?? C.m;
 
-_C_static_initializers_fgebog.forEach(initializer => initializer.call(C, C));
+_C_static_initializers_lrqgp8.forEach(initializer => initializer.call(C, C));
 
-const _D_static_initializers_gbfcs8 = [];
+const _D_static_initializers_qpejs = [];
 
-class __D_fmnjc extends C {
+class D extends C {
   static m() {}
 }
-
-let D = __D_fmnjc;
-
-Object.defineProperty(D, "name", {
-  value: "D"
-});
 
 D.m = addProperty("d", 4)(D.m, {
   kind: "method",
@@ -103,7 +91,7 @@ D.m = addProperty("d", 4)(D.m, {
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(D, "public", "m"),
-  addInitializer: initializer => _D_static_initializers_gbfcs8.push(initializer)
+  addInitializer: initializer => _D_static_initializers_qpejs.push(initializer)
 }) ?? D.m;
 
 D.m = addProperty("c", 3)(D.m, {
@@ -112,10 +100,10 @@ D.m = addProperty("c", 3)(D.m, {
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(D, "public", "m"),
-  addInitializer: initializer => _D_static_initializers_gbfcs8.push(initializer)
+  addInitializer: initializer => _D_static_initializers_qpejs.push(initializer)
 }) ?? D.m;
 
-_D_static_initializers_gbfcs8.forEach(initializer => initializer.call(D, D));
+_D_static_initializers_qpejs.forEach(initializer => initializer.call(D, D));
 
 console.assert(C.a === 1);
 

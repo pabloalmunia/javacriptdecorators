@@ -49,11 +49,11 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_member_initializers_31hq5 = [];
+const _C_member_initializers_qcj8kg = [];
 
-class __C_ld9ep8 {
+class C {
   constructor() {
-    _C_member_initializers_31hq5.forEach(initialize => initialize.call(this));
+    _C_member_initializers_qcj8kg.forEach(initialize => initialize.call(this));
   }
   #p = 10;
   get p() {
@@ -64,24 +64,18 @@ class __C_ld9ep8 {
   }
 }
 
-const _C_p_descriptor_r9mhog = Object.getOwnPropertyDescriptor(__C_ld9ep8.prototype, "p");
+const _C_p_descriptor_88porg = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_C_p_descriptor_r9mhog.set = decorator(_C_p_descriptor_r9mhog.set, {
+_C_p_descriptor_88porg.set = decorator(_C_p_descriptor_88porg.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(__C_ld9ep8.prototype, "public", "p"),
-  addInitializer: initializer => _C_member_initializers_31hq5.push(initializer)
-}) ?? _C_p_descriptor_r9mhog.set;
+  ...__PrepareMetadata(C.prototype, "public", "p"),
+  addInitializer: initializer => _C_member_initializers_qcj8kg.push(initializer)
+}) ?? _C_p_descriptor_88porg.set;
 
-Object.defineProperty(__C_ld9ep8.prototype, "p", _C_p_descriptor_r9mhog);
-
-let C = __C_ld9ep8;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_88porg);
 
 console.assert(new C().test === 10);
 

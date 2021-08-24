@@ -1,12 +1,6 @@
-class __A_ofhc0o {}
+class A {}
 
-let A = __A_ofhc0o;
-
-Object.defineProperty(A, "name", {
-  value: "A"
-});
-
-class __C_37bnl8 extends A {
+class C extends A {
   constructor() {
     super();
   }
@@ -26,9 +20,3 @@ class __C_37bnl8 extends A {
   get #q() {}
   set #q(v) {}
 }
-
-let C = __C_37bnl8;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});

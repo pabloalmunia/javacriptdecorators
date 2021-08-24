@@ -46,25 +46,19 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_qd7ago;
+let _C_p_initializer_4m59cg;
 
-class __C_q276 {
-  p = _C_p_initializer_qd7ago.call(this, 10);
+class C {
+  p = _C_p_initializer_4m59cg.call(this, 10);
 }
 
-_C_p_initializer_qd7ago = decorator(undefined, {
+_C_p_initializer_4m59cg = decorator(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(__C_q276.prototype, "public", "p")
+  ...__PrepareMetadata(C.prototype, "public", "p")
 }) ?? (v => v);
-
-let C = __C_q276;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
 
 const c = new C();
 

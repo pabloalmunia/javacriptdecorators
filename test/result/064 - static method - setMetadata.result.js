@@ -52,15 +52,9 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_f4vfj8 {
+class C {
   static m() {}
 }
-
-let C = __C_f4vfj8;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
 
 C.m = decorator2(C.m, {
   kind: "method",

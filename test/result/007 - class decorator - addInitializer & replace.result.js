@@ -65,24 +65,18 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_class_initializers_87d41 = [];
+const _C_class_initializers_q05mcg = [];
 
-class __C_r5bmlo {}
-
-let C = __C_r5bmlo;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
+class C {}
 
 C = logged(C, {
   kind: "class",
   name: "C",
   ...__PrepareMetadata(C, "constructor", undefined),
-  addInitializer: initializer => _C_class_initializers_87d41.push(initializer)
+  addInitializer: initializer => _C_class_initializers_q05mcg.push(initializer)
 }) ?? C;
 
-_C_class_initializers_87d41.forEach(initializer => initializer.call(C, C));
+_C_class_initializers_q05mcg.forEach(initializer => initializer.call(C, C));
 
 new C(1);
 

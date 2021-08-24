@@ -49,56 +49,50 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_f_initializer_5v9lc8;
+let _C_f_initializer_fi0mf8;
 
-let _C_f_initializer_3aa7oo;
+let _C_f_initializer_5gd86o;
 
-let _C_p_initializer_pl7e4g;
+let _C_p_initializer_5bkg1;
 
-let _C_p_initializer_lepmao;
+let _C_p_initializer_sof6ug;
 
-class __C_f44g2g {
-  p = _C_p_initializer_lepmao.call(this, _C_p_initializer_pl7e4g.call(this, 10));
-  f = _C_f_initializer_3aa7oo.call(this, _C_f_initializer_5v9lc8.call(this, 20));
+class C {
+  p = _C_p_initializer_sof6ug.call(this, _C_p_initializer_5bkg1.call(this, 10));
+  f = _C_f_initializer_5gd86o.call(this, _C_f_initializer_fi0mf8.call(this, 20));
 }
 
-_C_p_initializer_lepmao = meta(1)(undefined, {
+_C_p_initializer_sof6ug = meta(1)(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(__C_f44g2g.prototype, "public", "p")
+  ...__PrepareMetadata(C.prototype, "public", "p")
 }) ?? (v => v);
 
-_C_p_initializer_pl7e4g = meta(2)(undefined, {
+_C_p_initializer_5bkg1 = meta(2)(undefined, {
   kind: "field",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(__C_f44g2g.prototype, "public", "p")
+  ...__PrepareMetadata(C.prototype, "public", "p")
 }) ?? (v => v);
 
-_C_f_initializer_3aa7oo = meta(3)(undefined, {
+_C_f_initializer_5gd86o = meta(3)(undefined, {
   kind: "field",
   name: "f",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(__C_f44g2g.prototype, "public", "f")
+  ...__PrepareMetadata(C.prototype, "public", "f")
 }) ?? (v => v);
 
-_C_f_initializer_5v9lc8 = meta(3)(undefined, {
+_C_f_initializer_fi0mf8 = meta(3)(undefined, {
   kind: "field",
   name: "f",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(__C_f44g2g.prototype, "public", "f")
+  ...__PrepareMetadata(C.prototype, "public", "f")
 }) ?? (v => v);
-
-let C = __C_f44g2g;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
 
 console.assert(C.prototype[Symbol.metadata][META].public.p === 3);
 

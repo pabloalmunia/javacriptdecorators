@@ -48,17 +48,11 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __A_gesh7 {
+class A {
   static p = 1;
 }
 
-let A = __A_gesh7;
-
-Object.defineProperty(A, "name", {
-  value: "A"
-});
-
-const _A_p_initializer_d65hk = decorator(undefined, {
+const _A_p_initializer_re0t6o = decorator(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
@@ -66,4 +60,4 @@ const _A_p_initializer_d65hk = decorator(undefined, {
   ...__PrepareMetadata(A, "public", "p")
 }) ?? (v => v);
 
-A.p = _A_p_initializer_d65hk.call(A, A.p);
+A.p = _A_p_initializer_re0t6o.call(A, A.p);

@@ -50,57 +50,45 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_class_initializers_a8m40o = [];
+const _C_class_initializers_hk52pg = [];
 
-class __C_tl3eh8 {}
-
-let C = __C_tl3eh8;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
+class C {}
 
 C = addProperty("b", 2)(C, {
   kind: "class",
   name: "C",
   ...__PrepareMetadata(C, "constructor", undefined),
-  addInitializer: initializer => _C_class_initializers_a8m40o.push(initializer)
+  addInitializer: initializer => _C_class_initializers_hk52pg.push(initializer)
 }) ?? C;
 
 C = addProperty("a", 1)(C, {
   kind: "class",
   name: "C",
   ...__PrepareMetadata(C, "constructor", undefined),
-  addInitializer: initializer => _C_class_initializers_a8m40o.push(initializer)
+  addInitializer: initializer => _C_class_initializers_hk52pg.push(initializer)
 }) ?? C;
 
-_C_class_initializers_a8m40o.forEach(initializer => initializer.call(C, C));
+_C_class_initializers_hk52pg.forEach(initializer => initializer.call(C, C));
 
-const _D_class_initializers_p919og = [];
+const _D_class_initializers_bqulko = [];
 
-class __D_g32bvo extends C {}
-
-let D = __D_g32bvo;
-
-Object.defineProperty(D, "name", {
-  value: "D"
-});
+class D extends C {}
 
 D = addProperty("d", 4)(D, {
   kind: "class",
   name: "D",
   ...__PrepareMetadata(D, "constructor", undefined),
-  addInitializer: initializer => _D_class_initializers_p919og.push(initializer)
+  addInitializer: initializer => _D_class_initializers_bqulko.push(initializer)
 }) ?? D;
 
 D = addProperty("c", 3)(D, {
   kind: "class",
   name: "D",
   ...__PrepareMetadata(D, "constructor", undefined),
-  addInitializer: initializer => _D_class_initializers_p919og.push(initializer)
+  addInitializer: initializer => _D_class_initializers_bqulko.push(initializer)
 }) ?? D;
 
-_D_class_initializers_p919og.forEach(initializer => initializer.call(D, D));
+_D_class_initializers_bqulko.forEach(initializer => initializer.call(D, D));
 
 const c = new C();
 

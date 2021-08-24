@@ -49,63 +49,57 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_ckmmi {
+class C {
   static set p(v) {}
   static get p() {}
 }
 
-let C = __C_ckmmi;
+const _C_p_descriptor_iq5j4g = Object.getOwnPropertyDescriptor(C, "p");
 
-Object.defineProperty(C, "name", {
-  value: "C"
-});
-
-const _C_p_descriptor_ro1n38 = Object.getOwnPropertyDescriptor(C, "p");
-
-_C_p_descriptor_ro1n38.get = meta(4)(_C_p_descriptor_ro1n38.get, {
+_C_p_descriptor_iq5j4g.get = meta(4)(_C_p_descriptor_iq5j4g.get, {
   kind: "getter",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "p")
-}) ?? _C_p_descriptor_ro1n38.get;
+}) ?? _C_p_descriptor_iq5j4g.get;
 
-Object.defineProperty(C, "p", _C_p_descriptor_ro1n38);
+Object.defineProperty(C, "p", _C_p_descriptor_iq5j4g);
 
-const _C_p_descriptor_684s8g = Object.getOwnPropertyDescriptor(C, "p");
+const _C_p_descriptor_8oksb8 = Object.getOwnPropertyDescriptor(C, "p");
 
-_C_p_descriptor_684s8g.get = meta(3)(_C_p_descriptor_684s8g.get, {
+_C_p_descriptor_8oksb8.get = meta(3)(_C_p_descriptor_8oksb8.get, {
   kind: "getter",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "p")
-}) ?? _C_p_descriptor_684s8g.get;
+}) ?? _C_p_descriptor_8oksb8.get;
 
-Object.defineProperty(C, "p", _C_p_descriptor_684s8g);
+Object.defineProperty(C, "p", _C_p_descriptor_8oksb8);
 
-const _C_p_descriptor_5t7e0g = Object.getOwnPropertyDescriptor(C, "p");
+const _C_p_descriptor_27e4tg = Object.getOwnPropertyDescriptor(C, "p");
 
-_C_p_descriptor_5t7e0g.set = meta(2)(_C_p_descriptor_5t7e0g.set, {
+_C_p_descriptor_27e4tg.set = meta(2)(_C_p_descriptor_27e4tg.set, {
   kind: "setter",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "p")
-}) ?? _C_p_descriptor_5t7e0g.set;
+}) ?? _C_p_descriptor_27e4tg.set;
 
-Object.defineProperty(C, "p", _C_p_descriptor_5t7e0g);
+Object.defineProperty(C, "p", _C_p_descriptor_27e4tg);
 
-const _C_p_descriptor_61m9sg = Object.getOwnPropertyDescriptor(C, "p");
+const _C_p_descriptor_nni7jo = Object.getOwnPropertyDescriptor(C, "p");
 
-_C_p_descriptor_61m9sg.set = meta(1)(_C_p_descriptor_61m9sg.set, {
+_C_p_descriptor_nni7jo.set = meta(1)(_C_p_descriptor_nni7jo.set, {
   kind: "setter",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "p")
-}) ?? _C_p_descriptor_61m9sg.set;
+}) ?? _C_p_descriptor_nni7jo.set;
 
-Object.defineProperty(C, "p", _C_p_descriptor_61m9sg);
+Object.defineProperty(C, "p", _C_p_descriptor_nni7jo);
 
 console.assert(C[Symbol.metadata][META].public.p === 10);

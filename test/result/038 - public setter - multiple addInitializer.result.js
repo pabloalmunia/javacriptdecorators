@@ -50,89 +50,77 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_member_initializers_68h9c = [];
+const _C_member_initializers_d49ndg = [];
 
-class __C_0bfmvo {
+class C {
   constructor() {
     this.z = 100;
-    _C_member_initializers_68h9c.forEach(initialize => initialize.call(this));
+    _C_member_initializers_d49ndg.forEach(initialize => initialize.call(this));
   }
   set p(v) {}
 }
 
-const _C_p_descriptor_e8cje = Object.getOwnPropertyDescriptor(__C_0bfmvo.prototype, "p");
+const _C_p_descriptor_lr94f8 = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_C_p_descriptor_e8cje.set = addProperty("a", 1)(_C_p_descriptor_e8cje.set, {
+_C_p_descriptor_lr94f8.set = addProperty("a", 1)(_C_p_descriptor_lr94f8.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(__C_0bfmvo.prototype, "public", "p"),
-  addInitializer: initializer => _C_member_initializers_68h9c.push(initializer)
-}) ?? _C_p_descriptor_e8cje.set;
+  ...__PrepareMetadata(C.prototype, "public", "p"),
+  addInitializer: initializer => _C_member_initializers_d49ndg.push(initializer)
+}) ?? _C_p_descriptor_lr94f8.set;
 
-Object.defineProperty(__C_0bfmvo.prototype, "p", _C_p_descriptor_e8cje);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_lr94f8);
 
-const _C_p_descriptor_088dh8 = Object.getOwnPropertyDescriptor(__C_0bfmvo.prototype, "p");
+const _C_p_descriptor_pmu768 = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_C_p_descriptor_088dh8.set = addProperty("b", 2)(_C_p_descriptor_088dh8.set, {
+_C_p_descriptor_pmu768.set = addProperty("b", 2)(_C_p_descriptor_pmu768.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(__C_0bfmvo.prototype, "public", "p"),
-  addInitializer: initializer => _C_member_initializers_68h9c.push(initializer)
-}) ?? _C_p_descriptor_088dh8.set;
+  ...__PrepareMetadata(C.prototype, "public", "p"),
+  addInitializer: initializer => _C_member_initializers_d49ndg.push(initializer)
+}) ?? _C_p_descriptor_pmu768.set;
 
-Object.defineProperty(__C_0bfmvo.prototype, "p", _C_p_descriptor_088dh8);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_pmu768);
 
-let C = __C_0bfmvo;
+const _D_member_initializers_5eieug = [];
 
-Object.defineProperty(C, "name", {
-  value: "C"
-});
-
-const _D_member_initializers_i39me8 = [];
-
-class __D_maf6d8 extends C {
+class D extends C {
   constructor() {
     super();
-    _D_member_initializers_i39me8.forEach(initialize => initialize.call(this));
+    _D_member_initializers_5eieug.forEach(initialize => initialize.call(this));
   }
   set p(v) {}
 }
 
-const _D_p_descriptor_53fr1g = Object.getOwnPropertyDescriptor(__D_maf6d8.prototype, "p");
+const _D_p_descriptor_lnmn2 = Object.getOwnPropertyDescriptor(D.prototype, "p");
 
-_D_p_descriptor_53fr1g.set = addProperty("c", 3)(_D_p_descriptor_53fr1g.set, {
+_D_p_descriptor_lnmn2.set = addProperty("c", 3)(_D_p_descriptor_lnmn2.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(__D_maf6d8.prototype, "public", "p"),
-  addInitializer: initializer => _D_member_initializers_i39me8.push(initializer)
-}) ?? _D_p_descriptor_53fr1g.set;
+  ...__PrepareMetadata(D.prototype, "public", "p"),
+  addInitializer: initializer => _D_member_initializers_5eieug.push(initializer)
+}) ?? _D_p_descriptor_lnmn2.set;
 
-Object.defineProperty(__D_maf6d8.prototype, "p", _D_p_descriptor_53fr1g);
+Object.defineProperty(D.prototype, "p", _D_p_descriptor_lnmn2);
 
-const _D_p_descriptor_0j65l8 = Object.getOwnPropertyDescriptor(__D_maf6d8.prototype, "p");
+const _D_p_descriptor_1cgeq8 = Object.getOwnPropertyDescriptor(D.prototype, "p");
 
-_D_p_descriptor_0j65l8.set = addProperty("d", 4)(_D_p_descriptor_0j65l8.set, {
+_D_p_descriptor_1cgeq8.set = addProperty("d", 4)(_D_p_descriptor_1cgeq8.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(__D_maf6d8.prototype, "public", "p"),
-  addInitializer: initializer => _D_member_initializers_i39me8.push(initializer)
-}) ?? _D_p_descriptor_0j65l8.set;
+  ...__PrepareMetadata(D.prototype, "public", "p"),
+  addInitializer: initializer => _D_member_initializers_5eieug.push(initializer)
+}) ?? _D_p_descriptor_1cgeq8.set;
 
-Object.defineProperty(__D_maf6d8.prototype, "p", _D_p_descriptor_0j65l8);
-
-let D = __D_maf6d8;
-
-Object.defineProperty(D, "name", {
-  value: "D"
-});
+Object.defineProperty(D.prototype, "p", _D_p_descriptor_1cgeq8);
 
 const c = new C();
 

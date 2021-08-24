@@ -46,18 +46,18 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_get_symbol_36ecf = Symbol();
+const _C_p_get_symbol_r1u8mo = Symbol();
 
-const _C_p_set_symbol_lolsro = Symbol();
+const _C_p_set_symbol_4pcbc8 = Symbol();
 
-let _C_p_initializer_sqssuo;
+let _C_p_initializer_i254n;
 
-class __C_132b1g {
-  #p = _C_p_initializer_sqssuo.call(this, 10);
-  [_C_p_get_symbol_36ecf]() {
+class C {
+  #p = _C_p_initializer_i254n.call(this, 10);
+  [_C_p_get_symbol_r1u8mo]() {
     return this.#p;
   }
-  [_C_p_set_symbol_lolsro](v) {
+  [_C_p_set_symbol_4pcbc8](v) {
     this.#p = v;
   }
   get check() {
@@ -65,23 +65,17 @@ class __C_132b1g {
   }
 }
 
-_C_p_initializer_sqssuo = decorator(undefined, {
+_C_p_initializer_i254n = decorator(undefined, {
   kind: "field",
   name: "#p",
   access: {
-    get: __C_132b1g.prototype[_C_p_get_symbol_36ecf],
-    set: __C_132b1g.prototype[_C_p_set_symbol_lolsro]
+    get: C.prototype[_C_p_get_symbol_r1u8mo],
+    set: C.prototype[_C_p_set_symbol_4pcbc8]
   },
   isStatic: false,
   isPrivate: true,
-  ...__PrepareMetadata(__C_132b1g.prototype, "private", "p")
+  ...__PrepareMetadata(C.prototype, "private", "p")
 }) ?? (v => v);
-
-let C = __C_132b1g;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
 
 const c = new C();
 

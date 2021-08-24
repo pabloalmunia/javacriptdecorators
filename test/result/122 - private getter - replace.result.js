@@ -46,40 +46,34 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_93tcmg = Symbol();
+const _C_p_symbol_uohj6g = Symbol();
 
-class __C_6c5rkg {
-  _C_p_temp_r2hsbo() {
+class C {
+  _C_p_temp_n6anh8() {
     return "a";
   }
-  static [_C_p_symbol_93tcmg] = decorator(__C_6c5rkg.prototype._C_p_temp_r2hsbo, {
+  static [_C_p_symbol_uohj6g] = decorator(C.prototype._C_p_temp_n6anh8, {
     kind: "getter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: __C_6c5rkg.prototype[_C_p_symbol_93tcmg]
+      get: C.prototype[_C_p_symbol_uohj6g]
     },
-    ...__PrepareMetadata(__C_6c5rkg.prototype, "private", "#p")
-  }) ?? __C_6c5rkg.prototype._C_p_temp_r2hsbo;
+    ...__PrepareMetadata(C.prototype, "private", "#p")
+  }) ?? C.prototype._C_p_temp_n6anh8;
   get #p() {
-    return __C_6c5rkg[_C_p_symbol_93tcmg].bind(this)();
+    return C[_C_p_symbol_uohj6g].bind(this)();
   }
-  [_C_p_symbol_93tcmg]() {
-    return __C_6c5rkg[_C_p_symbol_93tcmg].bind(this);
+  [_C_p_symbol_uohj6g]() {
+    return C[_C_p_symbol_uohj6g].bind(this);
   }
   get check() {
     return this.#p;
   }
 }
 
-delete __C_6c5rkg.prototype._C_p_temp_r2hsbo;
-
-let C = __C_6c5rkg;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
+delete C.prototype._C_p_temp_n6anh8;
 
 const a = new C();
 

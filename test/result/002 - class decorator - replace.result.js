@@ -57,13 +57,7 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_qf7vv {}
-
-let C = __C_qf7vv;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
+class C {}
 
 C = logged(C, {
   kind: "class",

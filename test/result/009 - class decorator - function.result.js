@@ -46,13 +46,7 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_rajab {}
-
-let C = __C_rajab;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
+class C {}
 
 C = defineElement("my-class")(C, {
   kind: "class",

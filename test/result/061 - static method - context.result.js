@@ -48,17 +48,11 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_381ph {
+class C {
   static m(v) {
     return v * 2;
   }
 }
-
-let C = __C_381ph;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
 
 C.m = decorator(C.m, {
   kind: "method",

@@ -1,14 +1,15 @@
 function getClass (klass) {
-  console.assert(!klass)
+  console.log(klass.name)
+  return function(value, context) {}
 }
 
 try {
 
   class A {
     @getClass (A)
-    a () {
-    }
+    a() {}
   }
+  console.assert(false)
 
 } catch(e) {
   console.assert(e.message === "Cannot access 'A' before initialization")

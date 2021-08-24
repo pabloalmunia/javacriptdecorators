@@ -40,13 +40,7 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_el0pi {}
-
-let C = __C_el0pi;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
+class C {}
 
 C = decorator2(C, {
   kind: "class",

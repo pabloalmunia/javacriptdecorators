@@ -53,15 +53,9 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_7v2fug {
+class C {
   static m() {}
 }
-
-let C = __C_7v2fug;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
 
 C.m = decorator(C.m, {
   kind: "method",

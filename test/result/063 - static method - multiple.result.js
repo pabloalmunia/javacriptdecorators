@@ -52,15 +52,9 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_eds2so {
+class C {
   static m() {}
 }
-
-let C = __C_eds2so;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
 
 C.m = decorator2(C.m, {
   kind: "method",

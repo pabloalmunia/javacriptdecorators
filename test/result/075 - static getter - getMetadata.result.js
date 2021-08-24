@@ -49,41 +49,35 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_20tfkg {
+class C {
   static get p() {
     return "a";
   }
 }
 
-let C = __C_20tfkg;
+const _C_p_descriptor_ev6i2o = Object.getOwnPropertyDescriptor(C, "p");
 
-Object.defineProperty(C, "name", {
-  value: "C"
-});
-
-const _C_p_descriptor_nk6g0o = Object.getOwnPropertyDescriptor(C, "p");
-
-_C_p_descriptor_nk6g0o.get = meta(2)(_C_p_descriptor_nk6g0o.get, {
+_C_p_descriptor_ev6i2o.get = meta(2)(_C_p_descriptor_ev6i2o.get, {
   kind: "getter",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "p")
-}) ?? _C_p_descriptor_nk6g0o.get;
+}) ?? _C_p_descriptor_ev6i2o.get;
 
-Object.defineProperty(C, "p", _C_p_descriptor_nk6g0o);
+Object.defineProperty(C, "p", _C_p_descriptor_ev6i2o);
 
-const _C_p_descriptor_l808i8 = Object.getOwnPropertyDescriptor(C, "p");
+const _C_p_descriptor_n21mc = Object.getOwnPropertyDescriptor(C, "p");
 
-_C_p_descriptor_l808i8.get = meta(1)(_C_p_descriptor_l808i8.get, {
+_C_p_descriptor_n21mc.get = meta(1)(_C_p_descriptor_n21mc.get, {
   kind: "getter",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "p")
-}) ?? _C_p_descriptor_l808i8.get;
+}) ?? _C_p_descriptor_n21mc.get;
 
-Object.defineProperty(C, "p", _C_p_descriptor_l808i8);
+Object.defineProperty(C, "p", _C_p_descriptor_n21mc);
 
 const a = new C();
 

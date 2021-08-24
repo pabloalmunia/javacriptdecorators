@@ -52,55 +52,49 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_p_symbol_3app8o = Symbol();
+const _C_p_symbol_hcqr28 = Symbol();
 
-class __C_550afg {
-  _C_p_temp_9jepko(v) {}
-  static [_C_p_symbol_3app8o] = decorator1(__C_550afg.prototype._C_p_temp_9jepko, {
+class C {
+  _C_p_temp_p7n7ho(v) {}
+  static [_C_p_symbol_hcqr28] = decorator1(C.prototype._C_p_temp_p7n7ho, {
     kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: __C_550afg.prototype[_C_p_symbol_3app8o]
+      get: C.prototype[_C_p_symbol_hcqr28]
     },
-    ...__PrepareMetadata(__C_550afg.prototype, "private", "#p")
-  }) ?? __C_550afg.prototype._C_p_temp_9jepko;
-  static [_C_p_symbol_3app8o] = decorator2(__C_550afg[_C_p_symbol_3app8o], {
+    ...__PrepareMetadata(C.prototype, "private", "#p")
+  }) ?? C.prototype._C_p_temp_p7n7ho;
+  static [_C_p_symbol_hcqr28] = decorator2(C[_C_p_symbol_hcqr28], {
     kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: __C_550afg.prototype[_C_p_symbol_3app8o]
+      get: C.prototype[_C_p_symbol_hcqr28]
     },
-    ...__PrepareMetadata(__C_550afg.prototype, "private", "#p")
-  }) ?? __C_550afg[_C_p_symbol_3app8o];
-  static [_C_p_symbol_3app8o] = decorator2(__C_550afg[_C_p_symbol_3app8o], {
+    ...__PrepareMetadata(C.prototype, "private", "#p")
+  }) ?? C[_C_p_symbol_hcqr28];
+  static [_C_p_symbol_hcqr28] = decorator2(C[_C_p_symbol_hcqr28], {
     kind: "setter",
     name: "#p",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: __C_550afg.prototype[_C_p_symbol_3app8o]
+      get: C.prototype[_C_p_symbol_hcqr28]
     },
-    ...__PrepareMetadata(__C_550afg.prototype, "private", "#p")
-  }) ?? __C_550afg[_C_p_symbol_3app8o];
+    ...__PrepareMetadata(C.prototype, "private", "#p")
+  }) ?? C[_C_p_symbol_hcqr28];
   set #p(v) {
-    return __C_550afg[_C_p_symbol_3app8o].bind(this)(v);
+    return C[_C_p_symbol_hcqr28].bind(this)(v);
   }
-  [_C_p_symbol_3app8o]() {
-    return __C_550afg[_C_p_symbol_3app8o].bind(this);
+  [_C_p_symbol_hcqr28]() {
+    return C[_C_p_symbol_hcqr28].bind(this);
   }
 }
 
-delete __C_550afg.prototype._C_p_temp_9jepko;
-
-let C = __C_550afg;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
+delete C.prototype._C_p_temp_p7n7ho;
 
 const a = new C();
 

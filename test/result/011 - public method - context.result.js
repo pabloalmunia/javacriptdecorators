@@ -47,24 +47,18 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_nr8q2 {
+class C {
   m(v) {
     return v * 2;
   }
 }
 
-__C_nr8q2.prototype.m = decorator(__C_nr8q2.prototype.m, {
+C.prototype.m = decorator(C.prototype.m, {
   kind: "method",
   name: "m",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(__C_nr8q2.prototype, "public", "m")
-}) ?? __C_nr8q2.prototype.m;
-
-let C = __C_nr8q2;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
+  ...__PrepareMetadata(C.prototype, "public", "m")
+}) ?? C.prototype.m;
 
 console.assert(new C().m(1) === 2);

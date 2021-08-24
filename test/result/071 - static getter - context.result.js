@@ -48,24 +48,18 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __A_spjt2o {
+class A {
   static get p() {}
 }
 
-let A = __A_spjt2o;
+const _A_p_descriptor_p7b1ig = Object.getOwnPropertyDescriptor(A, "p");
 
-Object.defineProperty(A, "name", {
-  value: "A"
-});
-
-const _A_p_descriptor_7f65uo = Object.getOwnPropertyDescriptor(A, "p");
-
-_A_p_descriptor_7f65uo.get = decorator(_A_p_descriptor_7f65uo.get, {
+_A_p_descriptor_p7b1ig.get = decorator(_A_p_descriptor_p7b1ig.get, {
   kind: "getter",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(A, "public", "p")
-}) ?? _A_p_descriptor_7f65uo.get;
+}) ?? _A_p_descriptor_p7b1ig.get;
 
-Object.defineProperty(A, "p", _A_p_descriptor_7f65uo);
+Object.defineProperty(A, "p", _A_p_descriptor_p7b1ig);

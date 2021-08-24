@@ -46,48 +46,42 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_2knbe;
+let _C_p_initializer_gg5q68;
 
-const _C_member_initializers_j0bb88 = [];
+const _C_member_initializers_d6jqog = [];
 
-class __C_ccqll8 {
+class C {
   constructor() {
-    _C_member_initializers_j0bb88.forEach(initialize => initialize.call(this));
+    _C_member_initializers_d6jqog.forEach(initialize => initialize.call(this));
   }
-  #_p_private_property_5jcs7o = _C_p_initializer_2knbe.call(this, 1);
+  #_p_private_property_l39tig = _C_p_initializer_gg5q68.call(this, 1);
   get p() {
-    return this.#_p_private_property_5jcs7o;
+    return this.#_p_private_property_l39tig;
   }
   set p(v) {
-    this.#_p_private_property_5jcs7o = v;
+    this.#_p_private_property_l39tig = v;
   }
 }
 
-const ___C_ccqll8_p_descriptor_ohbra = Object.getOwnPropertyDescriptor(__C_ccqll8.prototype, "p");
+const _C_p_descriptor_bln5n8 = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-const ___C_ccqll8_p_result_p9t1b8 = decorator({
-  get: ___C_ccqll8_p_descriptor_ohbra.get,
-  set: ___C_ccqll8_p_descriptor_ohbra.set
+const _C_p_result_ipu878 = decorator({
+  get: _C_p_descriptor_bln5n8.get,
+  set: _C_p_descriptor_bln5n8.set
 }, {
   kind: "auto-accessor",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(__C_ccqll8.prototype, "public", "p"),
-  addInitializer: initializer => _C_member_initializers_j0bb88.push(initializer)
+  ...__PrepareMetadata(C.prototype, "public", "p"),
+  addInitializer: initializer => _C_member_initializers_d6jqog.push(initializer)
 }) || {};
 
-_C_p_initializer_2knbe = ___C_ccqll8_p_result_p9t1b8.initialize || (v => v);
+_C_p_initializer_gg5q68 = _C_p_result_ipu878.initialize || (v => v);
 
-Object.defineProperty(__C_ccqll8.prototype, "p", {
-  get: ___C_ccqll8_p_result_p9t1b8.get || ___C_ccqll8_p_descriptor_ohbra.get,
-  set: ___C_ccqll8_p_result_p9t1b8.set || ___C_ccqll8_p_descriptor_ohbra.set
-});
-
-let C = __C_ccqll8;
-
-Object.defineProperty(C, "name", {
-  value: "C"
+Object.defineProperty(C.prototype, "p", {
+  get: _C_p_result_ipu878.get || _C_p_descriptor_bln5n8.get,
+  set: _C_p_result_ipu878.set || _C_p_descriptor_bln5n8.set
 });
 
 console.assert(new C().p === 1);

@@ -49,41 +49,35 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_22est {
+class C {
   get p() {
     return "a";
   }
 }
 
-const _C_p_descriptor_tsu0v = Object.getOwnPropertyDescriptor(__C_22est.prototype, "p");
+const _C_p_descriptor_fjrlb = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_C_p_descriptor_tsu0v.get = meta(1)(_C_p_descriptor_tsu0v.get, {
+_C_p_descriptor_fjrlb.get = meta(1)(_C_p_descriptor_fjrlb.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(__C_22est.prototype, "public", "p")
-}) ?? _C_p_descriptor_tsu0v.get;
+  ...__PrepareMetadata(C.prototype, "public", "p")
+}) ?? _C_p_descriptor_fjrlb.get;
 
-Object.defineProperty(__C_22est.prototype, "p", _C_p_descriptor_tsu0v);
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_fjrlb);
 
-const _C_p_descriptor_f4c0q8 = Object.getOwnPropertyDescriptor(__C_22est.prototype, "p");
+const _C_p_descriptor_q4lcb8 = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_C_p_descriptor_f4c0q8.get = meta(2)(_C_p_descriptor_f4c0q8.get, {
+_C_p_descriptor_q4lcb8.get = meta(2)(_C_p_descriptor_q4lcb8.get, {
   kind: "getter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(__C_22est.prototype, "public", "p")
-}) ?? _C_p_descriptor_f4c0q8.get;
+  ...__PrepareMetadata(C.prototype, "public", "p")
+}) ?? _C_p_descriptor_q4lcb8.get;
 
-Object.defineProperty(__C_22est.prototype, "p", _C_p_descriptor_f4c0q8);
-
-let C = __C_22est;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_q4lcb8);
 
 const a = new C();
 

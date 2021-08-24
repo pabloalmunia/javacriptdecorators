@@ -49,30 +49,24 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_jsorao {
+class C {
   m() {}
 }
 
-__C_jsorao.prototype.m = decorator(1)(__C_jsorao.prototype.m, {
+C.prototype.m = decorator(1)(C.prototype.m, {
   kind: "method",
   name: "m",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(__C_jsorao.prototype, "public", "m")
-}) ?? __C_jsorao.prototype.m;
+  ...__PrepareMetadata(C.prototype, "public", "m")
+}) ?? C.prototype.m;
 
-__C_jsorao.prototype.m = decorator(2)(__C_jsorao.prototype.m, {
+C.prototype.m = decorator(2)(C.prototype.m, {
   kind: "method",
   name: "m",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(__C_jsorao.prototype, "public", "m")
-}) ?? __C_jsorao.prototype.m;
-
-let C = __C_jsorao;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
+  ...__PrepareMetadata(C.prototype, "public", "m")
+}) ?? C.prototype.m;
 
 console.assert(C.prototype[Symbol.metadata][ONE].public.m === 3);

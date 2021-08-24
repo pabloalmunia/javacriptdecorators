@@ -56,17 +56,11 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_p5up9 {
+class C {
   static p = 1;
 }
 
-let C = __C_p5up9;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
-
-const _C_p_initializer_0dj6v8 = decorator2(undefined, {
+const _C_p_initializer_5l5o3 = decorator2(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
@@ -74,9 +68,9 @@ const _C_p_initializer_0dj6v8 = decorator2(undefined, {
   ...__PrepareMetadata(C, "public", "p")
 }) ?? (v => v);
 
-C.p = _C_p_initializer_0dj6v8.call(C, C.p);
+C.p = _C_p_initializer_5l5o3.call(C, C.p);
 
-const _C_p_initializer_2qh09g = decorator1(undefined, {
+const _C_p_initializer_3ocdb = decorator1(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
@@ -84,6 +78,6 @@ const _C_p_initializer_2qh09g = decorator1(undefined, {
   ...__PrepareMetadata(C, "public", "p")
 }) ?? (v => v);
 
-C.p = _C_p_initializer_2qh09g.call(C, C.p);
+C.p = _C_p_initializer_3ocdb.call(C, C.p);
 
 console.assert(C.p === 6);

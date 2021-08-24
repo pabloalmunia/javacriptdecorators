@@ -46,23 +46,17 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_class_initializers_loq4m = [];
+const _C_class_initializers_s5dcig = [];
 
-class __C_39r2r {}
-
-let C = __C_39r2r;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
+class C {}
 
 C = decorator(C, {
   kind: "class",
   name: "C",
   ...__PrepareMetadata(C, "constructor", undefined),
-  addInitializer: initializer => _C_class_initializers_loq4m.push(initializer)
+  addInitializer: initializer => _C_class_initializers_s5dcig.push(initializer)
 }) ?? C;
 
-_C_class_initializers_loq4m.forEach(initializer => initializer.call(C, C));
+_C_class_initializers_s5dcig.forEach(initializer => initializer.call(C, C));
 
 console.assert(C.test === 10);

@@ -46,53 +46,44 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-let _C_p_initializer_ahki3o;
+let _C_p_initializer_suf3co;
 
-const _C_static_initializers_malvr8 = [];
+const _C_static_initializers_9agk68 = [];
 
-class __C_41l1n {
-  static #_p_private_property_29dkbg = 1;
+class C {
+  static #_p_private_property_0l4k08 = 1;
   static get p() {
-    return this.#_p_private_property_29dkbg;
+    return this.#_p_private_property_0l4k08;
   }
   static set p(v) {
-    this.#_p_private_property_29dkbg = v;
+    this.#_p_private_property_0l4k08 = v;
   }
 }
 
-const ___C_41l1n_p_descriptor_qh4bdo = Object.getOwnPropertyDescriptor(__C_41l1n, "p");
+const _C_p_descriptor_p7sv7g = Object.getOwnPropertyDescriptor(C, "p");
 
-const ___C_41l1n_p_result_6rrflg = decorator({
-  get: ___C_41l1n_p_descriptor_qh4bdo.get,
-  set: ___C_41l1n_p_descriptor_qh4bdo.set
+const _C_p_result_i8a4ho = decorator({
+  get: _C_p_descriptor_p7sv7g.get,
+  set: _C_p_descriptor_p7sv7g.set
 }, {
   kind: "auto-accessor",
   name: "p",
   isStatic: true,
   isPrivate: false,
-  ...__PrepareMetadata(__C_41l1n, "public", "p"),
-  addInitializer: initializer => _C_static_initializers_malvr8.push(initializer)
+  ...__PrepareMetadata(C, "public", "p"),
+  addInitializer: initializer => _C_static_initializers_9agk68.push(initializer)
 }) || {};
 
-_C_p_initializer_ahki3o = ___C_41l1n_p_result_6rrflg.initialize || (v => v);
+_C_p_initializer_suf3co = _C_p_result_i8a4ho.initialize || (v => v);
 
-Object.defineProperty(__C_41l1n, "p", {
-  get: ___C_41l1n_p_result_6rrflg.get || ___C_41l1n_p_descriptor_qh4bdo.get,
-  set: ___C_41l1n_p_result_6rrflg.set || ___C_41l1n_p_descriptor_qh4bdo.set
+Object.defineProperty(C, "p", {
+  get: _C_p_result_i8a4ho.get || _C_p_descriptor_p7sv7g.get,
+  set: _C_p_result_i8a4ho.set || _C_p_descriptor_p7sv7g.set
 });
 
-___C_41l1n_p_descriptor_qh4bdo.set.call(
-  __C_41l1n,
-  _C_p_initializer_ahki3o(___C_41l1n_p_descriptor_qh4bdo.get.call(__C_41l1n))
-);
+_C_p_descriptor_p7sv7g.set.call(C, _C_p_initializer_suf3co(_C_p_descriptor_p7sv7g.get.call(C)));
 
-let C = __C_41l1n;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
-
-_C_static_initializers_malvr8.forEach(initialize => initialize.call(C, C));
+_C_static_initializers_9agk68.forEach(initialize => initialize.call(C, C));
 
 console.assert(C.p === 1);
 

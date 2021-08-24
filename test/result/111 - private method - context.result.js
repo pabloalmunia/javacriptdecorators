@@ -48,24 +48,24 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_m_symbol_j5tr7 = Symbol();
+const _C_m_symbol_oirh8g = Symbol();
 
-class __C_d4i7co {
-  _C_m_temp_sttfhg(v) {
+class C {
+  _C_m_temp_bp69lo(v) {
     return v * 2;
   }
-  static [_C_m_symbol_j5tr7] = decorator(__C_d4i7co.prototype._C_m_temp_sttfhg, {
+  static [_C_m_symbol_oirh8g] = decorator(C.prototype._C_m_temp_bp69lo, {
     kind: "method",
     name: "#m",
     isStatic: false,
     isPrivate: true,
     access: {
-      get: __C_d4i7co.prototype[_C_m_symbol_j5tr7]
+      get: C.prototype[_C_m_symbol_oirh8g]
     },
-    ...__PrepareMetadata(__C_d4i7co.prototype, "private", "#m")
-  }) ?? __C_d4i7co.prototype._C_m_temp_sttfhg;
-  #m = __C_d4i7co[_C_m_symbol_j5tr7];
-  [_C_m_symbol_j5tr7]() {
+    ...__PrepareMetadata(C.prototype, "private", "#m")
+  }) ?? C.prototype._C_m_temp_bp69lo;
+  #m = C[_C_m_symbol_oirh8g];
+  [_C_m_symbol_oirh8g]() {
     return this.#m;
   }
   check(v) {
@@ -73,12 +73,6 @@ class __C_d4i7co {
   }
 }
 
-delete __C_d4i7co.prototype._C_m_temp_sttfhg;
-
-let C = __C_d4i7co;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
+delete C.prototype._C_m_temp_bp69lo;
 
 console.assert(new C().check(1) === 2);

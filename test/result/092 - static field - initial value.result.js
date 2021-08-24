@@ -46,17 +46,11 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-class __C_nrgtg8 {
+class C {
   static p = 10;
 }
 
-let C = __C_nrgtg8;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
-
-const _C_p_initializer_age7gg = decorator(undefined, {
+const _C_p_initializer_3m7bo8 = decorator(undefined, {
   kind: "field",
   name: "p",
   isStatic: true,
@@ -64,6 +58,6 @@ const _C_p_initializer_age7gg = decorator(undefined, {
   ...__PrepareMetadata(C, "public", "p")
 }) ?? (v => v);
 
-C.p = _C_p_initializer_age7gg.call(C, C.p);
+C.p = _C_p_initializer_3m7bo8.call(C, C.p);
 
 console.assert(C.p === 20);

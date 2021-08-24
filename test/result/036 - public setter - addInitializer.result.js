@@ -46,32 +46,26 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_member_initializers_nnhdtg = [];
+const _C_member_initializers_j04spo = [];
 
-class __C_fb9gp8 {
+class C {
   constructor() {
-    _C_member_initializers_nnhdtg.forEach(initialize => initialize.call(this));
+    _C_member_initializers_j04spo.forEach(initialize => initialize.call(this));
   }
   set p(v) {}
 }
 
-const _C_p_descriptor_r59e8 = Object.getOwnPropertyDescriptor(__C_fb9gp8.prototype, "p");
+const _C_p_descriptor_fsjoq = Object.getOwnPropertyDescriptor(C.prototype, "p");
 
-_C_p_descriptor_r59e8.set = decorator(_C_p_descriptor_r59e8.set, {
+_C_p_descriptor_fsjoq.set = decorator(_C_p_descriptor_fsjoq.set, {
   kind: "setter",
   name: "p",
   isStatic: false,
   isPrivate: false,
-  ...__PrepareMetadata(__C_fb9gp8.prototype, "public", "p"),
-  addInitializer: initializer => _C_member_initializers_nnhdtg.push(initializer)
-}) ?? _C_p_descriptor_r59e8.set;
+  ...__PrepareMetadata(C.prototype, "public", "p"),
+  addInitializer: initializer => _C_member_initializers_j04spo.push(initializer)
+}) ?? _C_p_descriptor_fsjoq.set;
 
-Object.defineProperty(__C_fb9gp8.prototype, "p", _C_p_descriptor_r59e8);
-
-let C = __C_fb9gp8;
-
-Object.defineProperty(C, "name", {
-  value: "C"
-});
+Object.defineProperty(C.prototype, "p", _C_p_descriptor_fsjoq);
 
 console.assert(new C().test === 10);

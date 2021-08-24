@@ -49,9 +49,9 @@ function __PrepareMetadata(base, kind, property) {
   };
 }
 
-const _C_static_initializers_p8gkkg = [];
+const _C_static_initializers_ndf0ag = [];
 
-class __C_h8sl2o {
+class C {
   static #p = 10;
   static get p() {
     return this.#p;
@@ -61,26 +61,20 @@ class __C_h8sl2o {
   }
 }
 
-let C = __C_h8sl2o;
+const _C_p_descriptor_d9lm4g = Object.getOwnPropertyDescriptor(C, "p");
 
-Object.defineProperty(C, "name", {
-  value: "C"
-});
-
-const _C_p_descriptor_d48oig = Object.getOwnPropertyDescriptor(C, "p");
-
-_C_p_descriptor_d48oig.set = decorator(_C_p_descriptor_d48oig.set, {
+_C_p_descriptor_d9lm4g.set = decorator(_C_p_descriptor_d9lm4g.set, {
   kind: "setter",
   name: "p",
   isStatic: true,
   isPrivate: false,
   ...__PrepareMetadata(C, "public", "p"),
-  addInitializer: initializer => _C_static_initializers_p8gkkg.push(initializer)
-}) ?? _C_p_descriptor_d48oig.set;
+  addInitializer: initializer => _C_static_initializers_ndf0ag.push(initializer)
+}) ?? _C_p_descriptor_d9lm4g.set;
 
-Object.defineProperty(C, "p", _C_p_descriptor_d48oig);
+Object.defineProperty(C, "p", _C_p_descriptor_d9lm4g);
 
-_C_static_initializers_p8gkkg.forEach(initializer => initializer.call(C, C));
+_C_static_initializers_ndf0ag.forEach(initializer => initializer.call(C, C));
 
 console.assert(C.test === 10);
 
