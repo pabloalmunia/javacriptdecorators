@@ -2,27 +2,19 @@ const acorn            = require('acorn');
 const stage3           = require('acorn-stage3');
 const recast           = require('recast');
 const walker           = require('../lib/walker.js');
+const find             = require('../lib/find.js');
 const clone            = require('../lib/clone.js');
 const unique           = () => Math.random().toString(32).substring(7);
-const insertAfter      = (arr, current, elements) => arr.splice(
-  arr.indexOf(current) + 1,
-  0,
-  ...elements
-);
-const insertBefore     = (arr, current, elements) => arr.splice(
-  arr.indexOf(current),
-  0,
-  ...elements
-);
-const insertBeforeNext = (arr, next, elements) => next !== null ?
-  arr.splice(arr.indexOf(next), 0, ...elements) :
-  arr.push(...elements);
-const replace          = (arr, current, elements) => arr.splice(
-  arr.indexOf(current),
-  1,
-  ...elements
-);
+const insertAfter      = (arr, current, elements) => arr.splice(arr.indexOf(current) + 1, 0, ...elements);
+const insertBefore     = (arr, current, elements) => arr.splice(arr.indexOf(current), 0, ...elements);
+const insertBeforeNext = (arr, next, elements) => next !== null ? arr.splice(arr.indexOf(next), 0, ...elements) : arr.push(...elements);
+const replace          = (arr, current, elements) => arr.splice(arr.indexOf(current), 1, ...elements);
 
+/**
+ * Main function
+ * @param {object} ast
+ * @returns {string}
+ */
 module.exports = (ast) =>
   prettySource(
     recast.print(
@@ -44,7 +36,6 @@ function transform(ast) {
   let defineMetadataCreated = false;
   let applyDecoratorCreated = false;
   let preClassLocation      = null;
-  const classProcessed      = [];
 
   //-----------------------------------
   // By Class
@@ -52,26 +43,22 @@ function transform(ast) {
   walker(
     source,
     (o) => {
-      return o.type === 'ClassDeclaration' && !classProcessed.includes(o);
+      return o.type === 'ClassDeclaration';
     },
     (klass, parent) => {
-      classProcessed.push(klass);
+
       let decoratorsCreated         = 0;
       let initDecoratorsCreated     = 0;
-      const classNameOriginal       = klass.id.name;
-      const classNameReplace        = `__${classNameOriginal}_${unique()}`;
+      const className               = klass.id.name;
       const i                       = parent.indexOf(klass);
       preClassLocation              = preClassLocation || i;
       let nextElement               = parent[i + 1] || null;
-      const classInitializersName   = `_${classNameOriginal}_class_initializers_${unique()}`;
+      const classInitializersName   = `_${className}_class_initializers_${unique()}`;
       let classInitializersCreated  = false;
-      const memberInitializersName  = `_${classNameOriginal}_member_initializers_${unique()}`;
+      const memberInitializersName  = `_${className}_member_initializers_${unique()}`;
       let memberInitializersCreated = false;
-      const staticInitializersName  = `_${classNameOriginal}_static_initializers_${unique()}`;
+      const staticInitializersName  = `_${className}_static_initializers_${unique()}`;
       let staticInitializersCreated = false;
-
-      // Replace the class name
-      klass.id.name = classNameReplace;
 
       //---------------------------------
       // Static members
@@ -94,10 +81,10 @@ function transform(ast) {
               publicMemberGenerator({
                                       init          : decorator.init,
                                       kind          : decorator.kind,
-                                      className     : classNameOriginal,
+                                      className     : className,
                                       elementName   : o.key.name,
-                                      decoratorName : decorator.expression,
-                                      variableName  : `_${classNameOriginal}_${o.key.name}_${(decorator.kind === 'getter' || decorator.kind === 'setter' ?
+                                      decorator     : decorator.expression,
+                                      variableName  : `_${className}_${o.key.name}_${(decorator.kind === 'getter' || decorator.kind === 'setter' ?
                                         'descriptor' :
                                         'initializer')}_${unique()}`,
                                       initCollection: staticInitializersName,
@@ -126,7 +113,7 @@ function transform(ast) {
                       'type'      : 'ArrowFunctionExpression',
                       'expression': true,
                       'params'    : [I('initializer')],
-                      'body'      : callExpression('initializer.call', [classNameOriginal, classNameOriginal])
+                      'body'      : callExpression('initializer.call', [className, className])
                     }
                   ])
                 }]);
@@ -145,7 +132,7 @@ function transform(ast) {
           parent,
           klass,
           classGenerator(
-            classNameOriginal,
+            klass.id.name,
             decorator.expression,
             decorator.init ? classInitializersName : undefined
           )
@@ -171,7 +158,7 @@ function transform(ast) {
                     'type'      : 'ArrowFunctionExpression',
                     'expression': true,
                     'params'    : [I('initializer')],
-                    'body'      : callExpression('initializer.call', [classNameOriginal, classNameOriginal])
+                    'body'      : callExpression('initializer.call', [className, className])
                   }
                 ]
               )
@@ -179,15 +166,7 @@ function transform(ast) {
           }
         }
       }
-      // Class rename
-      insertAfter(
-        parent,
-        klass,
-        classRename(
-          classNameOriginal,
-          classNameReplace
-        )
-      );      klass.decorators = undefined;
+      klass.decorators = undefined;
 
       //-----------------------------------
       // Methods public and static+private
@@ -206,11 +185,11 @@ function transform(ast) {
             //--------
             const elementName        = o.key.id.name;
             const elementPrivateName = '#' + elementName;
-            const symbolName         = `_${classNameOriginal}_${elementName}_symbol_${unique()}`;
-            const tempName           = `_${classNameOriginal}_${elementName}_temp_${unique()}`;
+            const symbolName         = `_${className}_${elementName}_symbol_${unique()}`;
+            const tempName           = `_${className}_${elementName}_temp_${unique()}`;
             const beforeClass        = privateMemberBeforeGenerator(symbolName);
             const afterClass         = privateMemberAfterGenerator(
-              classNameReplace,
+              className,
               tempName,
               !!o.static
             );
@@ -221,12 +200,12 @@ function transform(ast) {
                                                                init            : decorator.init,
                                                                kind            : decorator.kind,
                                                                element         : o,
-                                                               decoratorName   : decorator.expression,
+                                                               decorator       : decorator.expression,
                                                                isStatic        : !!o.static,
                                                                initializersName: o.static ? staticInitializersName : memberInitializersName,
                                                                tempName,
                                                                symbolName,
-                                                               className       : classNameReplace,
+                                                               className,
                                                                elementName,
                                                                elementPrivateName
                                                              });
@@ -236,11 +215,11 @@ function transform(ast) {
                   {
                     init            : decorator.init,
                     kind            : decorator.kind,
-                    decoratorName   : decorator.expression,
+                    decorator       : decorator.expression,
                     isStatic        : !!o.static,
                     initializersName: o.static ? staticInitializersName : memberInitializersName,
                     symbolName,
-                    className       : classNameReplace,
+                    className,
                     elementPrivateName
                   }
                 );
@@ -264,10 +243,10 @@ function transform(ast) {
                 publicMemberGenerator({
                                         init          : decorator.init,
                                         kind          : decorator.kind,
-                                        className     : classNameReplace,
+                                        className     : className,
                                         elementName   : o.key.name,
-                                        decoratorName : decorator.expression,
-                                        variableName  : `_${classNameOriginal}_${o.key.name}_descriptor_${unique()}`,
+                                        decorator     : decorator.expression,
+                                        variableName  : `_${className}_${o.key.name}_descriptor_${unique()}`,
                                         initCollection: memberInitializersName,
                                         isStatic      : false,
                                         isSymbol      : o.computed
@@ -292,8 +271,8 @@ function transform(ast) {
         },
         (o) => {
           const propertyName  = o.key.name;
-          const symbolGetName = `_${classNameOriginal}_${propertyName}_get_symbol_${unique()}`;
-          const symbolSetName = `_${classNameOriginal}_${propertyName}_set_symbol_${unique()}`;
+          const symbolGetName = `_${className}_${propertyName}_get_symbol_${unique()}`;
+          const symbolSetName = `_${className}_${propertyName}_set_symbol_${unique()}`;
           const isStatic      = !!o.static;
           const isPrivate     = o.key.type === 'PrivateName';
           if (isPrivate && o.decorators?.length) {
@@ -308,13 +287,7 @@ function transform(ast) {
             insertAfter(
               klass.body.body,
               o,
-              accessorInitialization({
-                                       className   : classNameReplace,
-                                       propertyName: o.key.name,
-                                       symbolGetName,
-                                       symbolSetName,
-                                       isStatic
-                                     })
+              accessorInitialization({className, propertyName: o.key.name, symbolGetName, symbolSetName, isStatic})
             );
           }
           // Accessor
@@ -331,9 +304,9 @@ function transform(ast) {
             const methods     = addGetterAndSetter({privateName, propertyName, isPrivate, isStatic, isSymbol});
             if (isPrivate && o.decorators?.length) {
               // Variables
-              const getName               = `_${classNameOriginal}_${propertyName}_getter_${unique()}`;
-              const setName               = `_${classNameOriginal}_${propertyName}_setter_${unique()}`;
-              const globalInitializerName = `_${classNameOriginal}_${propertyName}_initializer_${unique()}`;
+              const getName               = `_${className}_${propertyName}_getter_${unique()}`;
+              const setName               = `_${className}_${propertyName}_setter_${unique()}`;
+              const globalInitializerName = `_${className}_${propertyName}_initializer_${unique()}`;
               insertBefore(parent, klass,
                            [
                              variableDeclaration('let', getName),
@@ -354,14 +327,14 @@ function transform(ast) {
               methods.push(...staticMethodPrivateAccessor({privateName, getName, setName}));
               for (let n = (o.decorators || []).length; --n > -1;) {
                 const decorator       = o.decorators[n];
-                const initializerName = `_${classNameOriginal}_${propertyName}_initializer_${unique()}`;
+                const initializerName = `_${className}_${propertyName}_initializer_${unique()}`;
                 if (!isStatic) {
                   insertBefore(parent, klass, [variableDeclaration('let', initializerName)]);
                 }
                 insertAfter(parent, klass, accessorPrivateGenerator({
                                                                       init          : decorator.init,
                                                                       initCollection: o.static ? staticInitializersName : memberInitializersName,
-                                                                      className     : classNameReplace,
+                                                                      className,
                                                                       propertyName,
                                                                       initializerName,
                                                                       globalInitializerName,
@@ -370,8 +343,8 @@ function transform(ast) {
                                                                       getName,
                                                                       setName,
                                                                       isStatic,
-                                                                      decoratorName : decorator.expression,
-                                                                      resultName    : `_${classNameOriginal}_${propertyName}_result_${unique()}`
+                                                                      decorator     : decorator.expression,
+                                                                      resultName    : `_${className}_${propertyName}_result_${unique()}`
                                                                     }));
                 if (!isStatic) {
                   o.value = callExpression(
@@ -382,14 +355,10 @@ function transform(ast) {
                 initMemberDecorator(o, decorator);
                 decoratorsCreated++;
               }
-              insertAfter(parent, klass, removeStaticMethodPrivateAccessor({
-                                                                             className: classNameReplace,
-                                                                             getName,
-                                                                             setName
-                                                                           }));
+              insertAfter(parent, klass, removeStaticMethodPrivateAccessor({className, getName, setName}));
               if (isStatic) {
                 insertAfter(parent, klass, addInitializerPrivateStaticAccessor({
-                                                                                 className: classNameReplace,
+                                                                                 className,
                                                                                  globalInitializerName,
                                                                                  getName,
                                                                                  setName
@@ -398,7 +367,7 @@ function transform(ast) {
             } else {
               for (let n = (o.decorators || []).length; --n > -1;) {
                 const decorator      = o.decorators[n];
-                const initializeName = `_${classNameOriginal}_${propertyName}_initializer_${unique()}`;
+                const initializeName = `_${className}_${propertyName}_initializer_${unique()}`;
                 insertBefore(parent, klass, [variableDeclaration('let', initializeName)]);
                 if (!o.static) {
                   o.value = callExpression(
@@ -411,10 +380,10 @@ function transform(ast) {
                   klass,
                   accessorGenerator({
                                       init          : decorator.init,
-                                      decoratorName : decorator.expression,
+                                      decorator     : decorator.expression,
                                       isStatic      : !!o.static,
                                       initCollection: o.static ? staticInitializersName : memberInitializersName,
-                                      className     : classNameReplace,
+                                      className,
                                       initializeName,
                                       propertyName,
                                       isSymbol
@@ -434,7 +403,7 @@ function transform(ast) {
           } else {
             for (let n = (o.decorators || []).length; --n > -1;) {
               const decorator       = o.decorators[n];
-              const initializerName = `_${classNameOriginal}_${propertyName}_initializer_${unique()}`;
+              const initializerName = `_${className}_${propertyName}_initializer_${unique()}`;
               if (!o.static) {
                 insertBefore(
                   parent,
@@ -451,9 +420,9 @@ function transform(ast) {
                                           initCollection: o.static ? staticInitializersName : memberInitializersName,
                                           kind          : decorator.kind,
                                           elementName   : o.key.name,
-                                          decoratorName : decorator.expression,
+                                          decorator     : decorator.expression,
                                           isStatic      : !!o.static,
-                                          className     : classNameReplace,
+                                          className,
                                           variableName  : initializerName,
                                           symbolGetName,
                                           symbolSetName
@@ -464,9 +433,9 @@ function transform(ast) {
                                           initCollection: memberInitializersName,
                                           kind          : decorator.kind,
                                           elementName   : o.key.name,
-                                          decoratorName : decorator.expression,
+                                          decorator     : decorator.expression,
                                           isStatic      : !!o.static,
-                                          className     : classNameReplace,
+                                          className,
                                           variableName  : initializerName,
                                           isSymbol      : o.computed
                                         })
@@ -520,7 +489,7 @@ function transform(ast) {
                       'type'      : 'ArrowFunctionExpression',
                       'expression': true,
                       'params'    : [I('initialize')],
-                      'body'      : callExpression('initialize.call', [classNameOriginal, classNameOriginal])
+                      'body'      : callExpression('initialize.call', [className, className])
                     }
                   ]
                 )
@@ -610,84 +579,58 @@ function byCode(code) {
 
 /* Decorator code builders */
 
-function classRename(original, replace) {
-  return [
-    variableDeclaration('let', original, {'type': 'Identifier', 'name': replace}),
-    {
-      "type"      : "ExpressionStatement",
-      "expression": callExpression(
-        'Object.defineProperty',
-        [
-          I(original),
-          L('name'),
-          {
-            "type"      : "ObjectExpression",
-            "properties": [
-              {
-                "type" : "Property",
-                "key"  : I('value'),
-                "value": L(original),
-                "kind" : "init"
-              }
-            ]
-          }
-        ]
-      )
-    }
-  ];
-}
-
 function staticMethodPrivateAccessor({privateName, getName, setName}) {
-  return [{
-    'type'  : 'MethodDefinition',
-    'kind'  : 'method',
-    'static': true,
-    'key'   : I(getName),
-    'value' : {
-      'type': 'FunctionExpression',
-      'body': {
-        'type': 'BlockStatement',
-        'body': [
-          {
-            'type'    : 'ReturnStatement',
-            'argument': {
-              'type'    : 'MemberExpression',
-              'object'  : {'type': 'ThisExpression'},
-              'property': {'type': 'PrivateName', 'name': privateName, 'id': I(privateName)}
+  return [
+    {
+      'type'  : 'MethodDefinition',
+      'kind'  : 'method',
+      'static': true,
+      'key'   : I(getName),
+      'value' : {
+        'type': 'FunctionExpression',
+        'body': {
+          'type': 'BlockStatement',
+          'body': [
+            {
+              'type'    : 'ReturnStatement',
+              'argument': {
+                'type'    : 'MemberExpression',
+                'object'  : {'type': 'ThisExpression'},
+                'property': {'type': 'PrivateName', 'name': privateName, 'id': I(privateName)}
+              }
             }
-          }
-        ]
+          ]
+        }
+      }
+    },
+    {
+      'type'  : 'MethodDefinition',
+      'kind'  : 'method',
+      'static': true,
+      'key'   : I(setName),
+      'value' : {
+        'type'  : 'FunctionExpression',
+        'params': [I('v')],
+        'body'  : {
+          'type': 'BlockStatement',
+          'body': [
+            {
+              'type'      : 'ExpressionStatement',
+              'expression': {
+                'type'    : 'AssignmentExpression',
+                'operator': '=',
+                'left'    : {
+                  'type'    : 'MemberExpression',
+                  'object'  : {'type': 'ThisExpression'},
+                  'property': {'type': 'PrivateName', 'name': privateName, 'id': I(privateName)}
+                },
+                'right'   : I('v')
+              }
+            }
+          ]
+        }
       }
     }
-  },
-          {
-            'type'  : 'MethodDefinition',
-            'kind'  : 'method',
-            'static': true,
-            'key'   : I(setName),
-            'value' : {
-              'type'  : 'FunctionExpression',
-              'params': [I('v')],
-              'body'  : {
-                'type': 'BlockStatement',
-                'body': [
-                  {
-                    'type'      : 'ExpressionStatement',
-                    'expression': {
-                      'type'    : 'AssignmentExpression',
-                      'operator': '=',
-                      'left'    : {
-                        'type'    : 'MemberExpression',
-                        'object'  : {'type': 'ThisExpression'},
-                        'property': {'type': 'PrivateName', 'name': privateName, 'id': I(privateName)}
-                      },
-                      'right'   : I('v')
-                    }
-                  }
-                ]
-              }
-            }
-          }
   ];
 }
 
@@ -886,21 +829,7 @@ function addGetterAndSetter({propertyName, privateName, isPrivate, isStatic, isS
   ];
 }
 
-function accessorPrivateGenerator({
-                                    init,
-                                    className,
-                                    decoratorName,
-                                    propertyName,
-                                    initializerName,
-                                    globalInitializerName,
-                                    symbolGetName,
-                                    symbolSetName,
-                                    getName,
-                                    setName,
-                                    resultName,
-                                    initCollection,
-                                    isStatic
-                                  }) {
+function accessorPrivateGenerator({init, className, decorator, propertyName, initializerName, globalInitializerName, symbolGetName, symbolSetName, getName, setName, resultName, initCollection, isStatic}) {
   const decoratorParameter = [
     {
       'type' : 'Property',
@@ -970,7 +899,7 @@ function accessorPrivateGenerator({
           'init': {
             'type'    : 'LogicalExpression',
             'left'    : callExpression(
-              decoratorName,
+              decorator,
               [
                 {
                   'type'      : 'ObjectExpression',
@@ -1072,16 +1001,7 @@ function accessorPrivateGenerator({
   ];
 }
 
-function accessorGenerator({
-                             init,
-                             className,
-                             initializeName,
-                             propertyName,
-                             decoratorName,
-                             initCollection,
-                             isStatic,
-                             isSymbol
-                           }) {
+function accessorGenerator({init, className, initializeName, propertyName, decorator, initCollection, isStatic, isSymbol}) {
   const descriptorName     = `_${className}_${propertyName}_descriptor_${unique()}`;
   const resultName         = `_${className}_${propertyName}_result_${unique()}`;
   const decoratorParameter = [
@@ -1115,7 +1035,29 @@ function accessorGenerator({
   if (init) {
     decoratorParameter.push(addInitializer(initCollection));
   }
-  return [
+  const result = [];
+  if (!isStatic && find(decorator, [[ "type", "Identifier"],["name", className]])) {
+    result.push(
+      {
+        "type": "ThrowStatement",
+        "argument": {
+          "type": "NewExpression",
+          "callee": {
+            "type": "Identifier",
+            "name": "ReferenceError"
+          },
+          "arguments": [
+            {
+              "type": "Literal",
+              "value": `Cannot access '${ className }' before initialization`,
+              "raw": `"Cannot access '${ className }' before initialization"`
+            }
+          ]
+        }
+      }
+    );
+  }
+  result.push(
     {
       'type'        : 'VariableDeclaration',
       'declarations': [
@@ -1143,7 +1085,7 @@ function accessorGenerator({
           'id'  : I(resultName),
           'init': {
             'type'    : 'LogicalExpression',
-            'left'    : callExpression(decoratorName, [
+            'left'    : callExpression(decorator, [
                                          {
                                            'type'      : 'ObjectExpression',
                                            'properties': [
@@ -1234,21 +1176,6 @@ function accessorGenerator({
         ]
       )
     },
-    // (isStatic) ? {
-    //     'type'       : 'ExpressionStatement',
-    //     'expression' : {
-    //       'type'     : 'AssignmentExpression',
-    //       'operator' : '=',
-    //       'left'     : I (className + '.' + propertyName),
-    //       'right'    : callExpression (
-    //         initializeName,
-    //         [
-    //           I (className + '.' + propertyName)
-    //         ]
-    //       )
-    //     }
-    //   } :
-    //   undefined
     (isStatic) ? {
         'type'      : 'ExpressionStatement',
         'expression': {
@@ -1271,23 +1198,13 @@ function accessorGenerator({
         }
       } :
       undefined
-  ];
+  );
+  return result;
 }
 
-function publicMemberGenerator({
-                                 init,
-                                 kind,
-                                 className,
-                                 elementName,
-                                 decoratorName,
-                                 variableName,
-                                 initCollection,
-                                 isStatic,
-                                 isSymbol
-                               }) {
-  const isInit        = init;
+function publicMemberGenerator({init, kind, className, elementName, decorator, variableName, initCollection, isStatic, isSymbol}) {
   const decoratorCall = callExpression(
-    decoratorName,
+    decorator,
     [
       (kind === 'setter' || kind === 'getter') ?
         I(variableName + (kind === 'setter' ? '.set' : '.get')) :
@@ -1341,7 +1258,29 @@ function publicMemberGenerator({
         'body'  : I('v')
       } :
       I((isStatic ? className : className + '.prototype') + '.' + elementName, isSymbol);
-  return [
+  const result       = [];
+  if (!isStatic && find(decorator, [[ "type", "Identifier"],["name", className]])) {
+    result.push(
+      {
+        "type": "ThrowStatement",
+        "argument": {
+          "type": "NewExpression",
+          "callee": {
+            "type": "Identifier",
+            "name": "ReferenceError"
+          },
+          "arguments": [
+            {
+              "type": "Literal",
+              "value": `Cannot access '${ className }' before initialization`,
+              "raw": `"Cannot access '${ className }' before initialization"`
+            }
+          ]
+        }
+      }
+    )
+  }
+  result.push(
     (kind === 'setter' || kind === 'getter') && {
       'type'        : 'VariableDeclaration',
       'declarations': [
@@ -1412,21 +1351,11 @@ function publicMemberGenerator({
           }
         } :
         undefined
-  ];
+  );
+  return result;
 }
 
-function privateFieldGenerator({
-                                 init,
-                                 kind,
-                                 className,
-                                 elementName,
-                                 decoratorName,
-                                 variableName,
-                                 symbolGetName,
-                                 symbolSetName,
-                                 initCollection,
-                                 isStatic
-                               }) {
+function privateFieldGenerator({init, kind, className, elementName, decorator, variableName, symbolGetName, symbolSetName, initCollection, isStatic}) {
   const decoratorParameter = [
     {
       'type' : 'Property',
@@ -1498,7 +1427,29 @@ function privateFieldGenerator({
   if (init) {
     decoratorParameter.push(addInitializer(initCollection));
   }
-  return [
+  const result = [];
+  if (!isStatic && find(decorator, [[ "type", "Identifier"],["name", className]])) {
+    result.push(
+      {
+        "type": "ThrowStatement",
+        "argument": {
+          "type": "NewExpression",
+          "callee": {
+            "type": "Identifier",
+            "name": "ReferenceError"
+          },
+          "arguments": [
+            {
+              "type": "Literal",
+              "value": `Cannot access '${ className }' before initialization`,
+              "raw": `"Cannot access '${ className }' before initialization"`
+            }
+          ]
+        }
+      }
+    );
+  }
+  result.push(
     {
       'type'      : 'ExpressionStatement',
       'expression': {
@@ -1509,7 +1460,7 @@ function privateFieldGenerator({
         'right'   : {
           'type'    : 'LogicalExpression',
           'left'    : callExpression(
-            decoratorName,
+            decorator,
             [
               'undefined',
               {
@@ -1546,7 +1497,8 @@ function privateFieldGenerator({
         )
       } :
       undefined
-  ];
+  );
+  return result;
 }
 
 function privateMemberBeforeGenerator(symbolName) {
@@ -1563,18 +1515,7 @@ function privateMemberBeforeGenerator(symbolName) {
   }];
 }
 
-function privateCallDecorator({
-                                init,
-                                kind,
-                                className,
-                                decoratorName,
-                                symbolName,
-                                tempName,
-                                elementPrivateName,
-                                initializersName,
-                                isStatic,
-                                isFirst
-                              }) {
+function privateCallDecorator({init, kind, className, decorator, symbolName, tempName, elementPrivateName, initializersName, isStatic, isFirst}) {
   const decoratorParameter = [
     {
       'type' : 'Property',
@@ -1631,8 +1572,8 @@ function privateCallDecorator({
   if (init) {
     decoratorParameter.push(addInitializer(initializersName));
   }
-  return callExpression(
-    decoratorName,
+  const expression = callExpression(
+    decorator,
     [
       (isFirst) ?
         I((isStatic ? className : className + '.prototype') + '.' + tempName) :
@@ -1643,21 +1584,51 @@ function privateCallDecorator({
       }
     ]
   );
+  if (!isStatic && find(decorator, [[ "type", "Identifier"],["name", className]])) {
+    return {
+        "type": "CallExpression",
+        "callee": {
+          "type": "ArrowFunctionExpression",
+          "id": null,
+          "expression": false,
+          "generator": false,
+          "async": false,
+          "params": [],
+          "body": {
+            "type": "BlockStatement",
+            "body": [
+              {
+                "type": "ThrowStatement",
+                "argument": {
+                  "type": "NewExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "ReferenceError"
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": `Cannot access '${ className }' before initialization`,
+                      "raw": `"Cannot access '${ className }' before initialization"`
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "ReturnStatement",
+                "argument": expression
+              }
+            ]
+          }
+        },
+        "arguments": [],
+        "optional": false
+      }
+    }
+  return expression;
 }
 
-function privateFirstMemberGenerator({
-                                       init,
-                                       kind,
-                                       className,
-                                       element,
-                                       elementName,
-                                       elementPrivateName,
-                                       decoratorName,
-                                       tempName,
-                                       symbolName,
-                                       initializersName,
-                                       isStatic
-                                     }) {
+function privateFirstMemberGenerator({init, kind, className, element, elementName, elementPrivateName, decorator, tempName, symbolName, initializersName, isStatic}) {
   return [
     {
       'type'  : 'MethodDefinition',
@@ -1680,7 +1651,7 @@ function privateFirstMemberGenerator({
                                            element,
                                            elementName,
                                            elementPrivateName,
-                                           decoratorName,
+                                           decorator,
                                            tempName,
                                            initializersName,
                                            symbolName,
@@ -1802,16 +1773,7 @@ function privateFirstMemberGenerator({
   ];
 }
 
-function privateNextMemberGenerator(descriptor, {
-  init,
-  kind,
-  className,
-  elementPrivateName,
-  decoratorName,
-  initializersName,
-  isStatic,
-  symbolName
-}) {
+function privateNextMemberGenerator(descriptor, {init, kind, className, elementPrivateName, decorator, initializersName, isStatic, symbolName}) {
   descriptor.splice(descriptor.length - 2, 0,
                     {
                       'type'    : 'ClassProperty',
@@ -1825,7 +1787,7 @@ function privateNextMemberGenerator(descriptor, {
                                                            kind,
                                                            className,
                                                            elementPrivateName,
-                                                           decoratorName,
+                                                           decorator,
                                                            initializersName,
                                                            isStatic,
                                                            symbolName
@@ -1851,7 +1813,7 @@ function privateMemberAfterGenerator(className, tempName, isStatic) {
   ];
 }
 
-function classGenerator(className, decoratorName, initCollection) {
+function classGenerator(className, decorator, initCollection) {
   const decoratorParameter = {
     'type'      : 'ObjectExpression',
     'properties': [
@@ -1881,7 +1843,7 @@ function classGenerator(className, decoratorName, initCollection) {
       'right'   : {
         'type'    : 'LogicalExpression',
         'left'    : callExpression(
-          decoratorName,
+          decorator,
           [
             className,
             decoratorParameter
@@ -1964,34 +1926,6 @@ function __PrepareMetadata(base, kind, property) {
 }
   `);
 }
-
-// function defineMetadataGenerator () {
-//
-//   return byCode (`
-// if (!Symbol.metadata) {
-//   Symbol.metadata = Symbol();
-// }
-//
-// function __DefineMetadata(base, name) {
-//   return function(key, value) {
-//     if (!base[Symbol.metadata]) {
-//       base[Symbol.metadata] = Object.create(null);
-//     }
-//     if (!base[Symbol.metadata][name]) {
-//       base[Symbol.metadata][name] = {};
-//     }
-//     const db = base[Symbol.metadata][name];
-//     if (key in db) {
-//       if (!Array.isArray(db[key])) {
-//         return db[key] = [db[key], value];
-//       }
-//       return db[key].push(value);
-//     }
-//     return db[key] = value;
-//   };
-// }`);
-//
-// }
 
 function addInitializer(initCollection) {
   return {
