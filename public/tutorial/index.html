@@ -517,7 +517,7 @@ console.log('c.div(1,2) =', c.div(1,2));
           <li>Create the decorator with <code>function log(method, context) {}</code>.</li>
           <li>Check if <code>context.kind</code> is equal to <code>"method"</code>.</li>
           <li>Return a new function with <code>return function(...args) {}</code>.</li>
-          <li>In this function, call to the original method with <code>const return =
+          <li>In this function, call to the original method with <code>const result =
             method.apply(this, args)</code>.
           </li>
           <li>Use <code>console.log</code> to write the method name, the parameters and the result.
