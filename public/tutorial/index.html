@@ -333,7 +333,7 @@ c.sum(1,2);
           <li>In this function return the decorator function: <code>return function () {}</code>.
           </li>
           <li>Inside the returned function write a <code>console.log(message)</code>.</li>
-          <li>Add the decorator <code>@log('the method "sum()" is deprecated')</code> to the
+          <li>Add the decorator <code>@myLog('the method "sum()" is deprecated')</code> to the
             <code>sum()</code> method.
           </li>
         </ul>
@@ -517,7 +517,7 @@ console.log('c.div(1,2) =', c.div(1,2));
           <li>Create the decorator with <code>function log(method, context) {}</code>.</li>
           <li>Check if <code>context.kind</code> is equal to <code>"method"</code>.</li>
           <li>Return a new function with <code>return function(...args) {}</code>.</li>
-          <li>In this function, call to the original method with <code>const return =
+          <li>In this function, call to the original method with <code>const result =
             method.apply(this, args)</code>.
           </li>
           <li>Use <code>console.log</code> to write the method name, the parameters and the result.
@@ -735,7 +735,7 @@ console.log(c.value);
         <p>The objective is to create a decorator than put a random value into a field:</p>
         <ul>
           <li>Create the decorator <code>function random(value, context) {}</code>.</li>
-          <li>Check if the decorated element is or not a field.</li>
+          <li>Check if the decorated element is a field or not.</li>
           <li>Return a function than return a random value
             <code>return function(value) { return Math.random(); }</code>.
           </li>
